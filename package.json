@@ -2,5 +2,6 @@
   "name": "deorum",
   "version": "1.0.0",
   "description": "Procedural fantasy pantheon generator",
-  "author": "Azgaar"
+  "author": "Azgaar",
+  "license": "MIT"
 }
