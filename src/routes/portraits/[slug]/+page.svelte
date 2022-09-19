@@ -1,0 +1,151 @@
+<script lang="ts">
+  import Button from '@smui/button';
+  import Checkbox from '@smui/checkbox';
+  import DataTable, { Head, Body, Row, Cell, Label, SortValue, Pagination } from '@smui/data-table';
+  import IconButton from '@smui/icon-button';
+  import Chips from '$lib/Chips.svelte';
+
+  import { URL } from '../../../config';
+
+  import type { IListResult, IPortrait } from './page.types';
+
+  export let data: {
+    portraits: IListResult<IPortrait>;
+    tags: Map<string, string>;
+    styles: Map<string, string>;
+    colors: Map<string, string>;
+    page: number;
+  };
+
+  const { portraits, tags, styles, colors, originals, page } = data;
+  let items = portraits.items || [];
+  let selected: IPortrait[] = [];
+
+  const start = (page - 1) * portraits.perPage;
+  const end = start + items.length;
+  const isLastPage = page === portraits.totalPages;
+
+  const collectionId = items[0]?.['@collectionId'];
+  const imageStore = `${URL}/api/files/${collectionId}`;
+
+  let sort: keyof IPortrait = 'id';
+  let sortDirection: Lowercase<keyof typeof SortValue> = 'ascending';
+
+  function handleSort() {
+    items.sort((a, b) => {
+      const [aVal, bVal] = [a[sort], b[sort]][
+        sortDirection === 'ascending' ? 'slice' : 'reverse'
+      ]();
+      if (typeof aVal === 'string' && typeof bVal === 'string') return aVal.localeCompare(bVal);
+      return Number(aVal) - Number(bVal);
+    });
+
+    items = items;
+  }
+</script>
+
+<DataTable
+  sortable
+  bind:sort
+  bind:sortDirection
+  on:SMUIDataTable:sorted={handleSort}
+  table$aria-label="Images"
+  style="width: 100%;"
+>
+  <Head>
+    <Row>
+      <Cell checkbox>
+        <Checkbox />
+      </Cell>
+      <Cell sortable={false} columnId="image">
+        <Label>Image</Label>
+      </Cell>
+      <Cell columnId="original">
+        <Label>Original</Label>
+        <IconButton class="material-icons">arrow_upward</IconButton>
+      </Cell>
+      <Cell columnId="tags">
+        <Label>Tags</Label>
+        <IconButton class="material-icons">arrow_upward</IconButton>
+      </Cell>
+      <Cell columnId="styles">
+        <Label>Styles</Label>
+        <IconButton class="material-icons">arrow_upward</IconButton>
+      </Cell>
+      <Cell columnId="colors">
+        <Label>Colors</Label>
+        <IconButton class="material-icons">arrow_upward</IconButton>
+      </Cell>
+      <Cell numeric columnId="quality">
+        <IconButton class="material-icons">arrow_upward</IconButton>
+        <Label>Quality</Label>
+      </Cell>
+      <Cell sortable={false} />
+    </Row>
+  </Head>
+
+  <Body>
+    {#each items as item (item.id)}
+      <Row>
+        <Cell checkbox>
+          <Checkbox bind:group={selected} value={item} valueKey={item.id} />
+        </Cell>
+        <Cell
+          ><img
+            width="64px"
+            height="64px"
+            alt={item.original}
+            src={`${imageStore}/${item.id}/${item.image}`}
+          /></Cell
+        >
+        <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>
+        <Cell><Chips chips={item.tags} map={tags} /></Cell>
+        <Cell><Chips chips={item.styles} map={styles} /></Cell>
+        <Cell><Chips chips={item.colors} map={colors} /></Cell>
+        <Cell numeric>{item.quality}</Cell>
+        <Cell>
+          <IconButton class="material-icons" title="Remove">delete</IconButton>
+        </Cell>
+      </Row>
+    {/each}
+  </Body>
+
+  <Pagination slot="paginate">
+    <svelte:fragment slot="total">
+      {start + 1}-{end} of {portraits.totalItems}
+    </svelte:fragment>
+
+    <IconButton
+      class="material-icons"
+      action="first-page"
+      title="First page"
+      on:click={() => (window.location.href = './1')}
+      disabled={page === 1}>first_page</IconButton
+    >
+    <IconButton
+      class="material-icons"
+      action="prev-page"
+      title="Prev page"
+      on:click={() => (window.location.href = `./${page - 1}`)}
+      disabled={page === 1}>chevron_left</IconButton
+    >
+    <IconButton
+      class="material-icons"
+      action="next-page"
+      title="Next page"
+      on:click={() => (window.location.href = `./${page + 1}`)}
+      disabled={isLastPage}>chevron_right</IconButton
+    >
+    <IconButton
+      class="material-icons"
+      action="last-page"
+      title="Last page"
+      on:click={() => (window.location.href = `./${portraits.totalPages}`)}
+      disabled={isLastPage}>last_page</IconButton
+    >
+  </Pagination>
+</DataTable>
+
+<div style="margin: 1em;">
+  <Button>Open</Button>
+</div>

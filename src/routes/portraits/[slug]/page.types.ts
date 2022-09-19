@@ -12,13 +12,24 @@ interface IRecord {
   '@expand': {
     [key: string]: unknown;
   };
+  id: string;
 }
 
 export interface IPortrait extends IRecord {
-  id: string;
   image: string;
   original: string;
   tags: string[];
   styles: string[];
+  colors: string[];
   quality: number;
+}
+
+export interface ITag extends IRecord {
+  name: string;
+  emoji: string;
+}
+
+export interface IStyle extends IRecord {
+  name: string;
+  emoji: string;
 }
