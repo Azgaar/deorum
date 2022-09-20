@@ -258,6 +258,19 @@
     "@material/typography" "^13.0.0"
     tslib "^2.1.0"
 
+"@material/form-field@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@material/form-field/-/form-field-13.0.0.tgz#59f50b342bc20562fa2c78c17ac4385236f89c99"
+  integrity sha512-cXs5uYA89KgrXrU1UYkl52JizeIK3Mx9LjBw4ZYiyQJzFaBTPYsYWGSJMad1HZhWlRiigGTyN1M9ePIxtBpi0Q==
+  dependencies:
+    "@material/base" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/ripple" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "@material/typography" "^13.0.0"
+    tslib "^2.1.0"
+
 "@material/icon-button@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@material/icon-button/-/icon-button-13.0.0.tgz#e2d3fb5dcd2b944883f8241420b82f0f3ce2ebf2"
@@ -578,6 +591,17 @@
   integrity sha512-vWYnj8/brnkuC4SOKIKjY3dvWAXsKlkx1Ow4YuI8LmqURHhczglabIauoZxqrztoIewCTaarGgb0rF8BtMOVjw==
   dependencies:
     "@material/floating-label" "^13.0.0"
+    "@smui/common" "^6.1.0"
+    svelte2tsx "^0.5.12"
+
+"@smui/form-field@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@smui/form-field/-/form-field-6.1.0.tgz#7b93dc2f505d1ea3cc1dde1354a834b8b2afa0d2"
+  integrity sha512-LsVT7LZAUSYTtogs/OKSekvrv+A3yDTflzQAVeEqvnGbk8DtIdegsOt0ewyP1bCj92GJxQ+NtHSq8GaMWmuGyA==
+  dependencies:
+    "@material/feature-targeting" "^13.0.0"
+    "@material/form-field" "^13.0.0"
+    "@material/rtl" "^13.0.0"
     "@smui/common" "^6.1.0"
     svelte2tsx "^0.5.12"
 

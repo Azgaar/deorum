@@ -8,8 +8,9 @@ export const BATCH_SIZE = 200;
 export async function load() {
   const client = new PocketBase(URL);
   const filter = 'active = true';
+  const sort = '+original';
 
-  const portraitsRequest = client.records.getFullList('portraits', BATCH_SIZE, { filter });
+  const portraitsRequest = client.records.getFullList('portraits', BATCH_SIZE, { filter, sort });
   const tagsRequest = client.records.getFullList('tags', 1000);
   const stylesRequest = client.records.getFullList('styles', 1000);
   const originalsRequest = client.records.getFullList('originals', 1000);

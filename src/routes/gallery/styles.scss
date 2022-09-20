@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @use '@material/image-list/index' as image-list;
  
 .my-image-list-standard {
@@ -9,4 +11,27 @@
   .my-image-list-standard {
     @include image-list.standard-columns(3);
   }
+}
+
+.mdc-checkbox__background {
+  border-color: color.adjust(#ffffff, $alpha: -0.2) !important;
+}
+
+.imageContainer {
+  cursor: pointer;
+}
+
+.imageContainer > div.checkbox {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+div.hidden {
+  opacity: 0;
+}
+
+.imageContainer:hover > div.checkbox {
+  opacity: 1;
 }

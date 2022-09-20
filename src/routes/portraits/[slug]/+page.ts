@@ -9,8 +9,9 @@ export async function load({ params }: App.PageData) {
   const client = new PocketBase(URL);
   const page = Number(params?.slug);
   const filter = 'active = true';
+  const sort = '+original';
 
-  const portraitsRequest = client.records.getList('portraits', page, PAGE_SIZE, { filter });
+  const portraitsRequest = client.records.getList('portraits', page, PAGE_SIZE, { filter, sort });
   const tagsRequest = client.records.getFullList('tags', 1000);
   const stylesRequest = client.records.getFullList('styles', 1000);
   const originalsRequest = client.records.getFullList('originals', 1000);
