@@ -225,6 +225,24 @@
     "@material/feature-targeting" "^13.0.0"
     tslib "^2.1.0"
 
+"@material/drawer@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@material/drawer/-/drawer-13.0.0.tgz#35bb370f44ac860ca38ce722144869edc86da9f9"
+  integrity sha512-TIV/K9MED3ymngmKrdLwOMhUF44BzoR6HuTVsZAM4bgy0sfSv+jzgaGUqJsvjEhTXk+Q9OTEge+TsU/ETzQCbg==
+  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/dom" "^13.0.0"
+    "@material/elevation" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/list" "^13.0.0"
+    "@material/ripple" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/shape" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "@material/typography" "^13.0.0"
+    tslib "^2.1.0"
+
 "@material/elevation@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@material/elevation/-/elevation-13.0.0.tgz#ae3eabc20e864240144fdf5c16b09a1e7a52852c"
@@ -583,6 +601,16 @@
     "@smui/icon-button" "^6.1.0"
     "@smui/ripple" "^6.1.0"
     "@smui/select" "^6.1.0"
+    svelte2tsx "^0.5.12"
+
+"@smui/drawer@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@smui/drawer/-/drawer-6.1.0.tgz#815a020b4e2466ef518b406cbd694bfe946f6073"
+  integrity sha512-Kv7MYQac6tqI+VUXDb+hoaeoQxXAXw0qrxeUQaGzk126TojSHBocq3yBcfOSTjRwWlJSmBl/0ZQOU+7VXUCiEA==
+  dependencies:
+    "@material/dom" "^13.0.0"
+    "@material/drawer" "^13.0.0"
+    "@smui/common" "^6.1.0"
     svelte2tsx "^0.5.12"
 
 "@smui/floating-label@^6.1.0":
