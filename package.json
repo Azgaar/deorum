@@ -19,6 +19,7 @@
     "@smui/button": "^6.1.0",
     "@smui/checkbox": "^6.1.0",
     "@smui/data-table": "^6.1.0",
+    "@smui/image-list": "^6.1.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^5.27.0",

@@ -3,15 +3,14 @@ import PocketBase from 'pocketbase';
 import { URL } from '$lib/config';
 
 export const prerender = true;
-export const PAGE_SIZE = 20;
+export const BATCH_SIZE = 200;
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }: App.PageData) {
+export async function load() {
   const client = new PocketBase(URL);
-  const page = Number(params?.slug);
   const filter = 'active = true';
 
-  const portraitsRequest = client.records.getList('portraits', page, PAGE_SIZE, { filter });
+  const portraitsRequest = client.records.getFullList('portraits', BATCH_SIZE, { filter });
   const tagsRequest = client.records.getFullList('tags', 1000);
   const stylesRequest = client.records.getFullList('styles', 1000);
   const originalsRequest = client.records.getFullList('originals', 1000);
@@ -29,5 +28,5 @@ export async function load({ params }: App.PageData) {
     originalsData.map((original) => [original.id, original.name as string])
   );
 
-  return { portraits, tags, styles, originals, page };
+  return { portraits, tags, styles, originals };
 }

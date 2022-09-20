@@ -3,21 +3,21 @@
   import Checkbox from '@smui/checkbox';
   import DataTable, { Head, Body, Row, Cell, Label, SortValue, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
+
   import Chips from '$lib/Chips.svelte';
+  import { URL, colors } from '$lib/config';
 
-  import { URL } from '../../../config';
-
-  import type { IListResult, IPortrait } from './page.types';
+  import type { IListResult, IPortrait } from '$lib/api.types';
 
   export let data: {
     portraits: IListResult<IPortrait>;
     tags: Map<string, string>;
     styles: Map<string, string>;
-    colors: Map<string, string>;
+    originals: Map<string, string>;
     page: number;
   };
 
-  const { portraits, tags, styles, colors, originals, page } = data;
+  const { portraits, tags, styles, originals, page } = data;
   let items = portraits.items || [];
   let selected: IPortrait[] = [];
 
@@ -26,7 +26,7 @@
   const isLastPage = page === portraits.totalPages;
 
   const collectionId = items[0]?.['@collectionId'];
-  const imageStore = `${URL}/api/files/${collectionId}`;
+  const imagesPath = `${URL}/api/files/${collectionId}`;
 
   let sort: keyof IPortrait = 'id';
   let sortDirection: Lowercase<keyof typeof SortValue> = 'ascending';
@@ -92,12 +92,13 @@
         </Cell>
         <Cell
           ><img
+            loading="lazy"
             width="64px"
             height="64px"
-            alt={item.original}
-            src={`${imageStore}/${item.id}/${item.image}`}
-          /></Cell
-        >
+            alt={originals.get(item.original)}
+            src={`${imagesPath}/${item.id}/${item.image}`}
+          />
+        </Cell>
         <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>
         <Cell><Chips chips={item.tags} map={tags} /></Cell>
         <Cell><Chips chips={item.styles} map={styles} /></Cell>
