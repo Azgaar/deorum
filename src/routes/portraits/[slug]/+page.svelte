@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from '@smui/button';
   import Checkbox from '@smui/checkbox';
-  import DataTable, { Head, Body, Row, Cell, Label, SortValue, Pagination } from '@smui/data-table';
+  import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
 
   import Chips from '$lib/Chips.svelte';
@@ -29,7 +29,7 @@
   const imagesPath = `${URL}/api/files/${collectionId}`;
 
   let sort: keyof IPortrait = 'id';
-  let sortDirection: Lowercase<keyof typeof SortValue> = 'ascending';
+  let sortDirection: string = 'ascending';
 
   function handleSort() {
     items.sort((a, b) => {

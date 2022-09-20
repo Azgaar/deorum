@@ -2,7 +2,6 @@ import PocketBase from 'pocketbase';
 
 import { URL } from '$lib/config';
 
-export const prerender = true;
 export const BATCH_SIZE = 200;
 
 /** @type {import('./$types').PageLoad} */
