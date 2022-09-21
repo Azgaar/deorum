@@ -1,8 +1,8 @@
 <script lang="ts">
-  import ImageList, { Item, ImageAspectContainer, Image } from '@smui/image-list';
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';
 
+  import Editor from '$lib/components/Editor.svelte';
   import { URL } from '$lib/config';
   import type { IPortrait } from '$lib/api.types';
   import './styles.scss';
@@ -12,13 +12,13 @@
     tags: Map<string, string>;
     styles: Map<string, string>;
     originals: Map<string, string>;
-    page: number;
   };
 
-  const { portraits, originals } = data;
+  const { portraits, originals, tags, styles } = data;
   const portraitsMap = new Map(portraits.map((p) => [p.id, p]));
 
   let selected: string[] = [];
+  $: firstSelected = selected.length ? portraitsMap.get(selected.at(0)!)! : portraits[0]!;
   $: lastSelected = selected.length ? portraitsMap.get(selected.at(-1)!)! : portraits[0]!;
 
   const collectionId = portraits[0]?.['@collectionId'];
@@ -62,9 +62,5 @@
     >
   </div>
 
-  <ul>
-    {#each selected as item}
-      <li>{item}</li>
-    {/each}
-  </ul>
+  <Editor {selected} model={lastSelected} {originals} {tags} {styles} />
 </aside>

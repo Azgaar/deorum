@@ -1,7 +1,5 @@
 @use 'sass:color';
 
-@use '@material/image-list/index' as image-list;
-
 main {
   height: 100vh;
   overflow: hidden;
@@ -14,8 +12,6 @@ main {
     grid-template-rows: auto 1fr;
     grid-template-areas: 'pane' 'gallery';
   }
-
-  --border-color: color.adjust(#ffffff, $alpha: -0.8);
 
   section.gallery {
     grid-area: gallery;
@@ -59,7 +55,7 @@ main {
       opacity: 1;
 
       div.mdc-checkbox__background {
-        border-color: var(--border-color) !important;
+        border-color: color.adjust(#ffffff, $alpha: -0.8) !important;
       }
     }
   }

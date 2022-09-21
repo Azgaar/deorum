@@ -304,17 +304,6 @@
     "@material/touch-target" "^13.0.0"
     tslib "^2.1.0"
 
-"@material/image-list@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@material/image-list/-/image-list-13.0.0.tgz#8a1da68ebd53ff0123f071c49691ffde4c369fca"
-  integrity sha512-D78QKpK5JmO6zrbsSYt1YfRlkqzzduDTe6BstS0efUFS1CA11hrqwQFoMaR1L1dw2U3CQ/CP22bBMSZVV9aU6A==
-  dependencies:
-    "@material/feature-targeting" "^13.0.0"
-    "@material/shape" "^13.0.0"
-    "@material/theme" "^13.0.0"
-    "@material/typography" "^13.0.0"
-    tslib "^2.1.0"
-
 "@material/line-ripple@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@material/line-ripple/-/line-ripple-13.0.0.tgz#9754af8f80eac582d6a9b2ec704852d394266c31"
@@ -642,15 +631,6 @@
     "@material/icon-button" "^13.0.0"
     "@smui/common" "^6.1.0"
     "@smui/ripple" "^6.1.0"
-    svelte2tsx "^0.5.12"
-
-"@smui/image-list@^6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@smui/image-list/-/image-list-6.1.0.tgz#46d473ab620f6a7064d268c758084979cb111390"
-  integrity sha512-IJJd0iJGhtqbv1ooERC5sC+jfw5Z5B6oPag8rlSK2ikQml0cTfetfjRcTUK7iHpMLTDpDrwRWsDuBJE5bTLmiA==
-  dependencies:
-    "@material/image-list" "^13.0.0"
-    "@smui/common" "^6.1.0"
     svelte2tsx "^0.5.12"
 
 "@smui/line-ripple@^6.1.0":

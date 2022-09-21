@@ -4,7 +4,7 @@
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
 
-  import Chips from '$lib/Chips.svelte';
+  import Chips from '$lib/components/Chips.svelte';
   import { URL, colors } from '$lib/config';
 
   import type { IListResult, IPortrait } from '$lib/api.types';
