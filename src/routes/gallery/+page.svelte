@@ -19,7 +19,7 @@
   const portraitsMap = new Map(portraits.map((p) => [p.id, p]));
 
   let selected: string[] = [];
-  $: lastSelected = selected.length && portraitsMap.get(selected.at(-1)!);
+  $: lastSelected = selected.length ? portraitsMap.get(selected.at(-1)!)! : portraits[0]!;
 
   const collectionId = portraits[0]?.['@collectionId'];
   const imagesPath = `${URL}/api/files/${collectionId}`;
@@ -33,53 +33,38 @@
   };
 </script>
 
-<main>
-  <ImageList class="gallery">
-    {#each portraits as item (item.id)}
-      <Item on:click={handleClick(item.id)}>
-        <ImageAspectContainer>
-          <div class="imageContainer">
-            <Image
-              loading="lazy"
-              alt={originals.get(item.original)}
-              src={`${imagesPath}/${item.id}/${item.image}`}
-            />
-            <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
-              <Checkbox checked={selected.includes(item.id)} touch ripple={false} />
-            </div>
-          </div>
-        </ImageAspectContainer>
-      </Item>
-    {/each}
-  </ImageList>
-
-  <div class="drawer" class:open={lastSelected}>
-    <div class="drawerContent">
-      {#if lastSelected}
-        <ImageAspectContainer>
-          <Image
-            loading="lazy"
-            alt={selected.at(0)}
-            src={`${imagesPath}/${lastSelected.id}/${lastSelected.image}`}
-          />
-
-          <div class="imageOverlay" class:hidden={selected.length < 2}>
-            <span>{selected.length}</span>
-          </div>
-
-          <IconButton
-            on:click={handleClearSelection}
-            class="material-icons closeButton"
-            title="Remove">close</IconButton
-          >
-        </ImageAspectContainer>
-      {/if}
-
-      <ul>
-        {#each selected as item}
-          <li>{item}</li>
-        {/each}
-      </ul>
+<section class="gallery">
+  {#each portraits as item (item.id)}
+    <div class="imageContainer" on:click={handleClick(item.id)}>
+      <img
+        loading="lazy"
+        alt={originals.get(item.original)}
+        src={`${imagesPath}/${item.id}/${item.image}`}
+        class:selected={selected.includes(item.id)}
+      />
+      <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
+        <Checkbox checked={selected.includes(item.id)} touch ripple={false} />
+      </div>
     </div>
+  {/each}
+</section>
+
+<aside class="pane" class:open={lastSelected}>
+  <div class="imageContainer">
+    <img loading="lazy" alt="main" src={`${imagesPath}/${lastSelected.id}/${lastSelected.image}`} />
+
+    <div class="imageOverlay" class:hidden={selected.length < 2}>
+      <span>{selected.length}</span>
+    </div>
+
+    <IconButton on:click={handleClearSelection} class="material-icons closeButton" title="Remove"
+      >close</IconButton
+    >
   </div>
-</main>
+
+  <ul>
+    {#each selected as item}
+      <li>{item}</li>
+    {/each}
+  </ul>
+</aside>

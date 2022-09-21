@@ -3,97 +3,122 @@
 @use '@material/image-list/index' as image-list;
 
 main {
+  height: 100vh;
+  overflow: hidden;
+
   display: grid;
-  grid-template-columns: 2fr auto;
-}
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "gallery pane";
 
-.drawer {
-  width: 0px;
-  transition: width 0.2s ease-in-out;
-}
-
-.drawer.open {
-  width: clamp(20vw, 400px, 33vw);
-}
-
-.drawerContent {
-  position: fixed;
-  width: clamp(20vw, 400px, 33vw);
-  color: #ffffff;
-}
-
-.imageOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: color.adjust(#000, $alpha: -0.5);
-
-  opacity: 1;
-  transition: opacity 0.1s ease-in-out;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imageOverlay > span {
-  font-size: 3rem;
-  width: 1.4em;
-  height: 1.4em;
-  background-color: #ffffff28;
-  border-radius: 50%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.closeButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: #00000028;
-  border-radius: 50%;
-}
-
-div.hidden {
-  opacity: 0;
-}
-
-.gallery {
-  @include image-list.standard-columns(6);
-
-  flex: auto;
-  overflow: auto;
-  position: relative;
-  flex-grow: 1;
-  width: 100%;
-}
- 
-@media (max-width: 599px) {
-  .gallery {
-    @include image-list.standard-columns(3);
+  @media (max-width: 599px) {
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'pane' 'gallery';
   }
 
-  main {
-    display: flex;
-    flex-direction: column-reverse;
+  --border-color: color.adjust(#ffffff, $alpha: -0.8);
+
+  section.gallery {
+    grid-area: gallery;
+    width: 100%;
+    overflow: auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    @media (max-width: 599px) {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+  
+    .imageContainer {
+      position: relative;
+  
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter 0.2s ease-in-out;
+      }
+
+      img.selected {
+        filter: brightness(0.7);
+      }
+  
+      div.checkbox {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: all 0.3s ease-in-out;
+      }
+
+      div.checkbox.hidden {
+        opacity: 0;
+      }
+    }
+  
+    .imageContainer:hover > div.checkbox {
+      opacity: 1;
+
+      div.mdc-checkbox__background {
+        border-color: var(--border-color) !important;
+      }
+    }
   }
-}
 
-.mdc-checkbox__background {
-  border-color: color.adjust(#ffffff, $alpha: -0.2) !important;
-}
+  aside.pane {
+    grid-area: pane;
+    width: clamp(20vw, 500px, 33vw);
+    color: #ffffff;
 
-.imageContainer > div.checkbox {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transition: opacity 0.3s ease-in-out;
-}
+    .imageContainer {
+      position: relative;
+  
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter 0.2s ease-in-out;
+      }
 
-.imageContainer:hover > div.checkbox {
-  opacity: 1;
+      .imageOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: color.adjust(#000, $alpha: -0.7);
+
+        opacity: 1;
+        transition: opacity 0.1s ease-in-out;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+          font-size: 3rem;
+          width: 1.5em;
+          height: 1.5em;
+          background-color: #ffffff28;
+          border-radius: 50%;
+        
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .imageOverlay.hidden {
+        opacity: 0;
+      }
+
+      .closeButton {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #00000028;
+        border-radius: 50%;
+      }
+
+    }
+  }
 }
