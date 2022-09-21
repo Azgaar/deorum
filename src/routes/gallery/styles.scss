@@ -63,6 +63,9 @@ main {
   aside.pane {
     grid-area: pane;
     width: clamp(20vw, 500px, 33vw);
+
+    display: flex;
+    flex-direction: column;
     color: #ffffff;
 
     .imageContainer {
