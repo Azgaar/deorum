@@ -1,16 +1,21 @@
 export const URL = 'https://deorum.fly.dev';
 
-export const colors = new Map([
-  ['red', '🔴 red'],
-  ['orange', '🟠 orange'],
-  ['yellow', '🟡 yellow'],
-  ['green', '🟢 green'],
-  ['blue', '🔵 blue'],
-  ['lightblue', '🔵 light blue'],
-  ['purple', '🟣 purple'],
-  ['pink', '🟤 pink'],
-  ['brown', '🟤 brown'],
-  ['black', '⚫️ black'],
-  ['white', '⚪️ white'],
-  ['grey', '⚪️ grey']
-]);
+const colors = [
+  'red',
+  'orange',
+  'yellow',
+  'green',
+  'blue',
+  'lightblue',
+  'purple',
+  'pink',
+  'brown',
+  'black',
+  'white',
+  'grey'
+];
+
+const getColorSpan = (color: string) =>
+  `<span style="font-size: smaller; vertical-align: text-bottom; color: ${color}">⬤</span> ${color}`;
+
+export const colorsMap = new Map(colors.map((color) => [color, getColorSpan(color)]));

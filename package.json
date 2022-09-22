@@ -11,9 +11,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "prepare": "yarn run smui-theme-light && yarn run smui-theme-dark",
-    "smui-theme-light": "smui-theme compile static/smui.css -i src/theme",
-    "smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark"
+    "prepare": "smui-theme compile static/smui.css -i src/theme"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^14.1.0",
@@ -21,6 +19,7 @@
     "@smui/button": "^6.1.0",
     "@smui/checkbox": "^6.1.0",
     "@smui/data-table": "^6.1.0",
+    "@smui/dialog": "^6.1.0",
     "@smui/drawer": "^6.1.0",
     "@smui/form-field": "^6.1.0",
     "@sveltejs/adapter-auto": "next",

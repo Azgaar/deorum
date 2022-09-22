@@ -1,11 +1,10 @@
 <script lang="ts">
-  import Button from '@smui/button';
   import Checkbox from '@smui/checkbox';
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
 
   import Chips from '$lib/components/Chips.svelte';
-  import { URL, colors } from '$lib/config';
+  import { URL, colorsMap } from '$lib/config';
 
   import type { IListResult, IPortrait } from '$lib/api.types';
 
@@ -102,7 +101,7 @@
         <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>
         <Cell><Chips chips={item.tags} map={tags} /></Cell>
         <Cell><Chips chips={item.styles} map={styles} /></Cell>
-        <Cell><Chips chips={item.colors} map={colors} /></Cell>
+        <Cell><Chips chips={item.colors} map={colorsMap} /></Cell>
         <Cell numeric>{item.quality}</Cell>
         <Cell>
           <IconButton class="material-icons" title="Remove">delete</IconButton>
@@ -146,7 +145,3 @@
     >
   </Pagination>
 </DataTable>
-
-<div style="margin: 1em;">
-  <Button>Open</Button>
-</div>

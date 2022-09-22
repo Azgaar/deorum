@@ -2,23 +2,34 @@
 
 @use '@material/theme/color-palette';
 
+$primary: #ff3e00;
+$secondary: color.scale(#676778, $whiteness: -10%);
+$surface: color.adjust(color-palette.$grey-900, $blue: +4);
+$background: #121113;
+
 @use '@material/theme/index' as theme with (
-  $primary: #ff3e00,
-  $secondary: #676778,
-  $surface: #fff,
-  $background: #fff,
-  $error: color-palette.$red-900
+  $primary: $primary,
+  $secondary: $secondary,
+  $surface: $surface,
+  $background: $background,
+  $error: color-palette.$red-700
 );
 
 html,
 body {
-  background-color: theme.$surface;
-  color: theme.$on-surface;
+  font-family: 'Roboto';
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  background-color: $background;
+  color: if(theme.contrast-tone($background) == 'dark', #000, #fff);
 }
 
 a {
   color: #40b3ff;
 }
+
 a:visited {
   color: color.scale(#40b3ff, $lightness: -35%);
 }

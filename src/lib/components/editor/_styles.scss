@@ -1,0 +1,64 @@
+@use 'sass:color';
+
+@use 'theme' as theme;
+
+section.editor {
+  padding: 0.5em;
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  
+  span.chip {
+    padding: 0.2em 0.6em;
+    margin: 0.2em;
+    background: #666;
+    border-radius: 16px;
+    transition: all 0.2s ease-in-out;
+
+    span.action {
+      opacity: 0;
+    }
+  }
+  
+  span.chip:hover {
+    background: #777;
+
+    span.action {
+      padding: 0 0.2em;
+      background-color: #555;
+      border-radius: 50%;
+      opacity: 1;
+    }
+  }
+  
+  span.chip:active {
+    background: #888;
+  }
+  
+  span.action {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+  }
+}
+
+.editorFooter {
+  display: flex;
+  justify-self: end;
+  flex-grow: 1;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  button {
+    border: none;
+    padding: 0.5em;
+    width: 50%;
+  }
+  
+  button:hover {
+    background: #999;
+  }
+}

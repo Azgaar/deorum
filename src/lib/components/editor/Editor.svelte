@@ -1,11 +1,16 @@
 <script lang="ts">
   import type { IPortrait } from '$lib/api.types';
-  import { colors } from '$lib/config';
+  import { colorsMap } from '$lib/config';
+  import './_styles.scss';
 
-  export let selected: string[];
+  // export let selected: string[];
   export let model: IPortrait;
 
-  console.log(selected, model);
+  export let openEditorDialog: (
+    title: string,
+    entries: [string, string][],
+    selected: string[]
+  ) => void;
 
   export let originals: Map<string, string>;
   export let tags: Map<string, string>;
@@ -33,6 +38,11 @@
     isChanged = true;
   };
 
+  const handleEdit = (title: string, map: Map<string, string>, selected: string[]) => () => {
+    const entries = Array.from(map.entries());
+    openEditorDialog(title, entries, selected);
+  };
+
   const handleCancel = () => {
     currentColors = model.colors;
     currentTags = model.tags.map((tag) => [tag, tags.get(tag)!]);
@@ -54,12 +64,13 @@
     Colors:
     {#each currentColors as color (color)}
       <span class="chip">
-        <span class="color" style="color:{color}">⬤</span>
-        {color}
+        {@html colorsMap.get(color)}
         <span on:click={handleRemoveColor(color)} class="action">✕</span>
       </span>
     {/each}
-    <span class="chip action">✏️</span>
+    <span class="chip action" on:click={handleEdit('Select colors', colorsMap, model.colors)}
+      >✏️</span
+    >
   </div>
 
   <div>
@@ -70,7 +81,7 @@
         <span on:click={handleRemoveTag(tagId)} class="action">✕</span>
       </span>
     {/each}
-    <span class="chip action">✏️</span>
+    <span class="chip action" on:click={handleEdit('Select tags', tags, model.tags)}>✏️</span>
   </div>
 
   <div>
@@ -81,81 +92,11 @@
         <span class="action" on:click={handleRemoveStyle(styleId)}>✕</span>
       </span>
     {/each}
-    <span class="chip action">✏️</span>
+    <span class="chip action" on:click={handleEdit('Select styles', styles, model.styles)}>✏️</span>
   </div>
 </section>
 
-<footer>
+<footer class="editorFooter">
   <button disabled={!isChanged} class="button">Save</button>
   <button disabled={!isChanged} on:click={handleCancel} class="button">Cancel</button>
 </footer>
-
-<style>
-  section.editor {
-    padding: 0.5em;
-    font-size: 22px;
-  }
-
-  div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 1em;
-  }
-
-  span.chip {
-    padding: 0.2em 0.6em;
-    margin: 0.2em;
-    background: #666;
-    border-radius: 16px;
-    transition: all 0.2s ease-in-out;
-  }
-
-  span.chip:hover {
-    background: #777;
-  }
-
-  span.chip:active {
-    background: #888;
-  }
-
-  span.action {
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-  }
-
-  span.chip > span.action {
-    opacity: 0;
-  }
-
-  span.chip:hover > span.action {
-    padding: 0 0.2em;
-    background-color: #555;
-    border-radius: 50%;
-    opacity: 1;
-  }
-
-  span.color {
-    font-size: smaller;
-    vertical-align: text-bottom;
-  }
-
-  footer {
-    display: flex;
-    justify-self: end;
-    flex-grow: 1;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  footer > button {
-    border: none;
-    font-size: 32px;
-    padding: 0.5em;
-    width: 50%;
-  }
-
-  footer > button:hover {
-    background: #999;
-  }
-</style>

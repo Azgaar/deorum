@@ -1,5 +1,7 @@
 @use 'sass:color';
 
+$pane-width: 400px;
+
 main {
   height: 100vh;
   overflow: hidden;
@@ -19,7 +21,7 @@ main {
     overflow: auto;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 
     @media (max-width: 599px) {
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -62,7 +64,7 @@ main {
 
   aside.pane {
     grid-area: pane;
-    width: clamp(20vw, 500px, 33vw);
+    width: clamp(20vw, $pane-width, 33vw);
 
     display: flex;
     flex-direction: column;

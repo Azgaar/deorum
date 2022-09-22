@@ -6,7 +6,10 @@ const config = {
   preprocess: sveltePreprocess(),
 
   kit: {
-    adapter: adapter()
+    adapter: adapter(),
+    alias: {
+      theme: 'src/theme/_smui-theme.scss'
+    }
   },
 
   files: {

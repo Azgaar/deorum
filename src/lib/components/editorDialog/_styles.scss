@@ -1,0 +1,36 @@
+@use 'sass:color';
+
+@use 'theme' as theme;
+
+.editorDialog {
+  .content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 1rem;
+    max-height: 80vh;
+    overflow: auto;
+
+    .entry {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    
+      span {
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .mdc-checkbox__ripple {
+        display: none;
+      }
+    }
+    
+    .entry:hover {
+      background-color: color.adjust(theme.$surface, $lightness: +10%);
+    }
+  }
+
+  .mdc-dialog__scrim {
+    opacity: 0;
+  }
+}

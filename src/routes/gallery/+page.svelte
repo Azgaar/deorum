@@ -2,10 +2,11 @@
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';
 
-  import Editor from '$lib/components/Editor.svelte';
+  import Editor from '$lib/components/editor/Editor.svelte';
+  import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import { URL } from '$lib/config';
   import type { IPortrait } from '$lib/api.types';
-  import './styles.scss';
+  import './_styles.scss';
 
   export let data: {
     portraits: IPortrait[];
@@ -30,6 +31,17 @@
 
   const handleClearSelection = () => {
     selected = [];
+  };
+
+  let editorDialogData = {
+    open: false,
+    title: '',
+    entries: [] as [string, string][],
+    selected: [] as string[]
+  };
+
+  const openEditorDialog = (title, entries: [string, string][], selected: string[]) => {
+    editorDialogData = { open: true, title, entries, selected };
   };
 </script>
 
@@ -62,5 +74,7 @@
     >
   </div>
 
-  <Editor {selected} model={lastSelected} {originals} {tags} {styles} />
+  <Editor {selected} model={lastSelected} {originals} {tags} {styles} {openEditorDialog} />
 </aside>
+
+<EditorDialog {...editorDialogData} />

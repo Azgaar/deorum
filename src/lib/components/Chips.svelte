@@ -6,7 +6,7 @@
 <div class="chips">
   {#each chips as chip}
     <div>
-      {map.get(chip)}
+      {@html map.get(chip)}
     </div>
   {/each}
 </div>
