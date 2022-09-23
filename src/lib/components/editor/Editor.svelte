@@ -1,21 +1,23 @@
 <script lang="ts">
   import type { IPortrait } from '$lib/api.types';
   import { colorsMap } from '$lib/config';
+  import {
+    changeableKeys,
+    type IChange,
+    type TOpenEditorDialog,
+    type TPatchSelected
+  } from '$lib/editor.types';
   import './_styles.scss';
 
   export let model: IPortrait;
   $: current = structuredClone(model);
 
-  export let openEditorDialog: (
-    title: string,
-    entries: [string, string][],
-    selected: string[],
-    onSubmit: (newSelected: string[]) => void
-  ) => void;
-
   export let originals: Map<string, string>;
   export let tags: Map<string, string>;
   export let styles: Map<string, string>;
+
+  export let openEditorDialog: TOpenEditorDialog;
+  export let patchSelected: TPatchSelected;
 
   let isChanged = false;
 
@@ -42,6 +44,46 @@
   const handleCancel = () => {
     current = structuredClone(model);
     isChanged = false;
+  };
+
+  const handleSave = async () => {
+    try {
+      const changes: IChange[] = [];
+
+      for (const key of changeableKeys) {
+        const oldValue = model[key];
+        const value = current[key];
+
+        if (Array.isArray(value)) {
+          if (!Array.isArray(oldValue)) throw 'Invalid type';
+
+          if (value.length > oldValue.length) {
+            for (const item of value) {
+              if (!oldValue.includes(item)) {
+                changes.push({ key, operation: 'add', value: item });
+              }
+            }
+          }
+
+          if (value.length < oldValue.length) {
+            for (const item of oldValue) {
+              if (!value.includes(item)) {
+                changes.push({ key, operation: 'remove', value: item });
+              }
+            }
+          }
+
+          continue;
+        }
+
+        if (value !== oldValue) changes.push({ key, operation: 'update', value });
+      }
+
+      await patchSelected(changes);
+      isChanged = false;
+    } catch (error) {
+      console.error(error);
+    }
   };
 </script>
 
@@ -89,6 +131,6 @@
 </section>
 
 <footer class="editorFooter">
-  <button disabled={!isChanged} class="button">Save</button>
   <button disabled={!isChanged} on:click={handleCancel} class="button">Cancel</button>
+  <button disabled={!isChanged} on:click={handleSave} class="button">Save</button>
 </footer>

@@ -1,11 +1,14 @@
 <script lang="ts">
+  import PocketBase from 'pocketbase';
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';
 
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import { URL } from '$lib/config';
+
   import type { IPortrait } from '$lib/api.types';
+  import { changeableKeys, type TOpenEditorDialog, type TPatchSelected } from '$lib/editor.types';
   import './_styles.scss';
 
   export let data: {
@@ -14,6 +17,8 @@
     styles: Map<string, string>;
     originals: Map<string, string>;
   };
+
+  const client = new PocketBase(URL);
 
   const { portraits, originals, tags, styles } = data;
   const portraitsMap = new Map(portraits.map((p) => [p.id, p]));
@@ -41,14 +46,58 @@
     onSubmit: (selected: string[]) => {}
   };
 
-  const openEditorDialog = (
-    title: string,
-    entries: [string, string][],
-    selected: string[],
-    onSubmit: (newSelected: string[]) => void
-  ) => {
+  const openEditorDialog: TOpenEditorDialog = (title, entries, selected, onSubmit) => {
     editorDialogData = { open: true, title, entries, selected, onSubmit };
   };
+
+  const patchSelected =
+    (selected: string[]): TPatchSelected =>
+    async (changes) => {
+      const getNewValue = (
+        operation: 'update' | 'add' | 'remove',
+        oldValue: unknown,
+        value: string | number
+      ) => {
+        if (operation === 'update' || !Array.isArray(oldValue)) return value;
+        if (operation === 'add') return [...oldValue, value];
+        if (operation === 'remove') return oldValue.filter((item) => item !== value);
+      };
+
+      const getPatchData = (id: string) => {
+        const portrait = portraitsMap.get(id)!;
+        const tempItem = structuredClone(portrait);
+
+        for (const { key, operation, value } of changes) {
+          (tempItem[key] as unknown) = getNewValue(operation, tempItem[key], value);
+        }
+
+        const patchData: Partial<IPortrait> = {};
+        for (const key of changeableKeys) {
+          const oldValue = portrait[key];
+          const newValue = tempItem[key];
+          if (JSON.stringify(oldValue) === JSON.stringify(newValue)) continue;
+          (patchData[key] as unknown) = newValue;
+        }
+
+        return patchData;
+      };
+
+      const patches = [];
+      for (const id of selected) {
+        const patchData = getPatchData(id);
+        if (Object.keys(patchData).length) patches.push({ id, patchData });
+      }
+
+      const promises = patches.map(({ id, patchData }) => {
+        const promise = client.records.update('portraits', id, patchData);
+        promise.then((updated) => {
+          portraitsMap.set(id, updated as unknown as IPortrait);
+        });
+        return promise;
+      });
+
+      await Promise.allSettled(promises);
+    };
 </script>
 
 <section class="gallery">
@@ -80,7 +129,14 @@
     >
   </div>
 
-  <Editor model={lastSelected} {originals} {tags} {styles} {openEditorDialog} />
+  <Editor
+    model={lastSelected}
+    {originals}
+    {tags}
+    {styles}
+    {openEditorDialog}
+    patchSelected={patchSelected(selected)}
+  />
 </aside>
 
 <EditorDialog {...editorDialogData} />
