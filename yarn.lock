@@ -469,6 +469,26 @@
     "@material/theme" "^13.0.0"
     tslib "^2.1.0"
 
+"@material/textfield@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-13.0.0.tgz#64cd2677ed954a0287b6e5b7b07dbdbf07328ef0"
+  integrity sha512-CzodrOqx8wzj2AQngMpISURJID4jVOHf4CtiPoj32LG8bWLn5ZfAAX2aA2rO6NPyDYsFm0aEnlfMhnDwQyPoYw==
+  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/density" "^13.0.0"
+    "@material/dom" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/floating-label" "^13.0.0"
+    "@material/line-ripple" "^13.0.0"
+    "@material/notched-outline" "^13.0.0"
+    "@material/ripple" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/shape" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "@material/typography" "^13.0.0"
+    tslib "^2.1.0"
+
 "@material/theme@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@material/theme/-/theme-13.0.0.tgz#dad25ca7c3427d5d35f074343c7f7957cbc1eb8c"
@@ -744,6 +764,23 @@
     "@smui/list" "^6.1.0"
     "@smui/menu" "^6.1.0"
     "@smui/menu-surface" "^6.1.0"
+    "@smui/notched-outline" "^6.1.0"
+    "@smui/ripple" "^6.1.0"
+    svelte2tsx "^0.5.12"
+
+"@smui/textfield@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@smui/textfield/-/textfield-6.1.0.tgz#f8ee25a0e2d01fffef064b241379025ad1aa8a6c"
+  integrity sha512-gEh7G4sUqEF916OgrvbLXQZri2rkTN5sefpZexQVfoRY1kxRd6x8kduSu2odtNF/4tmTIozB5jOq7fQQbtvp8w==
+  dependencies:
+    "@material/dom" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/ripple" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/textfield" "^13.0.0"
+    "@smui/common" "^6.1.0"
+    "@smui/floating-label" "^6.1.0"
+    "@smui/line-ripple" "^6.1.0"
     "@smui/notched-outline" "^6.1.0"
     "@smui/ripple" "^6.1.0"
     svelte2tsx "^0.5.12"

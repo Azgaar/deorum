@@ -3,6 +3,30 @@
 @use 'theme' as theme;
 
 .editorDialog {
+  .title {
+    display: flex;
+    height: 40px;
+    font-size: large;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      padding-left: 10px;
+    }
+
+    input {
+      outline: none;
+      height: 26px;
+      border: none;
+      border-bottom: 1px solid black;
+      background: #26262b;
+      color: white;
+      border-radius: 2px;
+      text-indent: 4px;
+    }
+  }
+
   .content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -28,6 +52,10 @@
     
     .entry:hover {
       background-color: color.adjust(theme.$surface, $lightness: +10%);
+    }
+
+    .entry.found {
+      background-color: color.adjust(theme.$surface, $lightness: +5%);
     }
   }
 

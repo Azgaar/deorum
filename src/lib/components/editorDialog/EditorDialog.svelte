@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Dialog, { Title, Actions } from '@smui/dialog';
+  import Dialog, { Actions } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Checkbox from '@smui/checkbox';
   import './_styles.scss';
@@ -11,6 +11,16 @@
   export let onSubmit: (newSelected: string[]) => void;
 
   $: current = structuredClone(selected);
+  $: search = '';
+  $: found = handleSearch(search);
+
+  const handleSearch = (search: string) => {
+    if (!search) return new Map();
+
+    const regex = new RegExp(search, 'i');
+    const filtered = entries.filter(([id, name]) => regex.test(name));
+    return new Map(filtered);
+  };
 
   const handleChange = (event: MouseEvent) => {
     event.stopPropagation();
@@ -21,11 +31,13 @@
 
   const handleCancel = () => {
     open = false;
+    search = '';
   };
 
   const handleApply = () => {
     onSubmit(current);
     open = false;
+    search = '';
   };
 </script>
 
@@ -35,12 +47,15 @@
   aria-labelledby="editor-dialog"
   aria-describedby="editor-dialog"
 >
-  <Title>{title}</Title>
+  <div class="title">
+    <span>{title}</span>
+    <input type="search" bind:value={search} placeholder="Search" />
+  </div>
 
   <div>
     <div class="content" on:click={handleChange}>
       {#each entries as [entryId, entryText] (entryId)}
-        <div class="entry" data-id={entryId}>
+        <div class="entry" class:found={found.has(entryId)}>
           <Checkbox group={current} value={entryId} ripple={false} />
           <span>{@html entryText}</span>
         </div>
