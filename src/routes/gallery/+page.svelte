@@ -37,11 +37,17 @@
     open: false,
     title: '',
     entries: [] as [string, string][],
-    selected: [] as string[]
+    selected: [] as string[],
+    onSubmit: (selected: string[]) => {}
   };
 
-  const openEditorDialog = (title, entries: [string, string][], selected: string[]) => {
-    editorDialogData = { open: true, title, entries, selected };
+  const openEditorDialog = (
+    title: string,
+    entries: [string, string][],
+    selected: string[],
+    onSubmit: (newSelected: string[]) => void
+  ) => {
+    editorDialogData = { open: true, title, entries, selected, onSubmit };
   };
 </script>
 
@@ -74,7 +80,7 @@
     >
   </div>
 
-  <Editor {selected} model={lastSelected} {originals} {tags} {styles} {openEditorDialog} />
+  <Editor model={lastSelected} {originals} {tags} {styles} {openEditorDialog} />
 </aside>
 
 <EditorDialog {...editorDialogData} />

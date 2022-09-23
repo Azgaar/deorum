@@ -8,12 +8,24 @@
   export let title: string;
   export let entries: [string, string][];
   export let selected: string[];
+  export let onSubmit: (newSelected: string[]) => void;
 
-  const handleClick = (event: MouseEvent) => {
+  $: current = structuredClone(selected);
+
+  const handleChange = (event: MouseEvent) => {
     event.stopPropagation();
     const element = event.target as HTMLElement;
     if (element.classList.contains('content')) return;
     element.querySelector('input')?.click();
+  };
+
+  const handleCancel = () => {
+    open = false;
+  };
+
+  const handleApply = () => {
+    onSubmit(current);
+    open = false;
   };
 </script>
 
@@ -26,18 +38,21 @@
   <Title>{title}</Title>
 
   <div>
-    <div class="content" on:click={handleClick}>
+    <div class="content" on:click={handleChange}>
       {#each entries as [entryId, entryText] (entryId)}
         <div class="entry" data-id={entryId}>
-          <Checkbox bind:group={selected} value={entryId} ripple={false} />
+          <Checkbox group={current} value={entryId} ripple={false} />
           <span>{@html entryText}</span>
         </div>
       {/each}
     </div>
 
     <Actions>
-      <Button on:click={() => (open = false)}>
-        <Label>Close</Label>
+      <Button on:click={handleCancel}>
+        <Label>Cancel</Label>
+      </Button>
+      <Button on:click={handleApply}>
+        <Label>Apply</Label>
       </Button>
     </Actions>
   </div>
