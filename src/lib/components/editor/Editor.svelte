@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';
-  import { snackbar } from '$lib/stores';
+  import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
   import type { IPortrait } from '$lib/api.types';
   import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
@@ -53,16 +53,19 @@
   };
 
   const handleSave = async () => {
+    if (!current.colors.length) return toastError('Select at least one color');
+    if (!current.styles.length) return toastError('Select at least one style');
+    if (!current.tags.length) return toastError('Select at least one tag');
+
     try {
       const changes = getChanges(model, current);
       await patchSelected(changes);
 
-      $snackbar = { message: 'Changes saved', status: 'success' };
+      toastSuccess('Changes saved');
       isChanged = false;
     } catch (err) {
       console.error(err);
-      const error = normalizeError(err);
-      $snackbar = { message: error, status: 'error' };
+      toastError(normalizeError(err));
     }
   };
 </script>

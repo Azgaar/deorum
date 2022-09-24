@@ -14,12 +14,12 @@
       message = $snackbar.message;
       status = $snackbar.status;
       component.open();
-      $snackbar.message = null;
+      snackbar.set({ message: null, status: 'success' });
     }
   }
 </script>
 
-<Snackbar bind:this={component} class="error">
+<Snackbar bind:this={component} class={status}>
   <Label>{message}</Label>
   <Actions>
     <IconButton class="material-icons close" title="Dismiss">close</IconButton>

@@ -57,7 +57,6 @@ function getNewValue(
 }
 
 export function getChanges(model: IPortrait, current: IPortrait) {
-  console.log({ model, current });
   const changes: IChange[] = [];
 
   for (const key of changeableKeys) {

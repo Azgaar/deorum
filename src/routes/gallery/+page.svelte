@@ -33,7 +33,6 @@
   const imagesPath = `${URL}/api/files/${collectionId}`;
 
   const handleClick = (id: string) => () => {
-    console.log('image click');
     if (selected.includes(id)) {
       selected = selected.filter((item) => item !== id);
       return;
@@ -47,7 +46,6 @@
   };
 
   const handleCheck = (id: string) => (event: CustomEvent<HTMLElement>) => {
-    console.log('check');
     event.stopPropagation();
     selected = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id];
   };
@@ -74,16 +72,10 @@
       const results = await patchPortraits(selected, portraitsMap, changes);
       const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
 
-      console.log('selected', selected);
-      console.log('resultsMap', resultsMap);
-
       data.portraits = data.portraits.map((portrait) => {
         const updated = resultsMap.get(portrait.id);
         return updated || portrait;
       });
-
-      console.log('portraitsMap', portraitsMap);
-      console.log('data', data.portraits);
     };
 </script>
 

@@ -7,3 +7,11 @@ export const snackbar = writable<{
   message: null,
   status: 'success'
 });
+
+export const toastError = (message: string) => {
+  snackbar.set({ message, status: 'error' });
+};
+
+export const toastSuccess = (message: string) => {
+  snackbar.set({ message, status: 'success' });
+};
