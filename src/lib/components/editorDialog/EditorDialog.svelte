@@ -18,7 +18,7 @@
     if (!search) return new Map();
 
     const regex = new RegExp(search, 'i');
-    const filtered = entries.filter(([id, name]) => regex.test(name));
+    const filtered = entries?.filter(([, name]) => regex.test(name));
     return new Map(filtered);
   };
 
@@ -54,7 +54,7 @@
 
   <div>
     <div class="content" on:click={handleChange}>
-      {#each entries as [entryId, entryText] (entryId)}
+      {#each entries || [] as [entryId, entryText] (entryId)}
         <div class="entry" class:found={found.has(entryId)}>
           <Checkbox group={current} value={entryId} ripple={false} />
           <span>{@html entryText}</span>

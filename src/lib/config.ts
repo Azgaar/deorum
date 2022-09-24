@@ -1,5 +1,7 @@
 export const URL = 'https://deorum.fly.dev';
 
+export const MAIN_IMAGE = '/main.png';
+
 const colors = [
   'red',
   'orange',

@@ -22,6 +22,7 @@
     "@smui/dialog": "^6.1.0",
     "@smui/drawer": "^6.1.0",
     "@smui/form-field": "^6.1.0",
+    "@smui/snackbar": "^6.1.0",
     "@smui/textfield": "^6.1.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",

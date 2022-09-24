@@ -1,11 +1,10 @@
 <script lang="ts">
-  import PocketBase from 'pocketbase';
-  import IconButton from '@smui/icon-button';
+  import { fade } from 'svelte/transition';
   import Checkbox from '@smui/checkbox';
 
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
-  import { URL } from '$lib/config';
+  import { URL, MAIN_IMAGE } from '$lib/config';
 
   import type { IPortrait } from '$lib/api.types';
   import { patchPortraits } from '$lib/api/patchPortraits';
@@ -28,12 +27,28 @@
   $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
 
   let selected: string[] = [];
-  $: lastSelected = selected.length ? portraitsMap.get(selected.at(-1)!)! : firstPortrait;
+  $: firstSelected = selected.length ? portraitsMap.get(selected[0]) : null;
 
   const collectionId = firstPortrait['@collectionId'];
   const imagesPath = `${URL}/api/files/${collectionId}`;
 
   const handleClick = (id: string) => () => {
+    console.log('image click');
+    if (selected.includes(id)) {
+      selected = selected.filter((item) => item !== id);
+      return;
+    }
+
+    if (selected.length > 1) {
+      selected = [...selected, id];
+    } else {
+      selected = [id];
+    }
+  };
+
+  const handleCheck = (id: string) => (event: CustomEvent<HTMLElement>) => {
+    console.log('check');
+    event.stopPropagation();
     selected = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id];
   };
 
@@ -46,7 +61,7 @@
     title: '',
     entries: [] as [string, string][],
     selected: [] as string[],
-    onSubmit: (selected: string[]) => {}
+    onSubmit: (_: string[]) => {}
   };
 
   const openEditorDialog: TOpenEditorDialog = (title, entries, selected, onSubmit) => {
@@ -82,33 +97,35 @@
         class:selected={selected.includes(item.id)}
       />
       <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
-        <Checkbox checked={selected.includes(item.id)} touch ripple={false} />
+        <Checkbox
+          on:click={handleCheck(item.id)}
+          checked={selected.includes(item.id)}
+          touch
+          ripple={false}
+        />
       </div>
     </div>
   {/each}
 </section>
 
-<aside class="pane" class:open={lastSelected}>
-  <div class="imageContainer">
-    <img loading="lazy" alt="main" src={`${imagesPath}/${lastSelected.id}/${lastSelected.image}`} />
+<aside class="pane">
+  {#if firstSelected}
+    <div class="content" transition:fade={{ duration: 300 }}>
+      <section class="controls">
+        Selected: {selected.length}
+        <div class="actionButton" on:click={handleClearSelection}>✕</div>
+      </section>
 
-    <div class="imageOverlay" class:hidden={selected.length < 2}>
-      <span>{selected.length}</span>
+      <Editor
+        model={firstSelected}
+        {originals}
+        {tags}
+        {styles}
+        {openEditorDialog}
+        patchSelected={patchSelected(selected)}
+      />
     </div>
-
-    <IconButton on:click={handleClearSelection} class="material-icons closeButton" title="Remove"
-      >close</IconButton
-    >
-  </div>
-
-  <Editor
-    model={lastSelected}
-    {originals}
-    {tags}
-    {styles}
-    {openEditorDialog}
-    patchSelected={patchSelected(selected)}
-  />
+  {/if}
 </aside>
 
 <EditorDialog {...editorDialogData} />

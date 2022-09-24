@@ -3,6 +3,8 @@
   import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';
   import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
+  import { snackbar } from '$lib/stores';
+  import { normalizeError } from '$lib/utils/errors';
   import './_styles.scss';
 
   export let model: IPortrait;
@@ -46,9 +48,13 @@
     try {
       const changes = getChanges(model, current);
       await patchSelected(changes);
+
+      $snackbar = { message: 'Changes saved', status: 'success' };
       isChanged = false;
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      const error = normalizeError(err);
+      $snackbar = { message: error, status: 'error' };
     }
   };
 </script>
@@ -70,7 +76,7 @@
         <span on:click={handleRemove('colors', color)} class="action">✕</span>
       </span>
     {/each}
-    <span class="chip action" on:click={handleEdit('colors', colorsMap)}>✏️</span>
+    <span class="edit" on:click={handleEdit('colors', colorsMap)}>⚙️</span>
   </div>
 
   <div>
@@ -81,7 +87,7 @@
         <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
       </span>
     {/each}
-    <span class="chip action" on:click={handleEdit('tags', tags)}>✏️</span>
+    <span class="edit" on:click={handleEdit('tags', tags)}>⚙️</span>
   </div>
 
   <div>
@@ -92,7 +98,7 @@
         <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
       </span>
     {/each}
-    <span class="chip action" on:click={handleEdit('styles', styles)}>✏️</span>
+    <span class="edit" on:click={handleEdit('styles', styles)}>⚙️</span>
   </div>
 </section>
 
