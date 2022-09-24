@@ -1,12 +1,8 @@
 <script lang="ts">
   import type { IPortrait } from '$lib/api.types';
+  import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';
-  import {
-    changeableKeys,
-    type IChange,
-    type TOpenEditorDialog,
-    type TPatchSelected
-  } from '$lib/editor.types';
+  import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
   import './_styles.scss';
 
   export let model: IPortrait;
@@ -48,37 +44,7 @@
 
   const handleSave = async () => {
     try {
-      const changes: IChange[] = [];
-
-      for (const key of changeableKeys) {
-        const oldValue = model[key];
-        const value = current[key];
-
-        if (Array.isArray(value)) {
-          if (!Array.isArray(oldValue)) throw 'Invalid type';
-
-          if (value.length > oldValue.length) {
-            for (const item of value) {
-              if (!oldValue.includes(item)) {
-                changes.push({ key, operation: 'add', value: item });
-              }
-            }
-          }
-
-          if (value.length < oldValue.length) {
-            for (const item of oldValue) {
-              if (!value.includes(item)) {
-                changes.push({ key, operation: 'remove', value: item });
-              }
-            }
-          }
-
-          continue;
-        }
-
-        if (value !== oldValue) changes.push({ key, operation: 'update', value });
-      }
-
+      const changes = getChanges(model, current);
       await patchSelected(changes);
       isChanged = false;
     } catch (error) {

@@ -8,7 +8,8 @@
   import { URL } from '$lib/config';
 
   import type { IPortrait } from '$lib/api.types';
-  import { changeableKeys, type TOpenEditorDialog, type TPatchSelected } from '$lib/editor.types';
+  import { patchPortraits } from '$lib/api/patchPortraits';
+  import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
   import './_styles.scss';
 
   export let data: {
@@ -18,16 +19,18 @@
     originals: Map<string, string>;
   };
 
-  const client = new PocketBase(URL);
+  // immutable
+  const { originals, tags, styles } = data;
+  const firstPortrait = data.portraits[0];
 
-  const { portraits, originals, tags, styles } = data;
-  const portraitsMap = new Map(portraits.map((p) => [p.id, p]));
+  // dynamic data
+  $: portraits = data.portraits || [];
+  $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
 
   let selected: string[] = [];
-  $: firstSelected = selected.length ? portraitsMap.get(selected.at(0)!)! : portraits[0]!;
-  $: lastSelected = selected.length ? portraitsMap.get(selected.at(-1)!)! : portraits[0]!;
+  $: lastSelected = selected.length ? portraitsMap.get(selected.at(-1)!)! : firstPortrait;
 
-  const collectionId = portraits[0]?.['@collectionId'];
+  const collectionId = firstPortrait['@collectionId'];
   const imagesPath = `${URL}/api/files/${collectionId}`;
 
   const handleClick = (id: string) => () => {
@@ -53,50 +56,19 @@
   const patchSelected =
     (selected: string[]): TPatchSelected =>
     async (changes) => {
-      const getNewValue = (
-        operation: 'update' | 'add' | 'remove',
-        oldValue: unknown,
-        value: string | number
-      ) => {
-        if (operation === 'update' || !Array.isArray(oldValue)) return value;
-        if (operation === 'add') return [...oldValue, value];
-        if (operation === 'remove') return oldValue.filter((item) => item !== value);
-      };
+      const results = await patchPortraits(selected, portraitsMap, changes);
+      const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
 
-      const getPatchData = (id: string) => {
-        const portrait = portraitsMap.get(id)!;
-        const tempItem = structuredClone(portrait);
+      console.log('selected', selected);
+      console.log('resultsMap', resultsMap);
 
-        for (const { key, operation, value } of changes) {
-          (tempItem[key] as unknown) = getNewValue(operation, tempItem[key], value);
-        }
-
-        const patchData: Partial<IPortrait> = {};
-        for (const key of changeableKeys) {
-          const oldValue = portrait[key];
-          const newValue = tempItem[key];
-          if (JSON.stringify(oldValue) === JSON.stringify(newValue)) continue;
-          (patchData[key] as unknown) = newValue;
-        }
-
-        return patchData;
-      };
-
-      const patches = [];
-      for (const id of selected) {
-        const patchData = getPatchData(id);
-        if (Object.keys(patchData).length) patches.push({ id, patchData });
-      }
-
-      const promises = patches.map(({ id, patchData }) => {
-        const promise = client.records.update('portraits', id, patchData);
-        promise.then((updated) => {
-          portraitsMap.set(id, updated as unknown as IPortrait);
-        });
-        return promise;
+      data.portraits = data.portraits.map((portrait) => {
+        const updated = resultsMap.get(portrait.id);
+        return updated || portrait;
       });
 
-      await Promise.allSettled(promises);
+      console.log('portraitsMap', portraitsMap);
+      console.log('data', data.portraits);
     };
 </script>
 

@@ -2,7 +2,7 @@ import PocketBase from 'pocketbase';
 
 import { URL } from '$lib/config';
 
-export const BATCH_SIZE = 500;
+export const BATCH_SIZE = 200;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
