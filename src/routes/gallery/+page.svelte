@@ -4,7 +4,7 @@
 
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
-  import { URL, MAIN_IMAGE } from '$lib/config';
+  import { URL } from '$lib/config';
 
   import type { IPortrait } from '$lib/api.types';
   import { patchPortraits } from '$lib/api/patchPortraits';

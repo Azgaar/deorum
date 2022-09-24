@@ -1,7 +1,7 @@
 @use 'theme' as theme;
 
 section.editor {
-  div {
+  > div {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -19,7 +19,7 @@ section.editor {
       opacity: 0;
     }
   }
-  
+
   span.chip:hover {
     background: rgba(theme.$background, 0.4);
     padding-right: 0.3em;
@@ -35,11 +35,11 @@ section.editor {
       background-color: rgba(theme.$background, 0.5);
     }
   }
-  
+
   span.chip:active {
     background: rgba(theme.$background, 0.4);
   }
-  
+
   span.action {
     transition: all 0.2s ease-in-out;
     cursor: pointer;
@@ -71,7 +71,7 @@ section.editor {
     padding: 0.5em;
     width: 50%;
   }
-  
+
   button:hover {
     background: #999;
   }

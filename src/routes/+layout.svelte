@@ -1,8 +1,5 @@
 <script lang="ts">
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
-  import type { SnackbarComponentDev } from '@smui/snackbar';
-
-  let snackbar: SnackbarComponentDev;
 </script>
 
 <head>
@@ -11,5 +8,5 @@
 
 <main>
   <slot />
-  <Snackbar {snackbar} />
+  <Snackbar />
 </main>

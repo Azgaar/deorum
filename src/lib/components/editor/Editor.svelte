@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { IPortrait } from '$lib/api.types';
   import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';
-  import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
   import { snackbar } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
+  import type { IPortrait } from '$lib/api.types';
+  import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
+  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
   import './_styles.scss';
 
   export let model: IPortrait;
@@ -24,7 +25,7 @@
     isChanged = true;
   };
 
-  const handleEdit = (key: 'styles' | 'colors' | 'tags', map: Map<string, string>) => () => {
+  const handleListEdit = (key: 'styles' | 'colors' | 'tags', map: Map<string, string>) => () => {
     const title = 'Select ' + key;
     const entries = Array.from(map.entries());
     const selected = current[key] as string[];
@@ -37,6 +38,13 @@
     };
 
     openEditorDialog(title, entries, selected, onSubmit);
+  };
+
+  const handleQualityChange = (value: number) => {
+    if (value !== current.quality) {
+      current.quality = value;
+      isChanged = true;
+    }
   };
 
   const handleCancel = () => {
@@ -65,7 +73,8 @@
   </div>
 
   <div>
-    Quality: {current.quality}
+    Quality:
+    <QualityInput quality={current.quality} onChange={handleQualityChange} />
   </div>
 
   <div>
@@ -76,7 +85,7 @@
         <span on:click={handleRemove('colors', color)} class="action">✕</span>
       </span>
     {/each}
-    <span class="edit" on:click={handleEdit('colors', colorsMap)}>⚙️</span>
+    <span class="edit" on:click={handleListEdit('colors', colorsMap)}>⚙️</span>
   </div>
 
   <div>
@@ -87,7 +96,7 @@
         <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
       </span>
     {/each}
-    <span class="edit" on:click={handleEdit('tags', tags)}>⚙️</span>
+    <span class="edit" on:click={handleListEdit('tags', tags)}>⚙️</span>
   </div>
 
   <div>
@@ -98,7 +107,7 @@
         <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
       </span>
     {/each}
-    <span class="edit" on:click={handleEdit('styles', styles)}>⚙️</span>
+    <span class="edit" on:click={handleListEdit('styles', styles)}>⚙️</span>
   </div>
 </section>
 
