@@ -84,8 +84,8 @@
     Colors:
     {#each current.colors as color (color)}
       <span class="chip">
-        {@html colorsMap.get(color)}
         <span on:click={handleRemove('colors', color)} class="action">✕</span>
+        {@html colorsMap.get(color)}
       </span>
     {/each}
     <span class="edit" on:click={handleListEdit('colors', colorsMap)}>⚙️</span>
@@ -95,8 +95,8 @@
     Tags:
     {#each current.tags as tagId (tagId)}
       <span class="chip">
-        {tags.get(tagId)}
         <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
+        {tags.get(tagId)}
       </span>
     {/each}
     <span class="edit" on:click={handleListEdit('tags', tags)}>⚙️</span>
@@ -106,8 +106,8 @@
     Styles:
     {#each current.styles as styleId (styleId)}
       <span class="chip">
-        {styles.get(styleId)}
         <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
+        {styles.get(styleId)}
       </span>
     {/each}
     <span class="edit" on:click={handleListEdit('styles', styles)}>⚙️</span>

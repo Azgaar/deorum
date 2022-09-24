@@ -5,34 +5,35 @@ section.editor {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    gap: 0.1em;
     margin-bottom: 1em;
   }
 
   span.chip {
-    padding: 0.1em 0 0.2em 0.4em;
-    margin: 0.1em;
+    padding: 0.1em 0.4em;
     background: rgba(theme.$background, 0.3);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
     span.action {
+      position: absolute;
+      padding: 0 0.4em 0 0.2em;
+      margin: 1px 0 0 -1px;
       opacity: 0;
+      border-radius: 16px;
+      background-color: rgba(theme.$background, 0.5);
     }
   }
 
   span.chip:hover {
     background: rgba(theme.$background, 0.4);
-    padding-right: 0.3em;
 
     span.action {
-      padding: 0 0.2em;
-      background-color: rgba(theme.$background, 0.3);
-      border-radius: 16px;
       opacity: 1;
     }
 
     span.action:hover {
-      background-color: rgba(theme.$background, 0.5);
+      background-color: rgba(theme.$background, 0.8);
     }
   }
 
