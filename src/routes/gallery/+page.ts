@@ -1,26 +1,30 @@
 import PocketBase from 'pocketbase';
 
 import { URL } from '$lib/config';
+import { PAGE_SIZE, filter, sort } from '$lib/api/fetchPortraits';
 
-export const BATCH_SIZE = 200;
+export const prerender = 'auto';
+export const ssr = true;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
   const client = new PocketBase(URL);
-  const filter = 'active = true';
-  const sort = '+original';
+  const page = 1;
 
-  const portraitsRequest = client.records.getFullList('portraits', BATCH_SIZE, { filter, sort });
-  const tagsRequest = client.records.getFullList('tags', 1000);
-  const stylesRequest = client.records.getFullList('styles', 1000);
-  const originalsRequest = client.records.getFullList('originals', 1000);
+  const portraitsRequest = client.records.getList('portraits', page, PAGE_SIZE, { filter, sort });
+  const tagsRequest = client.records.getFullList('tags', 100);
+  const stylesRequest = client.records.getFullList('styles', 100);
+  const originalsRequest = client.records.getFullList('originals', 100);
 
-  const [portraits, tagsData, stylesData, originalsData] = await Promise.all([
+  const [portraitsList, tagsData, stylesData, originalsData] = await Promise.all([
     portraitsRequest,
     tagsRequest,
     stylesRequest,
     originalsRequest
   ]);
+
+  const portraits = portraitsList.items;
+  const hasMore = portraitsList.totalPages > 1;
 
   const tags = new Map(tagsData.map((tag) => [tag.id, `${tag.emoji} ${tag.name}`]));
 
@@ -36,5 +40,14 @@ export async function load() {
   const portraitsImagePath = `${URL}/api/files/${portraits[0]?.['@collectionId']}`;
   const originalsImagePath = `${URL}/api/files/${originalsData[0]?.['@collectionId']}`;
 
-  return { portraits, tags, styles, originals, portraitsImagePath, originalsImagePath };
+  return {
+    page,
+    hasMore,
+    portraits,
+    tags,
+    styles,
+    originals,
+    portraitsImagePath,
+    originalsImagePath
+  };
 }

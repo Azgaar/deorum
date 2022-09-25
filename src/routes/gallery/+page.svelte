@@ -6,13 +6,19 @@
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
   import Menu from '$lib/components/menu/Menu.svelte';
+  import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
 
   import type { IPortrait } from '$lib/api.types';
   import { patchPortraits } from '$lib/api/patchPortraits';
   import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
+  import { fetchPortraits } from '$lib/api/fetchPortraits';
+  import { normalizeError } from '$lib/utils/errors';
+  import { toastError } from '$lib/stores';
   import './_styles.scss';
 
   export let data: {
+    page: number;
+    hasMore: boolean;
     portraits: IPortrait[];
     tags: Map<string, string>;
     styles: Map<string, string>;
@@ -23,6 +29,9 @@
 
   // immutable
   const { originals, tags, styles, portraitsImagePath, originalsImagePath } = data;
+
+  // mutable
+  let { page, hasMore } = data;
 
   // dynamic data
   $: portraits = data.portraits || [];
@@ -88,6 +97,19 @@
         return updated || portrait;
       });
     };
+
+  const handleLoadMore = async () => {
+    try {
+      const { items, totalPages } = await fetchPortraits(page + 1);
+
+      page += 1;
+      data.portraits = [...data.portraits, ...items];
+      hasMore = page < totalPages;
+    } catch (err) {
+      console.error(err);
+      toastError(normalizeError(err));
+    }
+  };
 </script>
 
 <section class="gallery">
@@ -109,6 +131,10 @@
       </div>
     </div>
   {/each}
+
+  {#if hasMore}
+    <LoadMore onClick={handleLoadMore} />
+  {/if}
 </section>
 
 <aside class="pane">
