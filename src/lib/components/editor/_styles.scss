@@ -1,5 +1,3 @@
-@use 'theme' as theme;
-
 section.editor {
   > div {
     display: flex;
@@ -11,7 +9,7 @@ section.editor {
 
   span.chip {
     padding: 0.1em 0.5em 0.1em 0.2em;
-    background: rgba(theme.$background, 0.3);
+    background: rgba($background, 0.3);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
@@ -21,24 +19,24 @@ section.editor {
       margin: 1px 0 0 -1px;
       opacity: 0;
       border-radius: 16px;
-      background-color: rgba(theme.$background, 0.5);
+      background-color: rgba($background, 0.5);
     }
   }
 
   span.chip:hover {
-    background: rgba(theme.$background, 0.4);
+    background: rgba($background, 0.4);
 
     span.action {
       opacity: 1;
     }
 
     span.action:hover {
-      background-color: rgba(theme.$background, 0.8);
+      background-color: rgba($background, 0.8);
     }
   }
 
   span.chip:active {
-    background: rgba(theme.$background, 0.4);
+    background: rgba($background, 0.4);
   }
 
   span.action {
@@ -56,7 +54,7 @@ section.editor {
   }
 
   .edit:hover {
-    background: rgba(theme.$background, 0.5);
+    background: rgba($background, 0.5);
   }
 }
 

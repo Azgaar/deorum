@@ -1,5 +1,3 @@
-@use 'theme' as theme;
-
 .quality {
   display: flex;
   margin-left: 2px;
@@ -9,8 +7,8 @@
     width: 20px;
 
     cursor: pointer;
-    color: theme.$text;
-    background-color: rgba(theme.$background, 0.3);
+    color: $text;
+    background-color: rgba($background, 0.3);
     border: none;
     transition: all 0.2s ease-in-out;
 
@@ -29,11 +27,11 @@
   }
 
   .active {
-    background-color: rgba(theme.$background, 0.35);
+    background-color: rgba($background, 0.35);
   }
 
   button:hover {
-    background-color: rgba(theme.$background, 0.4);
+    background-color: rgba($background, 0.4);
 
     span:not(.current) {
       opacity: 0.5;

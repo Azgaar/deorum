@@ -28,7 +28,19 @@ const CompileServiceWorker = () => ({
   }
 });
 
+const APP_VERSION = JSON.stringify(process.env.npm_package_version);
+
 const config: UserConfig = {
+  define: { APP_VERSION },
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "src/theme/variables.scss" as *;'
+      }
+    }
+  },
+
   plugins: [sveltekit(), CompileServiceWorker()]
 };
 

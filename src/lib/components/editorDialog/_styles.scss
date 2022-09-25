@@ -1,7 +1,5 @@
 @use 'sass:color';
 
-@use 'theme' as theme;
-
 .editorDialog {
   .title {
     display: flex;
@@ -51,11 +49,11 @@
     }
     
     .entry:hover {
-      background-color: color.adjust(theme.$surface, $lightness: +10%);
+      background-color: color.adjust($surface, $lightness: +10%);
     }
 
     .entry.found {
-      background-color: color.adjust(theme.$surface, $lightness: +5%);
+      background-color: color.adjust($surface, $lightness: +5%);
     }
   }
 

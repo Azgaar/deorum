@@ -6,7 +6,7 @@
   <title>Deorum Admin</title>
 </head>
 
-<main>
+<main class="layout">
   <slot />
   <Snackbar />
 </main>

@@ -1,7 +1,5 @@
 @use 'sass:color';
 
-@use 'theme' as theme;
-
 .originsDialog {
   .title {
     display: flex;
@@ -58,15 +56,15 @@
     }
     
     .entry:hover {
-      background-color: color.adjust(theme.$surface, $lightness: +10%);
+      background-color: color.adjust($surface, $lightness: +10%);
     }
 
     .entry.selected {
-      background-color: color.adjust(theme.$surface, $lightness: +15%);
+      background-color: color.adjust($surface, $lightness: +15%);
     }
 
     .entry.found {
-      background-color: color.adjust(theme.$surface, $lightness: +5%);
+      background-color: color.adjust($surface, $lightness: +5%);
     }
   }
 

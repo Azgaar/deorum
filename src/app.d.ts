@@ -14,3 +14,5 @@ declare namespace App {
   // interface PageError {}
   // interface Platform {}
 }
+
+declare const APP_VERSION: string;
