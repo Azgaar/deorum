@@ -61,7 +61,7 @@
           class:selected={selected === entryId}
           class:found={found.has(entryId)}
         >
-          <img src={`${path}/${entryId}/${image}`} alt={name} />
+          <img src={`${path}/${entryId}/${image}?thumb=100x100`} alt={name} />
           <span>{@html name}</span>
         </div>
       {/each}
