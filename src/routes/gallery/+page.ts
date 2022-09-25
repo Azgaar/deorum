@@ -23,10 +23,18 @@ export async function load() {
   ]);
 
   const tags = new Map(tagsData.map((tag) => [tag.id, `${tag.emoji} ${tag.name}`]));
+
   const styles = new Map(stylesData.map((style) => [style.id, `${style.emoji} ${style.name}`]));
+
   const originals = new Map(
-    originalsData.map((original) => [original.id, original.name as string])
+    originalsData.map((original) => {
+      const { id, image, name } = original;
+      return [id, { image, name }];
+    }) as [string, { image: string; name: string }][]
   );
 
-  return { portraits, tags, styles, originals };
+  const portraitsImagePath = `${URL}/api/files/${portraits[0]?.['@collectionId']}`;
+  const originalsImagePath = `${URL}/api/files/${originalsData[0]?.['@collectionId']}`;
+
+  return { portraits, tags, styles, originals, portraitsImagePath, originalsImagePath };
 }

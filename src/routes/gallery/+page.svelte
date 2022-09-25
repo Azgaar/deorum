@@ -4,23 +4,25 @@
 
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
+  import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
   import { URL } from '$lib/config';
 
   import type { IPortrait } from '$lib/api.types';
   import { patchPortraits } from '$lib/api/patchPortraits';
-  import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
+  import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
   import './_styles.scss';
 
   export let data: {
     portraits: IPortrait[];
     tags: Map<string, string>;
     styles: Map<string, string>;
-    originals: Map<string, string>;
+    originals: Map<string, { image: string; name: string }>;
+    portraitsImagePath: string;
+    originalsImagePath: string;
   };
 
   // immutable
-  const { originals, tags, styles } = data;
-  const firstPortrait = data.portraits[0];
+  const { originals, tags, styles, portraitsImagePath, originalsImagePath } = data;
 
   // dynamic data
   $: portraits = data.portraits || [];
@@ -28,9 +30,6 @@
 
   let selected: string[] = [];
   $: firstSelected = selected.length ? portraitsMap.get(selected[0]) : null;
-
-  const collectionId = firstPortrait['@collectionId'];
-  const imagesPath = `${URL}/api/files/${collectionId}`;
 
   const handleClick = (id: string) => () => {
     if (selected.includes(id)) {
@@ -66,6 +65,18 @@
     editorDialogData = { open: true, title, entries, selected, onSubmit };
   };
 
+  let originalsDialogData = {
+    open: false,
+    entries: [] as [string, { image: string; name: string }][],
+    selected: '',
+    onSubmit: (_: string) => {}
+  };
+
+  const openOriginalsDialog: TOpenOriginalsDialog = (selected, onSubmit) => {
+    const entries = Array.from(originals.entries());
+    originalsDialogData = { open: true, entries, selected, onSubmit };
+  };
+
   const patchSelected =
     (selected: string[]): TPatchSelected =>
     async (changes) => {
@@ -84,8 +95,8 @@
     <div class="imageContainer" on:click={handleClick(item.id)}>
       <img
         loading="lazy"
-        alt={originals.get(item.original)}
-        src={`${imagesPath}/${item.id}/${item.image}`}
+        alt={originals.get(item.original)?.name}
+        src={`${portraitsImagePath}/${item.id}/${item.image}`}
         class:selected={selected.includes(item.id)}
       />
       <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
@@ -114,6 +125,7 @@
         {tags}
         {styles}
         {openEditorDialog}
+        {openOriginalsDialog}
         patchSelected={patchSelected(selected)}
       />
     </div>
@@ -121,3 +133,4 @@
 </aside>
 
 <EditorDialog {...editorDialogData} />
+<OriginalsDialog path={originalsImagePath} {...originalsDialogData} />

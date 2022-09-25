@@ -4,18 +4,19 @@
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
   import type { IPortrait } from '$lib/api.types';
-  import type { TOpenEditorDialog, TPatchSelected } from '$lib/editor.types';
+  import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
   import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
   import './_styles.scss';
 
   export let model: IPortrait;
   $: current = structuredClone(model);
 
-  export let originals: Map<string, string>;
+  export let originals: Map<string, { image: string; name: string }>;
   export let tags: Map<string, string>;
   export let styles: Map<string, string>;
 
   export let openEditorDialog: TOpenEditorDialog;
+  export let openOriginalsDialog: TOpenOriginalsDialog;
   export let patchSelected: TPatchSelected;
 
   let isChanged = false;
@@ -23,6 +24,24 @@
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
     isChanged = true;
+  };
+
+  const handleOriginalChange = () => {
+    const onSubmit = (newOriginal: string) => {
+      if (current.original !== newOriginal) {
+        current.original = newOriginal;
+        isChanged = true;
+      }
+    };
+
+    openOriginalsDialog(current.original, onSubmit);
+  };
+
+  const handleQualityChange = (value: number) => {
+    if (value !== current.quality) {
+      current.quality = value;
+      isChanged = true;
+    }
   };
 
   const handleListEdit = (key: 'styles' | 'colors' | 'tags', map: Map<string, string>) => () => {
@@ -38,13 +57,6 @@
     };
 
     openEditorDialog(title, entries, selected, onSubmit);
-  };
-
-  const handleQualityChange = (value: number) => {
-    if (value !== current.quality) {
-      current.quality = value;
-      isChanged = true;
-    }
   };
 
   const handleCancel = () => {
@@ -72,7 +84,8 @@
 
 <section class="editor">
   <div>
-    Original: {originals.get(current.original)}
+    Original: {originals.get(current.original)?.name}
+    <span class="edit" on:click={handleOriginalChange}>⚙️</span>
   </div>
 
   <div>
