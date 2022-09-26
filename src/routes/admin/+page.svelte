@@ -7,18 +7,22 @@
   import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
   import Menu from '$lib/components/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
+  import Filters from '$lib/components/filters/Filters.svelte';
 
-  import type { IPortrait } from '$lib/api.types';
   import { patchPortraits } from '$lib/api/patchPortraits';
-  import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
   import { fetchPortraits } from '$lib/api/fetchPortraits';
   import { normalizeError } from '$lib/utils/errors';
   import { toastError } from '$lib/stores';
+
+  import type { IPortrait } from '$lib/api.types';
+  import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
   import './_styles.scss';
 
   export let data: {
     page: number;
     hasMore: boolean;
+    filter: string;
+    sort: string;
     portraits: IPortrait[];
     tags: Map<string, string>;
     styles: Map<string, string>;
@@ -31,7 +35,7 @@
   const { originals, tags, styles, portraitsImagePath, originalsImagePath } = data;
 
   // mutable
-  let { page, hasMore } = data;
+  let { page, hasMore, filter, sort } = data;
 
   // dynamic data
   $: portraits = data.portraits || [];
@@ -86,6 +90,32 @@
     originalsDialogData = { open: true, entries, selected, onSubmit };
   };
 
+  let filtersData = { open: false, filter, sort, onSubmit: (_: string, __: string) => {} };
+
+  const openFilters = () => {
+    const onSubmit = async (newFilter: string, newSort: string) => {
+      try {
+        filtersData = { ...filtersData, open: false };
+        const { items, totalPages } = await fetchPortraits({
+          page: 1,
+          filter: newFilter,
+          sort: newSort
+        });
+
+        sort = newSort;
+        filter = newFilter;
+        page = 1;
+        hasMore = page < totalPages;
+        data.portraits = items;
+      } catch (err) {
+        console.error(err);
+        toastError(normalizeError(err));
+      }
+    };
+
+    filtersData = { open: true, filter, sort, onSubmit };
+  };
+
   const patchSelected =
     (selected: string[]): TPatchSelected =>
     async (changes) => {
@@ -100,11 +130,11 @@
 
   const handleLoadMore = async () => {
     try {
-      const { items, totalPages } = await fetchPortraits(page + 1);
+      const { items, totalPages } = await fetchPortraits({ page: page + 1, filter, sort });
 
       page += 1;
-      data.portraits = [...data.portraits, ...items];
       hasMore = page < totalPages;
+      data.portraits = [...data.portraits, ...items];
     } catch (err) {
       console.error(err);
       toastError(normalizeError(err));
@@ -156,9 +186,10 @@
       />
     </div>
   {:else}
-    <Menu />
+    <Menu {openFilters} />
   {/if}
 </aside>
 
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog path={originalsImagePath} {...originalsDialogData} />
+<Filters {...filtersData} />

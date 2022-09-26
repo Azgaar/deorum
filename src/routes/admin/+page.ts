@@ -1,10 +1,13 @@
 import PocketBase from 'pocketbase';
 
 import { URL } from '$lib/config';
-import { PAGE_SIZE, filter, sort } from '$lib/api/fetchPortraits';
 
 export const prerender = 'auto';
 export const ssr = true;
+
+const PAGE_SIZE = 100;
+const filter = 'active = true';
+const sort = '+original';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
@@ -43,6 +46,8 @@ export async function load() {
   return {
     page,
     hasMore,
+    filter,
+    sort,
     portraits,
     tags,
     styles,

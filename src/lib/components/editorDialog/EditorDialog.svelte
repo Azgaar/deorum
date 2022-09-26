@@ -63,10 +63,10 @@
     </div>
 
     <Actions>
-      <Button on:click={handleCancel}>
+      <Button style="color: white" on:click={handleCancel}>
         <Label>Cancel</Label>
       </Button>
-      <Button on:click={handleApply}>
+      <Button style="color: white" on:click={handleApply}>
         <Label>Apply</Label>
       </Button>
     </Actions>

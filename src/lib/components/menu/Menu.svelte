@@ -5,6 +5,8 @@
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import { VERSION } from '$lib/constants';
 
+  export let openFilters: () => void;
+
   const handleUpload = () => {
     console.log('upload');
     document.getElementById('filesInput')?.click();
@@ -19,10 +21,10 @@
 
   <main>
     <div class="hint">
-      Select a portrait to edit it. Check the boxes to select multiple portraits.
+      Select a portrait to edit it. Check the boxes to select multiple portraits
     </div>
 
-    <Button variant="raised">
+    <Button variant="raised" on:click={openFilters}>
       <Label>Filter images</Label>
     </Button>
 
