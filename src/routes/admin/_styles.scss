@@ -29,6 +29,7 @@ main.layout {
   
     .imageContainer {
       position: relative;
+      aspect-ratio: 1/1;
   
       img {
         width: 100%;

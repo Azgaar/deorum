@@ -9,7 +9,7 @@ section.editor {
 
   span.chip {
     padding: 0.1em 0.5em 0.1em 0.2em;
-    background: rgba($background, 0.3);
+    background: rgba($surface, 0.35);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
@@ -19,24 +19,24 @@ section.editor {
       margin: 1px 0 0 -1px;
       opacity: 0;
       border-radius: 16px;
-      background-color: rgba($background, 0.5);
+      background-color: rgba($surface, 0.5);
     }
   }
 
   span.chip:hover {
-    background: rgba($background, 0.4);
+    background: rgba($surface, 0.4);
 
     span.action {
       opacity: 1;
     }
 
     span.action:hover {
-      background-color: rgba($background, 0.8);
+      background-color: rgba($surface, 0.6);
     }
   }
 
   span.chip:active {
-    background: rgba($background, 0.4);
+    background: rgba($surface, 0.4);
   }
 
   span.action {
@@ -46,15 +46,15 @@ section.editor {
 
   .edit {
     cursor: pointer;
-    padding: 0.2em 0.5em;
-    background: rgba(18, 17, 19, 0.4);
+    padding: 0.1em 0.3em;
+    background: rgba($surface, 0.35);
     border-radius: 16px;
     margin: 0 0.1em;
     transition: all 0.2s ease-in-out;
   }
 
   .edit:hover {
-    background: rgba($background, 0.5);
+    background: rgba($surface, 0.5);
   }
 }
 

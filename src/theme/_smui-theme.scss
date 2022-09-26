@@ -1,9 +1,11 @@
+@use "src/theme/variables.scss" as *;
+
 @use '@material/theme/index' as mui with (
   $primary: $primary,
   $secondary: $secondary,
   $surface: $surface,
   $background: $background,
-  $error: color-palette.$red-700
+  $error: #D32F2F,
 );
 
 // global styles

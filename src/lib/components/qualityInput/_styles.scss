@@ -8,7 +8,7 @@
 
     cursor: pointer;
     color: $text;
-    background-color: rgba($background, 0.3);
+    background-color: rgba($surface, 0.3);
     border: none;
     transition: all 0.2s ease-in-out;
 
@@ -27,11 +27,11 @@
   }
 
   .active {
-    background-color: rgba($background, 0.35);
+    background-color: rgba($surface, 0.35);
   }
 
   button:hover {
-    background-color: rgba($background, 0.4);
+    background-color: rgba($surface, 0.4);
 
     span:not(.current) {
       opacity: 0.5;

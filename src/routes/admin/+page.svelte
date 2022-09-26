@@ -162,6 +162,10 @@
     </div>
   {/each}
 
+  {#if portraits.length === 0}
+    <div>No portraits found, try to change filter criteria</div>
+  {/if}
+
   {#if hasMore}
     <LoadMore onClick={handleLoadMore} />
   {/if}
