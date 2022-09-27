@@ -1,10 +1,6 @@
-import PocketBase from 'pocketbase';
-
-import { URL } from '$lib/config';
 import type { IPortrait } from '$lib/api.types';
-import { changeableKeys, type IChange } from '$lib/editor.types';
-
-const client = new PocketBase(URL);
+import { changeableKeys, type IChange, type IEditorData } from '$lib/editor.types';
+import client from './client';
 
 export async function patchPortraits(
   selected: string[],
@@ -56,7 +52,7 @@ function getNewValue(
   if (operation === 'remove') return oldValue.filter((item) => item !== value);
 }
 
-export function getChanges(model: IPortrait, current: IPortrait) {
+export function getChanges(model: IEditorData, current: IEditorData) {
   const changes: IChange[] = [];
 
   for (const key of changeableKeys) {

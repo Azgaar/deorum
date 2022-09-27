@@ -7,8 +7,7 @@
 
   export let openFilters: () => void;
 
-  const handleUpload = () => {
-    console.log('upload');
+  const triggerUpload = () => {
     document.getElementById('filesInput')?.click();
   };
 </script>
@@ -28,7 +27,7 @@
       <Label>Filter images</Label>
     </Button>
 
-    <Button variant="raised" on:click={handleUpload}>
+    <Button variant="raised" on:click={triggerUpload}>
       <Label>Upload images</Label>
     </Button>
   </main>
@@ -37,14 +36,6 @@
     <span class="version">Azgaar, 2022, v{VERSION}</span>
   </footer>
 </section>
-
-<input
-  id="filesInput"
-  class="hidden"
-  type="file"
-  accept="image/jpg, image/jpeg, image/png"
-  multiple
-/>
 
 <style lang="scss">
   .menu {
@@ -81,9 +72,5 @@
         margin-right: 12px;
       }
     }
-  }
-
-  .hidden {
-    display: none;
   }
 </style>

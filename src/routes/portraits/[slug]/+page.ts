@@ -1,12 +1,9 @@
-import PocketBase from 'pocketbase';
-
-import { URL } from '$lib/config';
+import client from '$lib/api/client';
 
 export const PAGE_SIZE = 20;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }: App.PageData) {
-  const client = new PocketBase(URL);
   const page = Number(params?.slug);
   const filter = 'active = true';
   const sort = '+original';

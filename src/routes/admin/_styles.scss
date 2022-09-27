@@ -80,16 +80,6 @@ main.layout {
       backdrop-filter: brightness(0.8) sepia(0.8);
       height: 100%;
       padding: 0.5rem;
-
-      .controls {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .actionButton:hover {
-        cursor: pointer;
-        color: #999;
-      }
     }
   }
 }

@@ -1,14 +1,22 @@
 <script lang="ts">
+  import Button, { Label } from '@smui/button';
+
   import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
-  import type { IPortrait } from '$lib/api.types';
-  import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
+  import type {
+    IEditorData,
+    TOpenEditorDialog,
+    TOpenOriginalsDialog,
+    TPatchHandler,
+    TPostHandler
+  } from '$lib/editor.types';
   import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
+  import client from '$lib/api/client';
   import './_styles.scss';
 
-  export let model: IPortrait;
+  export let model: IEditorData;
   $: current = structuredClone(model);
 
   export let originals: Map<string, { image: string; name: string }>;
@@ -17,9 +25,14 @@
 
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
-  export let patchSelected: TPatchSelected;
+
+  export let handleClearSelection: () => void;
+  export let isUploading: boolean;
+  export let handlePatch: TPatchHandler;
+  export let handlePost: TPostHandler;
 
   let isChanged = false;
+  let isLoading = false;
 
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
@@ -60,24 +73,40 @@
   };
 
   const handleCancel = () => {
+    client.cancelAllRequests();
+
+    if (!isChanged) {
+      handleClearSelection();
+      return;
+    }
+
     current = structuredClone(model);
     isChanged = false;
   };
 
-  const handleSave = async () => {
+  const handleChangesSave = async () => {
+    if (!current.original) return toastError('Select original image');
     if (!current.colors.length) return toastError('Select at least one color');
     if (!current.styles.length) return toastError('Select at least one style');
     if (!current.tags.length) return toastError('Select at least one tag');
 
     try {
-      const changes = getChanges(model, current);
-      await patchSelected(changes);
+      isLoading = true;
 
-      toastSuccess('Changes saved');
+      if (isUploading) {
+        await handlePost(current);
+        toastSuccess('Successfully uploaded');
+      } else {
+        await handlePatch(getChanges(model, current));
+        toastSuccess('Changes saved');
+      }
+
       isChanged = false;
     } catch (err) {
       console.error(err);
       toastError(normalizeError(err));
+    } finally {
+      isLoading = false;
     }
   };
 </script>
@@ -128,6 +157,11 @@
 </section>
 
 <footer class="editorFooter">
-  <button disabled={!isChanged} on:click={handleCancel} class="button">Cancel</button>
-  <button disabled={!isChanged} on:click={handleSave} class="button">Save</button>
+  <Button variant="raised" on:click={handleCancel}>
+    <Label>{isChanged ? 'Cancel' : 'Clear'}</Label>
+  </Button>
+
+  <Button variant="raised" on:click={handleChangesSave} disabled={!isChanged || isLoading}>
+    <Label>Save</Label>
+  </Button>
 </footer>

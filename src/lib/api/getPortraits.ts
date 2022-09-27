@@ -1,12 +1,9 @@
-import PocketBase from 'pocketbase';
-
-import { URL } from '$lib/config';
 import type { IListResult, IPortrait } from '$lib/api.types';
+import client from './client';
 
-const client = new PocketBase(URL);
 const PAGE_SIZE = 100;
 
-export async function fetchPortraits({
+export async function getPortraits({
   page,
   filter,
   sort

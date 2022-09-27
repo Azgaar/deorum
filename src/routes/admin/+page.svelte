@@ -9,13 +9,19 @@
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/filters/Filters.svelte';
 
-  import { patchPortraits } from '$lib/api/patchPortraits';
-  import { fetchPortraits } from '$lib/api/fetchPortraits';
+  import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
   import { normalizeError } from '$lib/utils/errors';
   import { toastError } from '$lib/stores';
 
   import type { IPortrait } from '$lib/api.types';
-  import type { TOpenEditorDialog, TOpenOriginalsDialog, TPatchSelected } from '$lib/editor.types';
+  import type {
+    IEditorData,
+    IUploadedPortrait,
+    TOpenEditorDialog,
+    TOpenOriginalsDialog,
+    TPatchHandler,
+    TPostHandler
+  } from '$lib/editor.types';
   import './_styles.scss';
 
   export let data: {
@@ -42,9 +48,32 @@
   $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
 
   let selected: string[] = [];
-  $: firstSelected = selected.length ? portraitsMap.get(selected[0]) : null;
+  let uploaded: IUploadedPortrait[] = [];
+  $: model = getModel(selected, uploaded);
+
+  const getModel = (selected: string[], uploaded: IUploadedPortrait[]) => {
+    if (!selected.length) return null;
+    if (uploaded.length) return uploaded[0];
+    return portraitsMap.get(selected[0]);
+  };
+
+  const enterUploadMode = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    uploaded = Array.from(input.files).map((file) => {
+      const id = Math.random().toString(36).slice(2, 9);
+      const src = URL.createObjectURL(file);
+      return { id, file, src, original: '', tags: [], styles: [], colors: [], quality: 0 };
+    });
+
+    selected = uploaded.map((file) => file.id);
+    input.value = '';
+  };
 
   const handleClick = (id: string) => () => {
+    if (uploaded.length) return;
+
     if (selected.includes(id)) {
       selected = selected.filter((item) => item !== id);
       return;
@@ -64,6 +93,7 @@
 
   const handleClearSelection = () => {
     selected = [];
+    uploaded = [];
   };
 
   let editorDialogData = {
@@ -96,7 +126,7 @@
     const onSubmit = async (newFilter: string, newSort: string) => {
       try {
         filtersData = { ...filtersData, open: false };
-        const { items, totalPages } = await fetchPortraits({
+        const { items, totalPages } = await getPortraits({
           page: 1,
           filter: newFilter,
           sort: newSort
@@ -116,8 +146,8 @@
     filtersData = { open: true, filter, sort, onSubmit };
   };
 
-  const patchSelected =
-    (selected: string[]): TPatchSelected =>
+  const createPatchHandler =
+    (selected: string[]): TPatchHandler =>
     async (changes) => {
       const results = await patchPortraits(selected, portraitsMap, changes);
       const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
@@ -128,9 +158,18 @@
       });
     };
 
+  const createPostHandler = (): TPostHandler => async (editorData: IEditorData) => {
+    const results = await postPortraits(uploaded, editorData);
+    data.portraits = [...results, ...data.portraits];
+
+    selected = [];
+    uploaded.forEach((portrait) => URL.revokeObjectURL(portrait.src));
+    uploaded = [];
+  };
+
   const handleLoadMore = async () => {
     try {
-      const { items, totalPages } = await fetchPortraits({ page: page + 1, filter, sort });
+      const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort });
 
       page += 1;
       hasMore = page < totalPages;
@@ -140,25 +179,34 @@
       toastError(normalizeError(err));
     }
   };
+
+  const getSource = (item: IPortrait | IUploadedPortrait) => {
+    if ('src' in item) return item.src;
+    return `${portraitsImagePath}/${item.id}/${item.image}`;
+  };
 </script>
 
 <section class="gallery">
-  {#each portraits as item (item.id)}
+  {#each [...uploaded, ...portraits] as item (item.id)}
     <div class="imageContainer" on:click={handleClick(item.id)}>
       <img
         loading="lazy"
-        alt={originals.get(item.original)?.name}
-        src={`${portraitsImagePath}/${item.id}/${item.image}`}
+        alt={item.id}
+        src={getSource(item)}
         class:selected={selected.includes(item.id)}
       />
-      <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
-        <Checkbox
-          on:click={handleCheck(item.id)}
-          checked={selected.includes(item.id)}
-          touch
-          ripple={false}
-        />
-      </div>
+
+      {#if !uploaded.length || selected.includes(item.id)}
+        <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
+          <Checkbox
+            on:click={handleCheck(item.id)}
+            checked={selected.includes(item.id)}
+            disabled={uploaded.length > 0}
+            touch
+            ripple={false}
+          />
+        </div>
+      {/if}
     </div>
   {/each}
 
@@ -172,21 +220,23 @@
 </section>
 
 <aside class="pane">
-  {#if firstSelected}
+  {#if model}
     <div class="content" transition:fade={{ duration: 300 }}>
-      <section class="controls">
-        Selected: {selected.length}
-        <div class="actionButton" on:click={handleClearSelection}>✕</div>
-      </section>
+      <div>
+        {uploaded.length ? 'Uploaded' : 'Selected'}: {selected.length}
+      </div>
 
       <Editor
-        model={firstSelected}
+        {model}
         {originals}
         {tags}
         {styles}
         {openEditorDialog}
         {openOriginalsDialog}
-        patchSelected={patchSelected(selected)}
+        {handleClearSelection}
+        isUploading={Boolean(uploaded.length)}
+        handlePatch={createPatchHandler(selected)}
+        handlePost={createPostHandler()}
       />
     </div>
   {:else}
@@ -197,3 +247,12 @@
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog path={originalsImagePath} {...originalsDialogData} />
 <Filters {...filtersData} />
+
+<input
+  on:change={enterUploadMode}
+  style="display: none;"
+  id="filesInput"
+  type="file"
+  accept="image/jpg, image/jpeg, image/png"
+  multiple
+/>

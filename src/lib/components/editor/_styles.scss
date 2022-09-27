@@ -60,18 +60,12 @@ section.editor {
 
 .editorFooter {
   display: flex;
-  justify-self: end;
   flex-grow: 1;
   align-items: flex-end;
-  justify-content: space-between;
+  gap: 16px;
+  justify-content: space-around;
 
   button {
-    border: none;
-    padding: 0.5em;
     width: 50%;
-  }
-
-  button:hover {
-    background: #999;
   }
 }

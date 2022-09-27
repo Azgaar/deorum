@@ -1,5 +1,4 @@
-import PocketBase from 'pocketbase';
-
+import client from '$lib/api/client';
 import { URL } from '$lib/config';
 
 export const prerender = 'auto';
@@ -7,11 +6,10 @@ export const ssr = true;
 
 const PAGE_SIZE = 100;
 const filter = 'active = true';
-const sort = '+original';
+const sort = '-created';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-  const client = new PocketBase(URL);
   const page = 1;
 
   const portraitsRequest = client.records.getList('portraits', page, PAGE_SIZE, { filter, sort });
