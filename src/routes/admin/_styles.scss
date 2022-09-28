@@ -21,10 +21,10 @@ main.layout {
     overflow: auto;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
     @media (max-width: 599px) {
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
   
     .imageContainer {
@@ -68,10 +68,16 @@ main.layout {
 
   aside.pane {
     grid-area: pane;
-    width: clamp(20vw, $pane-width, 33vw);
     background-image: url('/images/background.png');
     background-size: 100% 100%;
+
     padding: 2rem;
+    width: clamp(20vw, $pane-width, 33vw);
+
+    @media (max-width: 599px) {
+      padding: 0 2rem;
+      width: auto;
+    }
 
     .content {
       display: flex;

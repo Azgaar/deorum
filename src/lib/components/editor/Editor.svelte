@@ -35,6 +35,8 @@
   let isChanged = false;
   let isLoading = false;
 
+  $: originalName = originals.get(current.original)?.name;
+
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
     isChanged = true;
@@ -114,7 +116,7 @@
 
 <section class="editor">
   <div>
-    Original: {originals.get(current.original)?.name}
+    Original: {@html originalName}
     <span class="edit" on:click={handleOriginalChange}>⚙️</span>
   </div>
 

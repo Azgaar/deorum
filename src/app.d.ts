@@ -16,3 +16,5 @@ declare namespace App {
 }
 
 declare const APP_VERSION: string;
+
+declare module '@ungap/structured-clone';

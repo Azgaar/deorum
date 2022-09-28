@@ -46,6 +46,10 @@
     text-align: center;
     height: 100%;
 
+    @media (max-width: 599px) {
+      height: auto;
+    }
+
     main {
       display: flex;
       flex-direction: column;

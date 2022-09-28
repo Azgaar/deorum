@@ -28,42 +28,48 @@
   .content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px 8px;
+    gap: 2px 8px;
     padding: 0 1rem 0 1.6rem;
     max-height: 80vh;
     overflow: auto;
 
-    .entry {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-
-      img {
-        width: 40px;
-        height: 40px;
-      }
-    
-      span {
-        pointer-events: none;
-        user-select: none;
-        text-transform: capitalize;
-      }
-
-      .mdc-checkbox__ripple {
+    > div {
+      input[type="radio"] {
         display: none;
       }
-    }
-    
-    .entry:hover {
-      background-color: color.adjust($surface, $lightness: +10%);
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+      
+        span {
+          pointer-events: none;
+          user-select: none;
+          text-transform: capitalize;
+        }
+  
+        .mdc-checkbox__ripple {
+          display: none;
+        }
+      }
     }
 
-    .entry.selected {
+    > div:has(input[type="radio"]:checked) {
       background-color: color.adjust($surface, $lightness: +15%);
     }
 
-    .entry.found {
+    > div:hover {
+      background-color: color.adjust($surface, $lightness: +10%);
+    }
+
+    > div.found {
       background-color: color.adjust($surface, $lightness: +5%);
     }
   }

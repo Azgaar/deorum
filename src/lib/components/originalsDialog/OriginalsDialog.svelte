@@ -20,22 +20,18 @@
     return new Map(filtered);
   };
 
-  const handleChange = (event: MouseEvent) => {
-    event.stopPropagation();
-    const element = event.target as HTMLElement;
-    if (element.classList.contains('content')) return;
+  const handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
 
-    const entry = element.dataset.id;
-    if (entry) selected = entry;
+    const value = new FormData(event.target as HTMLFormElement).get('original');
+    if (value && typeof value === 'string') {
+      onSubmit(value);
+      open = false;
+      search = '';
+    }
   };
 
   const handleCancel = () => {
-    open = false;
-    search = '';
-  };
-
-  const handleApply = () => {
-    onSubmit(selected);
     open = false;
     search = '';
   };
@@ -52,17 +48,15 @@
     <input type="search" bind:value={search} placeholder="Search" />
   </div>
 
-  <div class="body">
-    <div class="content" on:click={handleChange}>
+  <form class="body" on:submit={handleSubmit}>
+    <div class="content">
       {#each entries || [] as [entryId, { image, name }] (entryId)}
-        <div
-          class="entry"
-          data-id={entryId}
-          class:selected={selected === entryId}
-          class:found={found.has(entryId)}
-        >
-          <img src={`${path}/${entryId}/${image}?thumb=100x100`} alt={name} />
-          <span>{@html name}</span>
+        <div class:found={found.has(entryId)}>
+          <input type="radio" name="original" id={entryId} value={entryId} checked />
+          <label for={entryId}>
+            <img src={`${path}/${entryId}/${image}?thumb=100x100`} alt={name} />
+            {name}
+          </label>
         </div>
       {/each}
     </div>
@@ -71,9 +65,9 @@
       <Button style="color: white" on:click={handleCancel}>
         <Label>Cancel</Label>
       </Button>
-      <Button style="color: white" on:click={handleApply}>
+      <Button type="submit" style="color: white">
         <Label>Apply</Label>
       </Button>
     </Actions>
-  </div>
+  </form>
 </Dialog>
