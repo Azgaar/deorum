@@ -49,5 +49,8 @@
     "workbox-routing": "^6.5.4",
     "workbox-strategies": "^6.5.4"
   },
+  "engines": {
+    "node": ">=17.0.0"
+  },
   "type": "module"
 }

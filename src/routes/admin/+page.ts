@@ -1,7 +1,6 @@
 import client from '$lib/api/client';
 import { URL } from '$lib/config';
 
-export const prerender = 'auto';
 export const ssr = true;
 
 const PAGE_SIZE = 100;
