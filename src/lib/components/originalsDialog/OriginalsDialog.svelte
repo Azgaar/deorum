@@ -52,7 +52,13 @@
     <div class="content">
       {#each entries || [] as [entryId, { image, name }] (entryId)}
         <div class:found={found.has(entryId)}>
-          <input type="radio" name="original" id={entryId} value={entryId} checked />
+          <input
+            type="radio"
+            name="original"
+            id={entryId}
+            value={entryId}
+            checked={selected === entryId}
+          />
           <label for={entryId}>
             <img src={`${path}/${entryId}/${image}?thumb=100x100`} alt={name} />
             {name}

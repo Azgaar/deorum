@@ -13,7 +13,7 @@
     if ($snackbar.message) {
       message = $snackbar.message;
       status = $snackbar.status;
-      component.open();
+      component?.open();
       snackbar.set({ message: null, status: 'success' });
     }
   }
