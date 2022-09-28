@@ -29,9 +29,12 @@
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
+    "@ungap/structured-clone": "^1.0.1",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "i": "^0.3.7",
+    "npm": "^8.19.2",
     "pocketbase": "^0.7.1",
     "prettier": "^2.6.2",
     "prettier-plugin-svelte": "^2.7.0",
@@ -50,7 +53,7 @@
     "workbox-strategies": "^6.5.4"
   },
   "engines": {
-    "node": ">=17.0.0"
+    "node": ">=16.0.0"
   },
   "type": "module"
 }

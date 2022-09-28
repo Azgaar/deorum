@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button, { Label } from '@smui/button';
+  import structuredClone from '@ungap/structured-clone';
 
   import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';

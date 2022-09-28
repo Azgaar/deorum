@@ -1,4 +1,6 @@
 <script lang="ts">
+  import structuredClone from '@ungap/structured-clone';
+
   import Dialog, { Actions } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Checkbox from '@smui/checkbox';
