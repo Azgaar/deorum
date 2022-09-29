@@ -18,7 +18,7 @@
     if (!search) return new Map();
 
     const regex = new RegExp(search, 'i');
-    const filtered = entries?.filter(([, { name }]) => regex.test(name));
+    const filtered = entries?.filter(([, { name }]) => regex.test($t(`admin.originals.${name}`)));
     return new Map(filtered);
   };
 
