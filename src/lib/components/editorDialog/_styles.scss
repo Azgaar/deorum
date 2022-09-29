@@ -30,17 +30,20 @@
     grid-template-columns: repeat(3, 1fr);
     padding: 0 1rem;
     max-height: 80vh;
-    overflow: auto;
+    overflow-y: auto;
 
     .entry {
       display: flex;
       align-items: center;
-      padding-right: 12px;
       cursor: pointer;
+
+      overflow: hidden;
+      white-space: nowrap;
     
       span {
         pointer-events: none;
         user-select: none;
+        text-overflow: ellipsis;
       }
 
       .mdc-checkbox__ripple {

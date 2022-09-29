@@ -2,6 +2,7 @@
   import Button, { Label } from '@smui/button';
   import structuredClone from '@ungap/structured-clone';
 
+  import { t } from '$lib/locales/translations';
   import { getChanges } from '$lib/api/patchPortraits';
   import { colorsMap } from '$lib/config';
   import { toastError, toastSuccess } from '$lib/stores';
@@ -18,11 +19,11 @@
   import './_styles.scss';
 
   export let model: IEditorData;
-  $: current = structuredClone(model);
+  $: current = <IEditorData>structuredClone(model);
 
   export let originals: Map<string, { image: string; name: string }>;
-  export let tags: Map<string, string>;
-  export let styles: Map<string, string>;
+  export let tags: Map<string, { emoji: string; name: string }>;
+  export let styles: Map<string, { emoji: string; name: string }>;
 
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
@@ -60,20 +61,21 @@
     }
   };
 
-  const handleListEdit = (key: 'styles' | 'colors' | 'tags', map: Map<string, string>) => () => {
-    const title = 'Select ' + key;
-    const entries = Array.from(map.entries());
-    const selected = current[key] as string[];
+  const handleListEdit =
+    (key: 'styles' | 'colors' | 'tags', map: Map<string, { emoji: string; name: string }>) =>
+    () => {
+      const entries = Array.from(map.entries());
+      const selected = current[key] as string[];
 
-    const onSubmit = (newSelected: string[]) => {
-      if (current[key].join('') !== newSelected.join('')) {
-        current[key] = newSelected;
-        isChanged = true;
-      }
+      const onSubmit = (newSelected: string[]) => {
+        if (current[key].join('') !== newSelected.join('')) {
+          current[key] = newSelected;
+          isChanged = true;
+        }
+      };
+
+      openEditorDialog(key, entries, selected, onSubmit);
     };
-
-    openEditorDialog(title, entries, selected, onSubmit);
-  };
 
   const handleCancel = () => {
     client.cancelAllRequests();
@@ -112,47 +114,52 @@
       isLoading = false;
     }
   };
+
+  const getLabel = (key: string, data?: { emoji: string; name: string }) => {
+    const { emoji, name } = data || {};
+    return emoji + ' ' + $t(`admin.${key}.${name}`);
+  };
 </script>
 
 <section class="editor">
   <div>
-    Original: {@html originalName}
+    {$t('admin.editor.original')}: {$t(`admin.originals.${originalName}`)}
     <span class="edit" on:click={handleOriginalChange}>⚙️</span>
   </div>
 
   <div>
-    Quality:
+    {$t('admin.editor.quality')}:
     <QualityInput quality={current.quality} onChange={handleQualityChange} />
   </div>
 
   <div>
-    Colors:
+    {$t('admin.editor.colors')}:
     {#each current.colors as color (color)}
       <span class="chip">
         <span on:click={handleRemove('colors', color)} class="action">✕</span>
-        {@html colorsMap.get(color)}
+        {@html getLabel('colors', colorsMap.get(color))}
       </span>
     {/each}
     <span class="edit" on:click={handleListEdit('colors', colorsMap)}>⚙️</span>
   </div>
 
   <div>
-    Tags:
+    {$t('admin.editor.tags')}:
     {#each current.tags as tagId (tagId)}
       <span class="chip">
         <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
-        {tags.get(tagId)}
+        {getLabel('tags', tags.get(tagId))}
       </span>
     {/each}
     <span class="edit" on:click={handleListEdit('tags', tags)}>⚙️</span>
   </div>
 
   <div>
-    Styles:
+    {$t('admin.editor.styles')}:
     {#each current.styles as styleId (styleId)}
       <span class="chip">
         <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
-        {styles.get(styleId)}
+        {getLabel('styles', styles.get(styleId))}
       </span>
     {/each}
     <span class="edit" on:click={handleListEdit('styles', styles)}>⚙️</span>
@@ -161,10 +168,10 @@
 
 <footer class="editorFooter">
   <Button variant="raised" on:click={handleCancel}>
-    <Label>{isChanged ? 'Cancel' : 'Clear'}</Label>
+    <Label>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</Label>
   </Button>
 
   <Button variant="raised" on:click={handleChangesSave} disabled={!isChanged || isLoading}>
-    <Label>Save</Label>
+    <Label>{$t('common.controls.save')}</Label>
   </Button>
 </footer>

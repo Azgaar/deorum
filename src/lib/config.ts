@@ -16,6 +16,8 @@ const colors = [
 ];
 
 const getColorSpan = (color: string) =>
-  `<span style="font-size: smaller; vertical-align: text-bottom; color: ${color}">⬤</span> ${color}`;
+  `<span style="font-size: smaller; vertical-align: text-bottom; color: ${color}">⬤</span>`;
 
-export const colorsMap = new Map(colors.map((color) => [color, getColorSpan(color)]));
+export const colorsMap = new Map(
+  colors.map((color) => [color, { emoji: getColorSpan(color), name: color }])
+);

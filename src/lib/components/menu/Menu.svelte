@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from '$lib/locales/translations';
   import Button, { Label } from '@smui/button';
 
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
@@ -15,25 +16,23 @@
 <section class="menu">
   <header>
     <TextLogo size={64} />
-    <Subtitle size={18}>Admin Panel: Gallery</Subtitle>
+    <Subtitle size={18}>{$t('admin.menu.subtitle')}</Subtitle>
   </header>
 
   <main>
-    <div class="hint">
-      Select a portrait to edit it. Check the boxes to select multiple portraits
-    </div>
+    <div class="hint">{$t('admin.menu.hint')}</div>
 
     <Button variant="raised" on:click={openFilters}>
-      <Label>Filter images</Label>
+      <Label>{$t('admin.menu.filter')}</Label>
     </Button>
 
     <Button variant="raised" on:click={triggerUpload}>
-      <Label>Upload images</Label>
+      <Label>{$t('admin.menu.upload')}</Label>
     </Button>
   </main>
 
   <footer>
-    <span class="version">Azgaar, 2022, v{VERSION}</span>
+    <span class="version">Azgaar, 2022, {$t('admin.info.version')}{VERSION}</span>
   </footer>
 </section>
 

@@ -1,0 +1,18 @@
+{
+  "controls": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "add": "Add",
+    "edit": "Edit",
+    "search": "Search",
+    "clear": "Clear",
+    "back": "Back",
+    "next": "Next",
+    "apply": "Apply",
+    "select": "Select"
+  },
+  "info": {
+    "version": "v"
+  }
+}

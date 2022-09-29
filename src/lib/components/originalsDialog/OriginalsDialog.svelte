@@ -1,6 +1,8 @@
 <script lang="ts">
   import Dialog, { Actions } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
+
+  import { t } from '$lib/locales/translations';
   import './_styles.scss';
 
   export let path: string;
@@ -44,8 +46,8 @@
   aria-describedby="editor-dialog"
 >
   <div class="title">
-    <span>Select original</span>
-    <input type="search" bind:value={search} placeholder="Search" />
+    <span>{$t('common.controls.select')} {$t('admin.editor.original').toLowerCase()}</span>
+    <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
   </div>
 
   <form class="body" on:submit={handleSubmit}>
@@ -61,7 +63,7 @@
           />
           <label for={entryId}>
             <img src={`${path}/${entryId}/${image}?thumb=100x100`} alt={name} />
-            {name}
+            {$t(`admin.originals.${name}`)}
           </label>
         </div>
       {/each}
@@ -69,10 +71,10 @@
 
     <Actions>
       <Button style="color: white" on:click={handleCancel}>
-        <Label>Cancel</Label>
+        <Label>{$t('common.controls.cancel')}</Label>
       </Button>
       <Button type="submit" style="color: white">
-        <Label>Apply</Label>
+        <Label>{$t('common.controls.apply')}</Label>
       </Button>
     </Actions>
   </form>

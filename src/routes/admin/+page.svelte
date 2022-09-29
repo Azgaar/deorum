@@ -2,6 +2,7 @@
   import { fade } from 'svelte/transition';
   import Checkbox from '@smui/checkbox';
 
+  import { t } from '$lib/locales/translations';
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
@@ -30,8 +31,8 @@
     filter: string;
     sort: string;
     portraits: IPortrait[];
-    tags: Map<string, string>;
-    styles: Map<string, string>;
+    tags: Map<string, { emoji: string; name: string }>;
+    styles: Map<string, { emoji: string; name: string }>;
     originals: Map<string, { image: string; name: string }>;
     portraitsImagePath: string;
     originalsImagePath: string;
@@ -98,14 +99,14 @@
 
   let editorDialogData = {
     open: false,
-    title: '',
-    entries: [] as [string, string][],
+    key: '',
+    entries: [] as [string, { emoji: string; name: string }][],
     selected: [] as string[],
     onSubmit: (_: string[]) => {}
   };
 
-  const openEditorDialog: TOpenEditorDialog = (title, entries, selected, onSubmit) => {
-    editorDialogData = { open: true, title, entries, selected, onSubmit };
+  const openEditorDialog: TOpenEditorDialog = (key, entries, selected, onSubmit) => {
+    editorDialogData = { open: true, key, entries, selected, onSubmit };
   };
 
   let originalsDialogData = {
@@ -223,7 +224,7 @@
   {#if model}
     <div class="content" transition:fade={{ duration: 300 }}>
       <div>
-        {uploaded.length ? 'Uploaded' : 'Selected'}: {selected.length}
+        {uploaded.length ? $t('admin.editor.uploaded') : $t('admin.editor.selected')}: {selected.length}
       </div>
 
       <Editor

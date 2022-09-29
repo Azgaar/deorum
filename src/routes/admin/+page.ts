@@ -32,9 +32,9 @@ export async function load({ url }: { url: URL }) {
     const portraits = portraitsList.items;
     const hasMore = portraitsList.totalPages > 1;
 
-    const tags = new Map(tagsData.map((tag) => [tag.id, `${tag.emoji} ${tag.name}`]));
+    const tags = new Map(tagsData.map(({ id, emoji, name }) => [id, { emoji, name }]));
 
-    const styles = new Map(stylesData.map((style) => [style.id, `${style.emoji} ${style.name}`]));
+    const styles = new Map(stylesData.map(({ id, emoji, name }) => [id, { emoji, name }]));
 
     const originals = new Map(
       originalsData.map((original) => {

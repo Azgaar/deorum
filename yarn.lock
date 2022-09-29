@@ -1097,6 +1097,18 @@
     magic-string "^0.26.3"
     svelte-hmr "^0.15.0"
 
+"@sveltekit-i18n/base@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@sveltekit-i18n/base/-/base-1.2.1.tgz#5e97f1aaefb132858ecc7e5ad5efbb7849d6e224"
+  integrity sha512-F8gqG2+KAOeT0o2wYlUrW3TRCX7zaD7rBy/1CEVNw0irfw9TgFf/ODmhubkHHT3+6Zk+SMz8RNgeuffBfAMbJw==
+  optionalDependencies:
+    "@sveltekit-i18n/parser-default" "^1.x"
+
+"@sveltekit-i18n/parser-default@1.0.3", "@sveltekit-i18n/parser-default@^1.x":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@sveltekit-i18n/parser-default/-/parser-default-1.0.3.tgz#6ca5fee97d280e840c6222eb80e59da82a5d5524"
+  integrity sha512-HheveklTjp3hxpYQhoHfyA6B4bQaUeSV5MQf2usIv/58UF2jY/YqhCAWj9bDBjufbuZc5pSz4BXvdX3WVT+viA==
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
@@ -3870,6 +3882,14 @@ svelte@^3.50.1:
   version "3.50.1"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.50.1.tgz#b35fbc5e79ddd71e8bb27c3149ee6ff903841239"
   integrity sha512-bS4odcsdj5D5jEg6riZuMg5NKelzPtmsCbD9RG+8umU03TeNkdWnP6pqbCm0s8UQNBkqk29w/Bdubn3C+HWSwA==
+
+sveltekit-i18n@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/sveltekit-i18n/-/sveltekit-i18n-2.2.2.tgz#5916c81c27e1773049c1201d574b0af12ba4ca23"
+  integrity sha512-6eygICleGCSL7elY7A3trF8XUhV+mlW56ZSoD0UUKXlw+Y6u0MTTHDq48u1LyY73SfnlbPHXgTarhTjZ0BvUKA==
+  dependencies:
+    "@sveltekit-i18n/base" "1.2.1"
+    "@sveltekit-i18n/parser-default" "1.0.3"
 
 tar@^6.1.0, tar@^6.1.11, tar@^6.1.2:
   version "6.1.11"
