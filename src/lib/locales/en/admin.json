@@ -15,6 +15,7 @@
     "styles": "Styles"
   },
   "originals": {
+    "undefined": "undefined",
     "pixie": "pixie",
     "enchantress": "enchantress",
     "warrior": "warrior",
