@@ -1,5 +1,6 @@
 import client from '$lib/api/client';
 import { URL } from '$lib/config';
+import type { IFilters } from '$lib/filters.types';
 import { toastError } from '$lib/stores';
 import { normalizeError } from '$lib/utils/errors';
 
@@ -8,6 +9,15 @@ export const ssr = true;
 const PAGE_SIZE = 100;
 const DEFAULT_FILTER = 'active = true';
 const DEFAULT_SORT = '-created';
+
+// TODO: parse from search params
+const filters: IFilters = {
+  original: [],
+  quality: [],
+  colors: [],
+  tags: [],
+  styles: []
+};
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ url }: { url: URL }) {
@@ -49,7 +59,7 @@ export async function load({ url }: { url: URL }) {
     return {
       page,
       hasMore,
-      filter,
+      filters,
       sort,
       portraits,
       tags,
@@ -65,7 +75,7 @@ export async function load({ url }: { url: URL }) {
     return {
       page: 1,
       hasMore: false,
-      filter: DEFAULT_FILTER,
+      filters,
       sort: DEFAULT_SORT,
       portraits: [],
       tags: new Map(),

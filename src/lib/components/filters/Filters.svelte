@@ -1,127 +1,133 @@
 <script lang="ts">
-  import Dialog, { Actions } from '@smui/dialog';
+  import Dialog, { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
 
-  export let open: boolean;
-  export let filter: string;
-  export let sort: string;
-  export let onSubmit: (sort: string, filter: string) => void;
+  import { t } from '$lib/locales/translations';
+  import type { IFilters } from '$lib/filters.types';
+  import { parseFilters } from '$lib/utils/filters';
+  import QualityFilter from './QualityFilter.svelte';
+  import OriginalsFilter from './OriginalsFilter.svelte';
 
-  const handleCancel = () => {
-    open = false;
-  };
+  export let open: boolean;
+  export let filters: IFilters;
+  export let sort: string;
+  export let onSubmit: (filters: IFilters, sort: string) => void;
+
+  export let originalsImagePath: string;
+  export let originals: Map<string, { image: string; name: string }>;
+
+  let { original, quality, colors, tags, styles } = filters;
+
+  let showOriginalsDialog = false;
 
   const handleApply = (event: SubmitEvent) => {
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
-    const newFilter = formData.get('filter') as string;
     const newSort = formData.get('sort') as string;
+    const newFilters = { original, quality, colors, tags, styles };
 
-    if (newFilter !== filter || newSort !== sort) {
-      onSubmit(newFilter, newSort);
-    }
+    onSubmit(newFilters, newSort);
   };
 </script>
 
 <Dialog class="filters" bind:open aria-labelledby="filters" aria-describedby="filters">
-  <div class="title">Filter images</div>
+  <Title>{$t('admin.menu.filter')}</Title>
 
   <form class="body" on:submit={handleApply}>
     <div class="content">
-      <div class="inputLine">
-        <span>Filter string:</span>
-        <input name="filter" type="text" value={filter} />
-      </div>
-      <div class="description">
-        Filter the returned records. The syntax follows the format: FIELD OPERATOR VALUE. Operators
-        are <code>=</code> (equals), <code>!=</code> (not equals),
-        <code>&gt;</code> (greater than), <code>&lt;</code> (less than), <code>&lt;=</code> (greater
-        than or equal to),
-        <code>&lt;=</code> (less than or equal to), <code>&&</code> (and), <code>||</code> (or),
-        <code>~</code> (contains), or <code>!~</code> (not contains). Example:
-        <code>original.name='joy' && quality&gt;7</code>
+      <div class="item" class:inactive={!quality.length}>
+        <span>{$t('admin.editor.quality')}:</span>
+        <QualityFilter bind:quality />
       </div>
 
-      <div class="inputLine">
-        <span>Sort string:</span>
-        <input name="sort" type="text" value={sort} />
-      </div>
-      <div class="description">
-        Specify the records order. Add <code>-</code> / <code>+</code> in front of the attribute for
-        DESC / ASC order. Example: <code>-created,id</code>
+      <div class="item" class:inactive={!original.length}>
+        <span>{$t('admin.editor.original')}:</span>
+        {#if original.length}
+          <div class="originalsGallery">
+            {#each original as originalId (originalId)}
+              <img
+                alt={originalId}
+                src={`${originalsImagePath}/${originalId}/${
+                  originals.get(originalId)?.image
+                }?thumb=100x100`}
+              />
+            {/each}
+          </div>
+        {/if}
+        <span class="edit" on:click={() => (showOriginalsDialog = true)}>⚙️</span>
       </div>
 
-      <div>
-        <span>Fields:</span>
+      <div class="item" class:inactive={!colors.length}>
+        <span>{$t('admin.editor.colors')}:</span>
+        <span class="edit">⚙️</span>
       </div>
-      <div class="description">
-        Available fields are <code>active</code> (true or false), <code>original.name</code>
-        (string),
-        <code>quality</code> (number), <code>tags.name</code>, <code>styles.name</code> and
-        <code>colors</code> (string, use <code>~</code> contains or <code>!~</code> not contains
-        operators),
-        <code>created</code> and <code>updated</code> (date)
+
+      <div class="item" class:inactive={!tags.length}>
+        <span>{$t('admin.editor.tags')}:</span>
+        <span class="edit">⚙️</span>
+      </div>
+
+      <div class="item" class:inactive={!styles.length}>
+        <span>{$t('admin.editor.styles')}:</span>
+        <span class="edit">⚙️</span>
       </div>
     </div>
 
     <Actions>
-      <Button type="button" style="color: white" on:click={handleCancel}>
-        <Label>Cancel</Label>
+      <Button type="button" style="color: white" on:click={() => (open = false)}>
+        <Label>{$t('common.controls.cancel')}</Label>
       </Button>
       <Button type="submit" style="color: white">
-        <Label>Apply</Label>
+        <Label>{$t('common.controls.apply')}</Label>
       </Button>
     </Actions>
   </form>
 </Dialog>
 
-<style lang="scss">
-  div.title {
-    display: flex;
-    align-items: center;
-    margin-left: 31px;
-    height: 48px;
-    font-size: large;
-  }
+<OriginalsFilter
+  bind:open={showOriginalsDialog}
+  bind:original
+  path={originalsImagePath}
+  entries={Array.from(originals.entries())}
+/>
 
+<style lang="scss">
   div.content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 0 2rem;
 
-    div.description {
-      font-size: 0.9rem;
-      padding: 0.5rem;
-      background-color: #26262b;
-      border-radius: 4px;
-      line-height: 1.5;
-      margin-bottom: 1rem;
+    .item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
 
-      code {
-        background-color: #1f1f1f;
-        padding: 1px 5px;
-        border-radius: 4px;
+      span:first-child {
+        flex: 1;
+      }
+
+      .originalsGallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 2px;
+
+        img {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
       }
     }
 
-    div.inputLine {
-      display: grid;
-      grid-template-columns: 1fr 4fr;
-      gap: 0.3rem;
-      align-items: center;
+    .item.inactive {
+      color: #aaa;
     }
 
-    input {
-      outline: none;
-      height: 26px;
-      border: none;
-      border-bottom: 1px solid black;
-      background: #26262b;
-      color: $text;
-      border-radius: 2px;
-      text-indent: 4px;
+    .edit {
+      cursor: pointer;
     }
   }
 </style>

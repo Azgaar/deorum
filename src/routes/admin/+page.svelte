@@ -24,11 +24,13 @@
     TPostHandler
   } from '$lib/editor.types';
   import './_styles.scss';
+  import type { IFilters } from '$lib/filters.types';
+  import { parseFilters } from '$lib/utils/filters';
 
   export let data: {
     page: number;
     hasMore: boolean;
-    filter: string;
+    filters: IFilters;
     sort: string;
     portraits: IPortrait[];
     tags: Map<string, { emoji: string; name: string }>;
@@ -42,7 +44,7 @@
   const { originals, tags, styles, portraitsImagePath, originalsImagePath } = data;
 
   // mutable
-  let { page, hasMore, filter, sort } = data;
+  let { page, hasMore, filters, sort } = data;
 
   // dynamic data
   $: portraits = data.portraits || [];
@@ -121,20 +123,25 @@
     originalsDialogData = { open: true, entries, selected, onSubmit };
   };
 
-  let filtersData = { open: false, filter, sort, onSubmit: (_: string, __: string) => {} };
+  let filtersData = {
+    open: false,
+    filters,
+    sort,
+    onSubmit: (_: IFilters, __: string) => {},
+    originalsImagePath,
+    originals
+  };
 
   const openFilters = () => {
-    const onSubmit = async (newFilter: string, newSort: string) => {
+    const onSubmit = async (newFilter: IFilters, newSort: string) => {
       try {
         filtersData = { ...filtersData, open: false };
-        const { items, totalPages } = await getPortraits({
-          page: 1,
-          filter: newFilter,
-          sort: newSort
-        });
+
+        const filter = parseFilters(newFilter);
+        const { items, totalPages } = await getPortraits({ page: 1, filter, sort: newSort });
 
         sort = newSort;
-        filter = newFilter;
+        filters = newFilter;
         page = 1;
         hasMore = page < totalPages;
         data.portraits = items;
@@ -144,7 +151,7 @@
       }
     };
 
-    filtersData = { open: true, filter, sort, onSubmit };
+    filtersData = { ...filtersData, open: true, filters, sort, onSubmit };
   };
 
   const createPatchHandler = (): TPatchHandler => async (changes) => {
@@ -170,6 +177,7 @@
 
   const handleLoadMore = async () => {
     try {
+      const filter = parseFilters(filters);
       const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort });
 
       page += 1;
@@ -236,7 +244,7 @@
         {openOriginalsDialog}
         {handleClearSelection}
         isUploading={Boolean(uploaded.length)}
-        handlePatch={createPatchHandler(selected)}
+        handlePatch={createPatchHandler()}
         handlePost={createPostHandler()}
       />
     </div>

@@ -9,11 +9,13 @@
     "selected": "Selected",
     "uploaded": "Uploaded",
     "original": "Original",
+    "originals": "Originals",
     "quality": "Quality",
     "colors": "Colors",
     "tags": "Tags",
     "styles": "Styles"
   },
+  "filters": {},
   "originals": {
     "undefined": "undefined",
     "pixie": "pixie",

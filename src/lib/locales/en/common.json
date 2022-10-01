@@ -10,7 +10,8 @@
     "back": "Back",
     "next": "Next",
     "apply": "Apply",
-    "select": "Select"
+    "select": "Select",
+    "close": "Close"
   },
   "info": {
     "version": "v"

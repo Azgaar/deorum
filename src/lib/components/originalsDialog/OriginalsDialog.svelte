@@ -3,7 +3,6 @@
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
-  import './_styles.scss';
 
   export let path: string;
   export let open: boolean;
@@ -39,12 +38,7 @@
   };
 </script>
 
-<Dialog
-  class="originsDialog"
-  bind:open
-  aria-labelledby="editor-dialog"
-  aria-describedby="editor-dialog"
->
+<Dialog bind:open aria-labelledby="editor-dialog" aria-describedby="editor-dialog">
   <div class="title">
     <span>{$t('common.controls.select')} {$t('admin.editor.original').toLowerCase()}</span>
     <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
@@ -79,3 +73,76 @@
     </Actions>
   </form>
 </Dialog>
+
+<style lang="scss">
+  @use 'sass:color';
+
+  div.title {
+    display: flex;
+    height: 40px;
+    font-size: large;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      padding-left: 10px;
+    }
+
+    input {
+      outline: none;
+      height: 26px;
+      border: none;
+      border-bottom: 1px solid black;
+      background: #26262b;
+      color: white;
+      border-radius: 2px;
+      text-indent: 4px;
+    }
+  }
+
+  div.content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px 8px;
+    padding: 0 1rem 0 1.6rem;
+    max-height: 80vh;
+    overflow: auto;
+
+    > div {
+      input[type='radio'] {
+        display: none;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+
+        span {
+          pointer-events: none;
+          user-select: none;
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    > div:has(input[type='radio']:checked) {
+      background-color: color.adjust($surface, $lightness: +15%);
+    }
+
+    > div:hover {
+      background-color: color.adjust($surface, $lightness: +10%);
+    }
+
+    > div.found {
+      background-color: color.adjust($surface, $lightness: +5%);
+    }
+  }
+</style>
