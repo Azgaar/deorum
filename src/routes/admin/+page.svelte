@@ -147,17 +147,17 @@
     filtersData = { open: true, filter, sort, onSubmit };
   };
 
-  const createPatchHandler =
-    (selected: string[]): TPatchHandler =>
-    async (changes) => {
-      const results = await patchPortraits(selected, portraitsMap, changes);
-      const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
+  const createPatchHandler = (): TPatchHandler => async (changes) => {
+    const results = await patchPortraits(selected, portraitsMap, changes);
+    const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
 
-      data.portraits = data.portraits.map((portrait) => {
-        const updated = resultsMap.get(portrait.id);
-        return updated || portrait;
-      });
-    };
+    data.portraits = data.portraits.map((portrait) => {
+      const updated = resultsMap.get(portrait.id);
+      return updated || portrait;
+    });
+
+    selected = [];
+  };
 
   const createPostHandler = (): TPostHandler => async (editorData: IEditorData) => {
     const results = await postPortraits(uploaded, editorData);
