@@ -57,7 +57,12 @@
     "jovial": "jovial",
     "multifaced": "multifaced",
     "fire": "fire",
-    "flutist": "flutist"
+    "flutist": "flutist",
+    "berserker": "berserker",
+    "demon": "demon",
+    "gladiator": "gladiator",
+    "king": "king",
+    "sewer": "sewer"
   },
   "colors": {
     "red": "red",

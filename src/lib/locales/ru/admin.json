@@ -57,7 +57,12 @@
     "jovial": "весельчак",
     "multifaced": "многоликий",
     "fire": "огонь",
-    "flutist": "флейтист"
+    "flutist": "флейтист",
+    "berserker": "берсерк",
+    "demon": "демон",
+    "gladiator": "гладиатор",
+    "king": "король",
+    "sewer": "швец"
   },
   "colors": {
     "red": "красный",
