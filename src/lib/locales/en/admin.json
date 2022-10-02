@@ -64,7 +64,13 @@
     "demon": "demon",
     "gladiator": "gladiator",
     "king": "king",
-    "sewer": "sewer"
+    "sewer": "sewer",
+    "priest": "priest",
+    "prince": "prince",
+    "arthur": "arthur",
+    "crowned": "crowned",
+    "heir": "heir",
+    "cybord": "cybord"
   },
   "colors": {
     "red": "red",
