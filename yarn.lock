@@ -554,6 +554,22 @@
   dependencies:
     "@material/elevation" "^13.0.0"
 
+"@material/tooltip@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@material/tooltip/-/tooltip-13.0.0.tgz#2a4360b1d9b07b7573d69e2a85d5522dec00b97d"
+  integrity sha512-/QinwEM0sYtRUthgOy7R+V4iwLMZ8SCd8A3PyGyTr27BUGWykwAUFdXyzT4rxLhDNcnDOYH14N+Z3Bom+UwO9Q==
+  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/dom" "^13.0.0"
+    "@material/elevation" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/shape" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "@material/typography" "^13.0.0"
+    tslib "^2.1.0"
+
 "@material/touch-target@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@material/touch-target/-/touch-target-13.0.0.tgz#330d0b03988f65916cce3a97f38c5b9d74104a27"
@@ -840,6 +856,15 @@
     "@tsconfig/svelte" "^3.0.0"
     svelte2tsx "^0.5.12"
 
+"@smui/common@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@smui/common/-/common-6.1.4.tgz#2e15eda0c5907d1192806311123978ad466d3f66"
+  integrity sha512-l6c4gJH+qP9HdM9RhTP07Gl8eewVbYWT7QfVSAF+wwji32ndjgZLlP5P2Jl/GmsQOOlDoNB3VPy/o4Z/kab31g==
+  dependencies:
+    "@material/dom" "^13.0.0"
+    "@tsconfig/svelte" "^3.0.0"
+    svelte2tsx "^0.5.12"
+
 "@smui/data-table@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@smui/data-table/-/data-table-6.1.0.tgz#5a4957848dbc0140088f30f9dc6f2cb547dff169"
@@ -1029,6 +1054,15 @@
     "@smui/line-ripple" "^6.1.0"
     "@smui/notched-outline" "^6.1.0"
     "@smui/ripple" "^6.1.0"
+    svelte2tsx "^0.5.12"
+
+"@smui/tooltip@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@smui/tooltip/-/tooltip-6.1.4.tgz#bcf343a6f75bb43b6fe25afd732545aaf6e46ab1"
+  integrity sha512-KBSoaRJ+9GX5HCxRt66zUOJ4++w9P9LPbBjOXIfyAvV3Qfm4VOBAm5mD2GWi1fJw96gci+lnTFq4pCMMN9L/2A==
+  dependencies:
+    "@material/tooltip" "^13.0.0"
+    "@smui/common" "^6.1.4"
     svelte2tsx "^0.5.12"
 
 "@sveltejs/adapter-auto@next":

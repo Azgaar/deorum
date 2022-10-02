@@ -25,6 +25,7 @@
     "@smui/slider": "^6.1.0",
     "@smui/snackbar": "^6.1.0",
     "@smui/textfield": "^6.1.0",
+    "@smui/tooltip": "^6.1.4",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^5.27.0",

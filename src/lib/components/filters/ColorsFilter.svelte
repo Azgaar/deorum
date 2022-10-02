@@ -8,12 +8,15 @@
   export let open: boolean;
   export let colors: string[];
 
+  let current = [...colors];
+
   const handleSelect = (color: string) => () => {
-    colors = colors.includes(color) ? colors.filter((id) => id !== color) : [...colors, color];
+    current = current.includes(color) ? current.filter((id) => id !== color) : [...current, color];
   };
 
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
+    colors = [...current];
     open = false;
   };
 </script>
@@ -25,7 +28,7 @@
     <div class="content">
       {#each allColors as color (color)}
         <div
-          class:selected={colors.includes(color)}
+          class:selected={current.includes(color)}
           on:click={handleSelect(color)}
           style="background-color: {color};"
         >

@@ -129,7 +129,9 @@
     sort,
     onSubmit: (_: IFilters, __: string) => {},
     originalsImagePath,
-    originals
+    originalsMap: originals,
+    tagsMap: tags,
+    stylesMap: styles
   };
 
   const openFilters = () => {
