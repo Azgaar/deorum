@@ -22,7 +22,7 @@
   };
 </script>
 
-<Dialog bind:open aria-labelledby="editor-dialog" aria-describedby="editor-dialog">
+<Dialog bind:open aria-labelledby="originals-filter" aria-describedby="originals-filter">
   <Title>{$t('common.controls.select')} {$t('admin.editor.originals').toLowerCase()}</Title>
 
   <form class="body" on:submit={handleSubmit}>

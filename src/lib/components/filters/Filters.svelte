@@ -4,9 +4,9 @@
 
   import { t } from '$lib/locales/translations';
   import type { IFilters } from '$lib/filters.types';
-  import { parseFilters } from '$lib/utils/filters';
   import QualityFilter from './QualityFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
+  import ColorsFilter from './ColorsFilter.svelte';
 
   export let open: boolean;
   export let filters: IFilters;
@@ -19,6 +19,7 @@
   let { original, quality, colors, tags, styles } = filters;
 
   let showOriginalsDialog = false;
+  let showColorsDialog = false;
 
   const handleApply = (event: SubmitEvent) => {
     event.preventDefault();
@@ -44,7 +45,7 @@
       <div class="item" class:inactive={!original.length}>
         <span>{$t('admin.editor.original')}:</span>
         {#if original.length}
-          <div class="originalsGallery">
+          <div class="selected">
             {#each original as originalId (originalId)}
               <img
                 alt={originalId}
@@ -60,7 +61,14 @@
 
       <div class="item" class:inactive={!colors.length}>
         <span>{$t('admin.editor.colors')}:</span>
-        <span class="edit">⚙️</span>
+        {#if colors.length}
+          <div class="selected">
+            {#each colors as color (color)}
+              <div style="background-color: {color};" />
+            {/each}
+          </div>
+        {/if}
+        <span class="edit" on:click={() => (showColorsDialog = true)}>⚙️</span>
       </div>
 
       <div class="item" class:inactive={!tags.length}>
@@ -92,6 +100,8 @@
   entries={Array.from(originals.entries())}
 />
 
+<ColorsFilter bind:open={showColorsDialog} bind:colors />
+
 <style lang="scss">
   div.content {
     display: flex;
@@ -109,12 +119,13 @@
         flex: 1;
       }
 
-      .originalsGallery {
+      .selected {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 2px;
+        gap: 0 3px;
 
-        img {
+        img,
+        div {
           width: 20px;
           height: 20px;
           border-radius: 50%;

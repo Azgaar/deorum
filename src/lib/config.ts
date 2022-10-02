@@ -1,6 +1,6 @@
 export const URL = 'https://deorum.fly.dev';
 
-const colors = [
+export const colors = [
   'red',
   'orange',
   'yellow',
