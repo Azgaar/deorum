@@ -1,6 +1,6 @@
 import client from '$lib/api/client';
 import { URL } from '$lib/config';
-import type { IFilters } from '$lib/filters.types';
+import type { IFilters, ISorting } from '$lib/filters.types';
 import { toastError } from '$lib/stores';
 import { normalizeError } from '$lib/utils/errors';
 
@@ -18,6 +18,9 @@ const filters: IFilters = {
   tags: [],
   styles: []
 };
+
+// TODO: parse from search params
+const sorting: ISorting = { key: 'created', order: 'desc' };
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ url }: { url: URL }) {
@@ -60,7 +63,7 @@ export async function load({ url }: { url: URL }) {
       page,
       hasMore,
       filters,
-      sort,
+      sorting,
       portraits,
       tags,
       styles,
@@ -76,7 +79,7 @@ export async function load({ url }: { url: URL }) {
       page: 1,
       hasMore: false,
       filters,
-      sort: DEFAULT_SORT,
+      sorting,
       portraits: [],
       tags: new Map(),
       styles: new Map(),

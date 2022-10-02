@@ -24,14 +24,14 @@
     TPostHandler
   } from '$lib/editor.types';
   import './_styles.scss';
-  import type { IFilters } from '$lib/filters.types';
-  import { parseFilters } from '$lib/utils/filters';
+  import type { IFilters, ISorting } from '$lib/filters.types';
+  import { parseFilters, parseSorting } from '$lib/utils/filters';
 
   export let data: {
     page: number;
     hasMore: boolean;
     filters: IFilters;
-    sort: string;
+    sorting: ISorting;
     portraits: IPortrait[];
     tags: Map<string, { emoji: string; name: string }>;
     styles: Map<string, { emoji: string; name: string }>;
@@ -44,7 +44,7 @@
   const { originals, tags, styles, portraitsImagePath, originalsImagePath } = data;
 
   // mutable
-  let { page, hasMore, filters, sort } = data;
+  let { page, hasMore, filters, sorting } = data;
 
   // dynamic data
   $: portraits = data.portraits || [];
@@ -126,8 +126,8 @@
   let filtersData = {
     open: false,
     filters,
-    sort,
-    onSubmit: (_: IFilters, __: string) => {},
+    sorting,
+    onSubmit: (_: IFilters, __: ISorting) => {},
     originalsImagePath,
     originalsMap: originals,
     tagsMap: tags,
@@ -135,14 +135,18 @@
   };
 
   const openFilters = () => {
-    const onSubmit = async (newFilter: IFilters, newSort: string) => {
+    const onSubmit = async (newFilter: IFilters, newSort: ISorting) => {
       try {
         filtersData = { ...filtersData, open: false };
 
         const filter = parseFilters(newFilter);
-        const { items, totalPages } = await getPortraits({ page: 1, filter, sort: newSort });
+        const sort = parseSorting(newSort);
+        const { items, totalPages } = await getPortraits({ page: 1, filter, sort });
 
-        sort = newSort;
+        const queryString = `/admin?filter=${filter}&sort=${sort}`;
+        window.history.pushState({}, '', queryString);
+
+        sorting = newSort;
         filters = newFilter;
         page = 1;
         hasMore = page < totalPages;
@@ -153,7 +157,7 @@
       }
     };
 
-    filtersData = { ...filtersData, open: true, filters, sort, onSubmit };
+    filtersData = { ...filtersData, open: true, filters, sorting, onSubmit };
   };
 
   const createPatchHandler = (): TPatchHandler => async (changes) => {
@@ -180,6 +184,7 @@
   const handleLoadMore = async () => {
     try {
       const filter = parseFilters(filters);
+      const sort = parseSorting(sorting);
       const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort });
 
       page += 1;

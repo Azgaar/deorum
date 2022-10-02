@@ -15,7 +15,11 @@
     "tags": "Tags",
     "styles": "Styles"
   },
-  "filters": {},
+  "sorting": {
+    "asc": "Sort ascending",
+    "desc": "Sort descending",
+    "no": "Don't sort"
+  },
   "originals": {
     "undefined": "undefined",
     "pixie": "pixie",

@@ -1,11 +1,11 @@
-import type { IFilters } from '$lib/filters.types';
+import type { IFilters, ISorting } from '$lib/filters.types';
 
 const operatorsMap: { [key in keyof IFilters]: '=' | '~' } = {
   original: '=',
   quality: '=',
   colors: '~',
-  tags: '=',
-  styles: '='
+  tags: '~',
+  styles: '~'
 };
 
 export function parseFilters(filters: IFilters) {
@@ -28,4 +28,9 @@ export function parseFilters(filters: IFilters) {
 
 function parse(value: string | number | boolean) {
   return typeof value === 'string' ? `"${value}"` : value;
+}
+
+export function parseSorting(sorting: ISorting) {
+  const base = sorting.order === 'no' ? '' : `${sorting.order === 'desc' ? '-' : ''}${sorting.key}`;
+  return `${base},-created`;
 }

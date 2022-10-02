@@ -5,3 +5,8 @@ export interface IFilters {
   tags: string[];
   styles: string[];
 }
+
+export interface ISorting {
+  key: keyof IFilters | 'created';
+  order: 'asc' | 'desc' | 'no';
+}

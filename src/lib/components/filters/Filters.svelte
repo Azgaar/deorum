@@ -4,16 +4,17 @@
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
-  import type { IFilters } from '$lib/filters.types';
+  import type { IFilters, ISorting } from '$lib/filters.types';
   import QualityFilter from './QualityFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
   import ColorsFilter from './ColorsFilter.svelte';
   import EditorDialog from '../editorDialog/EditorDialog.svelte';
+  import Sorting from './Sorting.svelte';
 
   export let open: boolean;
   export let filters: IFilters;
-  export let sort: string;
-  export let onSubmit: (filters: IFilters, sort: string) => void;
+  export let sorting: ISorting;
+  export let onSubmit: (filters: IFilters, sorting: ISorting) => void;
 
   export let originalsImagePath: string;
   export let originalsMap: Map<string, { image: string; name: string }>;
@@ -49,11 +50,7 @@
 
   const handleApply = (event: SubmitEvent) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target as HTMLFormElement);
-    const newSort = formData.get('sort') as string;
-
-    onSubmit(filters, newSort);
+    onSubmit(filters, sorting);
   };
 </script>
 
@@ -63,11 +60,13 @@
   <form class="body" on:submit={handleApply}>
     <div class="content">
       <div class="item" class:inactive={!filters.quality.length}>
+        <Sorting key="quality" bind:sorting />
         <span>{$t('admin.editor.quality')}:</span>
         <QualityFilter bind:quality={filters.quality} />
       </div>
 
       <div class="item" class:inactive={!filters.original.length}>
+        <Sorting key="original" bind:sorting />
         <span>{$t('admin.editor.original')}:</span>
         {#if filters.original.length}
           <div class="selected">
@@ -88,6 +87,7 @@
       </div>
 
       <div class="item" class:inactive={!filters.colors.length}>
+        <Sorting key="colors" bind:sorting />
         <span>{$t('admin.editor.colors')}:</span>
         {#if filters.colors.length}
           <div class="selected">
@@ -103,6 +103,7 @@
       </div>
 
       <div class="item" class:inactive={!filters.tags.length}>
+        <Sorting key="tags" bind:sorting />
         <span>{$t('admin.editor.tags')}:</span>
         {#if filters.tags.length}
           <div class="selected">
@@ -118,6 +119,7 @@
       </div>
 
       <div class="item" class:inactive={!filters.styles.length}>
+        <Sorting key="styles" bind:sorting />
         <span>{$t('admin.editor.styles')}:</span>
         {#if filters.styles.length}
           <div class="selected">
@@ -186,7 +188,7 @@
       }
     }
 
-    .item.inactive {
+    .item.inactive > span {
       color: #aaa;
     }
 
