@@ -1,9 +1,7 @@
 <script lang="ts">
-  export let quality: number[];
+  import { qualities } from '$lib/config';
 
-  const values = Array(11)
-    .fill(0)
-    .map((_, i) => i);
+  export let quality: number[];
 
   const handleChange = (value: number) => () => {
     quality = quality.includes(value) ? quality.filter((v) => v !== value) : [...quality, value];
@@ -11,7 +9,7 @@
 </script>
 
 <div class="quality">
-  {#each values as value}
+  {#each qualities as value}
     <button type="button" class:current={quality.includes(value)} on:click={handleChange(value)}>
       <span>{value}</span>
     </button>
