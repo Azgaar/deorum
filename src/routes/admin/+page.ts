@@ -26,7 +26,6 @@ const sorting: ISorting = { key: 'created', order: 'desc' };
 export async function load({ url }: { url: URL }) {
   try {
     const page = 1;
-
     const filter = url.searchParams.get('filter') || DEFAULT_FILTER;
     const sort = url.searchParams.get('sort') || DEFAULT_SORT;
 

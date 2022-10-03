@@ -32,5 +32,6 @@ function parse(value: string | number | boolean) {
 
 export function parseSorting(sorting: ISorting) {
   const base = sorting.order === 'no' ? '' : `${sorting.order === 'desc' ? '-' : ''}${sorting.key}`;
-  return `${base},-created`;
+  const created = sorting.key.includes('created') ? '' : ',-created';
+  return `${base}${created}`;
 }
