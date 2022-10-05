@@ -20,12 +20,11 @@
 <style lang="scss">
   .quality {
     display: flex;
-    margin-left: 2px;
-    height: 22px;
+    justify-content: space-evenly;
+    height: 23px;
 
     button {
-      width: 20px;
-
+      width: 100%;
       cursor: pointer;
       color: $text;
       background-color: rgba($surface, 0.3);
@@ -47,11 +46,11 @@
     }
 
     .active {
-      background-color: rgba($surface, 0.35);
+      background-color: rgba($surface, 0.4);
     }
 
     button:hover {
-      background-color: rgba($surface, 0.4);
+      background-color: rgba($surface, 0.5);
 
       span:not(.current) {
         opacity: 0.5;

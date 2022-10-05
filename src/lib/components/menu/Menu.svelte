@@ -44,6 +44,7 @@
     padding: 8px;
     text-align: center;
     height: 100%;
+    max-width: 400px;
 
     @media (max-width: 599px) {
       height: auto;

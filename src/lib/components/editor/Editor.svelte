@@ -7,6 +7,11 @@
   import { colorsMap } from '$lib/config';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
+  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
+  import client from '$lib/api/client';
+
+  import EditButton from './EditButton.svelte';
+
   import type {
     IEditorData,
     TOpenEditorDialog,
@@ -14,9 +19,6 @@
     TPatchHandler,
     TPostHandler
   } from '$lib/editor.types';
-  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
-  import client from '$lib/api/client';
-  import './_styles.scss';
 
   export let model: IEditorData;
   $: current = <IEditorData>structuredClone(model);
@@ -122,56 +124,144 @@
 </script>
 
 <section class="editor">
-  <div>
-    {$t('admin.editor.original')}: {$t(`admin.originals.${originalName}`)}
-    <span class="edit" on:click={handleOriginalChange}>⚙️</span>
+  <div class="element">
+    <div>{$t('admin.editor.original')}:</div>
+    <div class="chipsContainer">
+      {$t(`admin.originals.${originalName}`)}
+      <EditButton onClick={handleOriginalChange} />
+    </div>
   </div>
 
-  <div>
-    {$t('admin.editor.quality')}:
+  <div class="element">
+    <div>{$t('admin.editor.quality')}:</div>
     <QualityInput quality={current.quality} onChange={handleQualityChange} />
   </div>
 
-  <div>
-    {$t('admin.editor.colors')}:
-    {#each current.colors as color (color)}
-      <span class="chip">
-        <span on:click={handleRemove('colors', color)} class="action">✕</span>
-        {@html getLabel('colors', colorsMap.get(color))}
-      </span>
-    {/each}
-    <span class="edit" on:click={handleListEdit('colors', colorsMap)}>⚙️</span>
+  <div class="element">
+    <div>{$t('admin.editor.colors')}:</div>
+    <div class="chipsContainer">
+      {#each current.colors as color (color)}
+        <span class="chip">
+          <span on:click={handleRemove('colors', color)} class="action">✕</span>
+          {@html getLabel('colors', colorsMap.get(color))}
+        </span>
+      {/each}
+      <EditButton onClick={handleListEdit('colors', colorsMap)} />
+    </div>
   </div>
 
-  <div>
-    {$t('admin.editor.tags')}:
-    {#each current.tags as tagId (tagId)}
-      <span class="chip">
-        <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
-        {getLabel('tags', tags.get(tagId))}
-      </span>
-    {/each}
-    <span class="edit" on:click={handleListEdit('tags', tags)}>⚙️</span>
+  <div class="element">
+    <div>{$t('admin.editor.tags')}:</div>
+    <div class="chipsContainer">
+      {#each current.tags as tagId (tagId)}
+        <span class="chip">
+          <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
+          {getLabel('tags', tags.get(tagId))}
+        </span>
+      {/each}
+      <EditButton onClick={handleListEdit('tags', tags)} />
+    </div>
   </div>
 
-  <div>
-    {$t('admin.editor.styles')}:
-    {#each current.styles as styleId (styleId)}
-      <span class="chip">
-        <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
-        {getLabel('styles', styles.get(styleId))}
-      </span>
-    {/each}
-    <span class="edit" on:click={handleListEdit('styles', styles)}>⚙️</span>
+  <div class="element">
+    <div>{$t('admin.editor.styles')}:</div>
+    <div class="chipsContainer">
+      {#each current.styles as styleId (styleId)}
+        <span class="chip">
+          <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
+          {getLabel('styles', styles.get(styleId))}
+        </span>
+      {/each}
+      <EditButton onClick={handleListEdit('styles', styles)} />
+    </div>
   </div>
 </section>
 
 <footer class="editorFooter">
-  <Button variant="raised" on:click={handleCancel}>
+  <Button variant="raised" on:click={handleCancel} style="width: 50%;">
     <Label>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</Label>
   </Button>
 
-  <Button variant="raised" on:click={handleChangesSave} disabled={!isChanged || isLoading}>
+  <Button
+    variant="raised"
+    on:click={handleChangesSave}
+    disabled={!isChanged || isLoading}
+    style="width: 50%;"
+  >
     <Label>{$t('common.controls.save')}</Label>
   </Button>
 </footer>
+
+<style lang="scss">
+  section.editor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    div.element {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 4px;
+      align-items: center;
+
+      div.chipsContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px 4px;
+      }
+
+      span.chip {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        padding: 0.1em 0.5em 0.1em 0.2em;
+        background: rgba($surface, 0.35);
+        border-radius: 16px;
+        transition: all 0.2s ease-in-out;
+
+        span.action {
+          position: absolute;
+          padding: 0em 0.2em;
+          margin: 1px 0 0 -1px;
+          opacity: 0;
+          border-radius: 16px;
+          background-color: rgba($surface, 0.5);
+        }
+      }
+
+      span.chip:hover {
+        background: rgba($surface, 0.4);
+
+        span.action {
+          opacity: 1;
+        }
+
+        span.action:hover {
+          background-color: rgba($surface, 0.6);
+        }
+      }
+
+      span.chip:active {
+        background: rgba($surface, 0.4);
+      }
+
+      span.action {
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+    }
+
+    div.element:has(.chipsContainer) {
+      align-items: baseline;
+    }
+  }
+
+  .editorFooter {
+    display: flex;
+    flex-grow: 1;
+    align-items: flex-end;
+    gap: 16px;
+    justify-content: space-around;
+  }
+</style>

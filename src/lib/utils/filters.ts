@@ -15,11 +15,9 @@ export function parseFilters(filters: IFilters) {
     const entity = key as keyof IFilters;
     const values = filters[entity];
     if (values.length) {
-      const base = values
-        .map((value) => `${key}${operatorsMap[entity]}${parse(value)}`)
-        .join(' || ');
+      const base = values.map((value) => `${key}${operatorsMap[entity]}${parse(value)}`).join('||');
 
-      query += `${query ? ' && ' : ''}(${base})`;
+      query += `${query ? '&&' : ''}(${base})`;
     }
   }
 

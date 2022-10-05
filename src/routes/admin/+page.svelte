@@ -23,7 +23,6 @@
     TPatchHandler,
     TPostHandler
   } from '$lib/editor.types';
-  import './_styles.scss';
   import type { IFilters, ISorting } from '$lib/filters.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
 
@@ -203,28 +202,31 @@
 </script>
 
 <section class="gallery">
-  {#each [...uploaded, ...portraits] as item (item.id)}
-    <div class="imageContainer" on:click={handleClick(item.id)}>
-      <img
-        loading="lazy"
-        alt={item.id}
-        src={getSource(item)}
-        class:selected={selected.includes(item.id)}
-      />
+  <div class="grid">
+    {#each [...uploaded, ...portraits] as item (item.id)}
+      <div class="imageContainer" on:click={handleClick(item.id)}>
+        <img
+          loading="lazy"
+          alt={item.id}
+          src={getSource(item)}
+          class:selected={selected.includes(item.id)}
+        />
 
-      {#if !uploaded.length || selected.includes(item.id)}
-        <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
-          <Checkbox
-            on:click={handleCheck(item.id)}
-            checked={selected.includes(item.id)}
-            disabled={uploaded.length > 0}
-            touch
-            ripple={false}
-          />
-        </div>
-      {/if}
-    </div>
-  {/each}
+        {#if !uploaded.length || selected.includes(item.id)}
+          <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
+            <Checkbox
+              on:click={handleCheck(item.id)}
+              checked={selected.includes(item.id)}
+              disabled={uploaded.length > 0}
+              touch
+              ripple={false}
+              class="checkboxInput"
+            />
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 
   {#if portraits.length === 0}
     <div>No portraits found, try to change filter criteria</div>
@@ -237,7 +239,7 @@
 
 <aside class="pane">
   {#if model}
-    <div class="content" transition:fade={{ duration: 300 }}>
+    <div class="content">
       <div>
         {uploaded.length ? $t('admin.editor.uploaded') : $t('admin.editor.selected')}: {selected.length}
       </div>
@@ -272,3 +274,93 @@
   accept="image/jpg, image/jpeg, image/png"
   multiple
 />
+
+<style lang="scss">
+  @use 'sass:color';
+
+  $pane-width: 320px;
+
+  section.gallery {
+    grid-area: gallery;
+    width: 100%;
+    overflow: auto;
+
+    div.grid {
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+      @media (max-width: 599px) {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+
+      .imageContainer {
+        position: relative;
+        aspect-ratio: 1;
+
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transition: filter 0.2s ease-in-out;
+        }
+
+        img.selected {
+          filter: brightness(0.7);
+        }
+
+        div.checkbox {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: all 0.3s ease-in-out;
+        }
+
+        div.checkbox.hidden {
+          opacity: 0;
+        }
+      }
+
+      .imageContainer:hover {
+        div.checkbox {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  :global(.imageContainer:hover div.mdc-checkbox__background) {
+    transition: all 0.3s ease-in-out;
+    border-color: color.adjust($text, $alpha: -0.1) !important;
+  }
+
+  aside.pane {
+    grid-area: pane;
+    background-image: url('/images/background.png');
+    background-size: 100% 100%;
+
+    padding: 2rem;
+    width: clamp(300px, $pane-width, 33vw);
+
+    @media (max-width: 599px) {
+      display: flex;
+      justify-content: center;
+      padding: 1rem 2rem;
+      width: auto;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      backdrop-filter: brightness(0.8) sepia(0.8);
+      padding: 0.5rem;
+
+      height: 100%;
+
+      @media (max-width: 599px) {
+        height: auto;
+      }
+    }
+  }
+</style>
