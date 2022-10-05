@@ -86,9 +86,13 @@
     "justice": "justice",
     "enigma": "enigma",
     "solar": "solar",
-    "granny": "granny",
+    "crone": "crone",
     "medusa": "medusa",
-    "nocta": "nocta"
+    "nocta": "nocta",
+    "genie": "genie",
+    "geisha": "geisha",
+    "herbalist": "herbalist",
+    "priestess": "priestess"
   },
   "colors": {
     "red": "red",

@@ -86,9 +86,13 @@
     "justice": "правосудие",
     "enigma": "загадка",
     "solar": "солнечная",
-    "granny": "бабушка",
+    "crone": "старуха",
     "medusa": "медуза",
-    "nocta": "ночь"
+    "nocta": "ночь",
+    "genie": "джинн",
+    "geisha": "гейша",
+    "herbalist": "травница",
+    "priestess": "жрица"
   },
   "colors": {
     "red": "красный",
