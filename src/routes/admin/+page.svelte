@@ -239,24 +239,20 @@
 
 <aside class="pane">
   {#if model}
-    <div class="content">
-      <div>
-        {uploaded.length ? $t('admin.editor.uploaded') : $t('admin.editor.selected')}: {selected.length}
-      </div>
-
-      <Editor
-        {model}
-        {originals}
-        {tags}
-        {styles}
-        {openEditorDialog}
-        {openOriginalsDialog}
-        {handleClearSelection}
-        isUploading={Boolean(uploaded.length)}
-        handlePatch={createPatchHandler()}
-        handlePost={createPostHandler()}
-      />
-    </div>
+    <Editor
+      {model}
+      {originals}
+      {tags}
+      {styles}
+      {openEditorDialog}
+      {openOriginalsDialog}
+      {handleClearSelection}
+      isUploading={Boolean(uploaded.length)}
+      image={getSource(model)}
+      selectedImages={selected.length}
+      handlePatch={createPatchHandler()}
+      handlePost={createPostHandler()}
+    />
   {:else}
     <Menu {openFilters} />
   {/if}
@@ -288,7 +284,15 @@
     div.grid {
       overflow: hidden;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
+      @media (max-width: 1199px) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+
+      @media (max-width: 899px) {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
 
       @media (max-width: 599px) {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -306,7 +310,7 @@
         }
 
         img.selected {
-          filter: brightness(0.7);
+          filter: brightness(0.8);
         }
 
         div.checkbox {
@@ -339,7 +343,7 @@
     background-image: url('/images/background.png');
     background-size: 100% 100%;
 
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     width: clamp(300px, $pane-width, 33vw);
 
     @media (max-width: 599px) {
@@ -347,20 +351,6 @@
       justify-content: center;
       padding: 1rem 2rem;
       width: auto;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      backdrop-filter: brightness(0.8) sepia(0.8);
-      padding: 0.5rem;
-
-      height: 100%;
-
-      @media (max-width: 599px) {
-        height: auto;
-      }
     }
   }
 </style>

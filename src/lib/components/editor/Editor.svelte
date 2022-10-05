@@ -32,6 +32,9 @@
 
   export let handleClearSelection: () => void;
   export let isUploading: boolean;
+  export let selectedImages: number;
+  export let image: string;
+
   export let handlePatch: TPatchHandler;
   export let handlePost: TPostHandler;
 
@@ -124,144 +127,201 @@
 </script>
 
 <section class="editor">
-  <div class="element">
-    <div>{$t('admin.editor.original')}:</div>
-    <div class="chipsContainer">
-      {$t(`admin.originals.${originalName}`)}
-      <EditButton onClick={handleOriginalChange} />
-    </div>
-  </div>
+  <header>
+    <img src={image} alt="preview" class:multiple={selectedImages > 1} />
+    <svg class="selectedImages">
+      <text x="33%" y="80%">{selectedImages > 1 ? selectedImages : ''}</text>
+    </svg>
+  </header>
 
-  <div class="element">
-    <div>{$t('admin.editor.quality')}:</div>
-    <QualityInput quality={current.quality} onChange={handleQualityChange} />
-  </div>
-
-  <div class="element">
-    <div>{$t('admin.editor.colors')}:</div>
-    <div class="chipsContainer">
-      {#each current.colors as color (color)}
-        <span class="chip">
-          <span on:click={handleRemove('colors', color)} class="action">✕</span>
-          {@html getLabel('colors', colorsMap.get(color))}
-        </span>
-      {/each}
-      <EditButton onClick={handleListEdit('colors', colorsMap)} />
+  <main class="editor">
+    <div class="element">
+      <div>{$t('admin.editor.original')}:</div>
+      <div class="chipsContainer">
+        {$t(`admin.originals.${originalName}`)}
+        <EditButton onClick={handleOriginalChange} />
+      </div>
     </div>
-  </div>
 
-  <div class="element">
-    <div>{$t('admin.editor.tags')}:</div>
-    <div class="chipsContainer">
-      {#each current.tags as tagId (tagId)}
-        <span class="chip">
-          <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
-          {getLabel('tags', tags.get(tagId))}
-        </span>
-      {/each}
-      <EditButton onClick={handleListEdit('tags', tags)} />
+    <div class="element">
+      <div>{$t('admin.editor.quality')}:</div>
+      <QualityInput quality={current.quality} onChange={handleQualityChange} />
     </div>
-  </div>
 
-  <div class="element">
-    <div>{$t('admin.editor.styles')}:</div>
-    <div class="chipsContainer">
-      {#each current.styles as styleId (styleId)}
-        <span class="chip">
-          <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
-          {getLabel('styles', styles.get(styleId))}
-        </span>
-      {/each}
-      <EditButton onClick={handleListEdit('styles', styles)} />
+    <div class="element">
+      <div>{$t('admin.editor.colors')}:</div>
+      <div class="chipsContainer">
+        {#each current.colors as color (color)}
+          <span class="chip">
+            <span on:click={handleRemove('colors', color)} class="action">✕</span>
+            {@html getLabel('colors', colorsMap.get(color))}
+          </span>
+        {/each}
+        <EditButton onClick={handleListEdit('colors', colorsMap)} />
+      </div>
     </div>
-  </div>
+
+    <div class="element">
+      <div>{$t('admin.editor.tags')}:</div>
+      <div class="chipsContainer">
+        {#each current.tags as tagId (tagId)}
+          <span class="chip">
+            <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
+            {getLabel('tags', tags.get(tagId))}
+          </span>
+        {/each}
+        <EditButton onClick={handleListEdit('tags', tags)} />
+      </div>
+    </div>
+
+    <div class="element">
+      <div>{$t('admin.editor.styles')}:</div>
+      <div class="chipsContainer">
+        {#each current.styles as styleId (styleId)}
+          <span class="chip">
+            <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
+            {getLabel('styles', styles.get(styleId))}
+          </span>
+        {/each}
+        <EditButton onClick={handleListEdit('styles', styles)} />
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <Button variant="raised" on:click={handleCancel} style="width: 50%;">
+      <Label>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</Label>
+    </Button>
+
+    <Button
+      variant="raised"
+      on:click={handleChangesSave}
+      disabled={!isChanged || isLoading}
+      style="width: 50%;"
+    >
+      <Label>{$t('common.controls.save')}</Label>
+    </Button>
+  </footer>
 </section>
-
-<footer class="editorFooter">
-  <Button variant="raised" on:click={handleCancel} style="width: 50%;">
-    <Label>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</Label>
-  </Button>
-
-  <Button
-    variant="raised"
-    on:click={handleChangesSave}
-    disabled={!isChanged || isLoading}
-    style="width: 50%;"
-  >
-    <Label>{$t('common.controls.save')}</Label>
-  </Button>
-</footer>
 
 <style lang="scss">
   section.editor {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    backdrop-filter: brightness(0.8) sepia(0.8);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 
-    div.element {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      gap: 4px;
-      align-items: center;
+    height: 100%;
 
-      div.chipsContainer {
+    @media (max-width: 599px) {
+      height: auto;
+    }
+
+    header {
+      position: relative;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 0.5rem;
+      }
+
+      svg.selectedImages {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(40%, -40%);
+        font-size: 2rem;
+        border-radius: 50%;
+        width: 5rem;
+        height: 5rem;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: $text;
+        background-color: $surface;
+
+        transition: opacity 0.2s ease-in-out;
+        opacity: 0;
+      }
+
+      img.multiple + svg.selectedImages {
+        opacity: 0.6;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      div.element {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2px 4px;
-      }
+        grid-template-columns: 1fr 3fr;
+        gap: 4px;
+        align-items: center;
 
-      span.chip {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        div.chipsContainer {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2px 4px;
+        }
 
-        padding: 0.1em 0.5em 0.1em 0.2em;
-        background: rgba($surface, 0.35);
-        border-radius: 16px;
-        transition: all 0.2s ease-in-out;
+        span.chip {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
 
-        span.action {
-          position: absolute;
-          padding: 0em 0.2em;
-          margin: 1px 0 0 -1px;
-          opacity: 0;
+          padding: 0.1em 0.5em 0.1em 0.2em;
+          background: rgba($surface, 0.35);
           border-radius: 16px;
-          background-color: rgba($surface, 0.5);
-        }
-      }
+          transition: all 0.2s ease-in-out;
 
-      span.chip:hover {
-        background: rgba($surface, 0.4);
+          span.action {
+            position: absolute;
+            padding: 0em 0.2em;
+            margin: 1px 0 0 -1px;
+            opacity: 0;
+            border-radius: 16px;
+            background-color: rgba($surface, 0.5);
+          }
+        }
+
+        span.chip:hover {
+          background: rgba($surface, 0.4);
+
+          span.action {
+            opacity: 1;
+          }
+
+          span.action:hover {
+            background-color: rgba($surface, 0.6);
+          }
+        }
+
+        span.chip:active {
+          background: rgba($surface, 0.4);
+        }
 
         span.action {
-          opacity: 1;
-        }
-
-        span.action:hover {
-          background-color: rgba($surface, 0.6);
+          transition: all 0.2s ease-in-out;
+          cursor: pointer;
         }
       }
 
-      span.chip:active {
-        background: rgba($surface, 0.4);
-      }
-
-      span.action {
-        transition: all 0.2s ease-in-out;
-        cursor: pointer;
+      div.element:has(.chipsContainer) {
+        align-items: baseline;
       }
     }
 
-    div.element:has(.chipsContainer) {
-      align-items: baseline;
+    footer {
+      display: flex;
+      flex-grow: 1;
+      align-items: flex-end;
+      gap: 16px;
+      justify-content: space-around;
     }
-  }
-
-  .editorFooter {
-    display: flex;
-    flex-grow: 1;
-    align-items: flex-end;
-    gap: 16px;
-    justify-content: space-around;
   }
 </style>
