@@ -92,7 +92,10 @@
     "genie": "genie",
     "geisha": "geisha",
     "herbalist": "herbalist",
-    "priestess": "priestess"
+    "priestess": "priestess",
+    "three-eyed": "three-eyed",
+    "spider": "spider",
+    "mermaid": "mermaid"
   },
   "colors": {
     "red": "red",
