@@ -213,7 +213,7 @@
     padding: 0.5rem;
     border-radius: 0.5rem;
 
-    height: 100%;
+    height: calc(100% - 20px);
 
     @media (max-width: 599px) {
       height: auto;
@@ -223,8 +223,14 @@
       position: relative;
       overflow: hidden;
 
+      @media (max-width: 599px) {
+        display: none;
+      }
+
       img {
+        height: 100%;
         width: 100%;
+        object-fit: contain;
         aspect-ratio: 1;
         border-radius: 0.5rem;
       }

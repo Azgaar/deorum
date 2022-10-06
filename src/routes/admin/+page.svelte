@@ -342,6 +342,8 @@
     grid-area: pane;
     background-image: url('/images/background.png');
     background-size: 100% 100%;
+    max-height: 100%;
+    overflow: auto;
 
     padding: 2.5rem 2rem;
     width: clamp(300px, $pane-width, 33vw);
