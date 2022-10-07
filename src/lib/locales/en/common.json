@@ -15,5 +15,14 @@
   },
   "info": {
     "version": "v"
+  },
+  "auth": {
+    "signup": "Sign up",
+    "signin": "Sign in",
+    "signinTitle": "Sign in to your account",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password (8 chars min)",
+    "signinAsAdmin": "Sign in as admin"
   }
 }

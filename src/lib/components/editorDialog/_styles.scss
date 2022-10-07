@@ -39,7 +39,7 @@
 
       overflow: hidden;
       white-space: nowrap;
-    
+
       span {
         pointer-events: none;
         user-select: none;
@@ -50,7 +50,7 @@
         display: none;
       }
     }
-    
+
     .entry:hover {
       background-color: color.adjust($surface, $lightness: +10%);
     }

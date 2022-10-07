@@ -2,7 +2,6 @@
   import { fade } from 'svelte/transition';
   import Checkbox from '@smui/checkbox';
 
-  import { t } from '$lib/locales/translations';
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
@@ -12,7 +11,7 @@
 
   import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
   import { normalizeError } from '$lib/utils/errors';
-  import { toastError } from '$lib/stores';
+  import { toastError, role } from '$lib/stores';
 
   import type { IPortrait } from '$lib/api.types';
   import type {
@@ -25,6 +24,7 @@
   } from '$lib/editor.types';
   import type { IFilters, ISorting } from '$lib/filters.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { permitted } from '$lib/config';
 
   export let data: {
     page: number;
@@ -59,6 +59,17 @@
     return portraitsMap.get(selected[0]);
   };
 
+  $: can = permitted($role);
+  $: canEdit = can('edit');
+
+  $: console.log({
+    canEdit,
+    role: $role,
+    filter: can('filter'),
+    edit: can('edit'),
+    upload: can('upload')
+  });
+
   const enterUploadMode = (event: Event) => {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
@@ -74,7 +85,7 @@
   };
 
   const handleClick = (id: string) => () => {
-    if (uploaded.length) return;
+    if (!canEdit || uploaded.length) return;
 
     if (selected.includes(id)) {
       selected = selected.filter((item) => item !== id);
@@ -212,7 +223,7 @@
           class:selected={selected.includes(item.id)}
         />
 
-        {#if !uploaded.length || selected.includes(item.id)}
+        {#if canEdit && (!uploaded.length || selected.includes(item.id))}
           <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
             <Checkbox
               on:click={handleCheck(item.id)}

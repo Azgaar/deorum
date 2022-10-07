@@ -15,5 +15,14 @@
   },
   "info": {
     "version": "в. "
+  },
+  "auth": {
+    "signup": "Создать аккаунт",
+    "signin": "Войти",
+    "signinTitle": "Войти в систему",
+    "logout": "Выйти",
+    "email": "Email",
+    "password": "Пароль (мин 8 символов)",
+    "signinAsAdmin": "администратор"
   }
 }

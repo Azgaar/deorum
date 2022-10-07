@@ -1,3 +1,5 @@
+import { Role } from './stores/auth';
+
 export const URL = 'https://deorum.fly.dev';
 
 export const colors = [
@@ -25,3 +27,14 @@ export const colorsMap = new Map(
 export const qualities = Array(10)
   .fill(0)
   .map((_, i) => i + 1);
+
+const permissions = {
+  filter: [Role.GUEST, Role.USER, Role.ADMIN],
+  edit: [Role.USER, Role.ADMIN],
+  upload: [Role.ADMIN]
+};
+
+export const permitted = (role: Role) => (action: keyof typeof permissions) => {
+  const requiredRoles = permissions[action];
+  return requiredRoles.includes(role);
+};
