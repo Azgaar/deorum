@@ -2,8 +2,6 @@
   import Dialog, { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
-  import FormField from '@smui/form-field';
-  import Checkbox from '@smui/checkbox';
 
   import { t } from '$lib/locales/translations';
   import { signin } from '$lib/api/auth';
@@ -16,7 +14,7 @@
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
-    await signin({ isAdmin, email, password });
+    await signin({ email, password });
   };
 </script>
 
@@ -43,13 +41,6 @@
         input$autocomplete="password"
         input$pattern={'.{8,}'}
       />
-
-      <FormField>
-        <Checkbox bind:checked={isAdmin} />
-        <span slot="label">
-          {$t('common.auth.signinAsAdmin')}
-        </span>
-      </FormField>
     </div>
 
     <Actions>

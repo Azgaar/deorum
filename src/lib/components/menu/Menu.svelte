@@ -11,6 +11,7 @@
   import { isLoading, user, role } from '$lib/stores';
   import { logout } from '$lib/api/auth';
   import { permitted } from '$lib/config';
+  import client from '$lib/api/client';
 
   export let openFilters: () => void;
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
   import Checkbox from '@smui/checkbox';
 
   import Editor from '$lib/components/editor/Editor.svelte';
@@ -61,14 +60,6 @@
 
   $: can = permitted($role);
   $: canEdit = can('edit');
-
-  $: console.log({
-    canEdit,
-    role: $role,
-    filter: can('filter'),
-    edit: can('edit'),
-    upload: can('upload')
-  });
 
   const enterUploadMode = (event: Event) => {
     const input = event.target as HTMLInputElement;

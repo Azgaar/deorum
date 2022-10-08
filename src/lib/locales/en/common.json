@@ -22,7 +22,6 @@
     "signinTitle": "Sign in to your account",
     "logout": "Log out",
     "email": "Email",
-    "password": "Password (8 chars min)",
-    "signinAsAdmin": "Sign in as admin"
+    "password": "Password (8 chars min)"
   }
 }

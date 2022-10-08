@@ -10,4 +10,4 @@ export const user = writable<string | null>(null);
 
 export const role = writable<Role>(Role.GUEST);
 
-export const isLoading = writable<boolean>(true);
+export const isLoading = writable<boolean>(false);

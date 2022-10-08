@@ -22,7 +22,6 @@
     "signinTitle": "Войти в систему",
     "logout": "Выйти",
     "email": "Email",
-    "password": "Пароль (мин 8 символов)",
-    "signinAsAdmin": "администратор"
+    "password": "Пароль (мин 8 символов)"
   }
 }

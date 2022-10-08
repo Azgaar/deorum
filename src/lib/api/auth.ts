@@ -1,63 +1,31 @@
-import type { PBError } from '$lib/error.tyoes';
-import { user, role, toastError } from '$lib/stores';
-import { isLoading, Role } from '$lib/stores/auth';
+import type { User } from 'pocketbase';
+
+import { toastError } from '$lib/stores';
+import { clearAuthData, setAuthData } from '$lib/utils/auth';
+
+import type { PBError } from '$lib/error.types';
 
 import client from './client';
-
-export const signinOnLoad = async () => {
-  try {
-    const storedToken = localStorage?.getItem('pocketbase_auth');
-    const storedRole = localStorage?.getItem('pocketbase_role');
-    const validRole = storedRole && Object.values(Role).includes(storedRole as Role);
-
-    if (storedToken && validRole) {
-      const userRole = storedRole as Role;
-      const api = userRole === Role.ADMIN ? 'admins' : 'users';
-      const userData = await client[api].refresh();
-      user.set(userData[userRole].email);
-      role.set(userRole);
-    }
-  } catch (error) {
-    console.error(error);
-    toastError((error as PBError).message);
-  } finally {
-    isLoading.set(false);
-  }
-};
+import type { IUser } from '$lib/api.types';
 
 export const signup = async ({ email, password }: { email: string; password: string }) => {
   try {
     await client.users.create({ email, password, passwordConfirm: password });
-    await client.users.authViaEmail(email, password);
-
-    user.set(email);
-    role.set(Role.USER);
-
-    localStorage?.setItem('pocketbase_role', Role.USER);
+    const userData = await client.users.authViaEmail(email, password);
+    setAuthData(userData.user);
+    document.cookie = client.authStore.exportToCookie({ httpOnly: false });
+    // set language: window.navigator.language
   } catch (error) {
     console.error(error);
     toastError((error as PBError).message);
   }
 };
 
-export const signin = async ({
-  isAdmin,
-  email,
-  password
-}: {
-  isAdmin: boolean;
-  email: string;
-  password: string;
-}) => {
+export const signin = async ({ email, password }: { email: string; password: string }) => {
   try {
-    const api = isAdmin ? 'admins' : 'users';
-    await client[api].authViaEmail(email, password);
-
-    const userRole = isAdmin ? Role.ADMIN : Role.USER;
-    localStorage?.setItem('pocketbase_role', userRole);
-
-    user.set(email);
-    role.set(userRole);
+    const userData = await client.users.authViaEmail(email, password);
+    setAuthData(userData.user);
+    document.cookie = client.authStore.exportToCookie({ httpOnly: false });
   } catch (error) {
     console.error(error);
     toastError((error as PBError).message);
@@ -65,7 +33,23 @@ export const signin = async ({
 };
 
 export const logout = () => {
-  user.set(null);
-  role.set(Role.GUEST);
   client.authStore.clear();
+  clearAuthData();
+};
+
+export const authorize = async (cookie: string) => {
+  try {
+    client.authStore.loadFromCookie(cookie);
+    // check if cookie is invalid or empty
+    if (!client.authStore.model?.id) return null;
+
+    const { id } = client.authStore.model;
+    const userData = await client.users.getOne(id);
+    const user: IUser = JSON.parse(JSON.stringify(userData)); // fix non-POJO error
+    return user;
+  } catch (error) {
+    console.error(error);
+    toastError((error as PBError).message);
+    return null;
+  }
 };
