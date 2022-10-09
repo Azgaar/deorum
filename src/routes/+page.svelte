@@ -1,19 +1,15 @@
 <script lang="ts" context="module">
+  import { t } from '$lib/locales/translations';
+
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
 </script>
-
-<head>
-  <title>Deorum</title>
-</head>
 
 <body>
   <Header />
 
   <main>
-    <div>
-      <slot />
-    </div>
+    <div>🚧 {$t('common.info.inDev')}</div>
   </main>
 
   <Footer />
@@ -44,7 +40,7 @@
     padding: 0 32px;
 
     div {
-      padding: 16px 0px;
+      padding: 16px;
       background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
     }
   }

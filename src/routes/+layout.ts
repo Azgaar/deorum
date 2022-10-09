@@ -9,6 +9,8 @@ export const load: import('./$types').LayoutLoad = async ({ url, data }) => {
     stores.role.set(user.profile.role);
   }
 
+  stores.language.set(lang);
+
   await loadTranslations(lang, url.pathname);
   return {};
 };

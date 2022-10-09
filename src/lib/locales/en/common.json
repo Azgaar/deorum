@@ -14,7 +14,8 @@
     "close": "Close"
   },
   "info": {
-    "version": "v"
+    "version": "v",
+    "inDev": "Under construction"
   },
   "auth": {
     "signup": "Sign up",

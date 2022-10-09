@@ -3,20 +3,36 @@
   import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
 
+  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { t } from '$lib/locales/translations';
   import { signup } from '$lib/api/auth';
+  import { language, toastError } from '$lib/stores';
+
+  import type { PBError } from '$lib/error.types';
 
   export let onClose: null | (() => void) = null;
 
   let email = '';
   let password = '';
 
+  let isLoading = false;
+
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
-    await signup({ email, password });
 
-    if (!onClose) window.location.href = '/';
-    else onClose();
+    try {
+      isLoading = true;
+      const lang = $language;
+      await signup({ email, password, lang });
+
+      if (!onClose) window.location.href = '/';
+      else onClose();
+    } catch (error) {
+      console.error(error);
+      toastError((error as PBError).message);
+    } finally {
+      isLoading = false;
+    }
   };
 </script>
 
@@ -29,6 +45,7 @@
       type="email"
       updateInvalid
       bind:value={email}
+      disabled={isLoading}
       label={$t('common.auth.email')}
       input$autocomplete="email"
     />
@@ -38,6 +55,7 @@
       type="password"
       updateInvalid
       bind:value={password}
+      disabled={isLoading}
       label={$t('common.auth.password')}
       input$autocomplete="password"
       input$pattern={'.{8,}'}
@@ -46,12 +64,17 @@
 
   <Actions>
     {#if onClose}
-      <Button type="button" style="color: white" on:click={onClose}>
+      <Button type="button" style="color: white" on:click={onClose} disabled={isLoading}>
         <Label>{$t('common.controls.cancel')}</Label>
       </Button>
     {/if}
 
-    <button type="submit">{$t('common.auth.signup')}</button>
+    <button type="submit" disabled={isLoading}>
+      {#if isLoading}
+        <CircularSpinner />
+      {/if}
+      {$t('common.auth.signup')}
+    </button>
   </Actions>
 </form>
 
@@ -74,5 +97,9 @@
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 </style>
