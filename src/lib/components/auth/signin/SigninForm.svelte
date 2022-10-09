@@ -1,57 +1,59 @@
 <script lang="ts">
-  import Dialog, { Actions, Title } from '@smui/dialog';
+  import { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
 
   import { t } from '$lib/locales/translations';
   import { signin } from '$lib/api/auth';
 
-  export let open: boolean;
+  export let onClose: null | (() => void) = null;
 
   let email = '';
   let password = '';
-  let isAdmin = false;
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
     await signin({ email, password });
+
+    if (!onClose) window.location.href = '/';
+    else onClose();
   };
 </script>
 
-<Dialog bind:open aria-labelledby="signin-dialog" aria-describedby="signin-dialog">
+<form on:submit={handleSubmit}>
   <Title>{$t('common.auth.signinTitle')}</Title>
 
-  <form on:submit={handleSubmit}>
-    <div class="body">
-      <Textfield
-        required
-        type="email"
-        updateInvalid
-        bind:value={email}
-        label={$t('common.auth.email')}
-        input$autocomplete="email"
-      />
+  <div class="body">
+    <Textfield
+      required
+      type="email"
+      updateInvalid
+      bind:value={email}
+      label={$t('common.auth.email')}
+      input$autocomplete="email"
+    />
 
-      <Textfield
-        required
-        type="password"
-        updateInvalid
-        bind:value={password}
-        label={$t('common.auth.password')}
-        input$autocomplete="password"
-        input$pattern={'.{8,}'}
-      />
-    </div>
+    <Textfield
+      required
+      type="password"
+      updateInvalid
+      bind:value={password}
+      label={$t('common.auth.password')}
+      input$autocomplete="password"
+      input$pattern={'.{8,}'}
+    />
+  </div>
 
-    <Actions>
-      <Button type="button" style="color: white" on:click={() => (open = false)}>
+  <Actions>
+    {#if onClose}
+      <Button type="button" style="color: white" on:click={onClose}>
         <Label>{$t('common.controls.cancel')}</Label>
       </Button>
+    {/if}
 
-      <button type="submit">{$t('common.auth.signin')}</button>
-    </Actions>
-  </form>
-</Dialog>
+    <button type="submit">{$t('common.auth.signin')}</button>
+  </Actions>
+</form>
 
 <style lang="scss">
   div.body {

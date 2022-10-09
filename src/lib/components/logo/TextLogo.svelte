@@ -16,5 +16,9 @@
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
+
+    @media screen and (max-width: 599px) {
+      transform: scale(0.8);
+    }
   }
 </style>

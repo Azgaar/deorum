@@ -4,14 +4,13 @@
   import { t } from '$lib/locales/translations';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
-  import SigninDialog from '$lib/components/auth/SigninDialog.svelte';
-  import SignupDialog from '$lib/components/auth/SignupDialog.svelte';
+  import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
+  import SignupDialog from '$lib/components/auth/signup/SignupDialog.svelte';
   import Spinner from '$lib/components/spinner/Spinner.svelte';
   import { VERSION } from '$lib/constants';
   import { isLoading, user, role } from '$lib/stores';
   import { logout } from '$lib/api/auth';
   import { permitted } from '$lib/config';
-  import client from '$lib/api/client';
 
   export let openFilters: () => void;
 
@@ -69,7 +68,7 @@
   </main>
 
   <footer>
-    <span class="version">Azgaar, 2022, {$t('admin.info.version')}{VERSION}</span>
+    <span class="version">Azgaar, 2022, {$t('common.info.version')}{VERSION}</span>
   </footer>
 </section>
 

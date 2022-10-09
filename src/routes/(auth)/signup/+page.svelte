@@ -1,9 +1,5 @@
 <script lang="ts">
-  import SignupDialog from '$lib/components/auth/SignupDialog.svelte';
-  import { user, role } from '$lib/stores';
+  import SignupForm from '$lib/components/auth/signup/SignupForm.svelte';
 </script>
 
-<h2>Role: {$role}</h2>
-<h3>User: {$user}</h3>
-
-<SignupDialog open />
+<SignupForm />
