@@ -1,14 +1,32 @@
-import { loadTranslations, locale } from '$lib/locales/translations';
+import { authorize } from '$lib/api/auth';
+import { locales } from '$lib/locales/translations';
+import { toastError } from '$lib/stores';
 
-/** @type {import('./$types').PageLoad} */
-export const load = async ({ url, request }: { url: URL; request: Request }) => {
-  const { pathname } = url;
+import type { IUser } from '$lib/api.types';
+import type { PBError } from '$lib/error.types';
 
-  const defaultLocale = 'en';
-  const accepts = request?.headers?.get('accept-language');
-  const preferred = accepts ? accepts.split(',')[0] : null;
-  const initLocale = preferred || locale.get() || defaultLocale;
+const getLocale = (request: Request, user: IUser | null) => {
+  if (user?.profile?.lang) return user.profile.lang;
 
-  await loadTranslations(initLocale, pathname);
-  return {};
+  const accepted = request.headers.get('accept-language');
+  const primary = accepted?.split(',')[0];
+  if (primary && locales.get().includes(primary)) return primary;
+
+  return 'en'; // fallback
+};
+
+export const load: import('./$types').LayoutServerLoad = async ({ request }) => {
+  let user: IUser | null = null;
+
+  try {
+    const cookie = request.headers.get('cookie');
+    if (cookie) user = await authorize(cookie);
+  } catch (error) {
+    console.error(error);
+    toastError((error as PBError).message);
+  }
+
+  const lang = getLocale(request, user);
+
+  return { lang, user };
 };

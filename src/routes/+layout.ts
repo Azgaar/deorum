@@ -1,13 +1,16 @@
-import { locale, loadTranslations } from '$lib/locales/translations';
+import { loadTranslations } from '$lib/locales/translations';
+import * as stores from '$lib/stores';
 
-/** @type {import('./$types').PageLoad} */
-export const load = async ({ url }: { url: URL }) => {
-  const { pathname } = url;
+export const load: import('./$types').LayoutLoad = async ({ url, data }) => {
+  const { user, lang } = data;
 
-  const defaultLocale = 'en';
-  const navigator = typeof window !== 'undefined' ? window.navigator.language : null;
-  const initLocale = navigator || locale.get() || defaultLocale;
+  if (user) {
+    stores.user.set(user.email);
+    stores.role.set(user.profile.role);
+  }
 
-  await loadTranslations(initLocale, pathname);
+  stores.language.set(lang);
+
+  await loadTranslations(lang, url.pathname);
   return {};
 };

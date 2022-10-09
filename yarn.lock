@@ -201,6 +201,19 @@
     "@material/touch-target" "^13.0.0"
     tslib "^2.1.0"
 
+"@material/circular-progress@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@material/circular-progress/-/circular-progress-13.0.0.tgz#ad90b88d1e88d522f7492ded4eaaac56376ce2aa"
+  integrity sha512-jSbr0ywY2N6s05tyqTXl/cG339C+qU3ck3FwXUq5SJup8CWT0AoJ8EG/CD10CEhNH8nH9Iwstve95oNgIt8G4g==
+  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/progress-indicator" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    tslib "^2.1.0"
+
 "@material/data-table@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@material/data-table/-/data-table-13.0.0.tgz#b305cdb31eec7722df6a94a78ea3a838b0f0389b"
@@ -845,6 +858,15 @@
     "@material/checkbox" "^13.0.0"
     "@smui/common" "^6.1.0"
     "@smui/ripple" "^6.1.0"
+    svelte2tsx "^0.5.12"
+
+"@smui/circular-progress@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@smui/circular-progress/-/circular-progress-6.1.4.tgz#ad883f43e8ff5a36a0b123f6924d3f365a4ed5bc"
+  integrity sha512-79SOd1XpQsSA4P1JpuWgvMVRmGIXFnsTqDkbe8bqF5U8TuK8vPbTNeBO/ANlkOJr2Mqt4j/lJ8Vma02tqjamMA==
+  dependencies:
+    "@material/circular-progress" "^13.0.0"
+    "@smui/common" "^6.1.4"
     svelte2tsx "^0.5.12"
 
 "@smui/common@^6.1.0":

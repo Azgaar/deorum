@@ -14,6 +14,15 @@
     "close": "Закрыть"
   },
   "info": {
-    "version": "в. "
+    "version": "в. ",
+    "inDev": "в разработке"
+  },
+  "auth": {
+    "signup": "Создать аккаунт",
+    "signin": "Войти",
+    "signinTitle": "Войти в систему",
+    "logout": "Выйти",
+    "email": "Email",
+    "password": "Пароль (мин 8 символов)"
   }
 }

@@ -5,5 +5,5 @@ export const csr = false;
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-  throw redirect(308, '/admin');
+  throw redirect(308, '/admin/portraits/1');
 }

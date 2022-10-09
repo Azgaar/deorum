@@ -49,7 +49,7 @@
   bind:sortDirection
   on:SMUIDataTable:sorted={handleSort}
   table$aria-label="Images"
-  style="width: 100%;"
+  style="width: 100%; overflow: auto;"
 >
   <Head>
     <Row>
@@ -95,7 +95,7 @@
             width="64px"
             height="64px"
             alt={originals.get(item.original)}
-            src={`${imagesPath}/${item.id}/${item.image}`}
+            src={`${imagesPath}/${item.id}/${item.image}?thumb=100x100`}
           />
         </Cell>
         <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>

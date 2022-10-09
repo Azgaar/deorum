@@ -1,3 +1,5 @@
+import type { Role } from './stores/auth';
+
 export interface IListResult<M> {
   page: number;
   perPage: number;
@@ -32,4 +34,16 @@ export interface ITag extends IRecord {
 export interface IStyle extends IRecord {
   name: string;
   emoji: string;
+}
+
+export interface IUser {
+  email: string;
+  verified: boolean;
+  lastResetSentAt: string;
+  lastVerificationSentAt: string;
+
+  profile: IRecord & {
+    role: Role;
+    lang: string;
+  };
 }
