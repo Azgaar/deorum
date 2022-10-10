@@ -97,7 +97,11 @@
     "spider": "spider",
     "mermaid": "mermaid",
     "merman": "merman",
-    "autumn": "autumn"
+    "autumn": "autumn",
+    "barbarian": "barbarian",
+    "princess": "princess",
+    "winter": "winter",
+    "vagrant": "vagrant"
   },
   "colors": {
     "red": "red",
@@ -177,11 +181,7 @@
     "splendor": "splendor",
     "anxious": "anxious",
     "feline": "feline",
-    "hypnotizer": "hypnotizer",
-    "barbarian": "barbarian",
-    "princess": "princess",
-    "winter": "winter",
-    "vagrant": "vagrant"
+    "hypnotizer": "hypnotizer"
   },
   "styles": {
     "asian": "asian",
