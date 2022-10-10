@@ -2,6 +2,8 @@ import { Role } from './stores/auth';
 
 export const URL = 'https://deorum.fly.dev';
 
+export const COOKIE_NAME = 'pb_auth';
+
 export const colors = [
   'red',
   'orange',

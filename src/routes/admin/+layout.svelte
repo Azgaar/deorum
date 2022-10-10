@@ -1,15 +1,18 @@
 <script lang="ts" context="module">
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
+  import { language } from '$lib/stores';
 </script>
 
-<head>
+<svelte:head>
   <title>Deorum Admin</title>
-</head>
+</svelte:head>
 
-<main>
-  <slot />
-  <Snackbar />
-</main>
+<div class="root" lang={$language} translate="no">
+  <main>
+    <slot />
+    <Snackbar />
+  </main>
+</div>
 
 <style lang="scss">
   main {

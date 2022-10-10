@@ -1,13 +1,10 @@
 <script lang="ts" context="module">
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
+  import { language } from '$lib/stores';
 </script>
 
-<head>
-  <title>Deorum</title>
-</head>
-
-<body>
+<div class="root" lang={$language}>
   <Header />
 
   <main>
@@ -17,12 +14,12 @@
   </main>
 
   <Footer />
-</body>
+</div>
 
 <style lang="scss">
   @use 'sass:color';
 
-  body {
+  div.root {
     height: 100vh;
     overflow: hidden;
 
@@ -32,20 +29,20 @@
 
     display: flex;
     flex-direction: column;
-  }
 
-  main {
-    height: 100%;
+    main {
+      height: 100%;
 
-    display: grid;
-    grid-template-rows: 1fr 64px;
-    align-items: center;
-    justify-content: center;
-    padding: 0 32px;
+      display: grid;
+      grid-template-rows: 1fr 64px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
 
-    div {
-      padding: 16px 0px;
-      background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
+      div {
+        padding: 16px 0px;
+        background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
+      }
     }
   }
 </style>
