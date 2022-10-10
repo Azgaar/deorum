@@ -2,6 +2,8 @@ import { Role } from './stores/auth';
 
 export const URL = 'https://deorum.fly.dev';
 
+export const ORIGINALS_IMAGE_PATH = 'https://deorum.fly.dev/api/files/xdi3wpvo8djw6n3/';
+
 export const COOKIE_NAME = 'pb_auth';
 
 export const colors = [

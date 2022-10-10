@@ -6,18 +6,18 @@
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
   import SignupDialog from '$lib/components/auth/signup/SignupDialog.svelte';
+  import Statistics from '$lib/components/statistics/Statistics.svelte';
   import Spinner from '$lib/components/spinner/Spinner.svelte';
   import { VERSION } from '$lib/constants';
-  import { isLoading, user, role } from '$lib/stores';
+  import { isLoading, user } from '$lib/stores';
   import { logout } from '$lib/api/auth';
-  import { permitted } from '$lib/config';
 
   export let openFilters: () => void;
 
   let signin = false;
   let signup = false;
 
-  $: can = permitted($role);
+  let statistics = false;
 
   const triggerUpload = () => {
     document.getElementById('filesInput')?.click();
@@ -47,17 +47,18 @@
         <SignupDialog bind:open={signup} />
       {/if}
 
-      {#if can('filter')}
-        <Button variant="raised" on:click={openFilters}>
-          <Label>{$t('admin.menu.filter')}</Label>
-        </Button>
-      {/if}
+      <Button variant="raised" on:click={openFilters}>
+        <Label>{$t('admin.menu.filter')}</Label>
+      </Button>
 
-      {#if can('upload')}
-        <Button variant="raised" on:click={triggerUpload}>
-          <Label>{$t('admin.menu.upload')}</Label>
-        </Button>
-      {/if}
+      <Button variant="raised" on:click={() => (statistics = true)}>
+        <Label>{$t('admin.menu.statistics')}</Label>
+      </Button>
+      <Statistics bind:open={statistics} />
+
+      <Button variant="raised" on:click={triggerUpload}>
+        <Label>{$t('admin.menu.upload')}</Label>
+      </Button>
 
       {#if $user}
         <Button variant="raised" on:click={logout}>

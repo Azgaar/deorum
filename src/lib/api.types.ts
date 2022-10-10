@@ -47,3 +47,8 @@ export interface IUser {
     lang: string;
   };
 }
+
+export interface IOriginal extends IRecord {
+  image: string;
+  name: string;
+}

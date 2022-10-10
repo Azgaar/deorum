@@ -23,7 +23,6 @@
   } from '$lib/editor.types';
   import type { IFilters, ISorting } from '$lib/filters.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
-  import { permitted } from '$lib/config';
 
   export let data: {
     page: number;
@@ -58,9 +57,6 @@
     return portraitsMap.get(selected[0]);
   };
 
-  $: can = permitted($role);
-  $: canEdit = can('edit');
-
   const enterUploadMode = (event: Event) => {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
@@ -76,7 +72,7 @@
   };
 
   const handleClick = (id: string) => () => {
-    if (!canEdit || uploaded.length) return;
+    if (uploaded.length) return;
 
     if (selected.includes(id)) {
       selected = selected.filter((item) => item !== id);
@@ -214,7 +210,7 @@
           class:selected={selected.includes(item.id)}
         />
 
-        {#if canEdit && (!uploaded.length || selected.includes(item.id))}
+        {#if !uploaded.length || selected.includes(item.id)}
           <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
             <Checkbox
               on:click={handleCheck(item.id)}

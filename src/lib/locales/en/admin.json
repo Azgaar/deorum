@@ -3,7 +3,8 @@
     "subtitle": "Admin Panel: Gallery",
     "hint": "Select a portrait to edit it. Check the boxes to select multiple portraits",
     "filter": "Filter Portraits",
-    "upload": "Upload Images"
+    "upload": "Upload Images",
+    "statistics": "Statistics"
   },
   "editor": {
     "selected": "Selected",
