@@ -181,7 +181,10 @@
     "splendor": "splendor",
     "anxious": "anxious",
     "feline": "feline",
-    "hypnotizer": "hypnotizer"
+    "hypnotizer": "hypnotizer",
+    "blind": "blind",
+    "eyeless": "eyeless",
+    "hat": "hat"
   },
   "styles": {
     "asian": "asian",
