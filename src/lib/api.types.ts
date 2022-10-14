@@ -52,3 +52,13 @@ export interface IOriginal extends IRecord {
   image: string;
   name: string;
 }
+
+export interface IStyle extends IRecord {
+  emoji: string;
+  name: string;
+}
+
+export interface ITag extends IRecord {
+  emoji: string;
+  name: string;
+}

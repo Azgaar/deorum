@@ -3,8 +3,8 @@
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
 
-  import Chips from '$lib/components/Chips.svelte';
-  import { URL, colorsMap } from '$lib/config';
+  import Chips from '$lib/components/chips/ChipsMap.svelte';
+  import { colorsMap, PORTRAITS_IMAGE_PATH } from '$lib/config';
 
   import type { IListResult, IPortrait } from '$lib/api.types';
 
@@ -23,9 +23,6 @@
   const start = (page - 1) * portraits.perPage;
   const end = start + items.length;
   const isLastPage = page === portraits.totalPages;
-
-  const collectionId = items[0]?.['@collectionId'];
-  const imagesPath = `${URL}/api/files/${collectionId}`;
 
   let sort: keyof IPortrait = 'id';
   let sortDirection: string = 'ascending';
@@ -95,7 +92,7 @@
             width="64px"
             height="64px"
             alt={originals.get(item.original)}
-            src={`${imagesPath}/${item.id}/${item.image}?thumb=100x100`}
+            src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}?thumb=100x100`}
           />
         </Cell>
         <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>

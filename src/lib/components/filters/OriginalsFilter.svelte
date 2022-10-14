@@ -3,11 +3,11 @@
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
+  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
 
   export let open: boolean;
   export let original: string[];
 
-  export let path: string;
   export let entries: [string, { image: string; name: string }][];
 
   const handleSelect = (originalId: string) => () => {
@@ -31,7 +31,7 @@
         <div class:selected={original.includes(entryId)}>
           <img
             on:click={handleSelect(entryId)}
-            src={`${path}/${entryId}/${image}?thumb=100x100`}
+            src={`${ORIGINALS_IMAGE_PATH}/${entryId}/${image}?thumb=100x100`}
             alt={name}
           />
         </div>

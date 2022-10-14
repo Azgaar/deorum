@@ -3,8 +3,8 @@
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
+  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
 
-  export let path: string;
   export let open: boolean;
   export let entries: [string, { image: string; name: string }][];
   export let selected: string;
@@ -56,7 +56,7 @@
             checked={selected === entryId}
           />
           <label for={entryId}>
-            <img src={`${path}/${entryId}/${image}?thumb=100x100`} alt={name} />
+            <img src={`${ORIGINALS_IMAGE_PATH}/${entryId}/${image}?thumb=100x100`} alt={name} />
             {$t(`admin.originals.${name}`)}
           </label>
         </div>

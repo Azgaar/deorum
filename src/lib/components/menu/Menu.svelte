@@ -6,7 +6,6 @@
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
   import SignupDialog from '$lib/components/auth/signup/SignupDialog.svelte';
-  import Statistics from '$lib/components/statistics/Statistics.svelte';
   import Spinner from '$lib/components/spinner/Spinner.svelte';
   import { VERSION } from '$lib/constants';
   import { isLoading, user } from '$lib/stores';
@@ -17,10 +16,12 @@
   let signin = false;
   let signup = false;
 
-  let statistics = false;
-
   const triggerUpload = () => {
     document.getElementById('filesInput')?.click();
+  };
+
+  const openStatistics = () => {
+    window.location.href = '/admin/statistics/originals';
   };
 </script>
 
@@ -51,10 +52,9 @@
         <Label>{$t('admin.menu.filter')}</Label>
       </Button>
 
-      <Button variant="raised" on:click={() => (statistics = true)}>
+      <Button variant="raised" on:click={openStatistics}>
         <Label>{$t('admin.menu.statistics')}</Label>
       </Button>
-      <Statistics bind:open={statistics} />
 
       <Button variant="raised" on:click={triggerUpload}>
         <Label>{$t('admin.menu.upload')}</Label>
