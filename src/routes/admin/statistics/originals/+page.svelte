@@ -13,10 +13,10 @@
   <Head>
     <Row>
       <Cell style="width: 64px"><Label>Original</Label></Cell>
-      <Cell style="width: 64px"><Label>Quantity</Label></Cell>
-      <Cell style="width: 35%"><Label>Tags</Label></Cell>
-      <Cell style="width: 15%"><Label>Styles</Label></Cell>
-      <Cell style="width: 20%"><Label>Colors</Label></Cell>
+      <Cell style="width: auto"><Label>Quantity</Label></Cell>
+      <Cell style="width: 50%"><Label>Tags</Label></Cell>
+      <Cell style="width: 20%"><Label>Styles</Label></Cell>
+      <Cell style="width: 15%"><Label>Colors</Label></Cell>
       <Cell style="width: 20%"><Label>Quality</Label></Cell>
     </Row>
   </Head>
@@ -45,9 +45,3 @@
     {/each}
   </Body>
 </DataTable>
-
-<style lang="scss">
-  .image {
-    width: 64px;
-  }
-</style>

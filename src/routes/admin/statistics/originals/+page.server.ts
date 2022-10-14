@@ -13,14 +13,6 @@ interface IData {
   styles: IStyle[];
 }
 
-// cached data
-const data: IData = {
-  portraits: [],
-  originals: [],
-  tags: [],
-  styles: []
-};
-
 interface IAggregatedData {
   [originId: string]: {
     portraits: number;
@@ -39,14 +31,13 @@ const initial: IAggregatedData['originId'] = {
   styles: {}
 };
 
-async function getFullList<K extends keyof IData>(name: K) {
-  if (data[name].length) return data[name];
-  data[name] = (await client.records.getFullList(name, BATCH)) as unknown as IData[K];
-  return data[name];
+function sortObject(obj: Record<string, number>, byKey = false) {
+  if (byKey) return Object.entries(obj).sort(([a], [b]) => b.localeCompare(a));
+  return Object.entries(obj).sort(([, a], [, b]) => b - a);
 }
 
-function sortObject(obj: Record<string, number>) {
-  return Object.entries(obj).sort((a, b) => b[1] - a[1]);
+async function getFullList<K extends keyof IData>(name: K) {
+  return client.records.getFullList(name, BATCH) as unknown as IData[K];
 }
 
 export const load: import('./$types').PageServerLoad = async () => {
@@ -91,7 +82,10 @@ export const load: import('./$types').PageServerLoad = async () => {
     .map(([id, { portraits, quality, colors, tags, styles }]) => ({
       original: { id, ...originalsMap.get(id) },
       portraits,
-      quality: sortObject(quality).map(([name, count]) => ({ ...numbersMap.get(name), count })),
+      quality: sortObject(quality, true).map(([name, count]) => ({
+        ...numbersMap.get(name),
+        count
+      })),
       colors: sortObject(colors).map(([name, count]) => ({ ...colorsMap.get(name), count })),
       tags: sortObject(tags).map(([tagId, count]) => ({ ...tagsMap.get(tagId), count })),
       styles: sortObject(styles).map(([styleId, count]) => ({ ...stylesMap.get(styleId), count }))

@@ -30,7 +30,7 @@ export const colorsMap = new Map(
 );
 
 export const numbersMap = new Map(
-  ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'].map((emoji, i) => [
+  ['❶', '❷', '❸', '❹', '❺', '❻', '❼', '❽', '❾', '❿'].map((emoji, i) => [
     String(i + 1),
     { emoji, name: String(i + 1) }
   ])

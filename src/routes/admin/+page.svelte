@@ -277,6 +277,7 @@
   main {
     height: 100vh;
     overflow: hidden;
+    user-select: none;
 
     display: grid;
     grid-template-columns: 1fr auto;
