@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import Checkbox from '@smui/checkbox';
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
@@ -116,28 +117,28 @@
       class="material-icons"
       action="first-page"
       title="First page"
-      on:click={() => (window.location.href = './1')}
+      on:click={() => goto('./1')}
       disabled={page === 1}>first_page</IconButton
     >
     <IconButton
       class="material-icons"
       action="prev-page"
       title="Prev page"
-      on:click={() => (window.location.href = `./${page - 1}`)}
+      on:click={() => goto(`./${page - 1}`)}
       disabled={page === 1}>chevron_left</IconButton
     >
     <IconButton
       class="material-icons"
       action="next-page"
       title="Next page"
-      on:click={() => (window.location.href = `./${page + 1}`)}
+      on:click={() => goto(`./${page + 1}`)}
       disabled={isLastPage}>chevron_right</IconButton
     >
     <IconButton
       class="material-icons"
       action="last-page"
       title="Last page"
-      on:click={() => (window.location.href = `./${portraits.totalPages}`)}
+      on:click={() => goto(`./${portraits.totalPages}`)}
       disabled={isLastPage}>last_page</IconButton
     >
   </Pagination>

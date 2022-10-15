@@ -2,10 +2,15 @@
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
   import { language } from '$lib/stores';
+
+  const links = [
+    { id: 'signin', key: 'common.auth.signin', to: '/signin' },
+    { id: 'signup', key: 'common.auth.signup', to: '/signup' }
+  ];
 </script>
 
 <div class="root" lang={$language}>
-  <Header />
+  <Header {links} />
 
   <main>
     <div>

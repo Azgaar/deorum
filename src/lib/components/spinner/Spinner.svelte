@@ -1,58 +1,50 @@
-<script lang="ts">
-  export let hidden: boolean = false;
-</script>
-
-<div class="loader" class:hidden>
-  <div />
-  <div />
-  <div />
+<div class="container">
+  <div class="loader" />
 </div>
 
 <style lang="scss">
-  div.loader {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-
-    div {
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: $primary;
-      animation: loader 1.5s linear infinite;
-    }
-
-    div:nth-child(1) {
-      top: 8px;
-      left: 8px;
-      animation-delay: 0s;
-    }
-
-    div:nth-child(2) {
-      top: 8px;
-      left: 32px;
-      animation-delay: -0.4s;
-    }
-
-    div:nth-child(3) {
-      top: 8px;
-      left: 56px;
-      animation-delay: -0.8s;
-    }
-
-    @keyframes loader {
-      0%,
-      100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.7;
-      }
-    }
+  .container {
+    font-size: 50px;
+    color: $primary;
   }
 
-  div.hidden {
-    visibility: hidden;
+  .loader {
+    border: 0.05em currentcolor solid;
+    border-radius: 50%;
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+    &:after,
+    &:before {
+      content: '';
+      border-radius: 50%;
+      position: absolute;
+      width: inherit;
+      height: inherit;
+      animation: loader 2s infinite linear;
+    }
+
+    &:before {
+      border-top: 0.2em currentcolor solid;
+      top: -0.15em;
+      left: calc(-50% - 0.15em);
+      transform-origin: right center;
+    }
+
+    &:after {
+      border-bottom: 0.2em currentcolor solid;
+      top: 0.15em;
+      right: calc(-50% - 0.15em);
+      transform-origin: left center;
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
   }
 </style>

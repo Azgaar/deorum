@@ -12,12 +12,12 @@
 <DataTable table$aria-label="statistics">
   <Head>
     <Row>
-      <Cell style="width: 64px"><Label>Original</Label></Cell>
-      <Cell style="width: auto"><Label>Quantity</Label></Cell>
-      <Cell style="width: 50%"><Label>Tags</Label></Cell>
-      <Cell style="width: 20%"><Label>Styles</Label></Cell>
-      <Cell style="width: 15%"><Label>Colors</Label></Cell>
-      <Cell style="width: 20%"><Label>Quality</Label></Cell>
+      <Cell style="width: 64px"><Label>{$t('admin.editor.original')}</Label></Cell>
+      <Cell style="width: auto"><Label>{$t('admin.editor.quality')}</Label></Cell>
+      <Cell style="width: 50%"><Label>{$t('admin.editor.tags')}</Label></Cell>
+      <Cell style="width: 20%"><Label>{$t('admin.editor.styles')}</Label></Cell>
+      <Cell style="width: 15%"><Label>{$t('admin.editor.colors')}</Label></Cell>
+      <Cell style="width: 20%"><Label>{$t('admin.editor.quality')}</Label></Cell>
     </Row>
   </Head>
 

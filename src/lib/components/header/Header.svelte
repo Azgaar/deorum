@@ -1,6 +1,10 @@
-<script lang="ts" context="module">
+<script lang="ts">
+  import { page } from '$app/stores';
+
   import { t } from '$lib/locales/translations';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
+
+  export let links: { id: string; key: string; to: string }[] = [];
 </script>
 
 <header>
@@ -8,8 +12,9 @@
 
   <nav>
     <ul>
-      <li><a href="/signin">{$t('common.auth.signin')}</a></li>
-      <li><a href="/signup">{$t('common.auth.signup')}</a></li>
+      {#each links as { id, key, to } (key)}
+        <li><a href={to} class:active={$page.routeId?.includes(id)}>{$t(key)}</a></li>
+      {/each}
     </ul>
   </nav>
 </header>
@@ -56,6 +61,10 @@
         }
 
         a:hover {
+          background: color.adjust($text, $alpha: -0.85);
+        }
+
+        a.active {
           background: color.adjust($text, $alpha: -0.95);
         }
       }
