@@ -1,3 +1,5 @@
+import structuredClone from '@ungap/structured-clone';
+
 import type { IOriginal, IPortrait, IStyle, ITag } from '$lib/api.types';
 import client from '$lib/api/client';
 import { colorsMap, numbersMap } from '$lib/config';
