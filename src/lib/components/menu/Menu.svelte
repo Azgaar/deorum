@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
@@ -6,21 +7,21 @@
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
   import SignupDialog from '$lib/components/auth/signup/SignupDialog.svelte';
-  import Spinner from '$lib/components/spinner/Spinner.svelte';
   import { VERSION } from '$lib/constants';
-  import { isLoading, user, role } from '$lib/stores';
+  import { user } from '$lib/stores';
   import { logout } from '$lib/api/auth';
-  import { permitted } from '$lib/config';
 
   export let openFilters: () => void;
 
   let signin = false;
   let signup = false;
 
-  $: can = permitted($role);
-
   const triggerUpload = () => {
     document.getElementById('filesInput')?.click();
+  };
+
+  const openStatistics = () => {
+    goto('/admin/statistics/originals');
   };
 </script>
 
@@ -28,42 +29,39 @@
   <header>
     <TextLogo size={64} />
     <Subtitle size={18}>{$t('admin.menu.subtitle')}</Subtitle>
-    <Spinner hidden={!$isLoading} />
   </header>
 
   <main>
-    {#if !$isLoading}
-      <div class="hint">{$t('admin.menu.hint')}</div>
+    <div class="hint">{$t('admin.menu.hint')}</div>
 
-      {#if !$user}
-        <Button variant="raised" on:click={() => (signin = true)}>
-          <Label>{$t('common.auth.signin')}</Label>
-        </Button>
-        <SigninDialog bind:open={signin} />
+    {#if !$user}
+      <Button variant="raised" on:click={() => (signin = true)}>
+        <Label>{$t('common.auth.signin')}</Label>
+      </Button>
+      <SigninDialog bind:open={signin} />
 
-        <Button variant="raised" on:click={() => (signup = true)}>
-          <Label>{$t('common.auth.signup')}</Label>
-        </Button>
-        <SignupDialog bind:open={signup} />
-      {/if}
+      <Button variant="raised" on:click={() => (signup = true)}>
+        <Label>{$t('common.auth.signup')}</Label>
+      </Button>
+      <SignupDialog bind:open={signup} />
+    {/if}
 
-      {#if can('filter')}
-        <Button variant="raised" on:click={openFilters}>
-          <Label>{$t('admin.menu.filter')}</Label>
-        </Button>
-      {/if}
+    <Button variant="raised" on:click={openFilters}>
+      <Label>{$t('admin.menu.filter')}</Label>
+    </Button>
 
-      {#if can('upload')}
-        <Button variant="raised" on:click={triggerUpload}>
-          <Label>{$t('admin.menu.upload')}</Label>
-        </Button>
-      {/if}
+    <Button variant="raised" on:click={openStatistics}>
+      <Label>{$t('admin.menu.statistics')}</Label>
+    </Button>
 
-      {#if $user}
-        <Button variant="raised" on:click={logout}>
-          <Label>{$t('common.auth.logout')}</Label>
-        </Button>
-      {/if}
+    <Button variant="raised" on:click={triggerUpload}>
+      <Label>{$t('admin.menu.upload')}</Label>
+    </Button>
+
+    {#if $user}
+      <Button variant="raised" on:click={logout}>
+        <Label>{$t('common.auth.logout')}</Label>
+      </Button>
     {/if}
   </main>
 

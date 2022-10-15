@@ -1,5 +1,4 @@
 import client from '$lib/api/client';
-import { URL } from '$lib/config';
 import type { IFilters, ISorting } from '$lib/filters.types';
 import { toastError } from '$lib/stores';
 import { normalizeError } from '$lib/utils/errors';
@@ -55,9 +54,6 @@ export async function load({ url }: { url: URL }) {
       }) as [string, { image: string; name: string }][]
     );
 
-    const portraitsImagePath = `${URL}/api/files/${portraits[0]?.['@collectionId']}`;
-    const originalsImagePath = `${URL}/api/files/${originalsData[0]?.['@collectionId']}`;
-
     return {
       page,
       hasMore,
@@ -66,9 +62,7 @@ export async function load({ url }: { url: URL }) {
       portraits,
       tags,
       styles,
-      originals,
-      portraitsImagePath,
-      originalsImagePath
+      originals
     };
   } catch (error) {
     console.error(error);
@@ -82,9 +76,7 @@ export async function load({ url }: { url: URL }) {
       portraits: [],
       tags: new Map(),
       styles: new Map(),
-      originals: new Map(),
-      portraitsImagePath: '',
-      originalsImagePath: ''
+      originals: new Map()
     };
   }
 }

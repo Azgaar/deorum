@@ -3,7 +3,8 @@
     "subtitle": "Admin Panel: Gallery",
     "hint": "Select a portrait to edit it. Check the boxes to select multiple portraits",
     "filter": "Filter Portraits",
-    "upload": "Upload Images"
+    "upload": "Upload Images",
+    "statistics": "Statistics"
   },
   "editor": {
     "selected": "Selected",
@@ -19,6 +20,10 @@
     "asc": "Sort ascending",
     "desc": "Sort descending",
     "no": "Don't sort"
+  },
+  "statistics": {
+    "portraits": "Portraits",
+    "averageQuality": "Mean quality"
   },
   "originals": {
     "undefined": "undefined",

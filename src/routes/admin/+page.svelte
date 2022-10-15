@@ -10,7 +10,7 @@
 
   import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
   import { normalizeError } from '$lib/utils/errors';
-  import { toastError, role } from '$lib/stores';
+  import { toastError } from '$lib/stores';
 
   import type { IPortrait } from '$lib/api.types';
   import type {
@@ -23,7 +23,7 @@
   } from '$lib/editor.types';
   import type { IFilters, ISorting } from '$lib/filters.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
-  import { permitted } from '$lib/config';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 
   export let data: {
     page: number;
@@ -34,12 +34,10 @@
     tags: Map<string, { emoji: string; name: string }>;
     styles: Map<string, { emoji: string; name: string }>;
     originals: Map<string, { image: string; name: string }>;
-    portraitsImagePath: string;
-    originalsImagePath: string;
   };
 
   // immutable
-  const { originals, tags, styles, portraitsImagePath, originalsImagePath } = data;
+  const { originals, tags, styles } = data;
 
   // mutable
   let { page, hasMore, filters, sorting } = data;
@@ -58,9 +56,6 @@
     return portraitsMap.get(selected[0]);
   };
 
-  $: can = permitted($role);
-  $: canEdit = can('edit');
-
   const enterUploadMode = (event: Event) => {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
@@ -76,7 +71,7 @@
   };
 
   const handleClick = (id: string) => () => {
-    if (!canEdit || uploaded.length) return;
+    if (uploaded.length) return;
 
     if (selected.includes(id)) {
       selected = selected.filter((item) => item !== id);
@@ -129,7 +124,6 @@
     filters,
     sorting,
     onSubmit: (_: IFilters, __: ISorting) => {},
-    originalsImagePath,
     originalsMap: originals,
     tagsMap: tags,
     stylesMap: styles
@@ -199,69 +193,71 @@
 
   const getSource = (item: IPortrait | IUploadedPortrait) => {
     if ('src' in item) return item.src;
-    return `${portraitsImagePath}/${item.id}/${item.image}`;
+    return `${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`;
   };
 </script>
 
-<section class="gallery">
-  <div class="grid">
-    {#each [...uploaded, ...portraits] as item (item.id)}
-      <div class="imageContainer" on:click={handleClick(item.id)}>
-        <img
-          loading="lazy"
-          alt={item.id}
-          src={getSource(item)}
-          class:selected={selected.includes(item.id)}
-        />
+<main>
+  <section class="gallery">
+    <div class="grid">
+      {#each [...uploaded, ...portraits] as item (item.id)}
+        <div class="imageContainer" on:click={handleClick(item.id)}>
+          <img
+            loading="lazy"
+            alt={item.id}
+            src={getSource(item)}
+            class:selected={selected.includes(item.id)}
+          />
 
-        {#if canEdit && (!uploaded.length || selected.includes(item.id))}
-          <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
-            <Checkbox
-              on:click={handleCheck(item.id)}
-              checked={selected.includes(item.id)}
-              disabled={uploaded.length > 0}
-              touch
-              ripple={false}
-              class="checkboxInput"
-            />
-          </div>
-        {/if}
-      </div>
-    {/each}
-  </div>
+          {#if !uploaded.length || selected.includes(item.id)}
+            <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
+              <Checkbox
+                on:click={handleCheck(item.id)}
+                checked={selected.includes(item.id)}
+                disabled={uploaded.length > 0}
+                touch
+                ripple={false}
+                class="checkboxInput"
+              />
+            </div>
+          {/if}
+        </div>
+      {/each}
+    </div>
 
-  {#if portraits.length === 0}
-    <div>No portraits found, try to change filter criteria</div>
-  {/if}
+    {#if portraits.length === 0}
+      <div>No portraits found, try to change filter criteria</div>
+    {/if}
 
-  {#if hasMore}
-    <LoadMore onClick={handleLoadMore} />
-  {/if}
-</section>
+    {#if hasMore}
+      <LoadMore onClick={handleLoadMore} />
+    {/if}
+  </section>
 
-<aside class="pane">
-  {#if model}
-    <Editor
-      {model}
-      {originals}
-      {tags}
-      {styles}
-      {openEditorDialog}
-      {openOriginalsDialog}
-      {handleClearSelection}
-      isUploading={Boolean(uploaded.length)}
-      image={getSource(model)}
-      selectedImages={selected.length}
-      handlePatch={createPatchHandler()}
-      handlePost={createPostHandler()}
-    />
-  {:else}
-    <Menu {openFilters} />
-  {/if}
-</aside>
+  <aside class="pane">
+    {#if model}
+      <Editor
+        {model}
+        {originals}
+        {tags}
+        {styles}
+        {openEditorDialog}
+        {openOriginalsDialog}
+        {handleClearSelection}
+        isUploading={Boolean(uploaded.length)}
+        image={getSource(model)}
+        selectedImages={selected.length}
+        handlePatch={createPatchHandler()}
+        handlePost={createPostHandler()}
+      />
+    {:else}
+      <Menu {openFilters} />
+    {/if}
+  </aside>
+</main>
 
 <EditorDialog {...editorDialogData} />
-<OriginalsDialog path={originalsImagePath} {...originalsDialogData} />
+<OriginalsDialog {...originalsDialogData} />
 <Filters {...filtersData} />
 
 <input
@@ -278,83 +274,98 @@
 
   $pane-width: 320px;
 
-  section.gallery {
-    grid-area: gallery;
-    width: 100%;
-    overflow: auto;
+  main {
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
 
-    div.grid {
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'gallery pane';
 
-      @media (max-width: 1199px) {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      }
+    @media (max-width: 599px) {
+      grid-template-rows: 2fr 1fr;
+      grid-template-areas: 'pane' 'gallery';
+    }
 
-      @media (max-width: 899px) {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      }
+    section.gallery {
+      grid-area: gallery;
+      width: 100%;
+      overflow: auto;
 
-      @media (max-width: 599px) {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      }
+      div.grid {
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 
-      .imageContainer {
-        position: relative;
-        aspect-ratio: 1;
-
-        img {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          transition: filter 0.2s ease-in-out;
+        @media (max-width: 1199px) {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         }
 
-        img.selected {
-          filter: brightness(0.8);
+        @media (max-width: 899px) {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         }
 
-        div.checkbox {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          transition: all 0.3s ease-in-out;
+        @media (max-width: 599px) {
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         }
 
-        div.checkbox.hidden {
-          opacity: 0;
-        }
-      }
+        .imageContainer {
+          position: relative;
+          aspect-ratio: 1;
 
-      .imageContainer:hover {
-        div.checkbox {
-          opacity: 1;
+          img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: filter 0.2s ease-in-out;
+          }
+
+          img.selected {
+            filter: brightness(0.8);
+          }
+
+          div.checkbox {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transition: all 0.3s ease-in-out;
+          }
+
+          div.checkbox.hidden {
+            opacity: 0;
+          }
+        }
+
+        .imageContainer:hover {
+          div.checkbox {
+            opacity: 1;
+          }
         }
       }
     }
-  }
 
-  :global(.imageContainer:hover div.mdc-checkbox__background) {
-    transition: all 0.3s ease-in-out;
-    border-color: color.adjust($text, $alpha: -0.1) !important;
-  }
+    :global(.imageContainer:hover div.mdc-checkbox__background) {
+      transition: all 0.3s ease-in-out;
+      border-color: color.adjust($text, $alpha: -0.1) !important;
+    }
 
-  aside.pane {
-    grid-area: pane;
-    background-image: url('/images/menu.png');
-    background-size: 100% 100%;
-    max-height: 100%;
-    overflow: auto;
+    aside.pane {
+      grid-area: pane;
+      background-image: url('/images/menu.png');
+      background-size: 100% 100%;
+      max-height: 100%;
+      overflow: auto;
 
-    padding: 2.5rem 2rem;
-    width: clamp(300px, $pane-width, 33vw);
+      padding: 2.5rem 2rem;
+      width: clamp(300px, $pane-width, 33vw);
 
-    @media (max-width: 599px) {
-      display: flex;
-      justify-content: center;
-      padding: 1rem 2rem;
-      width: auto;
+      @media (max-width: 599px) {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 2rem;
+        width: auto;
+      }
     }
   }
 </style>

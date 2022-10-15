@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import Checkbox from '@smui/checkbox';
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
 
-  import Chips from '$lib/components/Chips.svelte';
-  import { URL, colorsMap } from '$lib/config';
+  import Chips from '$lib/components/chips/ChipsMap.svelte';
+  import { colorsMap, PORTRAITS_IMAGE_PATH } from '$lib/config';
 
   import type { IListResult, IPortrait } from '$lib/api.types';
 
@@ -23,9 +24,6 @@
   const start = (page - 1) * portraits.perPage;
   const end = start + items.length;
   const isLastPage = page === portraits.totalPages;
-
-  const collectionId = items[0]?.['@collectionId'];
-  const imagesPath = `${URL}/api/files/${collectionId}`;
 
   let sort: keyof IPortrait = 'id';
   let sortDirection: string = 'ascending';
@@ -95,7 +93,7 @@
             width="64px"
             height="64px"
             alt={originals.get(item.original)}
-            src={`${imagesPath}/${item.id}/${item.image}?thumb=100x100`}
+            src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}?thumb=100x100`}
           />
         </Cell>
         <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>
@@ -119,28 +117,28 @@
       class="material-icons"
       action="first-page"
       title="First page"
-      on:click={() => (window.location.href = './1')}
+      on:click={() => goto('./1')}
       disabled={page === 1}>first_page</IconButton
     >
     <IconButton
       class="material-icons"
       action="prev-page"
       title="Prev page"
-      on:click={() => (window.location.href = `./${page - 1}`)}
+      on:click={() => goto(`./${page - 1}`)}
       disabled={page === 1}>chevron_left</IconButton
     >
     <IconButton
       class="material-icons"
       action="next-page"
       title="Next page"
-      on:click={() => (window.location.href = `./${page + 1}`)}
+      on:click={() => goto(`./${page + 1}`)}
       disabled={isLastPage}>chevron_right</IconButton
     >
     <IconButton
       class="material-icons"
       action="last-page"
       title="Last page"
-      on:click={() => (window.location.href = `./${portraits.totalPages}`)}
+      on:click={() => goto(`./${portraits.totalPages}`)}
       disabled={isLastPage}>last_page</IconButton
     >
   </Pagination>

@@ -5,6 +5,7 @@
   import Checkbox from '@smui/checkbox';
 
   import { t } from '$lib/locales/translations';
+  import { getEmojiedLabel } from '$lib/utils/label';
   import './_styles.scss';
 
   export let open: boolean;
@@ -60,7 +61,7 @@
       {#each entries || [] as [entryId, { emoji, name }] (entryId)}
         <div class="entry" class:found={found.has(entryId)}>
           <Checkbox group={current} value={entryId} ripple={false} />
-          <span>{@html emoji} {$t(`admin.${key}.${name}`)}</span>
+          <span>{@html getEmojiedLabel(key, { emoji, name })}</span>
         </div>
       {/each}
     </div>

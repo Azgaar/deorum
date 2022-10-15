@@ -5,6 +5,7 @@
 
   import { t } from '$lib/locales/translations';
   import type { IFilters, ISorting } from '$lib/filters.types';
+  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import QualityFilter from './QualityFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
   import ColorsFilter from './ColorsFilter.svelte';
@@ -16,7 +17,6 @@
   export let sorting: ISorting;
   export let onSubmit: (filters: IFilters, sorting: ISorting) => void;
 
-  export let originalsImagePath: string;
   export let originalsMap: Map<string, { image: string; name: string }>;
   export let tagsMap: Map<string, { emoji: string; name: string }>;
   export let stylesMap: Map<string, { emoji: string; name: string }>;
@@ -74,7 +74,7 @@
               <Wrapper>
                 <img
                   alt={originalId}
-                  src={`${originalsImagePath}/${originalId}/${
+                  src={`${ORIGINALS_IMAGE_PATH}/${originalId}/${
                     originalsMap.get(originalId)?.image
                   }?thumb=100x100`}
                 />
@@ -149,7 +149,6 @@
 <OriginalsFilter
   bind:open={showOriginalsDialog}
   bind:original={filters.original}
-  path={originalsImagePath}
   entries={Array.from(originalsMap.entries())}
 />
 

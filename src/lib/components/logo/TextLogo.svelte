@@ -2,14 +2,21 @@
   export let size: number;
 </script>
 
-<h1 style="font-size: {size}px" translate="no">Deorum</h1>
+<a href="/">
+  <h1 style="font-size: {size}px" translate="no">Deorum</h1>
+</a>
 
 <style lang="scss">
+  a {
+    text-decoration: none;
+  }
+
   h1 {
     font-family: 'Times New Roman', serif;
     text-transform: uppercase;
     font-weight: 400;
     margin: 0;
+    user-select: none;
 
     background-image: linear-gradient(100deg, #f6e27a 0%, #f6f2c0 5%, #f6e27a 25%, #ffed8a 100%);
     text-shadow: 3px -1px 1px #46252350;

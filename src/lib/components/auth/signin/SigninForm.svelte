@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
@@ -26,7 +27,7 @@
       await signin({ email, password });
 
       if (!onClose) {
-        window.location.href = $role === Role.ADMIN ? '/admin' : '/';
+        goto($role === Role.ADMIN ? '/admin' : '/');
       } else onClose();
     } catch (error) {
       console.error(error);

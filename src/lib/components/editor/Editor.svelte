@@ -7,8 +7,9 @@
   import { colorsMap } from '$lib/config';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
-  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
+  import { getEmojiedLabel } from '$lib/utils/label';
   import client from '$lib/api/client';
+  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
 
   import EditButton from './EditButton.svelte';
 
@@ -119,11 +120,6 @@
       isLoading = false;
     }
   };
-
-  const getLabel = (key: string, data?: { emoji: string; name: string }) => {
-    const { emoji, name } = data || {};
-    return emoji + ' ' + $t(`admin.${key}.${name}`);
-  };
 </script>
 
 <section class="editor">
@@ -154,7 +150,7 @@
         {#each current.colors as color (color)}
           <span class="chip">
             <span on:click={handleRemove('colors', color)} class="action">✕</span>
-            {@html getLabel('colors', colorsMap.get(color))}
+            {@html getEmojiedLabel('colors', colorsMap.get(color))}
           </span>
         {/each}
         <EditButton onClick={handleListEdit('colors', colorsMap)} />
@@ -167,7 +163,7 @@
         {#each current.tags as tagId (tagId)}
           <span class="chip">
             <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
-            {getLabel('tags', tags.get(tagId))}
+            {getEmojiedLabel('tags', tags.get(tagId))}
           </span>
         {/each}
         <EditButton onClick={handleListEdit('tags', tags)} />
@@ -180,7 +176,7 @@
         {#each current.styles as styleId (styleId)}
           <span class="chip">
             <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
-            {getLabel('styles', styles.get(styleId))}
+            {getEmojiedLabel('styles', styles.get(styleId))}
           </span>
         {/each}
         <EditButton onClick={handleListEdit('styles', styles)} />

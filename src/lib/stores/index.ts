@@ -1,3 +1,3 @@
 export { snackbar, toastError, toastSuccess } from './snackbar';
-export { user, role, isLoading } from './auth';
+export { user, role } from './auth';
 export { language } from './settings';
