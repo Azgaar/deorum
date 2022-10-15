@@ -1,5 +1,6 @@
 <script lang="ts">
   export let chips: IChip[];
+  export let translate: ((key: string) => string) | null = null;
 
   interface IChip {
     count: number;
@@ -14,7 +15,11 @@
 
 <div class="chips">
   {#each chips as chip}
-    <div>{@html getText(chip)}</div>
+    {#if translate}
+      <div title={translate(chip.name || '')}>{@html getText(chip)}</div>
+    {:else}
+      <div>{@html getText(chip)}</div>
+    {/if}
   {/each}
 </div>
 

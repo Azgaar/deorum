@@ -2,18 +2,20 @@
   import DataTable, { Head, Body, Row, Cell, Label } from '@smui/data-table';
 
   import { t } from '$lib/locales/translations';
-  import Chips from '$lib/components/chips/StatChips.svelte';
+  import Chips from '$lib/components/statistics/Chips.svelte';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import type { IStatistics } from './+page.server';
 
   export let data: { statistics: IStatistics[] };
+
+  const translate = (type: string) => (key: string) => $t(`admin.${type}.${key}`);
 </script>
 
 <DataTable table$aria-label="statistics">
   <Head>
     <Row>
       <Cell style="width: 64px"><Label>{$t('admin.editor.original')}</Label></Cell>
-      <Cell style="width: auto"><Label>{$t('admin.editor.quality')}</Label></Cell>
+      <Cell style="width: auto" />
       <Cell style="width: 50%"><Label>{$t('admin.editor.tags')}</Label></Cell>
       <Cell style="width: 20%"><Label>{$t('admin.editor.styles')}</Label></Cell>
       <Cell style="width: 15%"><Label>{$t('admin.editor.colors')}</Label></Cell>
@@ -35,11 +37,12 @@
         </Cell>
         <Cell style="text-transform: capitalize;">
           <div>{$t(`admin.originals.${stats.original.name}`)}</div>
-          <div>{stats.portraits}</div>
+          <div>{$t('admin.statistics.portraits')}: {stats.portraits}</div>
+          <div>{$t('admin.statistics.averageQuality')}: {stats.averageQuality.toFixed(1)}</div>
         </Cell>
-        <Cell><Chips chips={stats.tags} /></Cell>
-        <Cell><Chips chips={stats.styles} /></Cell>
-        <Cell><Chips chips={stats.colors} /></Cell>
+        <Cell><Chips chips={stats.tags} translate={translate('tags')} /></Cell>
+        <Cell><Chips chips={stats.styles} translate={translate('styles')} /></Cell>
+        <Cell><Chips chips={stats.colors} translate={translate('colors')} /></Cell>
         <Cell><Chips chips={stats.quality} /></Cell>
       </Row>
     {/each}

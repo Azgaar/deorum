@@ -21,6 +21,10 @@
     "desc": "Сортировать по убыванию",
     "no": "Не сортировать"
   },
+  "statistics": {
+    "portraits": "Портретов",
+    "averageQuality": "Качество"
+  },
   "originals": {
     "undefined": "не указан",
     "pixie": "пикси",

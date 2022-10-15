@@ -86,6 +86,9 @@ export const load: import('./$types').PageServerLoad = async () => {
         ...numbersMap.get(name),
         count
       })),
+      averageQuality:
+        Object.entries(quality).reduce((acc, [quality, count]) => acc + +quality * count, 0) /
+        portraits,
       colors: sortObject(colors).map(([name, count]) => ({ ...colorsMap.get(name), count })),
       tags: sortObject(tags).map(([tagId, count]) => ({ ...tagsMap.get(tagId), count })),
       styles: sortObject(styles).map(([styleId, count]) => ({ ...stylesMap.get(styleId), count }))
@@ -105,6 +108,7 @@ export interface IStatistics {
   original: { id: string; name?: string | undefined; image?: string | undefined };
   portraits: number;
   quality: IStatData[];
+  averageQuality: number;
   colors: IStatData[];
   tags: IStatData[];
   styles: IStatData[];

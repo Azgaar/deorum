@@ -21,6 +21,10 @@
     "desc": "Sort descending",
     "no": "Don't sort"
   },
+  "statistics": {
+    "portraits": "Portraits",
+    "averageQuality": "Mean quality"
+  },
   "originals": {
     "undefined": "undefined",
     "pixie": "pixie",
