@@ -109,7 +109,9 @@
     "vagrant": "vagrant",
     "supreme": "supreme",
     "satyress": "satyress",
-    "venus": "venus"
+    "venus": "venus",
+    "siren": "siren",
+    "vizir": "vizir"
   },
   "colors": {
     "red": "red",
@@ -192,7 +194,9 @@
     "hypnotizer": "hypnotizer",
     "blind": "blind",
     "eyeless": "eyeless",
-    "hat": "hat"
+    "hat": "hat",
+    "angel": "angel",
+    "bird": "bird"
   },
   "styles": {
     "asian": "asian",
