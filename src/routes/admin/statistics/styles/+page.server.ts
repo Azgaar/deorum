@@ -22,7 +22,9 @@ async function getFullList<K extends keyof IData>(name: K) {
 
 export const load: import('./$types').PageServerLoad = async () => {
   const [portraits, styles] = await Promise.all([getFullList('portraits'), getFullList('styles')]);
-  const stylesMap = new Map(styles.map(({ id, emoji, name }) => [id, { emoji, name }]));
+  const stylesMap = new Map(
+    styles.map(({ id, emoji, image, name }) => [id, { emoji, image, name }])
+  );
 
   // aggregate data
   const aggregated = portraits.reduce((acc, { styles }) => {
@@ -47,6 +49,7 @@ export const load: import('./$types').PageServerLoad = async () => {
 
 export interface IStatistics {
   emoji?: string;
+  image?: string;
   name?: string;
   count: number;
 }

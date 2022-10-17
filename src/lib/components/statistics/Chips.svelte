@@ -4,22 +4,17 @@
 
   interface IChip {
     count: number;
-    emoji?: string | undefined;
+    image?: string | undefined;
     name?: string | undefined;
   }
-
-  const getText = ({ count, emoji, name }: IChip) => {
-    return emoji ? `${emoji} ${count}` : `${name}: ${count}`;
-  };
 </script>
 
 <div class="chips">
   {#each chips as chip}
-    {#if translate}
-      <div title={translate(chip.name || '')}>{@html getText(chip)}</div>
-    {:else}
-      <div>{@html getText(chip)}</div>
-    {/if}
+    <div title={translate && chip.name ? translate(chip.name) : null}>
+      <img src={chip.image} alt={chip.name} />
+      {chip.count}
+    </div>
   {/each}
 </div>
 
@@ -37,5 +32,13 @@
     border: 1px solid color.adjust($surface, $lightness: 10%);
     border-radius: 16px;
     padding: 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    img {
+      width: 14px;
+      height: min-content;
+    }
   }
 </style>

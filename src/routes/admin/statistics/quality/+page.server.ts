@@ -37,7 +37,7 @@ export const load: import('./$types').PageServerLoad = async () => {
   }
 
   const statistics: IStatistics[] = Object.entries(aggregated).map(([id, count]) => ({
-    emoji: numbersMap.get(id)?.emoji,
+    image: numbersMap.get(id)?.image,
     count
   }));
 
@@ -45,6 +45,6 @@ export const load: import('./$types').PageServerLoad = async () => {
 };
 
 export interface IStatistics {
-  emoji?: string;
+  image?: string;
   count: number;
 }

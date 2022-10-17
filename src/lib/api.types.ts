@@ -29,11 +29,13 @@ export interface IPortrait extends IRecord {
 export interface ITag extends IRecord {
   name: string;
   emoji: string;
+  image: string;
 }
 
 export interface IStyle extends IRecord {
   name: string;
   emoji: string;
+  image: string;
 }
 
 export interface IUser {

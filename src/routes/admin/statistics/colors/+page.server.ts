@@ -47,6 +47,7 @@ export const load: import('./$types').PageServerLoad = async () => {
 
 export interface IStatistics {
   emoji?: string;
+  image?: string;
   name?: string;
   count: number;
 }

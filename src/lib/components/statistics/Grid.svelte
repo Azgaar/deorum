@@ -4,6 +4,7 @@
   export let data: {
     statistics: {
       emoji?: string;
+      image?: string;
       name?: string;
       count: number;
     }[];
@@ -16,7 +17,7 @@
   {#each data.statistics as stats (stats.name)}
     <div class="item">
       {#if stats.name}<div class="name">{$t(`admin.${type}.${stats.name}`)}</div>{/if}
-      <div class="emoji">{@html stats.emoji}</div>
+      <img src={stats.image} alt={stats.name} />
       <div>{stats.count}</div>
     </div>
   {/each}
@@ -33,7 +34,7 @@
     div.item {
       aspect-ratio: 1;
       display: flex;
-      gap: 2px 0;
+      gap: 4px 0;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -48,8 +49,9 @@
         white-space: nowrap;
       }
 
-      div.emoji {
-        font-size: 30px;
+      img {
+        width: 40%;
+        aspect-ratio: 1;
       }
     }
   }

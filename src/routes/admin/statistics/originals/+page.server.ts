@@ -51,8 +51,8 @@ export const load: import('./$types').PageServerLoad = async () => {
   ]);
 
   const originalsMap = new Map(originals.map(({ id, image, name }) => [id, { name, image }]));
-  const tagsMap = new Map(tags.map(({ id, emoji, name }) => [id, { emoji, name }]));
-  const stylesMap = new Map(styles.map(({ id, emoji, name }) => [id, { emoji, name }]));
+  const tagsMap = new Map(tags.map(({ id, image, name }) => [id, { image, name }]));
+  const stylesMap = new Map(styles.map(({ id, image, name }) => [id, { image, name }]));
 
   // aggregate data
   const aggregated = portraits.reduce((acc, { original, quality, colors, tags, styles }) => {
@@ -102,7 +102,7 @@ export const load: import('./$types').PageServerLoad = async () => {
 
 interface IStatData {
   count: number;
-  emoji?: string | undefined;
+  image?: string | undefined;
   name?: string | undefined;
 }
 
