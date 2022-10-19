@@ -24,6 +24,11 @@ export interface IPortrait extends IRecord {
   styles: string[];
   colors: string[];
   quality: number;
+  '@expand': {
+    original: IOriginal;
+    tags: ITag[];
+    styles: IStyle[];
+  };
 }
 
 export interface ITag extends IRecord {

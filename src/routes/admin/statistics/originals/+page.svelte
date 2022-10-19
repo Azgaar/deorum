@@ -2,7 +2,7 @@
   import DataTable, { Head, Body, Row, Cell, Label } from '@smui/data-table';
 
   import { t } from '$lib/locales/translations';
-  import Chips from '$lib/components/statistics/Chips.svelte';
+  import Chips from '$lib/components/chips/StatsChips.svelte';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import type { IStatsData } from './+page.server';
 

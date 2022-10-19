@@ -1,23 +1,17 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import Checkbox from '@smui/checkbox';
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
 
-  import Chips from '$lib/components/chips/ChipsMap.svelte';
-  import { colorsMap, PORTRAITS_IMAGE_PATH } from '$lib/config';
-
+  import { t } from '$lib/locales/translations';
+  import Chips from '$lib/components/chips/NameChips.svelte';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import type { IListResult, IPortrait } from '$lib/api.types';
 
-  export let data: {
-    portraits: IListResult<IPortrait>;
-    tags: Map<string, string>;
-    styles: Map<string, string>;
-    originals: Map<string, string>;
-    page: number;
-  };
+  export let data: { portraits: IListResult<IPortrait>; page: number };
 
-  const { portraits, tags, styles, originals, page } = data;
+  const { portraits, page } = data;
+
   let items = portraits.items || [];
   let selected: IPortrait[] = [];
 
@@ -26,7 +20,7 @@
   const isLastPage = page === portraits.totalPages;
 
   let sort: keyof IPortrait = 'id';
-  let sortDirection: string = 'ascending';
+  let sortDirection: 'ascending' | 'descending' | 'none' | 'other' | undefined = 'ascending';
 
   function handleSort() {
     items.sort((a, b) => {
@@ -39,6 +33,8 @@
 
     items = items;
   }
+
+  const translate = (type: string) => (key: string) => $t(`admin.${type}.${key}`);
 </script>
 
 <DataTable
@@ -47,35 +43,35 @@
   bind:sortDirection
   on:SMUIDataTable:sorted={handleSort}
   table$aria-label="Images"
-  style="width: 100%; overflow: auto;"
+  style="width: 100%; height: 100vh; overflow: auto;"
 >
   <Head>
     <Row>
       <Cell checkbox>
         <Checkbox />
       </Cell>
-      <Cell sortable={false} columnId="image">
-        <Label>Image</Label>
+      <Cell sortable={false} columnId="portrait">
+        <Label>{$t('admin.editor.original')}</Label>
       </Cell>
       <Cell columnId="original">
-        <Label>Original</Label>
+        <Label>{$t('admin.editor.original')}</Label>
         <IconButton class="material-icons">arrow_upward</IconButton>
       </Cell>
       <Cell columnId="tags">
-        <Label>Tags</Label>
+        <Label>{$t('admin.editor.tags')}</Label>
         <IconButton class="material-icons">arrow_upward</IconButton>
       </Cell>
       <Cell columnId="styles">
-        <Label>Styles</Label>
+        <Label>{$t('admin.editor.styles')}</Label>
         <IconButton class="material-icons">arrow_upward</IconButton>
       </Cell>
       <Cell columnId="colors">
-        <Label>Colors</Label>
+        <Label>{$t('admin.editor.colors')}</Label>
         <IconButton class="material-icons">arrow_upward</IconButton>
       </Cell>
       <Cell numeric columnId="quality">
         <IconButton class="material-icons">arrow_upward</IconButton>
-        <Label>Quality</Label>
+        <Label>{$t('admin.editor.quality')}</Label>
       </Cell>
       <Cell sortable={false} />
     </Row>
@@ -92,14 +88,16 @@
             loading="lazy"
             width="64px"
             height="64px"
-            alt={originals.get(item.original)}
+            alt={item.original}
             src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}?thumb=100x100`}
           />
         </Cell>
-        <Cell style="text-transform: capitalize;">{originals.get(item.original)}</Cell>
-        <Cell><Chips chips={item.tags} map={tags} /></Cell>
-        <Cell><Chips chips={item.styles} map={styles} /></Cell>
-        <Cell><Chips chips={item.colors} map={colorsMap} /></Cell>
+        <Cell style="text-transform: capitalize;">
+          {translate('originals')(item['@expand'].original.name)}
+        </Cell>
+        <Cell><Chips chips={item['@expand'].tags} translate={translate('tags')} /></Cell>
+        <Cell><Chips chips={item['@expand'].styles} translate={translate('styles')} /></Cell>
+        <Cell>{item.colors.map((color) => translate('colors')(color)).join(', ')}</Cell>
         <Cell numeric>{item.quality}</Cell>
         <Cell>
           <IconButton class="material-icons" title="Remove">delete</IconButton>
@@ -110,36 +108,43 @@
 
   <Pagination slot="paginate">
     <svelte:fragment slot="total">
-      {start + 1}-{end} of {portraits.totalItems}
+      {start + 1}-{end}
+      {$t('admin.gallery.of')}
+      {portraits.totalItems}
     </svelte:fragment>
 
-    <IconButton
-      class="material-icons"
-      action="first-page"
-      title="First page"
-      on:click={() => goto('./1')}
-      disabled={page === 1}>first_page</IconButton
-    >
-    <IconButton
-      class="material-icons"
-      action="prev-page"
-      title="Prev page"
-      on:click={() => goto(`./${page - 1}`)}
-      disabled={page === 1}>chevron_left</IconButton
-    >
-    <IconButton
-      class="material-icons"
-      action="next-page"
-      title="Next page"
-      on:click={() => goto(`./${page + 1}`)}
-      disabled={isLastPage}>chevron_right</IconButton
-    >
-    <IconButton
-      class="material-icons"
-      action="last-page"
-      title="Last page"
-      on:click={() => goto(`./${portraits.totalPages}`)}
-      disabled={isLastPage}>last_page</IconButton
-    >
+    {#if page > 1}
+      <IconButton class="material-icons" action="first-page" title="First page" href="./1">
+        first_page
+      </IconButton>
+      <IconButton
+        class="material-icons"
+        action="prev-page"
+        title="Prev page"
+        href={`./${page - 1}`}
+      >
+        chevron_left
+      </IconButton>
+    {/if}
+
+    {#if !isLastPage}
+      <IconButton
+        class="material-icons"
+        action="next-page"
+        title="Next page"
+        href={`./${page + 1}`}
+      >
+        chevron_right
+      </IconButton>
+
+      <IconButton
+        class="material-icons"
+        action="last-page"
+        title="Last page"
+        href={`./${portraits.totalPages}`}
+      >
+        last_page
+      </IconButton>
+    {/if}
   </Pagination>
 </DataTable>

@@ -5,18 +5,22 @@ const PAGE_SIZE = 100;
 
 export async function getPortraits({
   page,
+  perPage = PAGE_SIZE,
   filter,
-  sort
+  sort,
+  expand = ''
 }: {
   page: number;
+  perPage?: number;
   filter: string;
   sort: string;
+  expand?: string;
 }) {
-  const portraitsList = (await client.records.getList('portraits', page, PAGE_SIZE, {
+  const portraitsList = (await client.records.getList('portraits', page, perPage, {
     filter,
-    sort
+    sort,
+    expand
   })) as unknown as IListResult<IPortrait>;
 
-  const { items, totalPages } = portraitsList;
-  return { items, totalPages };
+  return portraitsList;
 }

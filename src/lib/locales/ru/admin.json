@@ -25,6 +25,10 @@
     "portraits": "Портретов",
     "averageQuality": "Качество"
   },
+  "gallery": {
+    "portrait": "Портрет",
+    "of": "из"
+  },
   "originals": {
     "undefined": "не указан",
     "pixie": "пикси",

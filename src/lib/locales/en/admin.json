@@ -25,6 +25,10 @@
     "portraits": "Portraits",
     "averageQuality": "Mean quality"
   },
+  "gallery": {
+    "portrait": "Portrait",
+    "of": "of"
+  },
   "originals": {
     "undefined": "undefined",
     "pixie": "pixie",
