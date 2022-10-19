@@ -1,28 +1,15 @@
-import type { IOriginal, IPortrait, IStyle, ITag } from '$lib/api.types';
-import client from '$lib/api/client';
-import { colors, colorsMap } from '$lib/config';
-
-const BATCH = 200;
+import { getFullList } from '$lib/api/getFullList';
+import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
-
-interface IData {
-  portraits: IPortrait[];
-  originals: IOriginal[];
-  tags: ITag[];
-  styles: IStyle[];
-}
 
 interface IAggregatedData {
   [color: string]: number;
 }
 
-async function getFullList<K extends keyof IData>(name: K) {
-  return client.records.getFullList(name, BATCH) as unknown as IData[K];
-}
-
 export const load: import('./$types').PageServerLoad = async () => {
-  const [portraits] = await Promise.all([getFullList('portraits'), getFullList('styles')]);
+  const [portraits, colors] = await Promise.all([getFullList('portraits'), getFullList('colors')]);
+  const colorsMap = new Map(colors.map(({ image, name }) => [name, { image, name }]));
 
   // aggregate data
   const aggregated = portraits.reduce((acc, { colors }) => {
@@ -34,20 +21,13 @@ export const load: import('./$types').PageServerLoad = async () => {
     return acc;
   }, {} as IAggregatedData);
 
-  for (const color of colors) {
-    if (!aggregated[color]) aggregated[color] = 0;
+  for (const { name } of colors) {
+    if (!aggregated[name]) aggregated[name] = 0;
   }
 
   const statistics: IStatistics[] = Object.entries(aggregated)
-    .map(([id, count]) => ({ ...colorsMap.get(id), count }))
+    .map(([name, count]) => ({ ...colorsMap.get(name), count }))
     .sort((a, b) => b.count - a.count);
 
   return { statistics };
 };
-
-export interface IStatistics {
-  emoji?: string;
-  image?: string;
-  name?: string;
-  count: number;
-}

@@ -38,6 +38,17 @@ export interface IStyle extends IRecord {
   image: string;
 }
 
+export interface IColor extends IRecord {
+  name: string;
+  image: string;
+}
+
+export interface IQuality extends IRecord {
+  name: string;
+  emoji: string;
+  image: string;
+}
+
 export interface IUser {
   email: string;
   verified: boolean;

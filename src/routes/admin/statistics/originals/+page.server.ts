@@ -1,19 +1,9 @@
 import structuredClone from '@ungap/structured-clone';
 
-import type { IOriginal, IPortrait, IStyle, ITag } from '$lib/api.types';
-import client from '$lib/api/client';
-import { colorsMap, numbersMap } from '$lib/config';
-
-const BATCH = 200;
+import { getFullList } from '$lib/api/getFullList';
+import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
-
-interface IData {
-  portraits: IPortrait[];
-  originals: IOriginal[];
-  tags: ITag[];
-  styles: IStyle[];
-}
 
 interface IAggregatedData {
   [originId: string]: {
@@ -38,21 +28,21 @@ function sortObject(obj: Record<string, number>, byKey = false) {
   return Object.entries(obj).sort(([, a], [, b]) => b - a);
 }
 
-async function getFullList<K extends keyof IData>(name: K) {
-  return client.records.getFullList(name, BATCH) as unknown as IData[K];
-}
-
 export const load: import('./$types').PageServerLoad = async () => {
-  const [portraits, originals, tags, styles] = await Promise.all([
+  const [portraits, originals, tags, styles, colors, quality] = await Promise.all([
     getFullList('portraits'),
     getFullList('originals'),
     getFullList('tags'),
-    getFullList('styles')
+    getFullList('styles'),
+    getFullList('colors'),
+    getFullList('quality')
   ]);
 
   const originalsMap = new Map(originals.map(({ id, image, name }) => [id, { name, image }]));
   const tagsMap = new Map(tags.map(({ id, image, name }) => [id, { image, name }]));
   const stylesMap = new Map(styles.map(({ id, image, name }) => [id, { image, name }]));
+  const colorsMap = new Map(colors.map(({ image, name }) => [name, { image, name }]));
+  const qualityMap = new Map(quality.map(({ image, name }) => [name, { image, name }]));
 
   // aggregate data
   const aggregated = portraits.reduce((acc, { original, quality, colors, tags, styles }) => {
@@ -80,12 +70,11 @@ export const load: import('./$types').PageServerLoad = async () => {
     return acc;
   }, {} as IAggregatedData);
 
-  const statistics: IStatistics[] = Object.entries(aggregated)
+  const statistics: IStatsData[] = Object.entries(aggregated)
     .map(([id, { portraits, quality, colors, tags, styles }]) => ({
-      original: { id, ...originalsMap.get(id) },
-      portraits,
+      original: { id, ...originalsMap.get(id), count: portraits },
       quality: sortObject(quality, true).map(([name, count]) => ({
-        ...numbersMap.get(name),
+        ...qualityMap.get(name),
         count
       })),
       averageQuality:
@@ -95,23 +84,16 @@ export const load: import('./$types').PageServerLoad = async () => {
       tags: sortObject(tags).map(([tagId, count]) => ({ ...tagsMap.get(tagId), count })),
       styles: sortObject(styles).map(([styleId, count]) => ({ ...stylesMap.get(styleId), count }))
     }))
-    .sort((a, b) => b.portraits - a.portraits);
+    .sort((a, b) => b.original.count - a.original.count);
 
   return { statistics };
 };
 
-interface IStatData {
-  count: number;
-  image?: string | undefined;
-  name?: string | undefined;
-}
-
-export interface IStatistics {
-  original: { id: string; name?: string | undefined; image?: string | undefined };
-  portraits: number;
-  quality: IStatData[];
+export interface IStatsData {
+  original: IStatistics & { id: string };
+  quality: IStatistics[];
   averageQuality: number;
-  colors: IStatData[];
-  tags: IStatData[];
-  styles: IStatData[];
+  colors: IStatistics[];
+  tags: IStatistics[];
+  styles: IStatistics[];
 }

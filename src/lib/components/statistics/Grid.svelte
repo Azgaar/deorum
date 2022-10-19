@@ -3,7 +3,6 @@
 
   export let data: {
     statistics: {
-      emoji?: string;
       image?: string;
       name?: string;
       count: number;

@@ -4,9 +4,9 @@
   import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/statistics/Chips.svelte';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
-  import type { IStatistics } from './+page.server';
+  import type { IStatsData } from './+page.server';
 
-  export let data: { statistics: IStatistics[] };
+  export let data: { statistics: IStatsData[] };
 
   const translate = (type: string) => (key: string) => $t(`admin.${type}.${key}`);
 </script>
@@ -37,7 +37,7 @@
         </Cell>
         <Cell style="text-transform: capitalize;">
           <div>{$t(`admin.originals.${stats.original.name}`)}</div>
-          <div>{$t('admin.statistics.portraits')}: {stats.portraits}</div>
+          <div>{$t('admin.statistics.portraits')}: {stats.original.count}</div>
           <div>{$t('admin.statistics.averageQuality')}: {stats.averageQuality.toFixed(1)}</div>
         </Cell>
         <Cell><Chips chips={stats.tags} translate={translate('tags')} /></Cell>

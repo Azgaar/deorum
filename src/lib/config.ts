@@ -7,6 +7,8 @@ export const PORTRAITS_IMAGE_PATH = `${URL}/api/files/ovnifljz2gtnz5u`;
 
 export const COOKIE_NAME = 'pb_auth';
 
+export const BATCH_SIZE = 200;
+
 export const colors = [
   'red',
   'orange',

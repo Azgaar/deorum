@@ -1,28 +1,14 @@
-import type { IOriginal, IPortrait, IStyle, ITag } from '$lib/api.types';
-import client from '$lib/api/client';
-import { numbersMap, qualities } from '$lib/config';
-
-const BATCH = 200;
+import { getFullList } from '$lib/api/getFullList';
+import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
 
-interface IData {
-  portraits: IPortrait[];
-  originals: IOriginal[];
-  tags: ITag[];
-  styles: IStyle[];
-}
-
-interface IAggregatedData {
-  [quality: string]: number;
-}
-
-async function getFullList<K extends keyof IData>(name: K) {
-  return client.records.getFullList(name, BATCH) as unknown as IData[K];
-}
-
 export const load: import('./$types').PageServerLoad = async () => {
-  const portraits = await getFullList('portraits');
+  const [portraits, quality] = await Promise.all([
+    getFullList('portraits'),
+    getFullList('quality')
+  ]);
+  const qualityMap = new Map(quality.map(({ image, name }) => [name, { image, name }]));
 
   // aggregate data
   const aggregated = portraits.reduce((acc, { quality }) => {
@@ -30,21 +16,15 @@ export const load: import('./$types').PageServerLoad = async () => {
     acc[quality] += 1;
 
     return acc;
-  }, {} as IAggregatedData);
+  }, {} as { [quality: string]: number });
 
-  for (const quality of qualities) {
-    if (!aggregated[quality]) aggregated[quality] = 0;
+  for (const { name } of quality) {
+    if (!aggregated[name]) aggregated[name] = 0;
   }
 
-  const statistics: IStatistics[] = Object.entries(aggregated).map(([id, count]) => ({
-    image: numbersMap.get(id)?.image,
-    count
-  }));
+  const statistics: IStatistics[] = Object.entries(aggregated)
+    .sort(([a], [b]) => Number(b) - Number(a))
+    .map(([name, count]) => ({ ...qualityMap.get(name), count }));
 
   return { statistics };
 };
-
-export interface IStatistics {
-  image?: string;
-  count: number;
-}
