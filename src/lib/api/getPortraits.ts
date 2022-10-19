@@ -1,4 +1,4 @@
-import type { IListResult, IPortrait } from '$lib/api.types';
+import type { IListResult, IPortrait } from '$lib/types/api.types';
 import client from './client';
 
 const PAGE_SIZE = 100;

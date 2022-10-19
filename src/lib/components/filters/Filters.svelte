@@ -4,7 +4,7 @@
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
-  import type { IFilters, ISorting } from '$lib/filters.types';
+  import type { IFilters, ISorting } from '$lib/types/filters.types';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import QualityFilter from './QualityFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
@@ -18,8 +18,8 @@
   export let onSubmit: (filters: IFilters, sorting: ISorting) => void;
 
   export let originalsMap: Map<string, { image: string; name: string }>;
-  export let tagsMap: Map<string, { emoji: string; name: string }>;
-  export let stylesMap: Map<string, { emoji: string; name: string }>;
+  export let tagsMap: Map<string, { image: string; name: string }>;
+  export let stylesMap: Map<string, { image: string; name: string }>;
 
   let showOriginalsDialog = false;
   let showColorsDialog = false;
@@ -27,7 +27,7 @@
   let editorDialogData = {
     open: false,
     key: '',
-    entries: [] as [string, { emoji: string; name: string }][],
+    entries: [] as [string, { image: string; name: string }][],
     selected: [] as string[],
     onSubmit: (_: string[]) => {}
   };
@@ -35,7 +35,7 @@
   const handleListEdit =
     (
       key: 'styles' | 'tags',
-      map: Map<string, { emoji: string; name: string }>,
+      map: Map<string, { image: string; name: string }>,
       selected: string[]
     ) =>
     () => {
@@ -109,7 +109,7 @@
           <div class="selected">
             {#each filters.tags as tagId (tagId)}
               <Wrapper>
-                <div>{tagsMap.get(tagId)?.emoji}</div>
+                <div>{tagsMap.get(tagId)?.image}</div>
                 <Tooltip>{$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}</Tooltip>
               </Wrapper>
             {/each}
@@ -125,7 +125,7 @@
           <div class="selected">
             {#each filters.styles as styleId (styleId)}
               <Wrapper>
-                <div>{stylesMap.get(styleId)?.emoji}</div>
+                <div>{stylesMap.get(styleId)?.image}</div>
                 <Tooltip>{$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}</Tooltip>
               </Wrapper>
             {/each}

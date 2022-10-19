@@ -1,16 +1,16 @@
 <script lang="ts">
   import structuredClone from '@ungap/structured-clone';
   import Dialog, { Actions } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
+  import Button, { Label as ButtonLabel } from '@smui/button';
   import Checkbox from '@smui/checkbox';
 
   import { t } from '$lib/locales/translations';
-  import { getEmojiedLabel } from '$lib/utils/label';
+  import Label from '$lib/components/label/Label.svelte';
   import './_styles.scss';
 
   export let open: boolean;
   export let key: string;
-  export let entries: [string, { emoji: string; name: string }][];
+  export let entries: [string, { image: string; name: string }][];
   export let selected: string[];
   export let onSubmit: (newSelected: string[]) => void;
 
@@ -58,21 +58,31 @@
 
   <div>
     <div class="content" on:click={handleChange}>
-      {#each entries || [] as [entryId, { emoji, name }] (entryId)}
+      {#each entries || [] as [entryId, { image, name }] (entryId)}
         <div class="entry" class:found={found.has(entryId)}>
           <Checkbox group={current} value={entryId} ripple={false} />
-          <span>{@html getEmojiedLabel(key, { emoji, name })}</span>
+          <div class="labelWrapper">
+            <Label label={{ image, name }} type={key} />
+          </div>
         </div>
       {/each}
     </div>
 
     <Actions>
       <Button style="color: white" on:click={handleCancel}>
-        <Label>{$t('common.controls.cancel')}</Label>
+        <ButtonLabel>{$t('common.controls.cancel')}</ButtonLabel>
       </Button>
+
       <Button style="color: white" on:click={handleApply}>
-        <Label>{$t('common.controls.apply')}</Label>
+        <ButtonLabel>{$t('common.controls.apply')}</ButtonLabel>
       </Button>
     </Actions>
   </div>
 </Dialog>
+
+<style lang="scss">
+  div.labelWrapper {
+    max-width: 75%;
+    pointer-events: none;
+  }
+</style>

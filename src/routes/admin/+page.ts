@@ -1,5 +1,7 @@
+import { getPortraits } from '$lib/api';
 import client from '$lib/api/client';
-import type { IFilters, ISorting } from '$lib/filters.types';
+import { getFullList } from '$lib/api/getFullList';
+import type { IFilters, ISorting } from '$lib/types/filters.types';
 import { toastError } from '$lib/stores';
 import { normalizeError } from '$lib/utils/errors';
 
@@ -28,24 +30,22 @@ export async function load({ url }: { url: URL }) {
     const filter = url.searchParams.get('filter') || DEFAULT_FILTER;
     const sort = url.searchParams.get('sort') || DEFAULT_SORT;
 
-    const portraitsRequest = client.records.getList('portraits', page, PAGE_SIZE, { filter, sort });
-    const tagsRequest = client.records.getFullList('tags', 100);
-    const stylesRequest = client.records.getFullList('styles', 100);
-    const originalsRequest = client.records.getFullList('originals', 100);
-
-    const [portraitsList, tagsData, stylesData, originalsData] = await Promise.all([
-      portraitsRequest,
-      tagsRequest,
-      stylesRequest,
-      originalsRequest
+    const [portraitsList, tagsData, stylesData, originalsData, colorsData] = await Promise.all([
+      getPortraits({ page, perPage: PAGE_SIZE, filter, sort }),
+      getFullList('tags'),
+      getFullList('styles'),
+      getFullList('originals'),
+      getFullList('colors')
     ]);
 
     const portraits = portraitsList.items;
     const hasMore = portraitsList.totalPages > 1;
 
-    const tags = new Map(tagsData.map(({ id, emoji, name }) => [id, { emoji, name }]));
+    const tags = new Map(tagsData.map(({ id, image, name }) => [id, { image, name }]));
 
-    const styles = new Map(stylesData.map(({ id, emoji, name }) => [id, { emoji, name }]));
+    const styles = new Map(stylesData.map(({ id, image, name }) => [id, { image, name }]));
+
+    const colors = new Map(colorsData.map(({ image, name }) => [name, { image, name }]));
 
     const originals = new Map(
       originalsData.map((original) => {
@@ -62,6 +62,7 @@ export async function load({ url }: { url: URL }) {
       portraits,
       tags,
       styles,
+      colors,
       originals
     };
   } catch (error) {
@@ -76,6 +77,7 @@ export async function load({ url }: { url: URL }) {
       portraits: [],
       tags: new Map(),
       styles: new Map(),
+      colors: new Map(),
       originals: new Map()
     };
   }

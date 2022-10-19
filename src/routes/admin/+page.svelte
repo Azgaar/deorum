@@ -12,7 +12,7 @@
   import { normalizeError } from '$lib/utils/errors';
   import { toastError } from '$lib/stores';
 
-  import type { IPortrait } from '$lib/api.types';
+  import type { IPortrait } from '$lib/types/api.types';
   import type {
     IEditorData,
     IUploadedPortrait,
@@ -20,8 +20,8 @@
     TOpenOriginalsDialog,
     TPatchHandler,
     TPostHandler
-  } from '$lib/editor.types';
-  import type { IFilters, ISorting } from '$lib/filters.types';
+  } from '$lib/types/editor.types';
+  import type { IFilters, ISorting } from '$lib/types/filters.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 
@@ -31,13 +31,14 @@
     filters: IFilters;
     sorting: ISorting;
     portraits: IPortrait[];
-    tags: Map<string, { emoji: string; name: string }>;
-    styles: Map<string, { emoji: string; name: string }>;
+    tags: Map<string, { image: string; name: string }>;
+    styles: Map<string, { image: string; name: string }>;
+    colors: Map<string, { image: string; name: string }>;
     originals: Map<string, { image: string; name: string }>;
   };
 
   // immutable
-  const { originals, tags, styles } = data;
+  const { originals, tags, styles, colors } = data;
 
   // mutable
   let { page, hasMore, filters, sorting } = data;
@@ -98,7 +99,7 @@
   let editorDialogData = {
     open: false,
     key: '',
-    entries: [] as [string, { emoji: string; name: string }][],
+    entries: [] as [string, { image: string; name: string }][],
     selected: [] as string[],
     onSubmit: (_: string[]) => {}
   };
@@ -241,6 +242,7 @@
         {originals}
         {tags}
         {styles}
+        {colors}
         {openEditorDialog}
         {openOriginalsDialog}
         {handleClearSelection}

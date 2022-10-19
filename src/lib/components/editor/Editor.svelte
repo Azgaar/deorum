@@ -4,12 +4,11 @@
 
   import { t } from '$lib/locales/translations';
   import { getChanges } from '$lib/api/patchPortraits';
-  import { colorsMap } from '$lib/config';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
-  import { getEmojiedLabel } from '$lib/utils/label';
   import client from '$lib/api/client';
   import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
+  import Chip from '$lib/components/chips/Chip.svelte';
 
   import EditButton from './EditButton.svelte';
 
@@ -19,14 +18,15 @@
     TOpenOriginalsDialog,
     TPatchHandler,
     TPostHandler
-  } from '$lib/editor.types';
+  } from '$lib/types/editor.types';
 
   export let model: IEditorData;
   $: current = <IEditorData>structuredClone(model);
 
   export let originals: Map<string, { image: string; name: string }>;
-  export let tags: Map<string, { emoji: string; name: string }>;
-  export let styles: Map<string, { emoji: string; name: string }>;
+  export let tags: Map<string, { image: string; name: string }>;
+  export let styles: Map<string, { image: string; name: string }>;
+  export let colors: Map<string, { image: string; name: string }>;
 
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
@@ -68,7 +68,7 @@
   };
 
   const handleListEdit =
-    (key: 'styles' | 'colors' | 'tags', map: Map<string, { emoji: string; name: string }>) =>
+    (key: 'styles' | 'colors' | 'tags', map: Map<string, { image: string; name: string }>) =>
     () => {
       const entries = Array.from(map.entries());
       const selected = current[key] as string[];
@@ -147,13 +147,14 @@
     <div class="element">
       <div>{$t('admin.editor.colors')}:</div>
       <div class="chipsContainer">
-        {#each current.colors as color (color)}
-          <span class="chip">
-            <span on:click={handleRemove('colors', color)} class="action">✕</span>
-            {@html getEmojiedLabel('colors', colorsMap.get(color))}
-          </span>
+        {#each current.colors as colorName (colorName)}
+          <Chip
+            chip={colors.get(colorName)}
+            type="colors"
+            handleRemove={handleRemove('colors', colorName)}
+          />
         {/each}
-        <EditButton onClick={handleListEdit('colors', colorsMap)} />
+        <EditButton onClick={handleListEdit('colors', colors)} />
       </div>
     </div>
 
@@ -161,10 +162,7 @@
       <div>{$t('admin.editor.tags')}:</div>
       <div class="chipsContainer">
         {#each current.tags as tagId (tagId)}
-          <span class="chip">
-            <span on:click={handleRemove('tags', tagId)} class="action">✕</span>
-            {getEmojiedLabel('tags', tags.get(tagId))}
-          </span>
+          <Chip chip={tags.get(tagId)} type="tags" handleRemove={handleRemove('tags', tagId)} />
         {/each}
         <EditButton onClick={handleListEdit('tags', tags)} />
       </div>
@@ -174,10 +172,11 @@
       <div>{$t('admin.editor.styles')}:</div>
       <div class="chipsContainer">
         {#each current.styles as styleId (styleId)}
-          <span class="chip">
-            <span class="action" on:click={handleRemove('styles', styleId)}>✕</span>
-            {getEmojiedLabel('styles', styles.get(styleId))}
-          </span>
+          <Chip
+            chip={styles.get(styleId)}
+            type="styles"
+            handleRemove={handleRemove('styles', styleId)}
+          />
         {/each}
         <EditButton onClick={handleListEdit('styles', styles)} />
       </div>
@@ -269,47 +268,6 @@
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 2px 4px;
-        }
-
-        span.chip {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-
-          padding: 0.1em 0.5em 0.1em 0.2em;
-          background: rgba($surface, 0.35);
-          border-radius: 16px;
-          transition: all 0.2s ease-in-out;
-
-          span.action {
-            position: absolute;
-            padding: 0em 0.2em;
-            margin: 1px 0 0 -1px;
-            opacity: 0;
-            border-radius: 16px;
-            background-color: rgba($surface, 0.5);
-          }
-        }
-
-        span.chip:hover {
-          background: rgba($surface, 0.4);
-
-          span.action {
-            opacity: 1;
-          }
-
-          span.action:hover {
-            background-color: rgba($surface, 0.6);
-          }
-        }
-
-        span.chip:active {
-          background: rgba($surface, 0.4);
-        }
-
-        span.action {
-          transition: all 0.2s ease-in-out;
-          cursor: pointer;
         }
       }
 

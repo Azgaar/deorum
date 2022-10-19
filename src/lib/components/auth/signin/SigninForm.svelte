@@ -9,7 +9,7 @@
   import { signin } from '$lib/api/auth';
   import { toastError, role } from '$lib/stores';
 
-  import type { PBError } from '$lib/error.types';
+  import type { PBError } from '$lib/types/error.types';
   import { Role } from '$lib/stores/auth';
 
   export let onClose: null | (() => void) = null;

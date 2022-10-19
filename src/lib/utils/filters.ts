@@ -1,4 +1,4 @@
-import type { IFilters, ISorting } from '$lib/filters.types';
+import type { IFilters, ISorting } from '$lib/types/filters.types';
 
 const operatorsMap: { [key in keyof IFilters]: '=' | '~' } = {
   original: '=',

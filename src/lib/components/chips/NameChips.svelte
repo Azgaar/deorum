@@ -1,6 +1,8 @@
 <script lang="ts">
+  import Label from '../label/Label.svelte';
+
   export let chips: IChip[];
-  export let translate: (key: string) => string;
+  export let type: string;
 
   interface IChip {
     image: string;
@@ -11,8 +13,7 @@
 <div class="chips">
   {#each chips as chip}
     <div>
-      <img src={chip.image} alt={chip.name} />
-      {translate(chip.name)}
+      <Label label={chip} {type} />
     </div>
   {/each}
 </div>
@@ -31,13 +32,5 @@
     border: 1px solid color.adjust($surface, $lightness: 10%);
     border-radius: 16px;
     padding: 0 4px;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-
-    img {
-      width: 14px;
-      height: min-content;
-    }
   }
 </style>

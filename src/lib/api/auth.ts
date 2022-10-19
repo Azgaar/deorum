@@ -3,7 +3,7 @@ import { clearAuthData, setAuthData } from '$lib/utils/auth';
 import { Role } from '$lib/stores/auth';
 
 import client from './client';
-import type { IUser } from '$lib/api.types';
+import type { IUser } from '$lib/types/api.types';
 
 export const signup = async ({
   email,

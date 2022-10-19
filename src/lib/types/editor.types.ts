@@ -11,7 +11,7 @@ export interface IUploadedPortrait {
 
 export type TOpenEditorDialog = (
   key: string,
-  entries: [string, { emoji: string; name: string }][],
+  entries: [string, { image: string; name: string }][],
   selected: string[],
   onSubmit: (newSelected: string[]) => void
 ) => void;

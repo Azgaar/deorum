@@ -6,7 +6,7 @@
   import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/chips/NameChips.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import type { IListResult, IPortrait } from '$lib/api.types';
+  import type { IListResult, IPortrait } from '$lib/types/api.types';
 
   export let data: { portraits: IListResult<IPortrait>; page: number };
 
@@ -33,8 +33,6 @@
 
     items = items;
   }
-
-  const translate = (type: string) => (key: string) => $t(`admin.${type}.${key}`);
 </script>
 
 <DataTable
@@ -93,11 +91,11 @@
           />
         </Cell>
         <Cell style="text-transform: capitalize;">
-          {translate('originals')(item['@expand'].original.name)}
+          {$t(`admin.originals.${item['@expand'].original.name}`)}
         </Cell>
-        <Cell><Chips chips={item['@expand'].tags} translate={translate('tags')} /></Cell>
-        <Cell><Chips chips={item['@expand'].styles} translate={translate('styles')} /></Cell>
-        <Cell>{item.colors.map((color) => translate('colors')(color)).join(', ')}</Cell>
+        <Cell><Chips chips={item['@expand'].tags} type="tags" /></Cell>
+        <Cell><Chips chips={item['@expand'].styles} type="styles" /></Cell>
+        <Cell>{item.colors.map((color) => $t(`admin.color.${color}`)).join(', ')}</Cell>
         <Cell numeric>{item.quality}</Cell>
         <Cell>
           <IconButton class="material-icons" title="Remove">delete</IconButton>

@@ -1,5 +1,5 @@
-import type { IPortrait } from '$lib/api.types';
-import { changeableKeys, type IEditorData, type IUploadedPortrait } from '$lib/editor.types';
+import type { IPortrait } from '$lib/types/api.types';
+import { changeableKeys, type IEditorData, type IUploadedPortrait } from '$lib/types/editor.types';
 import client from './client';
 
 export async function postPortraits(uploaded: IUploadedPortrait[], editorData: IEditorData) {

@@ -1,4 +1,4 @@
-import type { IPortrait, IColor, ITag, IStyle, IOriginal, IQuality } from '$lib/api.types';
+import type { IPortrait, IColor, ITag, IStyle, IOriginal, IQuality } from '$lib/types/api.types';
 import client from '$lib/api/client';
 import { BATCH_SIZE } from '$lib/config';
 

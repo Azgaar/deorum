@@ -8,7 +8,7 @@
   import { signup } from '$lib/api/auth';
   import { language, toastError } from '$lib/stores';
 
-  import type { PBError } from '$lib/error.types';
+  import type { PBError } from '$lib/types/error.types';
 
   export let onClose: null | (() => void) = null;
 

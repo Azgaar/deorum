@@ -1,7 +1,7 @@
 <script lang="ts">
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
-  import type { IFilters, ISorting } from '$lib/filters.types';
+  import type { IFilters, ISorting } from '$lib/types/filters.types';
   import { t } from '$lib/locales/translations';
 
   export let key: keyof IFilters;
