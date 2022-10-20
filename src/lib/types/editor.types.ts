@@ -40,3 +40,5 @@ export interface IChange {
 export type TPatchHandler = (changes: IChange[]) => Promise<void>;
 
 export type TPostHandler = (editorData: IEditorData) => Promise<void>;
+
+export type TDeleteHandler = () => Promise<void>;

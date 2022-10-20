@@ -14,6 +14,7 @@
 
   import type {
     IEditorData,
+    TDeleteHandler,
     TOpenEditorDialog,
     TOpenOriginalsDialog,
     TPatchHandler,
@@ -38,6 +39,7 @@
 
   export let handlePatch: TPatchHandler;
   export let handlePost: TPostHandler;
+  export let handleDelete: TDeleteHandler;
 
   let isChanged = false;
   let isLoading = false;
@@ -120,6 +122,19 @@
       isLoading = false;
     }
   };
+
+  const triggerDeletion = async () => {
+    try {
+      isLoading = true;
+      await handleDelete();
+      toastSuccess('Successfully deleted');
+    } catch (err) {
+      console.error(err);
+      toastError(normalizeError(err));
+    } finally {
+      isLoading = false;
+    }
+  };
 </script>
 
 <section class="editor">
@@ -180,6 +195,12 @@
         {/each}
         <EditButton onClick={handleListEdit('styles', styles)} />
       </div>
+    </div>
+
+    <div class="deletionBlock">
+      <Button variant="raised" on:click={triggerDeletion}>
+        <Label>{$t('common.controls.delete')}</Label>
+      </Button>
     </div>
   </main>
 
@@ -273,6 +294,11 @@
 
       div.element:has(.chipsContainer) {
         align-items: baseline;
+      }
+
+      div.deletionBlock {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
       }
     }
 

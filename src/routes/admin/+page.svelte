@@ -16,6 +16,7 @@
   import type {
     IEditorData,
     IUploadedPortrait,
+    TDeleteHandler,
     TOpenEditorDialog,
     TOpenOriginalsDialog,
     TPatchHandler,
@@ -24,6 +25,7 @@
   import type { IFilters, ISorting } from '$lib/types/filters.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { deletePortraits } from '$lib/api/deletePortraits';
 
   export let data: {
     page: number;
@@ -177,6 +179,12 @@
     uploaded = [];
   };
 
+  const createDeleteHandler = (): TDeleteHandler => async () => {
+    await deletePortraits(selected);
+    data.portraits = data.portraits.filter((portrait) => !selected.includes(portrait.id));
+    selected = [];
+  };
+
   const handleLoadMore = async () => {
     try {
       const filter = parseFilters(filters);
@@ -251,6 +259,7 @@
         selectedImages={selected.length}
         handlePatch={createPatchHandler()}
         handlePost={createPostHandler()}
+        handleDelete={createDeleteHandler()}
       />
     {:else}
       <Menu {openFilters} />
