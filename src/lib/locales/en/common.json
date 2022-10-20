@@ -11,7 +11,8 @@
     "next": "Next",
     "apply": "Apply",
     "select": "Select",
-    "close": "Close"
+    "close": "Close",
+    "confirm": "Confirm"
   },
   "info": {
     "version": "v",

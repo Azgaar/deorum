@@ -44,6 +44,8 @@
   let isChanged = false;
   let isLoading = false;
 
+  let isDeleteInitiated = false;
+
   $: originalName = originals.get(current.original)?.name;
 
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
@@ -123,6 +125,16 @@
     }
   };
 
+  const initiateDeletion = () => {
+    isDeleteInitiated = !isDeleteInitiated;
+
+    if (isDeleteInitiated) {
+      setTimeout(() => {
+        isDeleteInitiated = false;
+      }, 4000);
+    }
+  };
+
   const triggerDeletion = async () => {
     try {
       isLoading = true;
@@ -133,6 +145,7 @@
       toastError(normalizeError(err));
     } finally {
       isLoading = false;
+      isDeleteInitiated = false;
     }
   };
 </script>
@@ -198,8 +211,16 @@
     </div>
 
     <div class="deletionBlock">
-      <Button variant="raised" on:click={triggerDeletion}>
-        <Label>{$t('common.controls.delete')}</Label>
+      <Button variant="raised" on:click={initiateDeletion}>
+        <Label>{$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}</Label>
+      </Button>
+
+      <Button
+        variant="raised"
+        on:click={triggerDeletion}
+        style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
+      >
+        <Label>{$t('common.controls.confirm')}</Label>
       </Button>
     </div>
   </main>
@@ -298,7 +319,8 @@
 
       div.deletionBlock {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
       }
     }
 
