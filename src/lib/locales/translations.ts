@@ -7,14 +7,14 @@ const config: import('sveltekit-i18n').Config = {
     {
       locale: 'en',
       key: 'admin',
-      routes: [/admin/],
+      routes: [/admin/, /match/],
       loader: async () => (await import('./en/admin.json')).default
     },
     { locale: 'ru', key: 'common', loader: async () => (await import('./ru/common.json')).default },
     {
       locale: 'ru',
       key: 'admin',
-      routes: [/admin/],
+      routes: [/admin/, /match/],
       loader: async () => (await import('./ru/admin.json')).default
     }
   ]

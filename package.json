@@ -36,6 +36,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "i": "^0.3.7",
+    "memory-cache": "^0.2.0",
     "npm": "^8.19.2",
     "pocketbase": "^0.7.1",
     "prettier": "^2.6.2",

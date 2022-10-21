@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-
-  import { t } from '$lib/locales/translations';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
+  import type { ILink } from '$lib/types/components.types';
+  import Link from './Link.svelte';
 
-  export let links: { id: string; key: string; to: string }[] = [];
+  export let links: ILink[] = [];
 </script>
 
 <header>
@@ -12,8 +11,10 @@
 
   <nav>
     <ul>
-      {#each links as { id, key, to } (key)}
-        <li><a href={to} class:active={$page.routeId?.includes(id)}>{$t(key)}</a></li>
+      {#each links as link (link.key)}
+        <li>
+          <Link {link} />
+        </li>
       {/each}
     </ul>
   </nav>
@@ -46,27 +47,6 @@
       li {
         list-style: none;
         text-align: center;
-
-        a {
-          text-decoration: none;
-          color: $text;
-          background: none;
-          border-radius: 24px;
-          transition: all 0.2s ease-in-out;
-          padding: 8px 24px;
-
-          @media screen and (max-width: 599px) {
-            padding: 2px 12px;
-          }
-        }
-
-        a:hover {
-          background: color.adjust($text, $alpha: -0.85);
-        }
-
-        a.active {
-          background: color.adjust($text, $alpha: -0.95);
-        }
       }
     }
   }

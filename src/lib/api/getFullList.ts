@@ -11,6 +11,6 @@ interface IData {
   styles: IStyle[];
 }
 
-export async function getFullList<K extends keyof IData>(name: K) {
-  return client.records.getFullList(name, BATCH_SIZE) as unknown as IData[K];
+export async function getFullList<K extends keyof IData>(name: K, filter = ''): Promise<IData[K]> {
+  return client.records.getFullList(name, BATCH_SIZE, { filter }) as unknown as IData[K];
 }
