@@ -3,6 +3,7 @@
 
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { patchPortrait } from '$lib/api/patchPortrait';
   import Label from '$lib/components/label/Label.svelte';
 
   import type { IPortrait } from '$lib/types/api.types';
@@ -18,13 +19,19 @@
       nextImage.src = `${PORTRAITS_IMAGE_PATH}/${next.id}/${next.image}`;
     }
   }
+
+  const handleClick = (event: MouseEvent, add: boolean, tagId: string) => {
+    patchPortrait(key, add, tagId);
+
+    const target = event.target as HTMLElement;
+    target.classList.add('clicked');
+  };
 </script>
 
 <div class="container">
   <section class="portrait">
     {#key key}
       <img
-        loading="eager"
         src={`${PORTRAITS_IMAGE_PATH}/${data.current.id}/${data.current.image}`}
         alt="portrait"
       />
@@ -32,11 +39,25 @@
   </section>
 
   <section class="tags">
-    {#each data.tags as tag (tag.id)}
+    {#each data.tags as tag (data.current.id + tag.id)}
       <div class="tag">
-        <button class="no">{$t('common.controls.no')}</button>
+        <button
+          class="no"
+          class:clicked={false}
+          on:click={(event) => handleClick(event, false, tag.id)}
+        >
+          {$t('common.controls.no')}
+        </button>
+
         <Label label={tag} type="tags" />
-        <button class="yes">{$t('common.controls.yes')}</button>
+
+        <button
+          class="yes"
+          class:clicked={false}
+          on:click={(event) => handleClick(event, true, tag.id)}
+        >
+          {$t('common.controls.yes')}
+        </button>
       </div>
     {/each}
   </section>
@@ -81,6 +102,7 @@
 
           color: $text;
           font-size: 0.9em;
+          opacity: 1;
           transition: all 0.2s ease-in-out;
         }
 
@@ -102,6 +124,11 @@
 
         button:active {
           border-width: 2px 0 0 0;
+        }
+
+        button.clicked {
+          pointer-events: none;
+          opacity: 0;
         }
       }
     }

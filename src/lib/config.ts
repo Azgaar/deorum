@@ -24,4 +24,4 @@ export const colors = [
 
 export const qualities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export const MATCH_TAGS_NUMBER = 5;
+export const MATCH_TAGS_NUMBER = 6;

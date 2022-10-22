@@ -2,7 +2,7 @@ export const getRandomIndex = (length: number): number => {
   return Math.floor(Math.random() * length);
 };
 
-export function getRandomElements<T>(arr: T[], n: number): T[] {
+export const getRandomElements = <T>(arr: T[], n: number): T[] => {
   const result = new Array(n);
   let length = arr.length;
   const taken = new Array(length);
@@ -16,4 +16,12 @@ export function getRandomElements<T>(arr: T[], n: number): T[] {
   }
 
   return result;
-}
+};
+
+export const shuffle = <T>(array: T[]): T[] => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
