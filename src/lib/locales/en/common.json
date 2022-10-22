@@ -27,5 +27,9 @@
     "logout": "Log out",
     "email": "Email",
     "password": "Password (8 chars min)"
+  },
+  "navigation": {
+    "match": "Match",
+    "admin": "Admin"
   }
 }

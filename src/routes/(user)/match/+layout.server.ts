@@ -1,8 +1,9 @@
+import { error, redirect } from '@sveltejs/kit';
+
 import { getFullList } from '$lib/api/getFullList';
 import { cache, expiration } from '$lib/cache/cacheInstance';
 import { MATCH_TAGS_NUMBER } from '$lib/config';
 import { getRandomElements, getRandomIndex } from '$lib/utils/array';
-import { error } from '@sveltejs/kit';
 import { makePOJO } from '$lib/utils/object';
 
 import type { IPortrait, ITag } from '$lib/types/api.types';
