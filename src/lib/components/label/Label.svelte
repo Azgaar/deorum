@@ -26,6 +26,7 @@
     img {
       width: 14px;
       height: min-content;
+      aspect-ratio: 1;
     }
 
     span {
