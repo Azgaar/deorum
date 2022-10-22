@@ -1,9 +1,9 @@
 <script lang="ts">
-  import structuredClone from '@ungap/structured-clone';
   import Dialog, { Actions } from '@smui/dialog';
   import Button, { Label as ButtonLabel } from '@smui/button';
   import Checkbox from '@smui/checkbox';
 
+  import { makePOJO } from '$lib/utils/object';
   import { t } from '$lib/locales/translations';
   import Label from '$lib/components/label/Label.svelte';
   import './_styles.scss';
@@ -14,7 +14,7 @@
   export let selected: string[];
   export let onSubmit: (newSelected: string[]) => void;
 
-  $: current = structuredClone(selected);
+  $: current = makePOJO(selected);
   $: search = '';
   $: found = handleSearch(search, key);
 

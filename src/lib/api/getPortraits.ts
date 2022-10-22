@@ -12,8 +12,8 @@ export async function getPortraits({
 }: {
   page: number;
   perPage?: number;
-  filter: string;
-  sort: string;
+  filter?: string;
+  sort?: string;
   expand?: string;
 }) {
   const portraitsList = (await client.records.getList('portraits', page, perPage, {

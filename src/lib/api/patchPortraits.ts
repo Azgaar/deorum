@@ -1,5 +1,6 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { changeableKeys, type IChange, type IEditorData } from '$lib/types/editor.types';
+import { makePOJO } from '$lib/utils/object';
 import client from './client';
 
 export async function patchPortraits(
@@ -25,7 +26,7 @@ export async function patchPortraits(
 }
 
 function getPatchData(changes: IChange[], portrait: IPortrait) {
-  const tempItem = structuredClone(portrait);
+  const tempItem = makePOJO(portrait);
 
   for (const { key, operation, value } of changes) {
     (tempItem[key] as unknown) = getNewValue(operation, tempItem[key], value);

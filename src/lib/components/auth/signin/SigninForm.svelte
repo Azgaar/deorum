@@ -7,10 +7,10 @@
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { t } from '$lib/locales/translations';
   import { signin } from '$lib/api/auth';
-  import { toastError, role } from '$lib/stores';
+  import { toastError, role, Role } from '$lib/stores';
 
+  import PasswordInput from '../password/PasswordInput.svelte';
   import type { PBError } from '$lib/types/error.types';
-  import { Role } from '$lib/stores/auth';
 
   export let onClose: null | (() => void) = null;
 
@@ -52,16 +52,7 @@
       input$autocomplete="email"
     />
 
-    <Textfield
-      required
-      type="password"
-      updateInvalid
-      bind:value={password}
-      disabled={isLoading}
-      label={$t('common.auth.password')}
-      input$autocomplete="password"
-      input$pattern={'.{8,}'}
-    />
+    <PasswordInput bind:password {isLoading} />
   </div>
 
   <Actions>

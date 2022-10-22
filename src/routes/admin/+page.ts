@@ -1,5 +1,4 @@
 import { getPortraits } from '$lib/api';
-import client from '$lib/api/client';
 import { getFullList } from '$lib/api/getFullList';
 import type { IFilters, ISorting } from '$lib/types/filters.types';
 import { toastError } from '$lib/stores';

@@ -21,10 +21,10 @@
   div.label {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.2em;
 
     img {
-      width: 14px;
+      width: 1em;
       height: min-content;
       aspect-ratio: 1;
     }
