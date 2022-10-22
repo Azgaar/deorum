@@ -1,33 +1,38 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { browser } from '$app/environment';
 
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import Label from '$lib/components/label/Label.svelte';
 
+  import type { IPortrait } from '$lib/types/api.types';
+
   export let data: import('./$types').PageData;
+  $: key = data.current.id;
+  $: preloadNextImage(data.next);
 
-  const { current: portrait, next, tags } = data;
-
-  onMount(() => {
-    // preload next portrait and tags
-    const nextImage = new Image();
-    nextImage.fetchPriority = 'low';
-    nextImage.src = `${PORTRAITS_IMAGE_PATH}/${next.id}/${next.image}`;
-  });
+  function preloadNextImage(next: IPortrait) {
+    if (browser) {
+      const nextImage = new Image();
+      nextImage.fetchPriority = 'low';
+      nextImage.src = `${PORTRAITS_IMAGE_PATH}/${next.id}/${next.image}`;
+    }
+  }
 </script>
 
 <div class="container">
   <section class="portrait">
-    <img
-      loading="eager"
-      src={`${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}`}
-      alt="portrait"
-    />
+    {#key key}
+      <img
+        loading="eager"
+        src={`${PORTRAITS_IMAGE_PATH}/${data.current.id}/${data.current.image}`}
+        alt="portrait"
+      />
+    {/key}
   </section>
 
   <section class="tags">
-    {#each tags as tag}
+    {#each data.tags as tag (tag.id)}
       <div class="tag">
         <button class="no">{$t('common.controls.no')}</button>
         <Label label={tag} type="tags" />
@@ -40,14 +45,10 @@
 <style lang="scss">
   @use 'sass:color';
   div.container {
-    width: 320px;
+    width: min(320px, 100%);
     padding: 1.4rem;
     background-color: $secondary;
     font-size: 20px;
-
-    @media (max-width: 599px) {
-      width: 100%;
-    }
 
     section.portrait {
       margin-bottom: 0.4em;

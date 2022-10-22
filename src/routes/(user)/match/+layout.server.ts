@@ -1,4 +1,4 @@
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 import { getFullList } from '$lib/api/getFullList';
 import { cache, expiration } from '$lib/cache/cacheInstance';
@@ -22,7 +22,8 @@ const selectRandomTags = (existingTags: string[], allTags: ITag[]): ITag[] => {
   const firstTag = allTags.find(({ id }) => id === randomExistingTag);
   if (!firstTag) throw new Error(`No tag found with id ${randomExistingTag}`);
 
-  const randomTags = getRandomElements(allTags, MATCH_TAGS_NUMBER - 1);
+  const orherTags = allTags.filter(({ id }) => id !== firstTag.id);
+  const randomTags = getRandomElements(orherTags, MATCH_TAGS_NUMBER - 1);
   return [firstTag, ...randomTags];
 };
 

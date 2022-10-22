@@ -1,25 +1,36 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
   import { language } from '$lib/stores';
 
-  import type { ILink } from '$lib/types/components.types';
-
   export let data: import('./$types').LayoutData;
 
-  const links: ILink[] = [
-    {
-      id: 'next',
-      key: 'common.controls.next',
-      to: `./${data.next.id}`,
-      reload: true,
-      prefetch: true
-    }
-  ];
+  onMount(() => {
+    const keys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
+
+    const goToNext = ({ code }: KeyboardEvent) => {
+      if (keys.includes(code)) {
+        goto(`./${data.next.id}`);
+      }
+    };
+
+    document.addEventListener('keydown', goToNext);
+
+    return () => {
+      document.removeEventListener('keydown', goToNext);
+    };
+  });
+
+  $: links = [{ id: 'next', key: 'common.controls.next', to: `./${data.next.id}`, prefetch: true }];
 </script>
 
 <div class="root" lang={$language}>
-  <Header {links} />
+  {#key data.next.id}
+    <Header {links} />
+  {/key}
 
   <main>
     <slot />
