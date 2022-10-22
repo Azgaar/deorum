@@ -8,6 +8,7 @@
   import { signup } from '$lib/api/auth';
   import { language, toastError } from '$lib/stores';
 
+  import PasswordInput from '../password/PasswordInput.svelte';
   import type { PBError } from '$lib/types/error.types';
 
   export let onClose: null | (() => void) = null;
@@ -50,16 +51,7 @@
       input$autocomplete="email"
     />
 
-    <Textfield
-      required
-      type="password"
-      updateInvalid
-      bind:value={password}
-      disabled={isLoading}
-      label={$t('common.auth.password')}
-      input$autocomplete="password"
-      input$pattern={'.{8,}'}
-    />
+    <PasswordInput bind:password {isLoading} />
   </div>
 
   <Actions>

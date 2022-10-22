@@ -12,5 +12,6 @@ export const load: import('./$types').LayoutLoad = async ({ url, data }) => {
   stores.language.set(lang);
 
   await loadTranslations(lang, url.pathname);
-  return {};
+
+  return { user };
 };

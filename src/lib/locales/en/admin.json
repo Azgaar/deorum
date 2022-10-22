@@ -136,7 +136,7 @@
   "tags": {
     "warrior": "warrior",
     "insect": "insect",
-    "transgender": "transgender",
+    "non-binary": "non-binary",
     "ice": "ice",
     "stone": "stone",
     "fire": "fire",
@@ -156,7 +156,7 @@
     "tentacles": "tentacles",
     "dragon": "dragon",
     "robotic": "robotic",
-    "familiar (pet)": "familiar (pet)",
+    "pet": "with pet",
     "demonic": "demonic",
     "winged": "winged",
     "mutating": "mutating",

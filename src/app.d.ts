@@ -15,6 +15,10 @@ declare namespace App {
   // interface Platform {}
 }
 
+interface HTMLImageElement extends HTMLElement {
+  fetchPriority?: 'high' | 'low' | 'auto';
+}
+
 declare const APP_VERSION: string;
 
-declare module '@ungap/structured-clone';
+declare module 'memory-cache';

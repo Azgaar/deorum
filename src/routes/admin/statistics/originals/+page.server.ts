@@ -1,7 +1,6 @@
-import structuredClone from '@ungap/structured-clone';
-
 import { getFullList } from '$lib/api/getFullList';
 import type { IStatistics } from '$lib/types/statistics.types';
+import { makePOJO } from '$lib/utils/object';
 
 export const csr = false;
 
@@ -46,7 +45,7 @@ export const load: import('./$types').PageServerLoad = async () => {
 
   // aggregate data
   const aggregated = portraits.reduce((acc, { original, quality, colors, tags, styles }) => {
-    if (!acc[original]) acc[original] = structuredClone(initial);
+    if (!acc[original]) acc[original] = makePOJO(initial);
     acc[original].portraits++;
 
     if (!acc[original].quality[quality]) acc[original].quality[quality] = 0;

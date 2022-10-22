@@ -1,6 +1,5 @@
 <script lang="ts">
   import Button, { Label } from '@smui/button';
-  import structuredClone from '@ungap/structured-clone';
 
   import { t } from '$lib/locales/translations';
   import { getChanges } from '$lib/api/patchPortraits';
@@ -9,6 +8,7 @@
   import client from '$lib/api/client';
   import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
   import Chip from '$lib/components/chips/Chip.svelte';
+  import { makePOJO } from '$lib/utils/object';
 
   import EditButton from './EditButton.svelte';
 
@@ -22,7 +22,7 @@
   } from '$lib/types/editor.types';
 
   export let model: IEditorData;
-  $: current = <IEditorData>structuredClone(model);
+  $: current = makePOJO(model);
 
   export let originals: Map<string, { image: string; name: string }>;
   export let tags: Map<string, { image: string; name: string }>;
@@ -95,7 +95,7 @@
       return;
     }
 
-    current = structuredClone(model);
+    current = makePOJO(model);
     isChanged = false;
   };
 
