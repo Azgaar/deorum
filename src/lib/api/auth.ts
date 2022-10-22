@@ -1,6 +1,7 @@
 import { clearAuthData, setAuthData } from '$lib/utils/auth';
 
 import { Role } from '$lib/stores/auth';
+import { makePOJO } from '$lib/utils/object';
 
 import client from './client';
 import type { IUser } from '$lib/types/api.types';
@@ -43,6 +44,6 @@ export const authorize = async (cookie: string) => {
 
   const { id } = client.authStore.model;
   const userData = await client.users.getOne(id);
-  const user: IUser = JSON.parse(JSON.stringify(userData)); // fix non-POJO error
+  const user = makePOJO(userData) as unknown as IUser;
   return user;
 };

@@ -12,7 +12,9 @@
     "apply": "Apply",
     "select": "Select",
     "close": "Close",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "yes": "yes",
+    "no": "no"
   },
   "info": {
     "version": "v",

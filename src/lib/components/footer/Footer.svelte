@@ -12,12 +12,13 @@
   footer {
     display: flex;
     justify-content: flex-end;
-    padding: 12px 16px;
+    padding: 10px 16px;
 
     .version {
-      font-size: 12px;
+      font-style: italic;
+      font-size: 10px;
       color: $text;
-      opacity: 0.3;
+      opacity: 0.1;
     }
   }
 </style>

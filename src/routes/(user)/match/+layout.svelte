@@ -21,14 +21,14 @@
 <div class="root" lang={$language}>
   <Header {links} />
 
-  <slot />
+  <main>
+    <slot />
+  </main>
 
   <Footer />
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   div.root {
     height: 100vh;
     overflow: hidden;
@@ -37,7 +37,19 @@
     background-size: cover;
     background-position: center;
 
+    @media (max-width: 599px) {
+      background-image: none;
+      background-color: $secondary;
+    }
+
     display: flex;
     flex-direction: column;
+  }
+
+  main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
