@@ -52,8 +52,8 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const randomTags = selectRandomTags(current.tags, tags);
   const next = portraits[getRandomIndex(portraits.length)];
 
-  console.log(
-    `Match portrait ${current.id} with tags ${randomTags.map(({ name }) => name).join(', ')}`
-  );
+  const tagsString = randomTags.map(({ name }) => name).join(', ');
+  console.log(`Matching portrait ${current.id} with tags ${tagsString}`);
+
   return { current: makePOJO(current), next: makePOJO(next), tags: makePOJO(randomTags) };
 };
