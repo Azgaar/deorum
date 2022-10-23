@@ -97,7 +97,7 @@
     "solar": "solar",
     "crone": "crone",
     "medusa": "medusa",
-    "nocta": "nocta",
+    "moon": "moon",
     "genie": "genie",
     "geisha": "geisha",
     "herbalist": "herbalist",
@@ -119,7 +119,9 @@
     "spring": "spring",
     "dwarf": "dwarf",
     "jinn": "jinn",
-    "goblin": "goblin"
+    "goblin": "goblin",
+    "darkness": "darkness",
+    "night": "night"
   },
   "colors": {
     "red": "red",
