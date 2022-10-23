@@ -117,7 +117,9 @@
     "siren": "siren",
     "vizir": "vizir",
     "spring": "spring",
-    "dwarf": "dwarf"
+    "dwarf": "dwarf",
+    "jinn": "jinn",
+    "goblin": "goblin"
   },
   "colors": {
     "red": "red",
