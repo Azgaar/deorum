@@ -44,7 +44,7 @@
     height: 100vh;
     overflow: hidden;
 
-    background-image: url('/images/background.png');
+    background-image: url('/images/background.webp');
     background-size: cover;
     background-position: center;
 

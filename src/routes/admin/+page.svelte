@@ -353,7 +353,7 @@
 
     aside.pane {
       grid-area: pane;
-      background-image: url('/images/menu.png');
+      background-image: url('/images/menu.webp');
       background-size: 100% 100%;
       max-height: 100%;
       overflow: auto;
