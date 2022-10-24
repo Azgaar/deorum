@@ -4,9 +4,8 @@
   import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/chips/StatsChips.svelte';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
-  import type { IStatsData } from './+page.server';
 
-  export let data: { statistics: IStatsData[] };
+  export let data: import('./$types').PageData;
 
   const translate = (type: string) => (key: string) => $t(`admin.${type}.${key}`);
 </script>

@@ -27,17 +27,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { deletePortraits } from '$lib/api/deletePortraits';
 
-  export let data: {
-    page: number;
-    hasMore: boolean;
-    filters: IFilters;
-    sorting: ISorting;
-    portraits: IPortrait[];
-    tags: Map<string, { image: string; name: string }>;
-    styles: Map<string, { image: string; name: string }>;
-    colors: Map<string, { image: string; name: string }>;
-    originals: Map<string, { image: string; name: string }>;
-  };
+  export let data: import('./$types').PageData;
 
   // immutable
   const { originals, tags, styles, colors } = data;

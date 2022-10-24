@@ -8,8 +8,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import type { IListResult, IPortrait } from '$lib/types/api.types';
 
-  export let data: { portraits: IListResult<IPortrait>; page: number };
-
+  export let data: import('./$types').PageData;
   const { portraits, page } = data;
 
   let items = portraits.items || [];
