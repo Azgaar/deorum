@@ -80,7 +80,6 @@
   }
 
   button {
-    font-family: Roboto, sans-serif;
     font-size: 0.875rem;
     letter-spacing: 0.09em;
     text-transform: uppercase;

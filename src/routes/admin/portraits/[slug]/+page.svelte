@@ -6,7 +6,8 @@
   import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/chips/NameChips.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import type { IListResult, IPortrait } from '$lib/types/api.types';
+
+  import type { IPortrait } from '$lib/types/api.types';
 
   export let data: import('./$types').PageData;
   const { portraits, page } = data;
@@ -111,36 +112,14 @@
     </svelte:fragment>
 
     {#if page > 1}
-      <IconButton class="material-icons" action="first-page" title="First page" href="./1">
-        first_page
-      </IconButton>
-      <IconButton
-        class="material-icons"
-        action="prev-page"
-        title="Prev page"
-        href={`./${page - 1}`}
-      >
-        chevron_left
-      </IconButton>
+      <IconButton action="first-page" title="First page" href="./1">&lt;&lt;</IconButton>
+      <IconButton action="prev-page" title="Prev page" href={`./${page - 1}`}>&lt;</IconButton>
     {/if}
 
     {#if !isLastPage}
-      <IconButton
-        class="material-icons"
-        action="next-page"
-        title="Next page"
-        href={`./${page + 1}`}
-      >
-        chevron_right
-      </IconButton>
-
-      <IconButton
-        class="material-icons"
-        action="last-page"
-        title="Last page"
-        href={`./${portraits.totalPages}`}
-      >
-        last_page
+      <IconButton action="next-page" title="Next page" href={`./${page + 1}`}>&gt;</IconButton>
+      <IconButton action="last-page" title="Last page" href={`./${portraits.totalPages}`}>
+        &gt;&gt;
       </IconButton>
     {/if}
   </Pagination>
