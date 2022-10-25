@@ -117,11 +117,13 @@
     "siren": "siren",
     "vizir": "vizir",
     "spring": "spring",
-    "dwarf": "dwarf",
+    "gnome": "gnome",
     "jinn": "jinn",
-    "goblin": "goblin",
+    "half orc": "half orc",
     "darkness": "darkness",
-    "night": "night"
+    "night": "night",
+    "dwarf": "dwarf",
+    "goblin": "goblin"
   },
   "colors": {
     "red": "red",
