@@ -1,5 +1,5 @@
 import type { IListResult, IPortrait } from '$lib/types/api.types';
-import client from './client';
+import admin from './admin';
 
 const PAGE_SIZE = 100;
 
@@ -16,7 +16,7 @@ export async function getPortraits({
   sort?: string;
   expand?: string;
 }) {
-  const portraitsList = (await client.records.getList('portraits', page, perPage, {
+  const portraitsList = (await admin.records.getList('portraits', page, perPage, {
     filter,
     sort,
     expand

@@ -8,7 +8,7 @@ export default class Cache {
 
     this.put = function (key, value, time, timeoutCallback) {
       if (_debug) {
-        console.log('caching: %s = %j (@%s)', key, value, time);
+        console.info('caching: %s = %j (@%s)', key, value, time);
       }
 
       if (typeof time !== 'undefined' && (typeof time !== 'number' || isNaN(time) || time <= 0)) {
@@ -158,7 +158,7 @@ export default class Cache {
             var existingRecord = _cache[key];
             if (existingRecord) {
               if (_debug) {
-                console.log("Skipping duplicate imported key '%s'", key);
+                console.info("Skipping duplicate imported key '%s'", key);
               }
               continue;
             }

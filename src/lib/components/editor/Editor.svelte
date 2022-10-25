@@ -5,10 +5,10 @@
   import { getChanges } from '$lib/api/patchPortraits';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
-  import client from '$lib/api/client';
   import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
   import Chip from '$lib/components/chips/Chip.svelte';
   import { makePOJO } from '$lib/utils/object';
+  import admin from '$lib/api/admin';
 
   import EditButton from './EditButton.svelte';
 
@@ -88,7 +88,7 @@
     };
 
   const handleCancel = () => {
-    client.cancelAllRequests();
+    admin.cancelAllRequests();
 
     if (!isChanged) {
       handleClearSelection();

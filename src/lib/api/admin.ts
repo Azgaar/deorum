@@ -2,6 +2,6 @@ import PocketBase from 'pocketbase';
 
 import { URL } from '$lib/config';
 
-const client = new PocketBase(URL);
+const admin = new PocketBase(URL);
 
-export default client;
+export default admin;

@@ -1,35 +1,14 @@
 <script lang="ts" context="module">
   import { t } from '$lib/locales/translations';
-  import Header from '$lib/components/header/Header.svelte';
-  import Footer from '$lib/components/footer/Footer.svelte';
   import { language } from '$lib/stores';
-  import { role, Role } from '$lib/stores';
-  import type { ILink } from '$lib/types/components.types';
 
-  const linksMap: { [key: string]: ILink } = {
-    signin: { id: 'signin', key: 'common.auth.signin', to: '/signin', prefetch: true },
-    signup: { id: 'signup', key: 'common.auth.signup', to: '/signup', prefetch: true },
-    logout: { id: 'logout', key: 'common.auth.logout', to: '/logout' },
-    match: { id: 'match', key: 'common.navigation.match', to: '/match', prefetch: true },
-    admin: { id: 'admin', key: 'common.navigation.admin', to: '/admin' }
-  };
-
-  const getNavLinks = (role: Role): ILink[] => {
-    const { signin, signup, logout, match, admin } = linksMap;
-    if (role === Role.ADMIN) return [match, admin, logout];
-    if (role === Role.USER) return [match, logout];
-    return [signin, signup]; // Role.GUEST
-  };
+  // here will be a static site with the app description
 </script>
 
 <div class="root" lang={$language}>
-  <Header links={getNavLinks($role)} />
-
   <main>
     <div>🚧 {$t('common.info.inDev')}</div>
   </main>
-
-  <Footer />
 </div>
 
 <style lang="scss">
