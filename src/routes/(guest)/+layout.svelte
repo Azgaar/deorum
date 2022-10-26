@@ -26,17 +26,13 @@
   <Header links={getNavLinks($role)} />
 
   <main>
-    <div>
-      <slot />
-    </div>
+    <slot />
   </main>
 
   <Footer />
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   div.root {
     height: 100vh;
     overflow: hidden;
@@ -56,11 +52,6 @@
       align-items: center;
       justify-content: center;
       padding: 0 32px;
-
-      div {
-        padding: 16px 0px;
-        background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
-      }
     }
   }
 </style>

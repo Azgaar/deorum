@@ -5,7 +5,10 @@ import { authorize, isSignedIn } from '$lib/api/auth';
 import { COOKIE_NAME } from '$lib/config';
 import { Role } from '$lib/stores';
 
-const unauthorized = new Response(null, { status: 401 });
+const unauthorized = new Response(null, {
+  status: 401,
+  headers: { 'WWW-Authenticate': 'Basic realm="Authorization Required"' }
+});
 
 const protectedRoutes = ['admin', 'match'];
 const routesProtection = {
