@@ -1,24 +1,13 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
-
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { patchPortrait } from '$lib/api/patchPortrait';
   import Label from '$lib/components/label/Label.svelte';
-
-  import type { IPortrait } from '$lib/types/api.types';
+  import { preloadImage } from '$lib/utils/loading';
 
   export let data: import('./$types').PageData;
   $: key = data.current.id;
-  $: preloadNextImage(data.next);
-
-  function preloadNextImage(next: IPortrait) {
-    if (browser) {
-      const nextImage = new Image();
-      nextImage.fetchPriority = 'low';
-      nextImage.src = `${PORTRAITS_IMAGE_PATH}/${next.id}/${next.image}`;
-    }
-  }
+  $: preloadImage(data.next);
 
   const handleClick = (event: MouseEvent, add: boolean, tagId: string) => {
     patchPortrait(key, add, tagId);
@@ -32,6 +21,8 @@
   <section class="portrait">
     {#key key}
       <img
+        width={320}
+        height={320}
         src={`${PORTRAITS_IMAGE_PATH}/${data.current.id}/${data.current.image}`}
         alt="portrait"
       />

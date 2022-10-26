@@ -1,22 +1,75 @@
 <script lang="ts">
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { toastError } from '$lib/stores';
   import { sliceElements } from '$lib/utils/array';
+  import { preloadImage } from '$lib/utils/loading';
+
+  import type { PBError } from '$lib/types/error.types';
+  import type { IGalleryItem } from '$lib/types/gallery.types';
 
   export let data: import('./$types').PageData;
 
-  function getCarouselItems(items: { id: string; image: string }[], currentId: string) {
+  const CURRENT_INDEX = 2;
+  const TAIL_IMAGES = 2;
+  const LOAD_ON_IMAGES_LEFT = 8;
+
+  let isLoadingMore = false;
+
+  function getCarouselItems(items: IGalleryItem[], currentId: string) {
     const currentIdx = items.findIndex(({ id }) => id === currentId);
-    const before = sliceElements(items, currentIdx - 2, currentIdx);
-    const after = sliceElements(items, currentIdx + 1, currentIdx + 3);
+    const before = sliceElements(items, currentIdx - TAIL_IMAGES, currentIdx);
+    const after = sliceElements(items, currentIdx + 1, currentIdx + 1 + TAIL_IMAGES);
     return [...before, items[currentIdx], ...after];
   }
 
-  $: carousel = getCarouselItems(data.items, data.currentId);
+  // select carousel items
+  let carousel = getCarouselItems(data.items, data.currentId);
+  const refreshCarousel = () => (carousel = getCarouselItems(data.items, data.currentId));
+
+  // lazily preload images that comes initially, but not displayed in the carousel
+  const carouselIds = carousel.map(({ id }) => id);
+  const initialItemsInReserve = data.items.filter(({ id }) => !carouselIds.includes(id));
+  initialItemsInReserve.forEach(preloadImage);
+
+  const showNext = (right: boolean) => () => {
+    const nextIndex = right ? CURRENT_INDEX + 1 : CURRENT_INDEX - 1;
+    const nextId = carousel[nextIndex].id;
+    history.pushState({}, '', `./${nextId}`); // don't trigger server update
+    data.currentId = nextId;
+    refreshCarousel();
+
+    const dataIndex = data.items.findIndex(({ id }) => id === nextId);
+    const itemsBeforeEnd = Math.min(dataIndex, data.items.length - dataIndex);
+    if (itemsBeforeEnd < LOAD_ON_IMAGES_LEFT) loadMore(right);
+  };
+
+  const loadMore = async (right: boolean) => {
+    if (isLoadingMore) return;
+
+    isLoadingMore = true;
+    const edgeId = right ? data.items.at(-1)?.id : data.items.at(0)?.id;
+
+    try {
+      const response = await fetch(`/api/gallery/more?edgeId=${edgeId}&right=${right}`, {
+        headers: { 'content-type': 'application/json' }
+      });
+      const moreItems: IGalleryItem[] = await response.json();
+      moreItems.forEach(preloadImage);
+
+      data.items = right ? [...data.items, ...moreItems] : [...moreItems, ...data.items];
+      refreshCarousel();
+    } catch (error) {
+      console.error(error);
+      toastError((error as PBError).message);
+    } finally {
+      isLoadingMore = false;
+    }
+  };
 </script>
 
 <div class="container">
   <section class="carousel">
-    {#each carousel as item}
+    {#each carousel as item (item.id)}
       <figure class:current={item.id === data.currentId}>
         <img
           width={256}
@@ -26,7 +79,7 @@
         />
         <figcaption>
           <div>
-            <h1>Aurelia</h1>
+            <h1>{item.name}</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget rutrum erat, quis
               tristique magna. Etiam sit amet volutpat mauris. Pellentesque eu fermentum augue, eget
@@ -43,13 +96,17 @@
   </section>
 
   <div class="arrows">
-    <svg viewBox="0 0 5 20">
-      <path d="M5 0 L0 10 L5 20 Z" />
-    </svg>
+    <button aria-label="previous" on:click={showNext(false)}>
+      <svg viewBox="0 0 5 20">
+        <path d="M5 0 L0 10 L5 20 Z" />
+      </svg>
+    </button>
 
-    <svg viewBox="0 0 5 20">
-      <path d="M0 0 L5 10 L0 20 Z" />
-    </svg>
+    <button aria-label="next" on:click={showNext(true)}>
+      <svg viewBox="0 0 5 20">
+        <path d="M0 0 L5 10 L0 20 Z" />
+      </svg>
+    </button>
   </div>
 </div>
 
@@ -59,26 +116,34 @@
     position: relative;
 
     div.arrows {
-      svg {
+      button {
         position: absolute;
-        width: 50px;
-        aspect-ratio: 1/2;
-        fill: $primary;
         top: 50%;
         transform: translateY(-50%);
+
+        border: 0;
+        background: none;
         cursor: pointer;
+        color: $primary;
+        transition: all 0.2s ease-in-out;
       }
 
-      svg:first-child {
+      button:first-child {
         left: 125px;
       }
 
-      svg:last-child {
+      button:last-child {
         right: 125px;
       }
 
-      svg:hover {
-        fill: color.scale($primary, $lightness: 5%);
+      button:hover {
+        color: color.scale($primary, $lightness: 5%);
+      }
+
+      svg {
+        width: 50px;
+        aspect-ratio: 1/2;
+        fill: currentColor;
       }
     }
 
@@ -95,7 +160,6 @@
         width: 256px;
         aspect-ratio: 1/1;
         overflow: hidden;
-        cursor: pointer;
         user-select: none;
 
         img {
@@ -158,6 +222,8 @@
       }
 
       figure.current:hover {
+        cursor: pointer;
+
         img {
           filter: brightness(0.4);
           transform: scale3d(1.1, 1.1, 1);
