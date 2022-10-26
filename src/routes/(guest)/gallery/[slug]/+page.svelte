@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { toastError } from '$lib/stores';
   import { sliceElements } from '$lib/utils/array';
@@ -65,6 +67,29 @@
       isLoadingMore = false;
     }
   };
+
+  onMount(() => {
+    const rotateRightKeys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
+    const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (rotateRightKeys.includes(event.code)) {
+        event.preventDefault();
+        showNext(true)();
+      }
+
+      if (rotateLeftKeys.includes(event.code)) {
+        event.preventDefault();
+        showNext(false)();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    };
+  });
 </script>
 
 <div class="container">
