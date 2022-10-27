@@ -1,0 +1,32 @@
+const randomNames = [
+  'Aurelia',
+  'Aurora',
+  'Ava',
+  'Avery',
+  'Bella',
+  'Brooklyn',
+  'Charlotte',
+  'Chloe',
+  'Ella',
+  'Evelyn',
+  'Grace',
+  'Harper',
+  'Hazel',
+  'Isabella',
+  'Layla',
+  'Lillian',
+  'Lily',
+  'Mia',
+  'Nora',
+  'Olivia',
+  'Penelope',
+  'Riley',
+  'Savannah',
+  'Serenity',
+  'Skylar',
+  'Sophia',
+  'Stella',
+  'Zoey'
+];
+
+export const getRandomName = () => randomNames[Math.floor(Math.random() * randomNames.length)];

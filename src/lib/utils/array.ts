@@ -25,3 +25,10 @@ export const shuffle = <T>(array: T[]): T[] => {
   }
   return array;
 };
+
+export const sliceElements = <T>(arr: T[], from: number, to: number): T[] => {
+  if (from < 0) return [...arr.slice(from), ...arr.slice(0, to)];
+  if (to > arr.length) return [...arr.slice(from, arr.length), ...arr.slice(0, to - arr.length)];
+
+  return arr.slice(from, to);
+};

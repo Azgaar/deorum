@@ -1,13 +1,14 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { changeableKeys, type IEditorData, type IUploadedPortrait } from '$lib/types/editor.types';
-import client from './client';
+import admin from './admin';
 
 export async function postPortraits(uploaded: IUploadedPortrait[], editorData: IEditorData) {
   const promises = uploaded.map(({ file }) => {
     const formData = createFormData(editorData);
     formData.set('active', 'true');
     formData.set('image', file);
-    return client.records.create('portraits', formData, {
+
+    return admin.records.create('portraits', formData, {
       $autoCancel: false
     }) as unknown as Promise<IPortrait>;
   });

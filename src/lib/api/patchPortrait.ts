@@ -1,4 +1,4 @@
-import client from './client';
+import admin from './admin';
 import { getPortrait } from './getPortrait';
 
 export async function patchPortrait(id: string, add: boolean, tagId: string) {
@@ -9,5 +9,5 @@ export async function patchPortrait(id: string, add: boolean, tagId: string) {
   if (!add && !tags.includes(tagId)) return null;
 
   const newTags = add ? [...tags, tagId] : tags.filter((t) => t !== tagId);
-  return await client.records.update('portraits', id, { tags: newTags });
+  return await admin.records.update('portraits', id, { tags: newTags });
 }

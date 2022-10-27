@@ -11,8 +11,9 @@
   onMount(() => {
     const keys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
 
-    const goToNext = ({ code }: KeyboardEvent) => {
-      if (keys.includes(code)) {
+    const goToNext = (event: KeyboardEvent) => {
+      if (keys.includes(event.code)) {
+        event.preventDefault();
         goto(`./${data.next.id}`);
       }
     };

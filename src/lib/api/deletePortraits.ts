@@ -1,6 +1,6 @@
-import client from './client';
+import admin from './admin';
 
 export async function deletePortraits(selected: string[]) {
-  const promises = selected.map((id) => client.records.delete('portraits', id));
+  const promises = selected.map((id) => admin.records.delete('portraits', id));
   return Promise.all(promises);
 }

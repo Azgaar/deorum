@@ -10,11 +10,13 @@
 
 <style lang="scss">
   footer {
+    height: 58px;
     display: flex;
     justify-content: flex-end;
-    padding: 10px 16px;
+    align-items: flex-end;
 
     .version {
+      padding: 10px 16px;
       font-style: italic;
       font-size: 10px;
       color: $text;

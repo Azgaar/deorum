@@ -1,7 +1,7 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { changeableKeys, type IChange, type IEditorData } from '$lib/types/editor.types';
 import { makePOJO } from '$lib/utils/object';
-import client from './client';
+import admin from './admin';
 
 export async function patchPortraits(
   selected: string[],
@@ -19,7 +19,7 @@ export async function patchPortraits(
 
   const promises = patches.map(
     ({ id, patchData }) =>
-      client.records.update('portraits', id, patchData) as unknown as Promise<IPortrait>
+      admin.records.update('portraits', id, patchData) as unknown as Promise<IPortrait>
   );
 
   return Promise.all(promises);

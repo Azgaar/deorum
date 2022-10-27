@@ -1,5 +1,21 @@
+import { getFullList } from '$lib/api/getFullList';
 import Cache from './cache';
 
 export const cache = new Cache({ debug: false });
 
-export const expiration = 1000 * 60 * 60; // 1 hour
+const EXPIRATION = 1000 * 60 * 60 * 6; // 6 hours
+
+export const getCachedList = async <T>(
+  collection: 'portraits' | 'tags',
+  filter = '',
+  sort = ''
+): Promise<T[]> => {
+  const key = [collection, filter, sort].join('-');
+
+  const cached = cache.get(key);
+  if (cached?.length) return new Promise((resolve) => resolve(cached));
+
+  const list = (await getFullList(collection, filter, sort)) as T[];
+  cache.put(key, list, EXPIRATION);
+  return list;
+};
