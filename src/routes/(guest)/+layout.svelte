@@ -46,12 +46,8 @@
 
     main {
       height: 100%;
-
       display: grid;
-      grid-template-rows: 1fr 64px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 32px;
+      place-items: center;
     }
   }
 </style>

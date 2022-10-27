@@ -96,26 +96,23 @@
   <section class="carousel">
     {#each carousel as item (item.id)}
       <figure class:current={item.id === data.currentId}>
-        <img
-          width={256}
-          height={256}
-          src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`}
-          alt={item.id}
-        />
-        <figcaption>
-          <div>
-            <h1>{item.name}</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget rutrum erat, quis
-              tristique magna. Etiam sit amet volutpat mauris. Pellentesque eu fermentum augue, eget
-              porttitor ipsum. Vivamus porttitor erat lorem...
-            </p>
-            <aside>
-              <span>Human</span>
-              <span>Warlock</span>
-            </aside>
-          </div>
-        </figcaption>
+        <img src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`} alt={item.id} />
+        {#if item.id === data.currentId}
+          <figcaption>
+            <div>
+              <h1>{item.name}</h1>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget rutrum erat, quis
+                tristique magna. Etiam sit amet volutpat mauris. Pellentesque eu fermentum augue,
+                eget porttitor ipsum. Vivamus porttitor erat lorem...
+              </p>
+              <aside>
+                <span>Human</span>
+                <span>Warlock</span>
+              </aside>
+            </div>
+          </figcaption>
+        {/if}
       </figure>
     {/each}
   </section>
@@ -138,7 +135,180 @@
 <style lang="scss">
   @use 'sass:color';
   div.container {
-    position: relative;
+    width: 100%;
+    user-select: none;
+
+    section.carousel {
+      --carousel-item-height: 150px;
+      --carousel-item-width: 150px;
+      max-width: 1000px;
+      min-height: 360px;
+      font-size: 14px;
+
+      @media screen and (max-width: 599px) {
+        max-width: 320px;
+        font-size: 14px;
+      }
+
+      @media screen and (min-width: 1200px) {
+        --carousel-item-height: 150px;
+        --carousel-item-width: 150px;
+        max-width: 1000px;
+        font-size: 14px;
+      }
+
+      @media screen and (min-width: 1500px) {
+        --carousel-item-height: 170px;
+        --carousel-item-width: 170px;
+        max-width: 1200px;
+        font-size: 18px;
+      }
+
+      @media screen and (min-width: 1920px) {
+        --carousel-item-height: 200px;
+        --carousel-item-width: 200px;
+        max-width: 1500px;
+        font-size: 20px;
+      }
+
+      @media screen and (min-width: 2500px) {
+        --carousel-item-height: 256px;
+        --carousel-item-width: 256px;
+        max-width: 2000px;
+        font-size: 26px;
+      }
+
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+
+      figure {
+        opacity: 0;
+        position: absolute;
+        margin: 0;
+        width: var(--carousel-item-width);
+        height: var(--carousel-item-height);
+        z-index: 0;
+
+        transform: translateX(-50%);
+        transition: all 0.3s ease-in-out;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          aspect-ratio: 1/1;
+          pointer-events: none;
+
+          transition: all 0.5s ease-out;
+          transform: scale3d(1, 1, 1);
+        }
+
+        figcaption {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          inset: 0;
+
+          outline-color: color.adjust($text, $alpha: -1);
+          outline-style: double;
+          outline-width: 2px;
+          outline-offset: -4px;
+          transition: outline 0.2s ease-out;
+          transition-delay: 0.2s;
+
+          div {
+            position: absolute;
+            padding: 16px 32px;
+            height: calc(100% - 2 * 16px);
+
+            top: 78%;
+            transition: all 0.4s ease-out;
+
+            display: grid;
+            grid-template-rows: 1fr 3fr 1fr;
+            place-items: center;
+
+            h1 {
+              font-size: 1.5em;
+              margin: 0;
+              text-shadow: 0px 0px 12px black;
+            }
+
+            p {
+              margin: 0;
+            }
+
+            aside {
+              display: flex;
+              gap: 8px;
+
+              span {
+                padding: 4px 8px;
+                border-radius: 12px;
+                background-color: rgba(36, 19, 18, 0.9);
+              }
+            }
+          }
+        }
+      }
+
+      figure.current:hover {
+        cursor: pointer;
+
+        img {
+          filter: brightness(0.4);
+          transform: scale3d(1.25, 1.25, 1);
+        }
+
+        figcaption {
+          outline-color: color.adjust($text, $alpha: -0.5);
+
+          div {
+            top: 0%;
+          }
+        }
+      }
+
+      figure:nth-child(1),
+      figure:nth-child(5) {
+        opacity: 0.4;
+      }
+
+      figure:nth-child(2),
+      figure:nth-child(4) {
+        height: calc(var(--carousel-item-height) * 1.6);
+        width: calc(var(--carousel-item-width) * 1.6);
+        opacity: 0.9;
+        z-index: 1;
+      }
+
+      figure:nth-child(1) {
+        left: 15%;
+      }
+
+      figure:nth-child(2) {
+        left: 30%;
+      }
+
+      figure:nth-child(3) {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
+          0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
+        height: calc(var(--carousel-item-height) * 2);
+        width: calc(var(--carousel-item-width) * 2);
+        opacity: 1;
+        left: 50%;
+        z-index: 2;
+      }
+
+      figure:nth-child(4) {
+        left: 70%;
+      }
+
+      figure:nth-child(5) {
+        left: 85%;
+      }
+    }
 
     div.arrows {
       button {
@@ -154,11 +324,11 @@
       }
 
       button:first-child {
-        left: 125px;
+        left: 0;
       }
 
       button:last-child {
-        right: 125px;
+        right: 0;
       }
 
       button:hover {
@@ -169,98 +339,6 @@
         width: 50px;
         aspect-ratio: 1/2;
         fill: currentColor;
-      }
-    }
-
-    section.carousel {
-      display: flex;
-      gap: 16px;
-      background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
-      padding: 16px 0;
-
-      figure {
-        position: relative;
-        margin: 0;
-
-        width: 256px;
-        aspect-ratio: 1/1;
-        overflow: hidden;
-        user-select: none;
-
-        img {
-          width: 256px;
-          aspect-ratio: 1/1;
-
-          transition: all 0.5s ease-out;
-          transform: scale3d(1, 1, 1);
-        }
-
-        figcaption {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          inset: 0;
-
-          outline-color: color.adjust($text, $alpha: -0.5);
-          outline-style: double;
-          outline-width: 0px;
-          outline-offset: -2px;
-          transition: all 0.2s ease-out;
-          transition-delay: 0.2s;
-
-          div {
-            position: absolute;
-            padding: 16px;
-            height: calc(100% - 2 * 16px);
-
-            top: 76%;
-            transition: all 0.4s ease-out;
-
-            display: grid;
-            grid-template-rows: 1fr 3fr auto;
-            place-items: center;
-
-            h1 {
-              font-size: 1.5rem;
-              margin: 0;
-              text-shadow: 0px 0px 8px black;
-            }
-
-            p {
-              font-size: 0.75rem;
-              margin: 0;
-            }
-
-            aside {
-              display: flex;
-              gap: 8px;
-
-              span {
-                font-size: 0.75rem;
-                padding: 4px 8px;
-                border-radius: 12px;
-                background-color: rgba(36, 19, 18, 0.9);
-              }
-            }
-          }
-        }
-      }
-
-      figure.current:hover {
-        cursor: pointer;
-
-        img {
-          filter: brightness(0.4);
-          transform: scale3d(1.1, 1.1, 1);
-        }
-
-        figcaption {
-          outline-width: 2px;
-
-          div {
-            top: 0%;
-          }
-        }
       }
     }
   }
