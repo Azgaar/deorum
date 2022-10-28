@@ -68,6 +68,12 @@
     }
   };
 
+  const handleClick = (id: string) => () => {
+    // temp, rework to show details
+    if (id === data.currentId) return;
+    showNext(id > data.currentId)();
+  };
+
   onMount(() => {
     const rotateRightKeys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
     const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
@@ -95,8 +101,12 @@
 <div class="container">
   <section class="carousel">
     {#each carousel as item (item.id)}
-      <figure class:current={item.id === data.currentId}>
-        <img src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`} alt={item.id} />
+      <figure class:current={item.id === data.currentId} on:click={handleClick(item.id)}>
+        <img
+          src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`}
+          alt={item.id}
+          draggable="false"
+        />
         {#if item.id === data.currentId}
           <figcaption>
             <div>
@@ -144,6 +154,7 @@
       max-width: 1000px;
       min-height: 360px;
       font-size: 14px;
+      z-index: 0;
 
       @media screen and (max-width: 599px) {
         max-width: 320px;
@@ -184,21 +195,21 @@
       margin: 0 auto;
 
       figure {
-        opacity: 0;
         position: absolute;
         margin: 0;
         width: var(--carousel-item-width);
         height: var(--carousel-item-height);
         z-index: 0;
+        opacity: 0;
 
         transform: translateX(-50%);
         transition: all 0.3s ease-in-out;
         overflow: hidden;
+        cursor: pointer;
 
         img {
           width: 100%;
           aspect-ratio: 1/1;
-          pointer-events: none;
 
           transition: all 0.5s ease-out;
           transform: scale3d(1, 1, 1);
@@ -254,8 +265,6 @@
       }
 
       figure.current:hover {
-        cursor: pointer;
-
         img {
           filter: brightness(0.4);
           transform: scale3d(1.25, 1.25, 1);
@@ -273,14 +282,24 @@
       figure:nth-child(1),
       figure:nth-child(5) {
         opacity: 0.4;
+        animation: fadeIn04 0.3s ease-in-out;
+
+        @keyframes fadeIn04 {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 0.4;
+          }
+        }
       }
 
       figure:nth-child(2),
       figure:nth-child(4) {
         height: calc(var(--carousel-item-height) * 1.6);
         width: calc(var(--carousel-item-width) * 1.6);
-        opacity: 0.9;
         z-index: 1;
+        opacity: 0.9;
       }
 
       figure:nth-child(1) {
@@ -296,9 +315,10 @@
           0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
         height: calc(var(--carousel-item-height) * 2);
         width: calc(var(--carousel-item-width) * 2);
-        opacity: 1;
         left: 50%;
         z-index: 2;
+
+        opacity: 1;
       }
 
       figure:nth-child(4) {
