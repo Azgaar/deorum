@@ -8,14 +8,15 @@ const EXPIRATION = 1000 * 60 * 60 * 6; // 6 hours
 export const getCachedList = async <T>(
   collection: 'portraits' | 'tags',
   filter = '',
-  sort = ''
+  sort = '',
+  expand = ''
 ): Promise<T[]> => {
-  const key = [collection, filter, sort].join('-');
+  const key = [collection, filter, sort, expand].join('-');
 
   const cached = cache.get(key);
   if (cached?.length) return new Promise((resolve) => resolve(cached));
 
-  const list = (await getFullList(collection, filter, sort)) as T[];
+  const list = (await getFullList(collection, filter, sort, expand)) as T[];
   cache.put(key, list, EXPIRATION);
   return list;
 };

@@ -2,11 +2,15 @@ import { browser } from '$app/environment';
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 
 export const request = async (url: string) => {
-  const res = await fetch(url, {
-    headers: { 'content-type': 'application/json' }
-  });
+  try {
+    const res = await fetch(url, {
+      headers: { 'content-type': 'application/json' }
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export function preloadImage({ id, image }: { id: string; image: string }) {

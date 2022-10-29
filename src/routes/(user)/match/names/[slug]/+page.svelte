@@ -10,6 +10,8 @@
   $: key = data.current.id;
   $: preloadImage(data.next);
 
+  let customName = '';
+
   const handleClick = (name: string) => (event: MouseEvent) => {
     const target = event.target as HTMLElement;
     target.classList.add('hidden');
@@ -18,7 +20,9 @@
   };
 
   const requestMoreSamples = async () => {
-    const moreNames = await request(`/api/names/random?quantity=${MATCH_NAMES_NUMBER}`);
+    const moreNames = await request(
+      `/api/names/ironarachne?quantity=${MATCH_NAMES_NUMBER}&race=${data.race}&type=${data.type}`
+    );
     data.names = moreNames;
   };
 </script>
@@ -35,9 +39,9 @@
     {/key}
   </section>
 
-  <section class="names">
-    {#each data.names as name (name)}
-      <div class="name">
+  <section class="container">
+    {#each data.names as name}
+      <div class="line">
         {name}
         <PushButton
           variant="green"
@@ -47,17 +51,37 @@
       </div>
     {/each}
 
-    <div class="more">
+    <div class="line">
+      <input
+        type="text"
+        min="2"
+        maxlength="50"
+        placeholder={$t('admin.match.typeCustomName')}
+        bind:value={customName}
+      />
+      <PushButton
+        variant="green"
+        onClick={handleClick(customName)}
+        label={$t('common.controls.select')}
+      />
+    </div>
+
+    <div class="line">
       <BasicButton
         variant="primary"
         onClick={requestMoreSamples}
         label={$t('admin.match.moreSamples')}
       />
+
+      <a href={`./${data.next?.id}`}>
+        {$t('common.navigation.next')} &rarr;
+      </a>
     </div>
   </section>
 </div>
 
 <style lang="scss">
+  @use 'sass:color';
   div.container {
     width: min(320px, 100%);
     padding: 1.4rem;
@@ -73,21 +97,36 @@
       }
     }
 
-    section.names {
+    section.container {
       display: flex;
       flex-direction: column;
       gap: 0.4em;
 
-      div.name {
+      div.line {
         display: flex;
         justify-content: space-between;
         gap: 0.4em;
-      }
 
-      div.more {
-        display: flex;
-        justify-content: center;
-        gap: 0.4em;
+        input {
+          width: 80%;
+          color: $text;
+          font-size: 1rem;
+          text-indent: 0.2rem;
+          outline: none;
+          border: none;
+          border-radius: 2px;
+          background-color: color.adjust($secondary, $lightness: +3%);
+        }
+
+        a {
+          text-transform: lowercase;
+          text-decoration: none;
+          color: $text;
+          font-size: 0.9em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
   }

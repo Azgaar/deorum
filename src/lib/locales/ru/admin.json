@@ -30,7 +30,8 @@
     "of": "из"
   },
   "match": {
-    "moreSamples": "Показать ещё"
+    "moreSamples": "Показать ещё",
+    "typeCustomName": "Введите любое имя"
   },
   "originals": {
     "undefined": "не указан",

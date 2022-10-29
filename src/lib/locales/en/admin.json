@@ -30,7 +30,8 @@
     "of": "of"
   },
   "match": {
-    "moreSamples": "More samples"
+    "moreSamples": "More samples",
+    "typeCustomName": "Type a custom name"
   },
   "originals": {
     "undefined": "undefined",

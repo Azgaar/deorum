@@ -9,7 +9,9 @@ import type { IPortrait } from '$lib/types/api.types';
 export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const portraits = await getCachedList<IPortrait>(
     'portraits',
-    'active=true&&quality>6&&name=null'
+    'active=true&&quality>6&&name=null',
+    '',
+    'tags'
   );
 
   if (!portraits || !portraits.length) throw error(503, 'No portraits returned');
