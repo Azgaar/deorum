@@ -2,7 +2,6 @@ import { error, redirect } from '@sveltejs/kit';
 
 import { getRandomIndex, sliceElements } from '$lib/utils/array';
 import { getCachedList } from '$lib/cache/cacheInstance';
-import { getRandomName } from '$lib/utils/random';
 
 import type { IPortrait } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -28,11 +27,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const after = sliceElements(portraits, currentIndex + 1, currentIndex + SELECT_AFTER + 1);
 
   const selection = [...before, current, ...after];
-  const items: IGalleryItem[] = selection.map(({ id, image }) => ({
-    id,
-    image,
-    name: getRandomName()
-  }));
+  const items: IGalleryItem[] = selection.map(({ id, image, name }) => ({ id, image, name }));
 
   console.info(`Loading gallery for portrait ${params.slug}, ${currentIndex}/${portraits.length}`);
 

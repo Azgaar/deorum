@@ -109,7 +109,7 @@
         {#if item.id === data.currentId}
           <figcaption>
             <div>
-              <h1>{item.name}</h1>
+              <h1>{item.name || ''}</h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget rutrum erat, quis
                 tristique magna. Etiam sit amet volutpat mauris. Pellentesque eu fermentum augue,
