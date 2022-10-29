@@ -7,12 +7,12 @@
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { t } from '$lib/locales/translations';
   import { signin } from '$lib/api/auth';
-  import { toastError, role, Role } from '$lib/stores';
+  import { toastError } from '$lib/stores';
 
   import PasswordInput from '../password/PasswordInput.svelte';
   import type { PBError } from '$lib/types/error.types';
 
-  export let onClose: null | (() => void) = null;
+  export let onClose: () => void;
 
   let email = '';
   let password = '';
@@ -25,10 +25,7 @@
     try {
       isLoading = true;
       await signin({ email, password });
-
-      if (!onClose) {
-        goto($role === Role.ADMIN ? '/admin' : '/');
-      } else onClose();
+      onClose();
     } catch (error) {
       console.error(error);
       toastError((error as PBError).message);

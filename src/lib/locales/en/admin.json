@@ -244,5 +244,16 @@
     "8": "eight",
     "9": "nine",
     "10": "ten"
+  },
+  "success": {
+    "uploaded": "Successfully uploaded",
+    "changesSaved": "Changes are saved",
+    "delected": "Successfully deleted"
+  },
+  "errors": {
+    "selectOriginal": "Please select original image",
+    "selectColor": "Please select at least one color",
+    "selectStyle": "Please select at least one style",
+    "selectTag": "Please select at least one tag"
   }
 }

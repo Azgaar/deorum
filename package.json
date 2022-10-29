@@ -24,7 +24,6 @@
     "@smui/drawer": "^6.1.0",
     "@smui/form-field": "^6.1.0",
     "@smui/slider": "^6.1.0",
-    "@smui/snackbar": "^6.1.0",
     "@smui/textfield": "^6.1.0",
     "@smui/tooltip": "^6.1.4",
     "@sveltejs/adapter-auto": "next",

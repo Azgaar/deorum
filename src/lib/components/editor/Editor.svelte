@@ -100,20 +100,20 @@
   };
 
   const handleChangesSave = async () => {
-    if (!current.original) return toastError('Select original image');
-    if (!current.colors.length) return toastError('Select at least one color');
-    if (!current.styles.length) return toastError('Select at least one style');
-    if (!current.tags.length) return toastError('Select at least one tag');
+    if (!current.original) return toastError($t('admin.errors.selectOriginal'));
+    if (!current.colors.length) return toastError($t('admin.errors.selectColor'));
+    if (!current.styles.length) return toastError($t('admin.errors.selectStyle'));
+    if (!current.tags.length) return toastError($t('admin.errors.selectTag'));
 
     try {
       isLoading = true;
 
       if (isUploading) {
         await handlePost(current);
-        toastSuccess('Successfully uploaded');
+        toastSuccess($t('admin.success.uploaded'));
       } else {
         await handlePatch(getChanges(model, current));
-        toastSuccess('Changes saved');
+        toastSuccess($t('admin.success.changesSaved'));
       }
 
       isChanged = false;
@@ -139,7 +139,7 @@
     try {
       isLoading = true;
       await handleDelete();
-      toastSuccess('Successfully deleted');
+      toastSuccess($t('admin.success.deleted'));
     } catch (err) {
       console.error(err);
       toastError(normalizeError(err));

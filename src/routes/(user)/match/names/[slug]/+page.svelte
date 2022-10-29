@@ -76,7 +76,7 @@
       />
 
       <a href={`./${data.next?.id}`}>
-        {$t('common.navigation.next')} &rarr;
+        {$t('common.controls.next')} &rarr;
       </a>
     </div>
   </section>

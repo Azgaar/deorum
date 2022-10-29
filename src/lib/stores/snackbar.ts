@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 export const snackbar = writable<{
   message: null | string;
-  status: 'success' | 'error' | 'warning';
+  status: 'success' | 'error' | 'warning' | 'info';
 }>({
   message: null,
   status: 'success'

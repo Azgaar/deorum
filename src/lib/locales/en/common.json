@@ -34,5 +34,8 @@
     "next": "Next",
     "tags": "Tags",
     "names": "Names"
+  },
+  "errors": {
+    "unauthorized": "Please sign in to access this page"
   }
 }
