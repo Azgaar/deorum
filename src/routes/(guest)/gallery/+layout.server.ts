@@ -7,7 +7,7 @@ import { getRandomName } from '$lib/utils/random';
 import type { IPortrait } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
 
-export const filter = "(quality>6)&&(styles.id~'nkiyl5tr2chv23m')"; // style = drawing
+export const filter = "(active=true)&&(quality>6)&&(styles.id~'nkiyl5tr2chv23m')"; // style contains 'drawing'
 export const sort = '-quality,id';
 
 const SELECT_BEFORE = 10;

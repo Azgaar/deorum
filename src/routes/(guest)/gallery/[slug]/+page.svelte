@@ -4,7 +4,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { toastError } from '$lib/stores';
   import { sliceElements } from '$lib/utils/array';
-  import { preloadImage } from '$lib/utils/loading';
+  import { preloadImage, request } from '$lib/utils/loading';
 
   import type { PBError } from '$lib/types/error.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -52,10 +52,9 @@
     const edgeId = right ? data.items.at(-1)?.id : data.items.at(0)?.id;
 
     try {
-      const response = await fetch(`/api/gallery/more?edgeId=${edgeId}&right=${right}`, {
-        headers: { 'content-type': 'application/json' }
-      });
-      const moreItems: IGalleryItem[] = await response.json();
+      const moreItems: IGalleryItem[] = await request(
+        `/api/gallery/more?edgeId=${edgeId}&right=${right}`
+      );
       moreItems.forEach(preloadImage);
 
       data.items = right ? [...data.items, ...moreItems] : [...moreItems, ...data.items];

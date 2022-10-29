@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 
 import { MATCH_TAGS_NUMBER } from '$lib/config';
 import { getRandomElements, getRandomIndex, shuffle } from '$lib/utils/array';
@@ -31,13 +31,15 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   if (!portraits || !portraits.length) throw error(503, 'No portraits returned');
   if (!tags || !tags.length) throw error(503, 'No tags returned');
 
-  const currentId = params.slug || portraits[getRandomIndex(portraits.length)].id;
-  const current = portraits.find(({ id }) => id === currentId);
+  const currentIndex = Boolean(params.slug) && portraits.findIndex(({ id }) => id === params.slug);
+  if (currentIndex === false || currentIndex === -1) {
+    const randomId = portraits[getRandomIndex(portraits.length)].id;
+    throw redirect(307, `/match/tags/${randomId}`);
+  }
 
-  if (!current) return error(404, `No portrait found with id ${currentId}`);
-
-  const randomTags = selectRandomTags(current.tags, tags);
+  const current = portraits[currentIndex];
   const next = portraits[getRandomIndex(portraits.length)];
+  const randomTags = selectRandomTags(current.tags, tags);
 
   const tagsString = randomTags.map(({ name }) => name).join(', ');
   console.info(`Matching portrait ${current.id} with tags ${tagsString}`);

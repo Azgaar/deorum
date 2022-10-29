@@ -29,6 +29,9 @@
     "portrait": "Portrait",
     "of": "of"
   },
+  "match": {
+    "moreSamples": "More samples"
+  },
   "originals": {
     "undefined": "undefined",
     "pixie": "pixie",

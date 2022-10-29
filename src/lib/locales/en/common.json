@@ -30,6 +30,9 @@
   },
   "navigation": {
     "match": "Match",
-    "admin": "Admin"
+    "admin": "Admin",
+    "next": "Next",
+    "tags": "Tags",
+    "names": "Names"
   }
 }

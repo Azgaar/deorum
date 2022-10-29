@@ -29,6 +29,9 @@
     "portrait": "Портрет",
     "of": "из"
   },
+  "match": {
+    "moreSamples": "Показать ещё"
+  },
   "originals": {
     "undefined": "не указан",
     "pixie": "пикси",
