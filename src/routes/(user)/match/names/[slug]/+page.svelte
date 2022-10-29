@@ -40,7 +40,7 @@
   </section>
 
   <section class="container">
-    {#each data.names as name}
+    {#each data.names as name (Math.random())}
       <div class="line">
         {name}
         <PushButton
@@ -59,11 +59,13 @@
         placeholder={$t('admin.match.typeCustomName')}
         bind:value={customName}
       />
-      <PushButton
-        variant="green"
-        onClick={handleClick(customName)}
-        label={$t('common.controls.select')}
-      />
+      {#key customName}
+        <PushButton
+          variant="green"
+          onClick={handleClick(customName)}
+          label={$t('common.controls.select')}
+        />
+      {/key}
     </div>
 
     <div class="line">
