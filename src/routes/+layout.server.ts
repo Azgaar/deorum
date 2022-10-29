@@ -1,9 +1,7 @@
 import { authorize } from '$lib/api/auth';
 import { locales } from '$lib/locales/translations';
-import { toastError } from '$lib/stores';
 
 import type { IUser } from '$lib/types/api.types';
-import type { PBError } from '$lib/types/error.types';
 
 const getLocale = (request: Request, user: IUser | null) => {
   if (user?.profile?.lang) return user.profile.lang;
@@ -23,7 +21,6 @@ export const load: import('./$types').LayoutServerLoad = async ({ request }) => 
     if (cookie) user = await authorize(cookie);
   } catch (error) {
     console.error(error);
-    toastError((error as PBError).message);
   }
 
   const lang = getLocale(request, user);

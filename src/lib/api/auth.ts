@@ -46,7 +46,7 @@ export const signin = async ({ email, password }: { email: string; password: str
 export const logout = () => {
   user.set(null);
   role.set(Role.GUEST);
-  document.cookie = `${COOKIE_NAME}=`;
+  document.cookie = `${COOKIE_NAME}=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 };
 
 export const authorize = async (cookie: string) => {

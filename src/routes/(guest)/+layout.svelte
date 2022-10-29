@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts">
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
   import { language } from '$lib/stores';
@@ -13,6 +13,8 @@
     match: { id: 'match', key: 'common.navigation.match', to: '/match' },
     admin: { id: 'admin', key: 'common.navigation.admin', to: '/admin' }
   };
+
+  console.log({ role: $role });
 
   const getNavLinks = (role: Role): ILink[] => {
     const { signin, signup, logout, match, admin } = linksMap;

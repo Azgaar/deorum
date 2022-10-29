@@ -1,4 +1,5 @@
 import { ADMIN_USERNAME, ADMIN_PASSWORD } from '$env/static/private';
+import type { Cookies } from '@sveltejs/kit';
 
 import admin from '$lib/api/admin';
 import { authorize, isSignedIn } from '$lib/api/auth';
@@ -16,6 +17,19 @@ const routesProtection = {
   [Role.ADMIN]: ['admin', 'match'],
   [Role.USER]: ['match'],
   [Role.GUEST]: [] as string[]
+};
+
+const getPageLanguage = (cookies: Cookies) => {
+  const cookie = cookies.get(COOKIE_NAME);
+  if (!cookie) return 'auto';
+
+  try {
+    const parsed = JSON.parse(cookie);
+    return parsed.model.profile.lang;
+  } catch (error) {
+    console.error(error);
+    return 'auto';
+  }
 };
 
 export const handle: import('@sveltejs/kit').Handle = async ({ event, resolve }) => {
@@ -36,18 +50,7 @@ export const handle: import('@sveltejs/kit').Handle = async ({ event, resolve })
   // login as executer: evergreen admin user to run PocketBase requests on guest user behalf
   if (!isSignedIn(admin)) await admin.users.authViaEmail(ADMIN_USERNAME, ADMIN_PASSWORD);
 
-  let lang = 'auto';
-  const cookie = event.cookies.get(COOKIE_NAME);
-  if (cookie) {
-    try {
-      const parsed = JSON.parse(cookie);
-      lang = parsed.model.profile.lang;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   return resolve(event, {
-    transformPageChunk: ({ html }) => html.replace('%lang%', lang)
+    transformPageChunk: ({ html }) => html.replace('%lang%', getPageLanguage(event.cookies))
   });
 };
