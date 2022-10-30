@@ -14,8 +14,6 @@
     admin: { id: 'admin', key: 'common.navigation.admin', to: '/admin' }
   };
 
-  console.log({ role: $role });
-
   const getNavLinks = (role: Role): ILink[] => {
     const { signin, signup, logout, match, admin } = linksMap;
     if (role === Role.ADMIN) return [match, admin, logout];

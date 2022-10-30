@@ -127,7 +127,11 @@
     "darkness": "тьма",
     "night": "ночь",
     "dwarf": "дворф",
-    "goblin": "гоблин"
+    "hobgoblin": "хобгоблин",
+    "dwarf woman": "женщина-дворф",
+    "green goblin": "зелёный гоблин",
+    "cannibal": "каннибал",
+    "gnome woman": "женщина-гном"
   },
   "colors": {
     "red": "красный",

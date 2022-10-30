@@ -127,7 +127,11 @@
     "darkness": "darkness",
     "night": "night",
     "dwarf": "dwarf",
-    "goblin": "goblin"
+    "hobgoblin": "hobgoblin",
+    "dwarf woman": "dwarf woman",
+    "green goblin": "green goblin",
+    "cannibal": "cannibal",
+    "gnome woman": "gnome woman"
   },
   "colors": {
     "red": "red",
