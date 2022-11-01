@@ -1,15 +1,13 @@
 import { browser } from '$app/environment';
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+import { report } from './log';
 
 export const request = async (url: string) => {
   try {
-    const res = await fetch(url, {
-      headers: { 'content-type': 'application/json' }
-    });
-
+    const res = await fetch(url, { headers: { 'content-type': 'application/json' } });
     return res.json();
   } catch (error) {
-    console.error(error);
+    report('request', error, url);
   }
 };
 

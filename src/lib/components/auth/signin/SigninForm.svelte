@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
@@ -8,6 +7,7 @@
   import { t } from '$lib/locales/translations';
   import { signin } from '$lib/api/auth';
   import { toastError } from '$lib/stores';
+  import { log, report } from '$lib/utils/log';
 
   import PasswordInput from '../password/PasswordInput.svelte';
   import type { PBError } from '$lib/types/error.types';
@@ -25,9 +25,10 @@
     try {
       isLoading = true;
       await signin({ email, password });
+      log('auth', `Signin successful: ${email}`);
       onClose();
     } catch (error) {
-      console.error(error);
+      report('auth', error);
       toastError((error as PBError).message);
     } finally {
       isLoading = false;

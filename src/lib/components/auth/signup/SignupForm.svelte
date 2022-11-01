@@ -10,6 +10,7 @@
 
   import PasswordInput from '../password/PasswordInput.svelte';
   import type { PBError } from '$lib/types/error.types';
+  import { log, report } from '$lib/utils/log';
 
   export let onClose: null | (() => void) = null;
 
@@ -25,11 +26,12 @@
       isLoading = true;
       const lang = $language;
       await signup({ email, password, lang });
+      log('auth', `Signup successful: ${email}`);
 
       if (!onClose) window.location.href = '/';
       else onClose();
     } catch (error) {
-      console.error(error);
+      report('auth', error);
       toastError((error as PBError).message);
     } finally {
       isLoading = false;

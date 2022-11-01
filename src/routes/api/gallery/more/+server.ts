@@ -4,6 +4,7 @@ import { getCachedList } from '$lib/cache/cacheInstance';
 import { filter, sort } from '../../../(guest)/gallery/+layout.server';
 import { sliceElements } from '$lib/utils/array';
 import { getRandomName } from '$lib/utils/random';
+import { log } from '$lib/utils/log';
 
 import type { IPortrait } from '$lib/types/api.types';
 import type { RequestHandler } from './$types';
@@ -31,7 +32,7 @@ export const GET: RequestHandler = async ({ url }) => {
     name: getRandomName()
   }));
 
-  console.info(`Loading ${LOADING_BATCH} more gallery items`);
+  log('gallery', `Loading ${LOADING_BATCH} more items`);
 
   return new Response(JSON.stringify(items));
 };

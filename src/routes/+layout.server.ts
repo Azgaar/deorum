@@ -1,5 +1,6 @@
 import { authorize } from '$lib/api/auth';
 import { locales } from '$lib/locales/translations';
+import { report } from '$lib/utils/log';
 
 import type { IUser } from '$lib/types/api.types';
 
@@ -20,7 +21,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ request }) => 
     const cookie = request.headers.get('cookie');
     if (cookie) user = await authorize(cookie);
   } catch (error) {
-    console.error(error);
+    report('auth', error, request);
   }
 
   const lang = getLocale(request, user);

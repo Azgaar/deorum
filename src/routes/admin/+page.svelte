@@ -26,6 +26,7 @@
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { deletePortraits } from '$lib/api/deletePortraits';
+  import { report } from '$lib/utils/log';
 
   export let data: import('./$types').PageData;
 
@@ -140,7 +141,7 @@
         hasMore = page < totalPages;
         data.portraits = items;
       } catch (err) {
-        console.error(err);
+        report('admin', err, { request: 'getPortraits', filter: newFilter, sort: newSort });
         toastError(normalizeError(err));
       }
     };
@@ -185,7 +186,7 @@
       hasMore = page < totalPages;
       data.portraits = [...data.portraits, ...items];
     } catch (err) {
-      console.error(err);
+      report('admin', err, 'load more');
       toastError(normalizeError(err));
     }
   };

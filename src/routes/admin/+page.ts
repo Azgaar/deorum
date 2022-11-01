@@ -3,6 +3,7 @@ import { getFullList } from '$lib/api/getFullList';
 import type { IFilters, ISorting } from '$lib/types/filters.types';
 import { toastError } from '$lib/stores';
 import { normalizeError } from '$lib/utils/errors';
+import { report } from '$lib/utils/log';
 
 export const ssr = true;
 
@@ -65,7 +66,7 @@ export async function load({ url }: { url: URL }) {
       originals
     };
   } catch (error) {
-    console.error(error);
+    report('admin', error, url);
     toastError(normalizeError(error));
 
     return {

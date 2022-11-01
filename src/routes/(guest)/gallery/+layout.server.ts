@@ -5,6 +5,7 @@ import { getCachedList } from '$lib/cache/cacheInstance';
 
 import type { IPortrait } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
+import { log } from '$lib/utils/log';
 
 export const filter = "(active=true)&&(quality>6)&&(styles.id~'nkiyl5tr2chv23m')"; // style contains 'drawing'
 export const sort = '-quality,id';
@@ -29,7 +30,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const selection = [...before, current, ...after];
   const items: IGalleryItem[] = selection.map(({ id, image, name }) => ({ id, image, name }));
 
-  console.info(`Loading gallery for portrait ${params.slug}, ${currentIndex}/${portraits.length}`);
+  log('gallery', `Loading portrait ${params.slug}, ${currentIndex}/${portraits.length}`);
 
   return { items, currentId: current.id };
 };

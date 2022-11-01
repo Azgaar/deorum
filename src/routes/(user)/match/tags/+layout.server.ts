@@ -4,6 +4,7 @@ import { MATCH_TAGS_NUMBER } from '$lib/config';
 import { getRandomElements, getRandomIndex, shuffle } from '$lib/utils/array';
 import { makePOJO } from '$lib/utils/object';
 import { getCachedList } from '$lib/cache/cacheInstance';
+import { log } from '$lib/utils/log';
 
 import type { IPortrait, ITag } from '$lib/types/api.types';
 
@@ -42,7 +43,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const randomTags = selectRandomTags(current.tags, tags);
 
   const tagsString = randomTags.map(({ name }) => name).join(', ');
-  console.info(`Matching portrait ${current.id} with tags ${tagsString}`);
+  log('match', `Matching portrait ${current.id} with tags ${tagsString}`);
 
   return { current: makePOJO(current), next: makePOJO(next), tags: makePOJO(randomTags) };
 };

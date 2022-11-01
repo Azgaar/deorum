@@ -9,6 +9,7 @@
   import Chip from '$lib/components/chips/Chip.svelte';
   import { makePOJO } from '$lib/utils/object';
   import admin from '$lib/api/admin';
+  import { log, report } from '$lib/utils/log';
 
   import EditButton from './EditButton.svelte';
 
@@ -110,16 +111,18 @@
 
       if (isUploading) {
         await handlePost(current);
+        log('editor', 'Portrait uploaded', current);
         toastSuccess($t('admin.success.uploaded'));
       } else {
         await handlePatch(getChanges(model, current));
+        log('editor', 'Portrait changed', current);
         toastSuccess($t('admin.success.changesSaved'));
       }
 
       isChanged = false;
-    } catch (err) {
-      console.error(err);
-      toastError(normalizeError(err));
+    } catch (error) {
+      report('editor', error);
+      toastError(normalizeError(error));
     } finally {
       isLoading = false;
     }
@@ -139,9 +142,10 @@
     try {
       isLoading = true;
       await handleDelete();
+      log('editor', 'Portrait deleted', current);
       toastSuccess($t('admin.success.deleted'));
     } catch (err) {
-      console.error(err);
+      report('editor', err, current);
       toastError(normalizeError(err));
     } finally {
       isLoading = false;

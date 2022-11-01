@@ -1,8 +1,6 @@
 <script lang="ts" context="module">
   import { t } from '$lib/locales/translations';
   import { language } from '$lib/stores';
-
-  // here will be a static site with the app description
 </script>
 
 <div class="root" lang={$language}>

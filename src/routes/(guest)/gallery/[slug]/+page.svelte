@@ -5,6 +5,7 @@
   import { toastError } from '$lib/stores';
   import { sliceElements } from '$lib/utils/array';
   import { preloadImage, request } from '$lib/utils/loading';
+  import { report } from '$lib/utils/log';
 
   import type { PBError } from '$lib/types/error.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -60,7 +61,7 @@
       data.items = right ? [...data.items, ...moreItems] : [...moreItems, ...data.items];
       refreshCarousel();
     } catch (error) {
-      console.error(error);
+      report('gallery', error, { right });
       toastError((error as PBError).message);
     } finally {
       isLoadingMore = false;

@@ -5,6 +5,7 @@ import admin from '$lib/api/admin';
 import { authorize, isSignedIn } from '$lib/api/auth';
 import { COOKIE_NAME } from '$lib/config';
 import { Role } from '$lib/stores';
+import { report } from '$lib/utils/log';
 
 const redirect = (sourceUrl: string) =>
   new Response(null, {
@@ -27,7 +28,7 @@ const getPageLanguage = (cookies: Cookies) => {
     const parsed = JSON.parse(cookie);
     return parsed.model.profile.lang;
   } catch (error) {
-    console.error(error);
+    report('cookie', error);
     return 'auto';
   }
 };
