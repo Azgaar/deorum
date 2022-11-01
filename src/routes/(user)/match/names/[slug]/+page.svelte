@@ -20,9 +20,8 @@
   };
 
   const requestMoreSamples = async () => {
-    const moreNames = await request(
-      `/api/names/ironarachne?quantity=${MATCH_NAMES_NUMBER}&race=${data.race}&type=${data.type}`
-    );
+    const url = `/api/names/ironarachne?quantity=${MATCH_NAMES_NUMBER}&race=${data.race}&type=${data.type}`;
+    const moreNames = await request(url);
     data.names = moreNames;
   };
 </script>
