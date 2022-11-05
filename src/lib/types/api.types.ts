@@ -25,12 +25,21 @@ export interface IPortrait extends IRecord {
   colors: string[];
   quality: number;
   name: string | null;
+
+  age: number | null;
+  gender: TGender | null;
+  race: string | null;
+  archetype: string | null;
+  background: string | null;
+
   '@expand': {
     original: IOriginal;
     tags: ITag[];
     styles: IStyle[];
   };
 }
+
+export type TGender = 'male' | 'female' | 'non-binary';
 
 export interface ITag extends IRecord {
   name: string;

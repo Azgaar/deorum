@@ -57,7 +57,21 @@
     uploaded = Array.from(input.files).map((file) => {
       const id = Math.random().toString(36).slice(2, 9);
       const src = URL.createObjectURL(file);
-      return { id, file, src, original: '', tags: [], styles: [], colors: [], quality: 0 };
+      return {
+        id,
+        file,
+        src,
+        original: '',
+        tags: [],
+        styles: [],
+        colors: [],
+        quality: 0,
+        age: 0,
+        gender: null,
+        race: null,
+        archetype: null,
+        background: null
+      };
     });
 
     selected = uploaded.map((file) => file.id);

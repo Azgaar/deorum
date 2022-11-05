@@ -14,7 +14,8 @@
     "close": "Close",
     "confirm": "Confirm",
     "yes": "yes",
-    "no": "no"
+    "no": "no",
+    "random": "random"
   },
   "info": {
     "version": "v",
@@ -37,5 +38,19 @@
   },
   "errors": {
     "unauthorized": "Please sign in to access this page"
+  },
+  "character": {
+    "name": "Name",
+    "age": "Age",
+    "gender": "Gender",
+    "race": "Race",
+    "archetype": "Archetype",
+    "background": "Background"
+  },
+  "gender": {
+    "undefined": "undefined",
+    "male": "male",
+    "female": "female",
+    "non-binary": "non-binary"
   }
 }

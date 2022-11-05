@@ -1,15 +1,16 @@
 <script lang="ts">
   import Button, { Label } from '@smui/button';
 
-  import { t } from '$lib/locales/translations';
+  import admin from '$lib/api/admin';
   import { getChanges } from '$lib/api/patchPortraits';
+  import Chip from '$lib/components/chips/Chip.svelte';
+  import NumberInput from '$lib/components/inputs/numberInput/NumberInput.svelte';
+  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
+  import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
-  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
-  import Chip from '$lib/components/chips/Chip.svelte';
-  import { makePOJO } from '$lib/utils/object';
-  import admin from '$lib/api/admin';
   import { log, report } from '$lib/utils/log';
+  import { makePOJO } from '$lib/utils/object';
 
   import EditButton from './EditButton.svelte';
 
@@ -65,11 +66,17 @@
     openOriginalsDialog(current.original, onSubmit);
   };
 
-  const handleQualityChange = (value: number) => {
-    if (value !== current.quality) {
-      current.quality = value;
+  const handleNumberChange = (attribute: keyof IEditorData) => (value: number) => {
+    if (value !== current[attribute]) {
+      (current[attribute] as number) = value;
       isChanged = true;
     }
+  };
+
+  const randomizeAge = () => {
+    const age = Math.floor(Math.random() * 100);
+    current.age = age;
+    isChanged = true;
   };
 
   const handleListEdit =
@@ -173,7 +180,38 @@
 
     <div class="element">
       <div>{$t('admin.editor.quality')}:</div>
-      <QualityInput quality={current.quality} onChange={handleQualityChange} />
+      <QualityInput quality={current.quality} onChange={handleNumberChange('quality')} />
+    </div>
+
+    <div class="element">
+      <div>{$t('common.character.age')}:</div>
+      <div class="grid3columns">
+        <NumberInput value={current.age} />
+        <span style="font-size: smaller">[0 – 100]</span>
+        <EditButton onClick={randomizeAge} icon="🎲" label="common.controls.random" />
+      </div>
+    </div>
+
+    <div class="element">
+      <div>{$t('common.character.gender')}:</div>
+      <select value={current.gender}>
+        <option value="">{$t('common.gender.undefined')}</option>
+        <option value={$t('common.gender.male')}>{$t('common.gender.male')}</option>
+        <option value={$t('common.gender.female')}>{$t('common.gender.female')}</option>
+        <option value={$t('common.gender.non-binary')}>{$t('common.gender.non-binary')}</option>
+      </select>
+    </div>
+
+    <div class="element">
+      <div>{$t('common.character.race')}:</div>
+    </div>
+
+    <div class="element">
+      <div>{$t('common.character.archetype')}:</div>
+    </div>
+
+    <div class="element">
+      <div>{$t('common.character.background')}:</div>
     </div>
 
     <div class="element">
@@ -247,9 +285,10 @@
 
 <style lang="scss">
   section.editor {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.8rem;
     backdrop-filter: brightness(0.8) sepia(0.8);
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -263,6 +302,8 @@
     header {
       position: relative;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
 
       @media (max-width: 599px) {
         display: none;
@@ -271,8 +312,8 @@
       img {
         height: 100%;
         width: 100%;
-        object-fit: contain;
         aspect-ratio: 1;
+        object-fit: contain;
         border-radius: 0.5rem;
       }
 
@@ -300,6 +341,7 @@
     }
 
     main {
+      overflow: auto;
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -314,6 +356,13 @@
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 2px 4px;
+        }
+
+        div.grid3columns {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 0.5rem;
+          align-items: center;
         }
       }
 

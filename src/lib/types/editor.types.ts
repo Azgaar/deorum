@@ -1,13 +1,4 @@
-export interface IUploadedPortrait {
-  id: string;
-  file: File;
-  src: string;
-  original: string;
-  tags: string[];
-  styles: string[];
-  colors: string[];
-  quality: number;
-}
+import type { TGender } from './api.types';
 
 export type TOpenEditorDialog = (
   key: string,
@@ -29,6 +20,18 @@ export interface IEditorData {
   styles: string[];
   colors: string[];
   quality: number;
+
+  age: number;
+  gender: TGender | '';
+  race: string;
+  archetype: string;
+  background: string;
+}
+
+export interface IUploadedPortrait extends IEditorData {
+  id: string;
+  file: File;
+  src: string;
 }
 
 export interface IChange {
