@@ -2,7 +2,7 @@
   import { qualities } from '$lib/config';
 
   export let quality: number;
-  export let onChange = (_: number) => {};
+  export let onChange: (value: number) => void;
 
   const handleChange = (value: number) => () => {
     onChange(value);

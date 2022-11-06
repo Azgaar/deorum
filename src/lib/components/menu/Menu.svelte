@@ -27,7 +27,7 @@
 
 <section class="menu">
   <header>
-    <TextLogo size={64} />
+    <TextLogo size={56} />
     <Subtitle size={18}>{$t('admin.menu.subtitle')}</Subtitle>
   </header>
 
@@ -72,13 +72,14 @@
 
 <style lang="scss">
   .menu {
+    padding: 3rem 2rem;
+    height: 100%;
+    max-width: 400px;
+
     display: grid;
     grid-template-rows: auto 4fr 1fr;
     align-items: center;
-    padding: 8px;
     text-align: center;
-    height: 100%;
-    max-width: 400px;
 
     @media (max-width: 599px) {
       height: auto;
@@ -88,6 +89,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+
       div.hint {
         padding: 4px 24px;
         font-size: 14px;

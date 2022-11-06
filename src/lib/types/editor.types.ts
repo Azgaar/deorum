@@ -1,4 +1,4 @@
-import type { TGender } from './api.types';
+import type { IPortrait, TGender } from './api.types';
 
 export type TOpenEditorDialog = (
   key: string,
@@ -12,36 +12,38 @@ export type TOpenOriginalsDialog = (
   onSubmit: (newOriginal: string) => void
 ) => void;
 
-export const changeableKeys = ['original', 'quality', 'styles', 'colors', 'tags'] as const;
+export const changeableKeys = [
+  'original',
+  'quality',
+  'styles',
+  'colors',
+  'tags',
+  'name',
+  'age',
+  'gender',
+  'race',
+  'archetype',
+  'background'
+] as const;
 
-export interface IEditorData {
-  original: string;
-  tags: string[];
-  styles: string[];
-  colors: string[];
-  quality: number;
+export type TChangeableKey = typeof changeableKeys[number];
 
-  age: number;
-  gender: TGender | '';
-  race: string;
-  archetype: string;
-  background: string;
-}
+export type TEditorData = Pick<IPortrait, TChangeableKey>;
 
-export interface IUploadedPortrait extends IEditorData {
+export interface IUploadedPortrait extends TEditorData {
   id: string;
   file: File;
   src: string;
 }
 
 export interface IChange {
-  key: keyof IEditorData;
+  key: keyof TEditorData;
   operation: 'update' | 'add' | 'remove';
   value: string | number;
 }
 
 export type TPatchHandler = (changes: IChange[]) => Promise<void>;
 
-export type TPostHandler = (editorData: IEditorData) => Promise<void>;
+export type TPostHandler = (editorData: TEditorData) => Promise<void>;
 
 export type TDeleteHandler = () => Promise<void>;

@@ -18,6 +18,7 @@
 
 <style lang="scss">
   span.chip {
+    position: relative;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

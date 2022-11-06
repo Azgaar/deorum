@@ -1,5 +1,5 @@
 import type { IPortrait } from '$lib/types/api.types';
-import { changeableKeys, type IChange, type IEditorData } from '$lib/types/editor.types';
+import { changeableKeys, type IChange, type TEditorData } from '$lib/types/editor.types';
 import { makePOJO } from '$lib/utils/object';
 import admin from './admin';
 
@@ -53,7 +53,7 @@ function getNewValue(
   if (operation === 'remove') return oldValue.filter((item) => item !== value);
 }
 
-export function getChanges(model: IEditorData, current: IEditorData) {
+export function getChanges(model: TEditorData, current: TEditorData) {
   const changes: IChange[] = [];
 
   for (const key of changeableKeys) {

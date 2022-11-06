@@ -24,13 +24,12 @@ export interface IPortrait extends IRecord {
   styles: string[];
   colors: string[];
   quality: number;
-  name: string | null;
-
-  age: number | null;
-  gender: TGender | null;
-  race: string | null;
-  archetype: string | null;
-  background: string | null;
+  name: string;
+  age: number;
+  gender: TGender | '';
+  race: string;
+  archetype: string;
+  background: string;
 
   '@expand': {
     original: IOriginal;

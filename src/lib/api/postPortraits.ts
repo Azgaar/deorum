@@ -1,8 +1,8 @@
 import type { IPortrait } from '$lib/types/api.types';
-import { changeableKeys, type IEditorData, type IUploadedPortrait } from '$lib/types/editor.types';
+import { changeableKeys, type TEditorData, type IUploadedPortrait } from '$lib/types/editor.types';
 import admin from './admin';
 
-export async function postPortraits(uploaded: IUploadedPortrait[], editorData: IEditorData) {
+export async function postPortraits(uploaded: IUploadedPortrait[], editorData: TEditorData) {
   const promises = uploaded.map(({ file }) => {
     const formData = createFormData(editorData);
     formData.set('active', 'true');
@@ -16,7 +16,7 @@ export async function postPortraits(uploaded: IUploadedPortrait[], editorData: I
   return Promise.all(promises);
 }
 
-function createFormData(editorData: IEditorData) {
+function createFormData(editorData: TEditorData) {
   const formData = new FormData();
   for (const key of changeableKeys) {
     const value = editorData[key];

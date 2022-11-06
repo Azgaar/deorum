@@ -296,12 +296,11 @@
     user-select: none;
 
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 2fr minmax($pane-width, 1fr);
     grid-template-areas: 'gallery pane';
 
-    @media (max-width: 599px) {
-      grid-template-rows: 2fr 1fr;
-      grid-template-areas: 'pane' 'gallery';
+    @media (min-width: 1500px) {
+      grid-template-columns: 2fr 500px;
     }
 
     section.gallery {
@@ -323,7 +322,7 @@
         }
 
         @media (max-width: 599px) {
-          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
         }
 
         .imageContainer {
@@ -370,11 +369,10 @@
       grid-area: pane;
       background-image: url('/images/menu.webp');
       background-size: 100% 100%;
-      max-height: 100%;
-      overflow: auto;
+      overflow: hidden;
 
-      padding: 2.5rem 2rem;
-      width: clamp(300px, $pane-width, 33vw);
+      display: flex;
+      justify-content: center;
 
       @media (max-width: 599px) {
         display: flex;
