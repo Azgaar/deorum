@@ -4,16 +4,13 @@
   import admin from '$lib/api/admin';
   import { getChanges } from '$lib/api/patchPortraits';
   import Chip from '$lib/components/chips/Chip.svelte';
-  import TextInput from '$lib/components/inputs/TextInput.svelte';
-  import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
-  import Select from '$lib/components/inputs/Select.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
-  import { request } from '$lib/utils/loading';
+  import { blankCharacter } from '$lib/utils/characters';
 
   import EditButton from './EditButton.svelte';
 
@@ -23,8 +20,11 @@
     TOpenEditorDialog,
     TOpenOriginalsDialog,
     TPatchHandler,
-    TPostHandler
+    TPostHandler,
+    TOpenCharacterDialog,
+    TChangeableKey
   } from '$lib/types/editor.types';
+  import type { ICharacter } from '$lib/types/api.types';
 
   export let model: TEditorData;
   $: current = makePOJO(model);
@@ -34,12 +34,9 @@
   export let styles: Map<string, { image: string; name: string }>;
   export let colors: Map<string, { image: string; name: string }>;
 
-  export let races: Map<string, { name: string }>;
-  export let archetypes: Map<string, { name: string }>;
-  export let backgrounds: Map<string, { name: string }>;
-
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
+  export let openCharacterDialog: TOpenCharacterDialog;
 
   export let handleClearSelection: () => void;
   export let isUploading: boolean;
@@ -52,21 +49,10 @@
 
   let isChanged = false;
   let isLoading = false;
-
   let isDeleteInitiated = false;
 
   $: originalName = originals.get(current.original)?.name;
-
-  const createOptions = (map: Map<string, { name: string }>, category: string) => [
-    ['', 'common.values.undefined'],
-    ...Array.from(map).map(([value, { name }]) => [value, `common.${category}.${name}`])
-  ];
-
-  const genders = new Map(['male', 'female', 'non-binary'].map((v) => [v, { name: v }]));
-  const genderOptions = createOptions(genders, 'genders');
-  const raceOptions = createOptions(races, 'races');
-  const archetypeOptions = createOptions(archetypes, 'archetypes');
-  const backgroundOptions = createOptions(backgrounds, 'backgrounds');
+  $: characters = current['@expand']?.characters || [];
 
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
@@ -84,23 +70,28 @@
     openOriginalsDialog(current.original, onSubmit);
   };
 
-  const handleValueChange = (attribute: keyof TEditorData) => (value: number | string) => {
+  const handleCharacterClick = (characterToEdit: ICharacter | null) => () => {
+    const onSubmit = (character: ICharacter) => {
+      if (!characterToEdit) {
+        current.characters = [...current.characters, character.id];
+        current['@expand'].characters = [character];
+      } else {
+        const characters = current['@expand'].characters.map((c) =>
+          c.id === character.id ? character : c
+        );
+        current['@expand'].characters = characters;
+      }
+    };
+
+    const newCharacterData: ICharacter = { ...blankCharacter, portraits: [current.id] };
+    openCharacterDialog(characterToEdit || newCharacterData, onSubmit);
+  };
+
+  const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
     if (value !== current[attribute]) {
       (current[attribute] as string | number) = value;
       isChanged = true;
     }
-  };
-
-  const randomizeAge = () => {
-    const age = Math.floor(Math.random() * 100);
-    current.age = age;
-    isChanged = true;
-  };
-
-  const randomizeName = async () => {
-    const url = `/api/names/ironarachne?quantity=1&race=${current.race}&type=${current.gender}`;
-    current.name = await request(url);
-    isChanged = true;
   };
 
   const handleListEdit =
@@ -201,52 +192,14 @@
     </div>
 
     <div class="element">
-      <div>{$t('common.character.name')}:</div>
-      <div class="grid column2">
-        <TextInput value={current.name} onChange={handleValueChange('name')} />
-        <EditButton onClick={randomizeName} icon="🎲" label="common.controls.random" />
+      <div>{$t('admin.editor.characters')}:</div>
+      <div class="chipsContainer">
+        {#each characters as character (character.id)}
+          <Label text={character.name} />
+          <EditButton onClick={handleCharacterClick(character)} label="common.controls.edit" />
+        {/each}
+        <EditButton onClick={handleCharacterClick(null)} label="common.controls.add" />
       </div>
-    </div>
-
-    <div class="element">
-      <div>{$t('common.character.age')}:</div>
-      <div class="grid column3">
-        <NumberInput value={current.age} onChange={handleValueChange('age')} />
-        <span style="font-size: small; white-space: nowrap;">0 – 100</span>
-        <EditButton onClick={randomizeAge} icon="🎲" label="common.controls.random" />
-      </div>
-    </div>
-
-    <div class="element">
-      <div>{$t('common.character.gender')}:</div>
-      <Select
-        value={current.gender}
-        options={genderOptions}
-        onChange={handleValueChange('gender')}
-      />
-    </div>
-
-    <div class="element">
-      <div>{$t('common.character.race')}:</div>
-      <Select value={current.race} options={raceOptions} onChange={handleValueChange('race')} />
-    </div>
-
-    <div class="element">
-      <div>{$t('common.character.archetype')}:</div>
-      <Select
-        value={current.archetype}
-        options={archetypeOptions}
-        onChange={handleValueChange('archetype')}
-      />
-    </div>
-
-    <div class="element">
-      <div>{$t('common.character.background')}:</div>
-      <Select
-        value={current.background}
-        options={backgroundOptions}
-        onChange={handleValueChange('background')}
-      />
     </div>
 
     <div class="element">
@@ -399,10 +352,6 @@
 
         div.column2 {
           grid-template-columns: 3fr 2fr;
-        }
-
-        div.column3 {
-          grid-template-columns: 1fr 2fr 2fr;
         }
       }
 

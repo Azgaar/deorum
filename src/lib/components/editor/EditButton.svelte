@@ -6,7 +6,7 @@
   export let onClick: () => void;
 </script>
 
-<button on:click={onClick}>{icon} {$t(label).toLowerCase()}</button>
+<button type="button" on:click={onClick}>{icon} {$t(label).toLowerCase()}</button>
 
 <style lang="scss">
   button {
@@ -17,13 +17,13 @@
 
     cursor: pointer;
     padding: 0.1em 0.3em;
-    background: rgba($surface, 0.35);
+    background: rgba($secondary, 0.5);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
     white-space: nowrap;
   }
 
   button:hover {
-    background: rgba($surface, 0.5);
+    background: rgba($secondary, 0.6);
   }
 </style>

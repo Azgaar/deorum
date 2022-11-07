@@ -10,15 +10,10 @@ export const ssr = true;
 const PAGE_SIZE = 100;
 const DEFAULT_FILTER = 'active = true';
 const DEFAULT_SORT = '-created';
+const EXPAND = 'characters';
 
 // TODO: parse from search params
-const filters: IFilters = {
-  original: [],
-  quality: [],
-  colors: [],
-  tags: [],
-  styles: []
-};
+const filters: IFilters = { original: [], quality: [], colors: [], tags: [], styles: [] };
 
 // TODO: parse from search params
 const sorting: ISorting = { key: 'created', order: 'desc' };
@@ -40,7 +35,7 @@ export async function load({ url }: { url: URL }) {
       archetypesData,
       backgroundsData
     ] = await Promise.all([
-      getPortraits({ page, perPage: PAGE_SIZE, filter, sort }),
+      getPortraits({ page, perPage: PAGE_SIZE, filter, sort, expand: EXPAND }),
       getFullList('originals'),
       getFullList('tags'),
       getFullList('styles'),

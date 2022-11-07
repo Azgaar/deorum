@@ -3,7 +3,8 @@
 
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
-  import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
+  import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
+  import CharacterDialog from '$lib/components/editor/characterDialog/CharacterDialog.svelte';
   import Menu from '$lib/components/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/filters/Filters.svelte';
@@ -16,7 +17,7 @@
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
 
-  import type { IPortrait } from '$lib/types/api.types';
+  import type { ICharacter, IPortrait } from '$lib/types/api.types';
   import type {
     TEditorData,
     IUploadedPortrait,
@@ -24,7 +25,8 @@
     TOpenEditorDialog,
     TOpenOriginalsDialog,
     TPatchHandler,
-    TPostHandler
+    TPostHandler,
+    TOpenCharacterDialog
   } from '$lib/types/editor.types';
   import type { IFilters, ISorting } from '$lib/types/filters.types';
 
@@ -127,6 +129,19 @@
   const openOriginalsDialog: TOpenOriginalsDialog = (selected, onSubmit) => {
     const entries = Array.from(originals.entries());
     originalsDialogData = { open: true, entries, selected, onSubmit };
+  };
+
+  let characterDialogData = {
+    open: false,
+    character: {} as ICharacter,
+    onSubmit: (_: ICharacter) => {},
+    races,
+    archetypes,
+    backgrounds
+  };
+
+  const openCharacterDialog: TOpenCharacterDialog = (character, onSubmit) => {
+    characterDialogData = { ...characterDialogData, open: true, character, onSubmit };
   };
 
   let filtersData = {
@@ -258,11 +273,9 @@
         {tags}
         {styles}
         {colors}
-        {races}
-        {archetypes}
-        {backgrounds}
         {openEditorDialog}
         {openOriginalsDialog}
+        {openCharacterDialog}
         {handleClearSelection}
         isUploading={Boolean(uploaded.length)}
         image={getSource(model)}
@@ -279,6 +292,7 @@
 
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog {...originalsDialogData} />
+<CharacterDialog {...characterDialogData} />
 <Filters {...filtersData} />
 
 <input

@@ -18,27 +18,22 @@ interface IRecord {
 }
 
 export interface IPortrait extends IRecord {
+  id: string;
   image: string;
   original: string;
   tags: string[];
   styles: string[];
   colors: string[];
   quality: number;
-  name: string;
-  age: number;
-  gender: TGender | '';
-  race: string;
-  archetype: string;
-  background: string;
+  characters: string[];
 
   '@expand': {
     original: IOriginal;
     tags: ITag[];
     styles: IStyle[];
+    characters: ICharacter[];
   };
 }
-
-export type TGender = 'male' | 'female' | 'non-binary';
 
 export interface ITag extends IRecord {
   name: string;
@@ -61,6 +56,18 @@ export interface IQuality extends IRecord {
   name: string;
   emoji: string;
   image: string;
+}
+
+export type TGender = 'male' | 'female' | 'non-binary';
+
+export interface ICharacter extends IRecord {
+  name: string;
+  age: number;
+  gender: TGender | '';
+  race: string;
+  archetype: string;
+  background: string;
+  portraits: string[];
 }
 
 export interface IRace extends IRecord {

@@ -29,6 +29,6 @@
     font-size: 1rem;
 
     color: $text;
-    background-color: rgba($surface, 0.3);
+    background-color: rgba($secondary, 0.5);
   }
 </style>
