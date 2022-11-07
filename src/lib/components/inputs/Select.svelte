@@ -2,8 +2,7 @@
   import { t } from '$lib/locales/translations';
 
   export let value: string;
-  export let options: string[];
-  export let key: string;
+  export let options: string[][];
   export let onChange: (value: string) => void;
 
   const handleChange = (e: Event) => {
@@ -14,8 +13,8 @@
 </script>
 
 <select {value} on:change={handleChange}>
-  {#each options as option}
-    <option value={option}>{$t(`${key}.${option || 'undefined'}`)}</option>
+  {#each options as [value, label]}
+    <option {value}>{$t(label)}</option>
   {/each}
 </select>
 

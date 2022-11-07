@@ -1,4 +1,14 @@
-import type { IPortrait, IColor, ITag, IStyle, IOriginal, IQuality } from '$lib/types/api.types';
+import type {
+  IPortrait,
+  IColor,
+  ITag,
+  IStyle,
+  IOriginal,
+  IQuality,
+  IArchetype,
+  IBackground,
+  IRace
+} from '$lib/types/api.types';
 import admin from './admin';
 import { BATCH_SIZE } from '$lib/config';
 
@@ -9,6 +19,9 @@ interface IData {
   colors: IColor[];
   tags: ITag[];
   styles: IStyle[];
+  races: IRace[];
+  archetypes: IArchetype[];
+  backgrounds: IBackground[];
 }
 
 export async function getFullList<K extends keyof IData>(

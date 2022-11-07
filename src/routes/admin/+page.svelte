@@ -8,13 +8,17 @@
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/filters/Filters.svelte';
 
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
+  import { deletePortraits } from '$lib/api/deletePortraits';
   import { normalizeError } from '$lib/utils/errors';
   import { toastError } from '$lib/stores';
+  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { report } from '$lib/utils/log';
 
   import type { IPortrait } from '$lib/types/api.types';
   import type {
-    IEditorData,
+    TEditorData,
     IUploadedPortrait,
     TDeleteHandler,
     TOpenEditorDialog,
@@ -23,25 +27,21 @@
     TPostHandler
   } from '$lib/types/editor.types';
   import type { IFilters, ISorting } from '$lib/types/filters.types';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { deletePortraits } from '$lib/api/deletePortraits';
-  import { report } from '$lib/utils/log';
 
   export let data: import('./$types').PageData;
 
-  // immutable
-  const { originals, tags, styles, colors } = data;
+  // incoming data: immutable
+  const { originals, tags, styles, colors, races, archetypes, backgrounds } = data;
 
-  // mutable
+  // incoming data: mutable
   let { page, hasMore, filters, sorting } = data;
 
-  // dynamic data
-  $: portraits = data.portraits || [];
-  $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
-
+  // reactive data
   let selected: string[] = [];
   let uploaded: IUploadedPortrait[] = [];
+
+  $: portraits = data.portraits || [];
+  $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
   $: model = getModel(selected, uploaded);
 
   const getModel = (selected: string[], uploaded: IUploadedPortrait[]) => {
@@ -57,6 +57,7 @@
     uploaded = Array.from(input.files).map((file) => {
       const id = Math.random().toString(36).slice(2, 9);
       const src = URL.createObjectURL(file);
+
       return {
         id,
         file,
@@ -66,11 +67,12 @@
         styles: [],
         colors: [],
         quality: 0,
+        name: '',
         age: 0,
-        gender: null,
-        race: null,
-        archetype: null,
-        background: null
+        gender: '',
+        race: '',
+        archetype: '',
+        background: ''
       };
     });
 
@@ -175,7 +177,7 @@
     selected = [];
   };
 
-  const createPostHandler = (): TPostHandler => async (editorData: IEditorData) => {
+  const createPostHandler = (): TPostHandler => async (editorData: TEditorData) => {
     const results = await postPortraits(uploaded, editorData);
     data.portraits = [...results, ...data.portraits];
 
@@ -256,6 +258,9 @@
         {tags}
         {styles}
         {colors}
+        {races}
+        {archetypes}
+        {backgrounds}
         {openEditorDialog}
         {openOriginalsDialog}
         {handleClearSelection}

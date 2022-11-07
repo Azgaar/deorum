@@ -63,6 +63,18 @@ export interface IQuality extends IRecord {
   image: string;
 }
 
+export interface IRace extends IRecord {
+  name: string;
+}
+
+export interface IArchetype extends IRecord {
+  name: string;
+}
+
+export interface IBackground extends IRecord {
+  name: string;
+}
+
 export interface IUser {
   email: string;
   verified: boolean;

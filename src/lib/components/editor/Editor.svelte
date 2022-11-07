@@ -34,6 +34,10 @@
   export let styles: Map<string, { image: string; name: string }>;
   export let colors: Map<string, { image: string; name: string }>;
 
+  export let races: Map<string, { name: string }>;
+  export let archetypes: Map<string, { name: string }>;
+  export let backgrounds: Map<string, { name: string }>;
+
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
 
@@ -52,6 +56,17 @@
   let isDeleteInitiated = false;
 
   $: originalName = originals.get(current.original)?.name;
+
+  const createOptions = (map: Map<string, { name: string }>, category: string) => [
+    ['', 'common.values.undefined'],
+    ...Array.from(map).map(([value, { name }]) => [value, `common.${category}.${name}`])
+  ];
+
+  const genders = new Map(['male', 'female', 'non-binary'].map((v) => [v, { name: v }]));
+  const genderOptions = createOptions(genders, 'genders');
+  const raceOptions = createOptions(races, 'races');
+  const archetypeOptions = createOptions(archetypes, 'archetypes');
+  const backgroundOptions = createOptions(backgrounds, 'backgrounds');
 
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
@@ -206,22 +221,32 @@
       <div>{$t('common.character.gender')}:</div>
       <Select
         value={current.gender}
-        options={['', 'male', 'female', 'non-binary']}
-        key="common.gender"
+        options={genderOptions}
         onChange={handleValueChange('gender')}
       />
     </div>
 
     <div class="element">
       <div>{$t('common.character.race')}:</div>
+      <Select value={current.race} options={raceOptions} onChange={handleValueChange('race')} />
     </div>
 
     <div class="element">
       <div>{$t('common.character.archetype')}:</div>
+      <Select
+        value={current.archetype}
+        options={archetypeOptions}
+        onChange={handleValueChange('archetype')}
+      />
     </div>
 
     <div class="element">
       <div>{$t('common.character.background')}:</div>
+      <Select
+        value={current.background}
+        options={backgroundOptions}
+        onChange={handleValueChange('background')}
+      />
     </div>
 
     <div class="element">
