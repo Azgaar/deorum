@@ -135,13 +135,20 @@
     open: false,
     character: {} as ICharacter,
     onSubmit: (_: ICharacter) => {},
+    portraitIds: [] as string[],
     races,
     archetypes,
     backgrounds
   };
 
   const openCharacterDialog: TOpenCharacterDialog = (character, onSubmit) => {
-    characterDialogData = { ...characterDialogData, open: true, character, onSubmit };
+    characterDialogData = {
+      ...characterDialogData,
+      portraitIds: selected,
+      open: true,
+      character,
+      onSubmit
+    };
   };
 
   let filtersData = {
@@ -307,7 +314,8 @@
 <style lang="scss">
   @use 'sass:color';
 
-  $pane-width: 320px;
+  $pane-width-min: 320px;
+  $pane-width-max: 460px;
 
   main {
     height: 100vh;
@@ -315,12 +323,8 @@
     user-select: none;
 
     display: grid;
-    grid-template-columns: 2fr minmax($pane-width, 1fr);
+    grid-template-columns: 3fr minmax($pane-width-min, 1fr);
     grid-template-areas: 'gallery pane';
-
-    @media (min-width: 1500px) {
-      grid-template-columns: 2fr 500px;
-    }
 
     section.gallery {
       grid-area: gallery;

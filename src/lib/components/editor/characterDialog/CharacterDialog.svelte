@@ -9,11 +9,14 @@
   import { request } from '$lib/utils/loading';
 
   import EditButton from '../EditButton.svelte';
+  import Portraits from './portraits/Portraits.svelte';
+
   import type { ICharacter } from '$lib/types/api.types';
 
   export let open: boolean;
   export let character: ICharacter;
   export let onSubmit: (character: ICharacter) => void;
+  export let portraitIds: string[];
 
   export let races: Map<string, { name: string }>;
   export let archetypes: Map<string, { name: string }>;
@@ -68,6 +71,8 @@
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
+      <Portraits bind:ids={portraitIds} />
+
       <div class="element">
         <div>{$t('common.character.name')}:</div>
         <div class="grid column2">
@@ -121,7 +126,7 @@
     </div>
 
     <Actions>
-      <Button style="color: white" on:click={handleCancel}>
+      <Button type="button" style="color: white" on:click={handleCancel}>
         <Label>{$t('common.controls.cancel')}</Label>
       </Button>
       <Button type="submit" style="color: white">
@@ -138,7 +143,7 @@
     display: flex;
     height: 40px;
     font-size: large;
-    padding: 0 16px;
+    padding: 8px 16px 0;
     align-items: center;
     justify-content: space-between;
   }
@@ -149,7 +154,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 4px;
 
     div.element {
       display: grid;

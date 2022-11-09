@@ -83,8 +83,7 @@
       }
     };
 
-    const newCharacterData: ICharacter = { ...blankCharacter, portraits: [current.id] };
-    openCharacterDialog(characterToEdit || newCharacterData, onSubmit);
+    openCharacterDialog(characterToEdit || blankCharacter, onSubmit);
   };
 
   const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
@@ -191,16 +190,18 @@
       <QualityInput quality={current.quality} onChange={handleValueChange('quality')} />
     </div>
 
-    <div class="element">
-      <div>{$t('admin.editor.characters')}:</div>
-      <div class="chipsContainer">
-        {#each characters as character (character.id)}
-          <Label text={character.name} />
-          <EditButton onClick={handleCharacterClick(character)} label="common.controls.edit" />
-        {/each}
-        <EditButton onClick={handleCharacterClick(null)} label="common.controls.add" />
+    {#if !isUploading}
+      <div class="element">
+        <div>{$t('admin.editor.characters')}:</div>
+        <div class="chipsContainer">
+          {#each characters as character (character.id)}
+            <Label text={character.name} />
+            <EditButton onClick={handleCharacterClick(character)} label="common.controls.edit" />
+          {/each}
+          <EditButton onClick={handleCharacterClick(null)} label="common.controls.add" />
+        </div>
       </div>
-    </div>
+    {/if}
 
     <div class="element">
       <div>{$t('admin.editor.colors')}:</div>
