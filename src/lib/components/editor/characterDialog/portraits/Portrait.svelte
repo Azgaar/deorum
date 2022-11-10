@@ -8,7 +8,11 @@
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
   export let id: string;
-  export let onClick: () => void;
+  export let actions: {
+    moveLeft: (id: string) => void;
+    moveRight: (id: string) => void;
+    remove: (id: string) => void;
+  };
 
   let img: HTMLImageElement | null = null;
   let isLoading = true;
@@ -39,11 +43,20 @@
       handleError(error);
     }
   });
+
+  const handleAction = (action: keyof typeof actions) => {
+    actions[action](id);
+  };
 </script>
 
-<div class="portrait" on:click={onClick}>
+<div class="portrait">
   <img bind:this={img} class="portrait" class:hidden={isLoading || isError} alt="portrait" />
-  <span>✕</span>
+  <div class="buttons">
+    <button type="button" on:click={() => handleAction('moveLeft')}>◀</button>
+    <button type="button" on:click={() => handleAction('remove')}>✕</button>
+    <button type="button" on:click={() => handleAction('moveRight')}>▶</button>
+  </div>
+
   {#if isLoading}
     <CircularSpinner absolute />
   {/if}
@@ -58,38 +71,54 @@
     background-color: $secondary;
     border-radius: 4px;
 
-    font-size: 18px;
-    cursor: pointer;
-    user-select: none;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
-    :nth-child(2) {
-      position: absolute;
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 4px;
+
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.5s ease-in-out;
+
+      &.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
-  }
 
-  img {
-    width: 64px;
-    height: 64px;
-    border-radius: 4px;
-
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.5s ease-in-out;
-
-    &.hidden {
+    div.buttons {
+      position: absolute;
+      font-size: 16px;
+      font-weight: 900;
+      transition: opacity 0.5s ease-in-out;
       opacity: 0;
       visibility: hidden;
-    }
-  }
 
-  span {
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1px;
+
+      button:nth-child(2) {
+        font-size: 16px;
+      }
+
+      button {
+        border: none;
+        background: none;
+        color: $text;
+        padding: 4px;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
   }
 
   div.portrait:hover {
@@ -97,7 +126,7 @@
       filter: brightness(0.8);
     }
 
-    span {
+    div.buttons {
       opacity: 1;
       visibility: visible;
     }

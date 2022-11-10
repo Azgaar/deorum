@@ -6,15 +6,29 @@
 
   let isSelectDialogOpen = false;
 
-  const handleRemove = (id: string) => () => {
+  const moveLeft = (id: string) => {
+    const index = ids.indexOf(id);
+    if (index === 0) return;
+    ids = [...ids.slice(0, index - 1), id, ids[index - 1], ...ids.slice(index + 1)];
+  };
+
+  const moveRight = (id: string) => {
+    const index = ids.indexOf(id);
+    if (index === ids.length - 1) return;
+    ids = [...ids.slice(0, index), ids[index + 1], id, ...ids.slice(index + 2)];
+  };
+
+  const remove = (id: string) => {
     ids = ids.filter((elementId) => elementId !== id);
   };
+
+  const actions = { moveLeft, moveRight, remove };
 </script>
 
 <div class="portraits">
   <div class="gallery">
     {#each ids as id (id)}
-      <Portrait {id} onClick={handleRemove(id)} />
+      <Portrait {id} {actions} />
     {/each}
   </div>
   <div class="add" on:click={() => (isSelectDialogOpen = true)}>
