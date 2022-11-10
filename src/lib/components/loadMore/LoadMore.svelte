@@ -1,12 +1,14 @@
 <script lang="ts">
   import Button, { Label } from '@smui/button';
 
+  import { t } from '$lib/locales/translations';
+
   export let onClick: () => void;
 </script>
 
 <div class="loadMore">
   <Button variant="raised" on:click={onClick}>
-    <Label>Load more</Label>
+    <Label>{$t('common.editor.loadMore')}</Label>
   </Button>
 </div>
 

@@ -18,7 +18,8 @@
     "random": "случайно"
   },
   "values": {
-    "undefined": "не указан"
+    "undefined": "не указан",
+    "all": "все"
   },
   "info": {
     "version": "в. ",

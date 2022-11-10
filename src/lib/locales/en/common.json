@@ -18,7 +18,8 @@
     "random": "random"
   },
   "values": {
-    "undefined": "undefined"
+    "undefined": "undefined",
+    "all": "all"
   },
   "info": {
     "version": "v",

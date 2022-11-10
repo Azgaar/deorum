@@ -6,8 +6,8 @@ const PAGE_SIZE = 100;
 export async function getPortraits({
   page,
   perPage = PAGE_SIZE,
-  filter,
-  sort,
+  filter = '',
+  sort = '',
   expand = ''
 }: {
   page: number;

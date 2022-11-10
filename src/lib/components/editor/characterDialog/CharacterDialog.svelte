@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Dialog, { Actions } from '@smui/dialog';
+  import Dialog, { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
@@ -64,10 +64,10 @@
   aria-labelledby="character-editor"
   aria-describedby="character-editor"
 >
-  <div class="title">
+  <Title>
     {$t(character.id ? 'common.controls.edit' : 'common.controls.add')}
-    {$t('admin.editor.character')}
-  </div>
+    {$t('admin.editor.character')}</Title
+  >
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
@@ -138,15 +138,6 @@
 
 <style lang="scss">
   @use 'sass:color';
-
-  div.title {
-    display: flex;
-    height: 40px;
-    font-size: large;
-    padding: 8px 16px 0;
-    align-items: center;
-    justify-content: space-between;
-  }
 
   div.content {
     padding: 1rem 1rem;

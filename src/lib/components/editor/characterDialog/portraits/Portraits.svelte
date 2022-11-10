@@ -1,7 +1,10 @@
 <script lang="ts">
   import Portrait from './Portrait.svelte';
+  import PortraitsDialog from './PortraitsDialog.svelte';
 
   export let ids: string[];
+
+  let isSelectDialogOpen = false;
 
   const handleRemove = (id: string) => () => {
     ids = ids.filter((elementId) => elementId !== id);
@@ -14,22 +17,24 @@
       <Portrait {id} onClick={handleRemove(id)} />
     {/each}
   </div>
-  <div class="add">
+  <div class="add" on:click={() => (isSelectDialogOpen = true)}>
     <span>+</span>
   </div>
 </div>
+
+<PortraitsDialog bind:open={isSelectDialogOpen} bind:ids />
 
 <style lang="scss">
   div.portraits {
     padding-bottom: 8px;
 
     display: grid;
-    gap: 8px;
+    gap: 4px;
     grid-template-columns: 1fr auto;
 
     .gallery {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       overflow-x: auto;
     }
 

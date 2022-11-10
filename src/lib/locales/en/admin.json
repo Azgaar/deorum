@@ -16,7 +16,8 @@
     "tags": "Tags",
     "styles": "Styles",
     "characters": "Characters",
-    "character": "character"
+    "character": "character",
+    "loadMore": "Load More"
   },
   "sorting": {
     "asc": "Sort ascending",

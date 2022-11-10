@@ -32,7 +32,7 @@
 
     try {
       const portrait = await getPortrait({ id });
-      img.src = `${PORTRAITS_IMAGE_PATH}/${id}/${portrait.image}`;
+      img.src = `${PORTRAITS_IMAGE_PATH}/${id}/${portrait.image}?thumb=100x100`;
       img.onload = handleLoad;
       img.onerror = handleError;
     } catch (error) {
