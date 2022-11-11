@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Dialog from '@smui/dialog';
+  import Dialog, { type DialogComponentDev } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Checkbox from '@smui/checkbox';
 

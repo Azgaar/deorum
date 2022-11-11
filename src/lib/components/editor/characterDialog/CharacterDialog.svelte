@@ -63,6 +63,7 @@
   class="dialog"
   aria-labelledby="character-editor"
   aria-describedby="character-editor"
+  scrimClickAction=""
 >
   <Title>
     {$t(character.id ? 'common.controls.edit' : 'common.controls.add')}

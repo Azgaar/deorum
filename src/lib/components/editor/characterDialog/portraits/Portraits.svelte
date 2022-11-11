@@ -18,11 +18,23 @@
     ids = [...ids.slice(0, index), ids[index + 1], id, ...ids.slice(index + 2)];
   };
 
+  const makeFirst = (id: string) => {
+    const index = ids.indexOf(id);
+    if (index === 0) return;
+    ids = [id, ...ids.slice(0, index), ...ids.slice(index + 1)];
+  };
+
+  const makeLast = (id: string) => {
+    const index = ids.indexOf(id);
+    if (index === ids.length - 1) return;
+    ids = [...ids.slice(0, index), ...ids.slice(index + 1), id];
+  };
+
   const remove = (id: string) => {
     ids = ids.filter((elementId) => elementId !== id);
   };
 
-  const actions = { moveLeft, moveRight, remove };
+  const actions = { makeFirst, moveLeft, remove, moveRight, makeLast };
 </script>
 
 <div class="portraits">
