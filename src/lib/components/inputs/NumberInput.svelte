@@ -21,7 +21,7 @@
     border-radius: 16px;
     height: 21px;
     text-indent: 6px;
-    min-width: 60px;
+    width: 100%;
 
     color: $text;
     background-color: rgba($secondary, 0.5);

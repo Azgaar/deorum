@@ -8,8 +8,8 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import { request } from '$lib/utils/loading';
 
-  import EditButton from '../EditButton.svelte';
   import Portraits from './portraits/Portraits.svelte';
+  import RandomizeButton from '../RandomizeButton.svelte';
 
   import type { ICharacter } from '$lib/types/api.types';
 
@@ -74,55 +74,63 @@
     <div class="content">
       <Portraits bind:ids={portraitIds} />
 
-      <div class="element">
-        <div>{$t('common.character.name')}:</div>
-        <div class="grid column2">
-          <TextInput value={character.name} onChange={handleValueChange('name')} />
-          <EditButton onClick={randomizeName} icon="🎲" label="common.controls.random" />
-        </div>
-      </div>
-
-      <div class="element">
-        <div>{$t('common.character.age')}:</div>
-        <div class="grid column2">
-          <div class="grid column2">
-            <NumberInput value={character.age} onChange={handleValueChange('age')} />
-            <span style="font-size: small; white-space: nowrap;">0 – 100</span>
+      <div class="columns">
+        <div class="column">
+          <div class="element">
+            <div>{$t('common.character.name')}:</div>
+            <div>
+              <TextInput value={character.name} onChange={handleValueChange('name')} />
+              <RandomizeButton onClick={randomizeName} />
+            </div>
           </div>
-          <EditButton onClick={randomizeAge} icon="🎲" label="common.controls.random" />
+
+          <div class="element">
+            <div>{$t('common.character.gender')}:</div>
+            <Select
+              value={character.gender}
+              options={genderOptions}
+              onChange={handleValueChange('gender')}
+            />
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.archetype')}:</div>
+            <Select
+              value={character.archetype}
+              options={archetypeOptions}
+              onChange={handleValueChange('archetype')}
+            />
+          </div>
         </div>
-      </div>
 
-      <div class="element">
-        <div>{$t('common.character.gender')}:</div>
-        <Select
-          value={character.gender}
-          options={genderOptions}
-          onChange={handleValueChange('gender')}
-        />
-      </div>
+        <div class="column">
+          <div class="element">
+            <div>{$t('common.character.age')}:</div>
+            <div>
+              <NumberInput value={character.age} onChange={handleValueChange('age')} />
+              <span style="font-size: small; white-space: nowrap;">0 – 100</span>
+              <RandomizeButton onClick={randomizeAge} />
+            </div>
+          </div>
 
-      <div class="element">
-        <div>{$t('common.character.race')}:</div>
-        <Select value={character.race} options={raceOptions} onChange={handleValueChange('race')} />
-      </div>
+          <div class="element">
+            <div>{$t('common.character.race')}:</div>
+            <Select
+              value={character.race}
+              options={raceOptions}
+              onChange={handleValueChange('race')}
+            />
+          </div>
 
-      <div class="element">
-        <div>{$t('common.character.archetype')}:</div>
-        <Select
-          value={character.archetype}
-          options={archetypeOptions}
-          onChange={handleValueChange('archetype')}
-        />
-      </div>
-
-      <div class="element">
-        <div>{$t('common.character.background')}:</div>
-        <Select
-          value={character.background}
-          options={backgroundOptions}
-          onChange={handleValueChange('background')}
-        />
+          <div class="element">
+            <div>{$t('common.character.background')}:</div>
+            <Select
+              value={character.background}
+              options={backgroundOptions}
+              onChange={handleValueChange('background')}
+            />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -142,26 +150,32 @@
 
   div.content {
     padding: 1rem 1rem;
-    max-width: 400px;
-
     display: flex;
     flex-direction: column;
     gap: 4px;
 
-    div.element {
+    div.columns {
       display: grid;
-      grid-template-columns: 1fr 3fr;
-      gap: 4px;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
 
-      div.grid {
-        display: grid;
-        gap: 1rem;
-        align-items: center;
-      }
+      div.column {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
 
-      div.column2 {
-        grid-template-columns: 2fr 1fr;
+        div.element {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          align-items: center;
+          gap: 4px;
+
+          div {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+          }
+        }
       }
     }
   }

@@ -25,7 +25,7 @@
     border-radius: 16px;
     height: 23px;
     text-indent: 6px;
-    min-width: 60px;
+    width: 100%;
     font-size: 1rem;
 
     color: $text;
