@@ -1,5 +1,6 @@
 <script lang="ts">
   import Dialog from '@smui/dialog';
+  import FormField from '@smui/form-field';
   import Button, { Label } from '@smui/button';
   import Checkbox from '@smui/checkbox';
 
@@ -115,9 +116,13 @@
     <ul class="list">
       {#each characters as character (character.id)}
         <li class="lineItem">
-          <Checkbox bind:group={currentIds} value={character.id} />
-          <img src={derivePrimaryImagePath(character)} alt={character.name} />
-          {deriveCharacterLabel(character).join(', ')}
+          <FormField>
+            <Checkbox bind:group={currentIds} value={character.id} />
+            <span slot="label" class="label">
+              <img src={derivePrimaryImagePath(character)} alt={character.name} />
+              {deriveCharacterLabel(character).join(', ')}
+            </span>
+          </FormField>
         </li>
       {/each}
     </ul>
@@ -163,10 +168,10 @@
       height: min(560px, 90vh);
       overflow-y: auto;
 
-      li.lineItem {
+      span.label {
         display: grid;
-        grid-template-columns: auto 40px 1fr;
-        grid-gap: 4px;
+        grid-template-columns: 40px 1fr;
+        grid-gap: 8px;
         align-items: center;
 
         img {
