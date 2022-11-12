@@ -3,7 +3,7 @@
 
   export let label: ILabel | undefined;
   export let type: string;
-  export let maxWidth: string = 'inherit';
+  export let maxWidth: string = 'unset';
 
   interface ILabel {
     image?: string;

@@ -68,7 +68,7 @@
       width: 64px;
       height: 64px;
       border-radius: 4px;
-      background-color: $secondary;
+      background-color: rgba($secondary, 0.6);
       transition: background-color 0.2s ease-in-out;
 
       display: flex;
@@ -79,7 +79,7 @@
       user-select: none;
 
       &:hover {
-        background-color: rgba($secondary, 0.6);
+        background-color: $secondary;
       }
     }
   }

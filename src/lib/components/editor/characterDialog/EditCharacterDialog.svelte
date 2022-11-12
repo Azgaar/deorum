@@ -88,14 +88,6 @@
       <div class="columns">
         <div class="column">
           <div class="element">
-            <div>{$t('common.character.name')}:</div>
-            <div>
-              <TextInput value={character.name} onChange={handleValueChange('name')} />
-              <RandomizeButton onClick={randomizeName} />
-            </div>
-          </div>
-
-          <div class="element">
             <div>{$t('common.character.gender')}:</div>
             <Select
               value={character.gender}
@@ -105,16 +97,14 @@
           </div>
 
           <div class="element">
-            <div>{$t('common.character.archetype')}:</div>
+            <div>{$t('common.character.race')}:</div>
             <Select
-              value={character.archetype}
-              options={archetypeOptions}
-              onChange={handleValueChange('archetype')}
+              value={character.race}
+              options={raceOptions}
+              onChange={handleValueChange('race')}
             />
           </div>
-        </div>
 
-        <div class="column">
           <div class="element">
             <div>{$t('common.character.age')}:</div>
             <div>
@@ -123,13 +113,23 @@
               <RandomizeButton onClick={randomizeAge} />
             </div>
           </div>
+        </div>
+
+        <div class="column">
+          <div class="element">
+            <div>{$t('common.character.name')}:</div>
+            <div>
+              <TextInput value={character.name} onChange={handleValueChange('name')} />
+              <RandomizeButton onClick={randomizeName} />
+            </div>
+          </div>
 
           <div class="element">
-            <div>{$t('common.character.race')}:</div>
+            <div>{$t('common.character.archetype')}:</div>
             <Select
-              value={character.race}
-              options={raceOptions}
-              onChange={handleValueChange('race')}
+              value={character.archetype}
+              options={archetypeOptions}
+              onChange={handleValueChange('archetype')}
             />
           </div>
 
@@ -175,7 +175,7 @@
         div.column {
           display: flex;
           flex-direction: column;
-          gap: 4px;
+          gap: 6px;
 
           div.element {
             display: grid;

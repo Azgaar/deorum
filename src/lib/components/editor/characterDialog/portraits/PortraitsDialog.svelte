@@ -52,7 +52,10 @@
     try {
       const originals = await getFullList<'originals'>('originals');
       const all = ['', $t('common.values.all')];
-      const options = originals.map(({ id, name }) => [id, $t(`admin.originals.${name}`)]);
+      const options = originals.map(({ id, name }) => [
+        id,
+        $t(`admin.originals.${name}`, { default: name })
+      ]);
       originalOptions = [all].concat(options);
     } catch (error) {
       report('character editor', error);

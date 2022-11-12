@@ -307,8 +307,8 @@
 <style lang="scss">
   section.editor {
     overflow: hidden;
-    height: calc(100% - 2rem);
-    padding: 1rem 2rem;
+    height: calc(100% - 3rem);
+    padding: 1.5rem;
     backdrop-filter: brightness(0.8) grayscale(0.6) sepia(0.4);
 
     display: flex;
