@@ -1,6 +1,9 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { changeableKeys, type IChange, type TEditorData } from '$lib/types/editor.types';
+import { unique } from '$lib/utils/array';
+import { log } from '$lib/utils/log';
 import { makePOJO } from '$lib/utils/object';
+import { pluralize } from '$lib/utils/string';
 import admin from './admin';
 
 export async function patchPortraits(
@@ -17,11 +20,23 @@ export async function patchPortraits(
     if (Object.keys(patchData).length) patches.push({ id, patchData });
   }
 
+  const characterChanges = changes.filter(({ key }) => key === 'characters');
+  for (const { operation, value } of characterChanges) {
+    console.log(operation, value);
+    const characterId = value as string;
+    const character = await admin.records.getOne('characters', characterId);
+    const portraits = getNewValue(operation, character.portraits, selected) as string[];
+    await admin.records.update('characters', characterId, { portraits });
+  }
+
   const promises = patches.map(
     ({ id, patchData }) =>
-      admin.records.update('portraits', id, patchData) as unknown as Promise<IPortrait>
+      admin.records.update('portraits', id, patchData, {
+        expand: 'characters'
+      }) as unknown as Promise<IPortrait>
   );
 
+  log('editor', `Update ${pluralize('portrait', selected.length)} ${selected.join(', ')}`, changes);
   return Promise.all(promises);
 }
 
@@ -46,11 +61,17 @@ function getPatchData(changes: IChange[], portrait: IPortrait) {
 function getNewValue(
   operation: 'update' | 'add' | 'remove',
   oldValue: unknown,
-  value: string | number
+  value: string | number | string[]
 ) {
   if (operation === 'update' || !Array.isArray(oldValue)) return value;
-  if (operation === 'add') return [...oldValue, value];
-  if (operation === 'remove') return oldValue.filter((item) => item !== value);
+
+  if (!Array.isArray(value)) {
+    if (operation === 'add') return [...oldValue, value];
+    if (operation === 'remove') return oldValue.filter((item) => item !== value);
+  } else {
+    if (operation === 'add') return unique([...oldValue, ...value]);
+    if (operation === 'remove') return oldValue.filter((item) => !value.includes(item));
+  }
 }
 
 export function getChanges(model: TEditorData, current: TEditorData) {

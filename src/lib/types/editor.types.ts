@@ -17,6 +17,11 @@ export type TOpenCharacterDialog = (
   onSubmit: (character: ICharacter) => void
 ) => void;
 
+export type TOpenSelectCharacterDialog = (
+  currentIds: string[],
+  onSubmit: (characters: ICharacter[]) => void
+) => void;
+
 export const changeableKeys = [
   'original',
   'quality',

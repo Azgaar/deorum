@@ -4,7 +4,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { toastError } from '$lib/stores';
   import { sliceElements } from '$lib/utils/array';
-  import { preloadImage, request } from '$lib/utils/loading';
+  import { preloadImage, request } from '$lib/utils/requests';
   import { report } from '$lib/utils/log';
 
   import type { PBError } from '$lib/types/error.types';

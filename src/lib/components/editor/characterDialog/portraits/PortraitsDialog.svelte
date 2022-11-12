@@ -118,18 +118,15 @@
 
 <style lang="scss">
   section.title {
-    height: 40px;
+    padding: 1rem 1.5rem;
     font-size: large;
-    padding: 8px 22px;
-
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     align-items: center;
-    justify-content: space-between;
   }
 
   form.body {
     padding: 0 1.5rem;
-    width: min(500px, 90vw);
 
     div.content {
       height: min(560px, 90vh);

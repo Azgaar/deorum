@@ -2,7 +2,7 @@
   import { t } from '$lib/locales/translations';
   import { MATCH_NAMES_NUMBER, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { patchPortraitName } from '$lib/api/patchPortrait';
-  import { request, preloadImage } from '$lib/utils/loading';
+  import { request, preloadImage } from '$lib/utils/requests';
   import PushButton from '$lib/components/buttons/PushButton.svelte';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
 

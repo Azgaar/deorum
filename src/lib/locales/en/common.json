@@ -4,6 +4,7 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "add": "Add",
+    "create": "Create",
     "edit": "Edit",
     "search": "Search",
     "clear": "Clear",
@@ -45,6 +46,7 @@
   },
   "character": {
     "name": "Name",
+    "unnamed": "Unnamed",
     "age": "Age",
     "gender": "Gender",
     "race": "Race",

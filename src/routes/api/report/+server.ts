@@ -5,5 +5,5 @@ export const POST: RequestHandler = async ({ request }) => {
   const { domain, message, user, args } = await request.json();
   console.error(`${domain}: ${message}`, { user }, ...args);
 
-  return new Response();
+  return new Response(JSON.stringify({ message: 'ok' }));
 };

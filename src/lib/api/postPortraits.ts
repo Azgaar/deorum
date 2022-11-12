@@ -1,5 +1,7 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { changeableKeys, type TEditorData, type IUploadedPortrait } from '$lib/types/editor.types';
+import { log } from '$lib/utils/log';
+import { pluralize } from '$lib/utils/string';
 import admin from './admin';
 
 export async function postPortraits(uploaded: IUploadedPortrait[], editorData: TEditorData) {
@@ -13,7 +15,13 @@ export async function postPortraits(uploaded: IUploadedPortrait[], editorData: T
     }) as unknown as Promise<IPortrait>;
   });
 
-  return Promise.all(promises);
+  const results = await Promise.all(promises);
+  log(
+    'editor',
+    `Upload ${pluralize('portrait', results.length)} ${results.map(({ id }) => id).join(', ')}`,
+    editorData
+  );
+  return results;
 }
 
 function createFormData(editorData: TEditorData) {

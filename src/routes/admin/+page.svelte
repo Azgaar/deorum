@@ -4,7 +4,8 @@
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
-  import CharacterDialog from '$lib/components/editor/characterDialog/CharacterDialog.svelte';
+  import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
+  import SelectCharacterDialog from '$lib/components/editor/characterDialog/SelectCharacterDialog.svelte';
   import Menu from '$lib/components/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/filters/Filters.svelte';
@@ -26,7 +27,8 @@
     TOpenOriginalsDialog,
     TPatchHandler,
     TPostHandler,
-    TOpenCharacterDialog
+    TOpenCharacterDialog,
+    TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
   import type { IFilters, ISorting } from '$lib/types/filters.types';
 
@@ -74,9 +76,11 @@
         gender: '',
         race: '',
         archetype: '',
-        background: ''
+        background: '',
+        image: '',
+        characters: []
       };
-    });
+    }) as unknown as IUploadedPortrait[];
 
     selected = uploaded.map((file) => file.id);
     input.value = '';
@@ -142,11 +146,31 @@
   };
 
   const openCharacterDialog: TOpenCharacterDialog = (character, onSubmit) => {
+    const isEdit = Boolean(character.id);
     characterDialogData = {
       ...characterDialogData,
-      portraitIds: selected,
+      portraitIds: isEdit ? character.portraits : selected,
       open: true,
       character,
+      onSubmit
+    };
+  };
+
+  let selectCharacterDialogData = {
+    open: false,
+    currentIds: [] as string[],
+    onSubmit: (_: ICharacter[]) => {},
+    races
+  };
+
+  const openSelectCharacterDialog: TOpenSelectCharacterDialog = (
+    currentIds: string[],
+    onSubmit: (characters: ICharacter[]) => void
+  ) => {
+    selectCharacterDialogData = {
+      ...selectCharacterDialogData,
+      open: true,
+      currentIds: Array.from(currentIds),
       onSubmit
     };
   };
@@ -283,6 +307,7 @@
         {openEditorDialog}
         {openOriginalsDialog}
         {openCharacterDialog}
+        {openSelectCharacterDialog}
         {handleClearSelection}
         isUploading={Boolean(uploaded.length)}
         image={getSource(model)}
@@ -299,7 +324,9 @@
 
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog {...originalsDialogData} />
-<CharacterDialog {...characterDialogData} />
+<EditCharacterDialog {...characterDialogData} />
+<SelectCharacterDialog {...selectCharacterDialogData} />
+
 <Filters {...filtersData} />
 
 <input
@@ -314,7 +341,7 @@
 <style lang="scss">
   @use 'sass:color';
 
-  $pane-width-min: 320px;
+  $pane-width-min: 360px;
   $pane-width-max: 460px;
 
   main {

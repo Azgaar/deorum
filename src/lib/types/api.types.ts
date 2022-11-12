@@ -68,6 +68,13 @@ export interface ICharacter extends IRecord {
   archetype: string;
   background: string;
   portraits: string[];
+
+  '@expand': {
+    race: IRace;
+    archetype: IArchetype;
+    background: IBackground;
+    portraits: IPortrait[];
+  };
 }
 
 export interface IRace extends IRecord {

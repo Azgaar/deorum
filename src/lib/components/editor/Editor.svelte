@@ -1,14 +1,16 @@
 <script lang="ts">
-  import Button, { Label } from '@smui/button';
+  import Button, { Label as MuiLabel } from '@smui/button';
 
   import admin from '$lib/api/admin';
   import { getChanges } from '$lib/api/patchPortraits';
   import Chip from '$lib/components/chips/Chip.svelte';
+  import Label from '$lib/components/label/Label.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
   import { normalizeError } from '$lib/utils/errors';
   import { log, report } from '$lib/utils/log';
+  import { isSameArray } from '$lib/utils/array';
   import { makePOJO } from '$lib/utils/object';
   import { blankCharacter } from '$lib/utils/characters';
 
@@ -22,7 +24,8 @@
     TPatchHandler,
     TPostHandler,
     TOpenCharacterDialog,
-    TChangeableKey
+    TChangeableKey,
+    TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
   import type { ICharacter } from '$lib/types/api.types';
 
@@ -37,6 +40,7 @@
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
   export let openCharacterDialog: TOpenCharacterDialog;
+  export let openSelectCharacterDialog: TOpenSelectCharacterDialog;
 
   export let handleClearSelection: () => void;
   export let isUploading: boolean;
@@ -74,16 +78,35 @@
     const onSubmit = (character: ICharacter) => {
       if (!characterToEdit) {
         current.characters = [...current.characters, character.id];
-        current['@expand'].characters = [character];
+        const characters = current['@expand'].characters || [];
+        current['@expand'].characters = [...characters, character];
       } else {
-        const characters = current['@expand'].characters.map((c) =>
+        current['@expand'].characters = current['@expand'].characters.map((c) =>
           c.id === character.id ? character : c
         );
-        current['@expand'].characters = characters;
       }
     };
 
-    openCharacterDialog(characterToEdit || blankCharacter, onSubmit);
+    openCharacterDialog(characterToEdit || makePOJO(blankCharacter), onSubmit);
+  };
+
+  const handleSelectCharacterClick = () => {
+    const onSubmit = (characters: ICharacter[]) => {
+      const newCharacterIds = characters.map(({ id }) => id);
+      if (isSameArray(current.characters, newCharacterIds)) return;
+
+      isChanged = true;
+      current.characters = newCharacterIds;
+      current['@expand'].characters = characters;
+    };
+
+    openSelectCharacterDialog(current.characters, onSubmit);
+  };
+
+  const deriveCharacterLabel = (character: ICharacter) => {
+    const name = character.name || $t('common.character.unnamed');
+    const age = character.age || '';
+    return [name, age].filter((value) => value).join(', ');
   };
 
   const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
@@ -125,11 +148,9 @@
 
       if (isUploading) {
         await handlePost(current);
-        log('editor', 'Portrait uploaded', current);
         toastSuccess($t('admin.success.uploaded'));
       } else {
         await handlePatch(getChanges(model, current));
-        log('editor', 'Portrait changed', current);
         toastSuccess($t('admin.success.changesSaved'));
       }
 
@@ -180,7 +201,7 @@
     <div class="element">
       <div>{$t('admin.editor.original')}:</div>
       <div class="grid column2">
-        {$t(`admin.originals.${originalName}`)}
+        <Label maxWidth="100px" label={{ name: originalName }} type="originals" />
         <EditButton onClick={handleOriginalChange} />
       </div>
     </div>
@@ -191,19 +212,28 @@
     </div>
 
     {#if !isUploading}
-      <div class="element">
+      <div class="element baseline">
         <div>{$t('admin.editor.characters')}:</div>
-        <div class="chipsContainer">
+        <div class="character">
           {#each characters as character (character.id)}
-            <Label text={character.name} />
-            <EditButton onClick={handleCharacterClick(character)} label="common.controls.edit" />
+            <EditButton
+              onClick={handleCharacterClick(character)}
+              label={deriveCharacterLabel(character)}
+              icon="✏️"
+              isLower={false}
+            />
           {/each}
-          <EditButton onClick={handleCharacterClick(null)} label="common.controls.add" />
+          <EditButton
+            onClick={handleCharacterClick(null)}
+            label="common.controls.create"
+            icon="🆕"
+          />
+          <EditButton onClick={handleSelectCharacterClick} label="common.controls.select" />
         </div>
       </div>
     {/if}
 
-    <div class="element">
+    <div class="element baseline">
       <div>{$t('admin.editor.colors')}:</div>
       <div class="chipsContainer">
         {#each current.colors as colorName (colorName)}
@@ -217,7 +247,7 @@
       </div>
     </div>
 
-    <div class="element">
+    <div class="element baseline">
       <div>{$t('admin.editor.tags')}:</div>
       <div class="chipsContainer">
         {#each current.tags as tagId (tagId)}
@@ -227,7 +257,7 @@
       </div>
     </div>
 
-    <div class="element">
+    <div class="element baseline">
       <div>{$t('admin.editor.styles')}:</div>
       <div class="chipsContainer">
         {#each current.styles as styleId (styleId)}
@@ -243,7 +273,9 @@
 
     <div class="deletionBlock">
       <Button variant="raised" on:click={initiateDeletion}>
-        <Label>{$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}</Label>
+        <MuiLabel
+          >{$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}</MuiLabel
+        >
       </Button>
 
       <Button
@@ -251,14 +283,14 @@
         on:click={triggerDeletion}
         style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
       >
-        <Label>{$t('common.controls.confirm')}</Label>
+        <MuiLabel>{$t('common.controls.confirm')}</MuiLabel>
       </Button>
     </div>
   </main>
 
   <footer>
     <Button variant="raised" on:click={handleCancel} style="width: 50%;">
-      <Label>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</Label>
+      <MuiLabel>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</MuiLabel>
     </Button>
 
     <Button
@@ -267,7 +299,7 @@
       disabled={!isChanged || isLoading}
       style="width: 50%;"
     >
-      <Label>{$t('common.controls.save')}</Label>
+      <MuiLabel>{$t('common.controls.save')}</MuiLabel>
     </Button>
   </footer>
 </section>
@@ -335,9 +367,15 @@
 
       div.element {
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: minmax(90px, 1fr) 2fr;
         gap: 4px;
         align-items: center;
+        overflow-wrap: anywhere;
+
+        div.character {
+          display: grid;
+          gap: 2px 4px;
+        }
 
         div.chipsContainer {
           display: grid;
@@ -356,7 +394,7 @@
         }
       }
 
-      div.element:has(.chipsContainer) {
+      div.baseline {
         align-items: baseline;
       }
 

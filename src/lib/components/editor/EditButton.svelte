@@ -2,11 +2,15 @@
   import { t } from '$lib/locales/translations';
 
   export let label: string = 'common.controls.select';
+  export let isLower: boolean = true;
   export let icon: string = '⚙️';
   export let onClick: () => void;
+
+  let text = $t(label);
+  if (isLower) text = text.toLowerCase();
 </script>
 
-<button type="button" on:click={onClick}>{icon} {$t(label).toLowerCase()}</button>
+<button type="button" on:click={onClick}>{icon} {text}</button>
 
 <style lang="scss">
   button {

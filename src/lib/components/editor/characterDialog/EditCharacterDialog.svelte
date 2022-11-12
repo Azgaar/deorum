@@ -6,7 +6,7 @@
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
-  import { request } from '$lib/utils/loading';
+  import { request } from '$lib/utils/requests';
 
   import Portraits from './portraits/Portraits.svelte';
   import RandomizeButton from '../RandomizeButton.svelte';
@@ -40,17 +40,28 @@
 
   const randomizeName = async () => {
     const url = `/api/names/ironarachne?quantity=1&race=${character.race}&type=${character.gender}`;
-    character.name = await request(url);
+    const names = await request<string[]>(url);
+    character.name = names?.[0] || '';
   };
 
   const handleValueChange = (attribute: keyof ICharacter) => (value: number | string) => {
     (character[attribute] as string | number) = value;
   };
 
-  const handleSubmit = (event: SubmitEvent) => {
+  const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
-    onSubmit(character);
-    open = false;
+
+    const { id, name, age, gender, race, archetype, background } = character;
+    const portraits = portraitIds;
+
+    const method = id ? 'PATCH' : 'PUT';
+    const body = { id, name, age, gender, race, archetype, background, portraits };
+    const responseCharacter = await request<ICharacter>('/api/characters', method, body);
+
+    if (responseCharacter) {
+      onSubmit(responseCharacter);
+      open = false;
+    }
   };
 
   const handleCancel = () => {
@@ -66,7 +77,7 @@
   scrimClickAction=""
 >
   <Title>
-    {$t(character.id ? 'common.controls.edit' : 'common.controls.add')}
+    {$t(character.id ? 'common.controls.edit' : 'common.controls.create')}
     {$t('admin.editor.character')}</Title
   >
 
@@ -148,32 +159,35 @@
 <style lang="scss">
   @use 'sass:color';
 
-  div.content {
-    padding: 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  form.body {
+    padding: 0 1.5rem;
 
-    div.columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+    div.content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
 
-      div.column {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+      div.columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
 
-        div.element {
-          display: grid;
-          grid-template-columns: 1fr 2fr;
-          align-items: center;
+        div.column {
+          display: flex;
+          flex-direction: column;
           gap: 4px;
 
-          div {
-            display: flex;
+          div.element {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
             align-items: center;
-            gap: 2px;
+            gap: 4px;
+
+            div {
+              display: flex;
+              align-items: center;
+              gap: 2px;
+            }
           }
         }
       }
