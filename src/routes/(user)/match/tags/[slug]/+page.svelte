@@ -4,7 +4,7 @@
   import { patchPortraitTags } from '$lib/api/patchPortrait';
   import Label from '$lib/components/label/Label.svelte';
   import PushButton from '$lib/components/buttons/PushButton.svelte';
-  import { preloadImage } from '$lib/utils/loading';
+  import { preloadImage } from '$lib/utils/requests';
 
   export let data: import('./$types').PageData;
   $: key = data.current.id;

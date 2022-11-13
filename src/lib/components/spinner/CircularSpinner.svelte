@@ -1,10 +1,15 @@
 <script lang="ts">
   export let size: number = 24;
+  export let absolute: boolean = false;
 </script>
 
-<div class="loader" style="width: {size}px;" />
+<div class="loader" class:absolute style="width: {size}px;" />
 
 <style lang="scss">
+  .absolute {
+    position: absolute;
+  }
+
   .loader {
     aspect-ratio: 1;
     display: grid;

@@ -15,20 +15,24 @@ interface IRecord {
     [key: string]: unknown;
   };
   id: string;
+  created: string;
+  updated: string;
 }
 
 export interface IPortrait extends IRecord {
+  id: string;
   image: string;
   original: string;
   tags: string[];
   styles: string[];
   colors: string[];
   quality: number;
-  name: string | null;
+  characters: string[];
+
   '@expand': {
-    original: IOriginal;
-    tags: ITag[];
-    styles: IStyle[];
+    original?: IOriginal;
+    tags?: ITag[];
+    styles?: IStyle[];
   };
 }
 
@@ -53,6 +57,52 @@ export interface IQuality extends IRecord {
   name: string;
   emoji: string;
   image: string;
+}
+
+export type TGender = 'male' | 'female' | 'non-binary';
+
+export interface ICharacter extends IRecord {
+  name: string;
+  age: number;
+  gender: TGender | '';
+  race: string;
+  archetype: string;
+  background: string;
+  portraits: string[];
+  weight: number;
+  height: number;
+
+  '@expand': {
+    race?: IRace;
+    archetype?: IArchetype;
+    background?: IBackground;
+    portraits?: IPortrait[];
+  };
+}
+
+export interface IRace extends IRecord {
+  name: string;
+
+  ageMean: number;
+  ageDeviation: number;
+  ageMin: number;
+  ageMax: number;
+
+  heightMean: number;
+  heightDeviation: number;
+  heightGenderDeviation: number;
+
+  weightMean: number;
+  weightDeviation: number;
+  weightGenderDeviation: number;
+}
+
+export interface IArchetype extends IRecord {
+  name: string;
+}
+
+export interface IBackground extends IRecord {
+  name: string;
 }
 
 export interface IUser {

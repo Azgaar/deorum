@@ -14,7 +14,10 @@
     "quality": "Quality",
     "colors": "Colors",
     "tags": "Tags",
-    "styles": "Styles"
+    "styles": "Styles",
+    "characters": "Characters",
+    "character": "character",
+    "loadMore": "Load More"
   },
   "sorting": {
     "asc": "Sort ascending",

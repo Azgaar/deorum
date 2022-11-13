@@ -1,29 +1,37 @@
 <script lang="ts">
-  import Button, { Label } from '@smui/button';
+  import Button, { Label as MuiLabel } from '@smui/button';
 
-  import { t } from '$lib/locales/translations';
-  import { getChanges } from '$lib/api/patchPortraits';
-  import { toastError, toastSuccess } from '$lib/stores';
-  import { normalizeError } from '$lib/utils/errors';
-  import QualityInput from '$lib/components/qualityInput/QualityInput.svelte';
-  import Chip from '$lib/components/chips/Chip.svelte';
-  import { makePOJO } from '$lib/utils/object';
   import admin from '$lib/api/admin';
+  import { getChanges } from '$lib/api/patchPortraits';
+  import Chip from '$lib/components/chips/Chip.svelte';
+  import Label from '$lib/components/label/Label.svelte';
+  import QualityInput from '$lib/components/inputs/QualityInput.svelte';
+  import { t } from '$lib/locales/translations';
+  import { toastError, toastSuccess } from '$lib/stores';
   import { log, report } from '$lib/utils/log';
+  import { isSameArray } from '$lib/utils/array';
+  import { makePOJO } from '$lib/utils/object';
+  import { blankCharacter } from '$lib/data/characters';
 
   import EditButton from './EditButton.svelte';
 
   import type {
-    IEditorData,
+    TEditorData,
     TDeleteHandler,
     TOpenEditorDialog,
     TOpenOriginalsDialog,
     TPatchHandler,
-    TPostHandler
+    TPostHandler,
+    TOpenEditCharacterDialog,
+    TChangeableKey,
+    TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
+  import type { ICharacter } from '$lib/types/api.types';
+  import { request } from '$lib/utils/requests';
 
-  export let model: IEditorData;
+  export let model: TEditorData;
   $: current = makePOJO(model);
+  $: fetchCharacters(model.characters);
 
   export let originals: Map<string, { image: string; name: string }>;
   export let tags: Map<string, { image: string; name: string }>;
@@ -32,6 +40,8 @@
 
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
+  export let openEditCharacterDialog: TOpenEditCharacterDialog;
+  export let openSelectCharacterDialog: TOpenSelectCharacterDialog;
 
   export let handleClearSelection: () => void;
   export let isUploading: boolean;
@@ -44,10 +54,25 @@
 
   let isChanged = false;
   let isLoading = false;
-
   let isDeleteInitiated = false;
 
   $: originalName = originals.get(current.original)?.name;
+  let characters: ICharacter[] = [];
+
+  const fetchCharacters = async (characterIds: string[]) => {
+    if (!characterIds.length || isUploading) {
+      characters = [];
+      return;
+    }
+
+    try {
+      const promises = characterIds.map((id) => request<ICharacter>(`/api/characters/${id}`));
+      characters = await Promise.all(promises);
+    } catch (error) {
+      toastError(error);
+      characters = [];
+    }
+  };
 
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
@@ -65,9 +90,48 @@
     openOriginalsDialog(current.original, onSubmit);
   };
 
-  const handleQualityChange = (value: number) => {
-    if (value !== current.quality) {
-      current.quality = value;
+  const handleCharacterClick = (characterToEdit: ICharacter | null) => () => {
+    const onSubmit = (character: ICharacter) => {
+      if (characterToEdit) {
+        // character is changed
+        characters = characters.map((c) => (c.id === character.id ? character : c));
+      } else {
+        // character is created
+        current.characters = [...current.characters, character.id];
+        characters = [...characters, character];
+      }
+    };
+
+    const onDelete = (characterId: string) => {
+      current.characters = current.characters.filter((id) => id !== characterId);
+      characters = characters.filter(({ id }) => id !== characterId);
+    };
+
+    openEditCharacterDialog(characterToEdit || makePOJO(blankCharacter), onSubmit, onDelete);
+  };
+
+  const handleSelectCharacterClick = () => {
+    const onSubmit = (selectedCharacters: ICharacter[]) => {
+      const newCharacterIds = selectedCharacters.map(({ id }) => id);
+      if (isSameArray(current.characters, newCharacterIds)) return;
+
+      isChanged = true;
+      current.characters = newCharacterIds;
+      characters = selectedCharacters;
+    };
+
+    openSelectCharacterDialog(current.characters, onSubmit);
+  };
+
+  const deriveCharacterLabel = (character: ICharacter) => {
+    const name = character.name || $t('common.character.unnamed');
+    const age = character.age || '';
+    return [name, age].filter((value) => value).join(', ');
+  };
+
+  const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
+    if (value !== current[attribute]) {
+      (current[attribute] as string | number) = value;
       isChanged = true;
     }
   };
@@ -90,14 +154,7 @@
 
   const handleCancel = () => {
     admin.cancelAllRequests();
-
-    if (!isChanged) {
-      handleClearSelection();
-      return;
-    }
-
-    current = makePOJO(model);
-    isChanged = false;
+    handleClearSelection();
   };
 
   const handleChangesSave = async () => {
@@ -111,18 +168,16 @@
 
       if (isUploading) {
         await handlePost(current);
-        log('editor', 'Portrait uploaded', current);
         toastSuccess($t('admin.success.uploaded'));
       } else {
         await handlePatch(getChanges(model, current));
-        log('editor', 'Portrait changed', current);
         toastSuccess($t('admin.success.changesSaved'));
       }
 
       isChanged = false;
     } catch (error) {
       report('editor', error);
-      toastError(normalizeError(error));
+      toastError(error);
     } finally {
       isLoading = false;
     }
@@ -146,7 +201,7 @@
       toastSuccess($t('admin.success.deleted'));
     } catch (err) {
       report('editor', err, current);
-      toastError(normalizeError(err));
+      toastError(err);
     } finally {
       isLoading = false;
       isDeleteInitiated = false;
@@ -165,18 +220,40 @@
   <main class="editor">
     <div class="element">
       <div>{$t('admin.editor.original')}:</div>
-      <div class="chipsContainer">
-        {$t(`admin.originals.${originalName}`)}
+      <div class="grid column2">
+        <Label maxWidth="100px" label={{ name: originalName }} type="originals" />
         <EditButton onClick={handleOriginalChange} />
       </div>
     </div>
 
     <div class="element">
       <div>{$t('admin.editor.quality')}:</div>
-      <QualityInput quality={current.quality} onChange={handleQualityChange} />
+      <QualityInput quality={current.quality} onChange={handleValueChange('quality')} />
     </div>
 
-    <div class="element">
+    {#if !isUploading}
+      <div class="element baseline">
+        <div>{$t('admin.editor.characters')}:</div>
+        <div class="character">
+          {#each characters as character (`${character.id}-${character.updated}`)}
+            <EditButton
+              onClick={handleCharacterClick(character)}
+              label={deriveCharacterLabel(character)}
+              icon="✏️"
+              isLower={false}
+            />
+          {/each}
+          <EditButton
+            onClick={handleCharacterClick(null)}
+            label="common.controls.create"
+            icon="🆕"
+          />
+          <EditButton onClick={handleSelectCharacterClick} label="common.controls.select" />
+        </div>
+      </div>
+    {/if}
+
+    <div class="element baseline">
       <div>{$t('admin.editor.colors')}:</div>
       <div class="chipsContainer">
         {#each current.colors as colorName (colorName)}
@@ -190,7 +267,7 @@
       </div>
     </div>
 
-    <div class="element">
+    <div class="element baseline">
       <div>{$t('admin.editor.tags')}:</div>
       <div class="chipsContainer">
         {#each current.tags as tagId (tagId)}
@@ -200,7 +277,7 @@
       </div>
     </div>
 
-    <div class="element">
+    <div class="element baseline">
       <div>{$t('admin.editor.styles')}:</div>
       <div class="chipsContainer">
         {#each current.styles as styleId (styleId)}
@@ -216,7 +293,9 @@
 
     <div class="deletionBlock">
       <Button variant="raised" on:click={initiateDeletion}>
-        <Label>{$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}</Label>
+        <MuiLabel
+          >{$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}</MuiLabel
+        >
       </Button>
 
       <Button
@@ -224,14 +303,14 @@
         on:click={triggerDeletion}
         style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
       >
-        <Label>{$t('common.controls.confirm')}</Label>
+        <MuiLabel>{$t('common.controls.confirm')}</MuiLabel>
       </Button>
     </div>
   </main>
 
   <footer>
     <Button variant="raised" on:click={handleCancel} style="width: 50%;">
-      <Label>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</Label>
+      <MuiLabel>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</MuiLabel>
     </Button>
 
     <Button
@@ -240,22 +319,21 @@
       disabled={!isChanged || isLoading}
       style="width: 50%;"
     >
-      <Label>{$t('common.controls.save')}</Label>
+      <MuiLabel>{$t('common.controls.save')}</MuiLabel>
     </Button>
   </footer>
 </section>
 
 <style lang="scss">
   section.editor {
+    overflow: hidden;
+    height: calc(100% - 3rem);
+    padding: 1.5rem;
+    backdrop-filter: brightness(0.8) grayscale(0.6) sepia(0.4);
+
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    backdrop-filter: brightness(0.8) sepia(0.8);
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-
-    height: calc(100% - 20px);
-
+    gap: 0.6rem;
     @media (max-width: 599px) {
       height: auto;
     }
@@ -263,6 +341,8 @@
     header {
       position: relative;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
 
       @media (max-width: 599px) {
         display: none;
@@ -271,8 +351,8 @@
       img {
         height: 100%;
         width: 100%;
-        object-fit: contain;
         aspect-ratio: 1;
+        object-fit: contain;
         border-radius: 0.5rem;
       }
 
@@ -300,24 +380,41 @@
     }
 
     main {
+      overflow: auto;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.6rem;
 
       div.element {
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: minmax(90px, 1fr) 2fr;
         gap: 4px;
         align-items: center;
+        overflow-wrap: anywhere;
+
+        div.character {
+          display: grid;
+          gap: 2px 4px;
+        }
 
         div.chipsContainer {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 2px 4px;
         }
+
+        div.grid {
+          display: grid;
+          gap: 0.5rem;
+          align-items: center;
+        }
+
+        div.column2 {
+          grid-template-columns: 3fr 2fr;
+        }
       }
 
-      div.element:has(.chipsContainer) {
+      div.baseline {
         align-items: baseline;
       }
 

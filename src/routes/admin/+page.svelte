@@ -3,45 +3,48 @@
 
   import Editor from '$lib/components/editor/Editor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
-  import OriginalsDialog from '$lib/components/originalsDialog/OriginalsDialog.svelte';
+  import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
+  import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
+  import SelectCharacterDialog from '$lib/components/editor/characterDialog/SelectCharacterDialog.svelte';
   import Menu from '$lib/components/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/filters/Filters.svelte';
 
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
-  import { normalizeError } from '$lib/utils/errors';
+  import { deletePortraits } from '$lib/api/deletePortraits';
   import { toastError } from '$lib/stores';
+  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { report } from '$lib/utils/log';
 
-  import type { IPortrait } from '$lib/types/api.types';
+  import type { ICharacter, IPortrait } from '$lib/types/api.types';
   import type {
-    IEditorData,
+    TEditorData,
     IUploadedPortrait,
     TDeleteHandler,
     TOpenEditorDialog,
     TOpenOriginalsDialog,
     TPatchHandler,
-    TPostHandler
+    TPostHandler,
+    TOpenEditCharacterDialog,
+    TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
   import type { IFilters, ISorting } from '$lib/types/filters.types';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { deletePortraits } from '$lib/api/deletePortraits';
-  import { report } from '$lib/utils/log';
 
   export let data: import('./$types').PageData;
 
-  // immutable
-  const { originals, tags, styles, colors } = data;
+  // incoming data: immutable
+  const { originals, tags, styles, colors, races, archetypes, backgrounds } = data;
 
-  // mutable
+  // incoming data: mutable
   let { page, hasMore, filters, sorting } = data;
 
-  // dynamic data
-  $: portraits = data.portraits || [];
-  $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
-
+  // reactive data
   let selected: string[] = [];
   let uploaded: IUploadedPortrait[] = [];
+
+  $: portraits = data.portraits || [];
+  $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
   $: model = getModel(selected, uploaded);
 
   const getModel = (selected: string[], uploaded: IUploadedPortrait[]) => {
@@ -57,8 +60,26 @@
     uploaded = Array.from(input.files).map((file) => {
       const id = Math.random().toString(36).slice(2, 9);
       const src = URL.createObjectURL(file);
-      return { id, file, src, original: '', tags: [], styles: [], colors: [], quality: 0 };
-    });
+
+      return {
+        id,
+        file,
+        src,
+        original: '',
+        tags: [],
+        styles: [],
+        colors: [],
+        quality: 0,
+        name: '',
+        age: 0,
+        gender: '',
+        race: '',
+        archetype: '',
+        background: '',
+        image: '',
+        characters: []
+      };
+    }) as unknown as IUploadedPortrait[];
 
     selected = uploaded.map((file) => file.id);
     input.value = '';
@@ -113,6 +134,77 @@
     originalsDialogData = { open: true, entries, selected, onSubmit };
   };
 
+  let characterDialogData = {
+    open: false,
+    character: {} as ICharacter,
+    onSubmit: (_: ICharacter) => {},
+    onDelete: (_: string) => {},
+    portraitIds: [] as string[],
+    races,
+    archetypes,
+    backgrounds
+  };
+
+  const openEditCharacterDialog: TOpenEditCharacterDialog = (character, onSubmit, onDelete) => {
+    const handleSubmit = (character: ICharacter) => {
+      // mutate portraits page data if new character created
+      data.portraits = data.portraits.map((portrait) => {
+        if (
+          character.portraits.includes(portrait.id) &&
+          !portrait.characters?.includes(character.id)
+        ) {
+          portrait.characters = [...portrait.characters, character.id];
+        }
+        return portrait;
+      });
+
+      // mutate editor data
+      onSubmit(character);
+    };
+
+    const handleDelete = (characterId: string) => {
+      // mutate portraits page data
+      data.portraits = data.portraits.map((portrait) => {
+        if (portrait.characters?.includes(characterId)) {
+          portrait.characters = portrait.characters.filter((id) => id !== characterId);
+        }
+        return portrait;
+      });
+
+      // mutate editor data
+      onDelete(character.id);
+    };
+
+    const isEdit = Boolean(character.id);
+    characterDialogData = {
+      ...characterDialogData,
+      portraitIds: isEdit ? character.portraits : selected,
+      open: true,
+      character,
+      onSubmit: handleSubmit,
+      onDelete: handleDelete
+    };
+  };
+
+  let selectCharacterDialogData = {
+    open: false,
+    currentIds: [] as string[],
+    onSubmit: (_: ICharacter[]) => {},
+    races
+  };
+
+  const openSelectCharacterDialog: TOpenSelectCharacterDialog = (
+    currentIds: string[],
+    onSubmit: (characters: ICharacter[]) => void
+  ) => {
+    selectCharacterDialogData = {
+      ...selectCharacterDialogData,
+      open: true,
+      currentIds: Array.from(currentIds),
+      onSubmit
+    };
+  };
+
   let filtersData = {
     open: false,
     filters,
@@ -142,7 +234,7 @@
         data.portraits = items;
       } catch (err) {
         report('admin', err, { request: 'getPortraits', filter: newFilter, sort: newSort });
-        toastError(normalizeError(err));
+        toastError(err);
       }
     };
 
@@ -161,7 +253,7 @@
     selected = [];
   };
 
-  const createPostHandler = (): TPostHandler => async (editorData: IEditorData) => {
+  const createPostHandler = (): TPostHandler => async (editorData: TEditorData) => {
     const results = await postPortraits(uploaded, editorData);
     data.portraits = [...results, ...data.portraits];
 
@@ -187,7 +279,7 @@
       data.portraits = [...data.portraits, ...items];
     } catch (err) {
       report('admin', err, 'load more');
-      toastError(normalizeError(err));
+      toastError(err);
     }
   };
 
@@ -244,6 +336,8 @@
         {colors}
         {openEditorDialog}
         {openOriginalsDialog}
+        {openEditCharacterDialog}
+        {openSelectCharacterDialog}
         {handleClearSelection}
         isUploading={Boolean(uploaded.length)}
         image={getSource(model)}
@@ -260,6 +354,9 @@
 
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog {...originalsDialogData} />
+<EditCharacterDialog {...characterDialogData} />
+<SelectCharacterDialog {...selectCharacterDialogData} />
+
 <Filters {...filtersData} />
 
 <input
@@ -274,7 +371,8 @@
 <style lang="scss">
   @use 'sass:color';
 
-  $pane-width: 320px;
+  $pane-width-min: 360px;
+  $pane-width-max: 460px;
 
   main {
     height: 100vh;
@@ -282,13 +380,8 @@
     user-select: none;
 
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 3fr minmax($pane-width-min, 1fr);
     grid-template-areas: 'gallery pane';
-
-    @media (max-width: 599px) {
-      grid-template-rows: 2fr 1fr;
-      grid-template-areas: 'pane' 'gallery';
-    }
 
     section.gallery {
       grid-area: gallery;
@@ -309,7 +402,7 @@
         }
 
         @media (max-width: 599px) {
-          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
         }
 
         .imageContainer {
@@ -356,11 +449,10 @@
       grid-area: pane;
       background-image: url('/images/menu.webp');
       background-size: 100% 100%;
-      max-height: 100%;
-      overflow: auto;
+      overflow: hidden;
 
-      padding: 2.5rem 2rem;
-      width: clamp(300px, $pane-width, 33vw);
+      display: flex;
+      justify-content: center;
 
       @media (max-width: 599px) {
         display: flex;

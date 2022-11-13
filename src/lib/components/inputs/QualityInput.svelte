@@ -2,7 +2,7 @@
   import { qualities } from '$lib/config';
 
   export let quality: number;
-  export let onChange = (_: number) => {};
+  export let onChange: (value: number) => void;
 
   const handleChange = (value: number) => () => {
     onChange(value);
@@ -27,7 +27,7 @@
       width: 100%;
       cursor: pointer;
       color: $text;
-      background-color: rgba($surface, 0.3);
+      background-color: rgba($secondary, 0.5);
       border: none;
       transition: all 0.2s ease-in-out;
 
@@ -46,11 +46,11 @@
     }
 
     .active {
-      background-color: rgba($surface, 0.4);
+      background-color: rgba($secondary, 0.7);
     }
 
     button:hover {
-      background-color: rgba($surface, 0.5);
+      background-color: rgba($secondary, 0.75);
 
       span:not(.current) {
         opacity: 0.5;

@@ -18,12 +18,13 @@
 
 <style lang="scss">
   span.chip {
+    position: relative;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 
     padding: 0.1em 0.5em 0.1em 0.2em;
-    background: rgba($surface, 0.35);
+    background: rgba($secondary, 0.5);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
@@ -33,24 +34,24 @@
       margin: 1px 0 0 -1px;
       opacity: 0;
       border-radius: 16px;
-      background-color: rgba($surface, 0.5);
+      background-color: rgba($secondary, 0.7);
     }
   }
 
   span.chip:hover {
-    background: rgba($surface, 0.4);
+    background: rgba($secondary, 0.6);
 
     span.action {
       opacity: 1;
     }
 
     span.action:hover {
-      background-color: rgba($surface, 0.6);
+      background-color: rgba($secondary, 0.6);
     }
   }
 
   span.chip:active {
-    background: rgba($surface, 0.4);
+    background: rgba($secondary, 0.7);
   }
 
   span.action {

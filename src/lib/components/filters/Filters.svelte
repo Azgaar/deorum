@@ -4,13 +4,14 @@
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
-  import type { IFilters, ISorting } from '$lib/types/filters.types';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import QualityFilter from './QualityFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
   import ColorsFilter from './ColorsFilter.svelte';
   import EditorDialog from '../editorDialog/EditorDialog.svelte';
   import Sorting from './Sorting.svelte';
+
+  import type { IFilters, ISorting } from '$lib/types/filters.types';
 
   export let open: boolean;
   export let filters: IFilters;

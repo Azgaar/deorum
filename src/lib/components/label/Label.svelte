@@ -3,17 +3,20 @@
 
   export let label: ILabel | undefined;
   export let type: string;
+  export let maxWidth: string = 'unset';
 
   interface ILabel {
-    image: string;
-    name: string;
+    image?: string;
+    name?: string;
   }
 
-  let text = $t(`admin.${type}.${label?.name}`);
+  let text = label?.name ? $t(`admin.${type}.${label.name}`, { default: label.name }) : '';
 </script>
 
-<div class="label">
-  <img src={label?.image} alt={label?.name} />
+<div class="label" style="max-width: {maxWidth}">
+  {#if label?.image}
+    <img src={label.image} alt={label.name} />
+  {/if}
   <span title={text}>{text}</span>
 </div>
 

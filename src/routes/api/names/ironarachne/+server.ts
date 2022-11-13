@@ -1,4 +1,4 @@
-import { request } from '$lib/utils/loading';
+import { request } from '$lib/utils/requests';
 import type { RequestHandler } from './$types';
 
 const baseUrl = 'https://muna.ironarachne.com';
@@ -25,6 +25,7 @@ export const GET: RequestHandler = async ({ url }) => {
   const race = url.searchParams.get('race') || (defaultRace as TRace);
   const type = url.searchParams.get('type') || (defaultType as TType);
 
-  const data = await request(`${baseUrl}/${race}/?count=${count}&nameType=${type}`);
-  return new Response(JSON.stringify(data.names));
+  const requestUrl = `${baseUrl}/${race}/?count=${count}&nameType=${type}`;
+  const data = await request<{ names: string[] }>(requestUrl);
+  return new Response(JSON.stringify(data?.names || []));
 };
