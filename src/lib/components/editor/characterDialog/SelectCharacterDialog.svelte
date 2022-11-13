@@ -46,13 +46,11 @@
       const url = `/api/characters?page=${page}&filter=${filter}&expand=${expand}`;
       const charactersList = await request<IListResult<ICharacter>>(url);
 
-      if (charactersList) {
-        hasMore = charactersList.totalPages > page;
-        characters = [...currentCharacters, ...charactersList.items];
-      }
+      hasMore = charactersList.totalPages > page;
+      characters = [...currentCharacters, ...charactersList.items];
     } catch (error) {
       report('character selector', error);
-      toastError(error as string);
+      toastError(error);
     } finally {
       isLoading = false;
     }
@@ -83,7 +81,7 @@
     const elements = {
       name: name || $t('common.character.unnamed'),
       gender: gender ? $t(`common.genders.${gender}`) : null,
-      race: race && charRace.name ? $t(`common.races.${charRace.name}`) : null,
+      race: race && charRace?.name ? $t(`common.races.${charRace.name}`) : null,
       archetype: archetype ? $t(`common.archetypes.${archetype.name}`) : null,
       background: background ? $t(`common.backgrounds.${background.name}`) : null,
       age: age || null

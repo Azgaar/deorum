@@ -3,6 +3,8 @@
   import { MATCH_NAMES_NUMBER, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { patchPortraitName } from '$lib/api/patchPortrait';
   import { request, preloadImage } from '$lib/utils/requests';
+  import { report } from '$lib/utils/log';
+  import { toastError } from '$lib/stores';
   import PushButton from '$lib/components/buttons/PushButton.svelte';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
 
@@ -20,9 +22,14 @@
   };
 
   const requestMoreSamples = async () => {
-    const url = `/api/names/ironarachne?quantity=${MATCH_NAMES_NUMBER}&race=${data.race}&type=${data.type}`;
-    const moreNames = await request(url);
-    data.names = moreNames;
+    try {
+      const url = `/api/names/ironarachne?quantity=${MATCH_NAMES_NUMBER}&race=${data.race}&type=${data.type}`;
+      const moreNames = await request<string[]>(url);
+      data.names = moreNames;
+    } catch (error) {
+      report('match names', error);
+      toastError(error);
+    }
   };
 </script>
 

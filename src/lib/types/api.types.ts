@@ -15,6 +15,8 @@ interface IRecord {
     [key: string]: unknown;
   };
   id: string;
+  created: string;
+  updated: string;
 }
 
 export interface IPortrait extends IRecord {
@@ -28,10 +30,9 @@ export interface IPortrait extends IRecord {
   characters: string[];
 
   '@expand': {
-    original: IOriginal;
-    tags: ITag[];
-    styles: IStyle[];
-    characters: ICharacter[];
+    original?: IOriginal;
+    tags?: ITag[];
+    styles?: IStyle[];
   };
 }
 

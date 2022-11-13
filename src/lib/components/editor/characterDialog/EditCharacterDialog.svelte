@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Dialog, { Actions, Title } from '@smui/dialog';
+  import Dialog, { Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
@@ -8,16 +8,19 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import { request } from '$lib/utils/requests';
   import { blankRace } from '$lib/data/races';
+  import { getRandomNumber } from '$lib/utils/probability';
+  import { report } from '$lib/utils/log';
+  import { toastError } from '$lib/stores';
 
   import Portraits from './portraits/Portraits.svelte';
   import RandomizeButton from '../RandomizeButton.svelte';
 
-  import type { ICharacter, IRace, TGender } from '$lib/types/api.types';
-  import { getRandomNumber } from '$lib/utils/probability';
+  import type { ICharacter, IRace } from '$lib/types/api.types';
 
   export let open: boolean;
   export let character: ICharacter;
   export let onSubmit: (character: ICharacter) => void;
+  export let onDelete: (characterId: string) => void;
   export let portraitIds: string[];
 
   export let races: Map<string, IRace>;
@@ -46,9 +49,15 @@
   };
 
   const randomizeName = async () => {
-    const url = `/api/names/ironarachne?quantity=1&race=${character.race}&type=${character.gender}`;
-    const names = await request<string[]>(url);
-    character.name = names?.[0] || '';
+    try {
+      const url = `/api/names/ironarachne?quantity=1&race=${character.race}&type=${character.gender}`;
+      const names = await request<string[]>(url);
+      character.name = names[0] || '';
+    } catch (err) {
+      report('character editor', err);
+      toastError(err);
+      character.name = '';
+    }
   };
 
   const randomizeAge = () => {
@@ -111,21 +120,42 @@
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
 
-    const { id, name, age, gender, race, archetype, background, height, weight } = character;
-    const portraits = portraitIds;
+    try {
+      const { id, name, age, gender, race, archetype, background, height, weight } = character;
+      const responseCharacter = await request<ICharacter>('/api/characters', id ? 'PATCH' : 'PUT', {
+        id,
+        name,
+        age,
+        gender,
+        race,
+        archetype,
+        background,
+        height,
+        weight,
+        portraits: portraitIds
+      });
 
-    const method = id ? 'PATCH' : 'PUT';
-    const body = { id, name, age, gender, race, archetype, background, height, weight, portraits };
-    const responseCharacter = await request<ICharacter>('/api/characters', method, body);
-
-    if (responseCharacter) {
       onSubmit(responseCharacter);
       open = false;
+    } catch (error) {
+      report('character editor', error);
+      toastError(error);
     }
   };
 
   const handleCancel = () => {
     open = false;
+  };
+
+  const handleDelete = async () => {
+    try {
+      await request<ICharacter>(`/api/characters/${character.id}`, 'DELETE');
+      onDelete(character.id);
+      open = false;
+    } catch (error) {
+      report('character editor', error);
+      toastError(error);
+    }
   };
 </script>
 
@@ -223,14 +253,25 @@
       </div>
     </div>
 
-    <Actions>
-      <Button type="button" style="color: white" on:click={handleCancel}>
-        <Label>{$t('common.controls.cancel')}</Label>
-      </Button>
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.apply')}</Label>
-      </Button>
-    </Actions>
+    <div class="actions">
+      <div>
+        {#if character.id}
+          <Button type="button" style="color: white" on:click={handleDelete}>
+            <Label>{$t('common.controls.delete')}</Label>
+          </Button>
+        {/if}
+      </div>
+
+      <div>
+        <Button type="button" style="color: white" on:click={handleCancel}>
+          <Label>{$t('common.controls.cancel')}</Label>
+        </Button>
+
+        <Button type="submit" style="color: white">
+          <Label>{$t('common.controls.apply')}</Label>
+        </Button>
+      </div>
+    </div>
   </form>
 </Dialog>
 
@@ -274,6 +315,13 @@
           }
         }
       }
+    }
+
+    div.actions {
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
     }
   }
 </style>

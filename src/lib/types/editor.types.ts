@@ -12,9 +12,10 @@ export type TOpenOriginalsDialog = (
   onSubmit: (newOriginal: string) => void
 ) => void;
 
-export type TOpenCharacterDialog = (
+export type TOpenEditCharacterDialog = (
   character: ICharacter,
-  onSubmit: (character: ICharacter) => void
+  onSubmit: (character: ICharacter) => void,
+  onDelete: (characterId: string) => void
 ) => void;
 
 export type TOpenSelectCharacterDialog = (

@@ -2,22 +2,18 @@ import { browser } from '$app/environment';
 import type { HttpMethod } from '@sveltejs/kit/types/private';
 
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-import { report } from './log';
 
 export const request = async <T>(
   url: string,
   method: HttpMethod = 'GET',
-  body?: unknown
-): Promise<T | null> => {
-  try {
-    const options: RequestInit = { method, headers: { 'content-type': 'application/json' } };
-    if (body) options.body = JSON.stringify(body);
-    const res = await fetch(url, options);
-    return res.json();
-  } catch (error) {
-    report('request', error, url);
-    return null;
-  }
+  data?: unknown
+): Promise<T> => {
+  const options: RequestInit = { method, headers: { 'content-type': 'application/json' } };
+  if (data) options.body = JSON.stringify(data);
+  const res = await fetch(url, options);
+  const body = await res.json();
+  if (!res.ok) throw new Error(body.message || res.statusText);
+  return body;
 };
 
 export function preloadImage({ id, image }: { id: string; image: string }) {

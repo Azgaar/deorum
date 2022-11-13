@@ -33,6 +33,5 @@ export const GET: RequestHandler = async ({ url }) => {
   }));
 
   log('gallery', `Loading ${LOADING_BATCH} more items`);
-
   return new Response(JSON.stringify(items));
 };

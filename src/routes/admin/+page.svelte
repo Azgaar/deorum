@@ -13,7 +13,6 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
   import { deletePortraits } from '$lib/api/deletePortraits';
-  import { normalizeError } from '$lib/utils/errors';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
@@ -27,7 +26,7 @@
     TOpenOriginalsDialog,
     TPatchHandler,
     TPostHandler,
-    TOpenCharacterDialog,
+    TOpenEditCharacterDialog,
     TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
   import type { IFilters, ISorting } from '$lib/types/filters.types';
@@ -139,20 +138,51 @@
     open: false,
     character: {} as ICharacter,
     onSubmit: (_: ICharacter) => {},
+    onDelete: (_: string) => {},
     portraitIds: [] as string[],
     races,
     archetypes,
     backgrounds
   };
 
-  const openCharacterDialog: TOpenCharacterDialog = (character, onSubmit) => {
+  const openEditCharacterDialog: TOpenEditCharacterDialog = (character, onSubmit, onDelete) => {
+    const handleSubmit = (character: ICharacter) => {
+      // mutate portraits page data if new character created
+      data.portraits = data.portraits.map((portrait) => {
+        if (
+          character.portraits.includes(portrait.id) &&
+          !portrait.characters?.includes(character.id)
+        ) {
+          portrait.characters = [...portrait.characters, character.id];
+        }
+        return portrait;
+      });
+
+      // mutate editor data
+      onSubmit(character);
+    };
+
+    const handleDelete = (characterId: string) => {
+      // mutate portraits page data
+      data.portraits = data.portraits.map((portrait) => {
+        if (portrait.characters?.includes(characterId)) {
+          portrait.characters = portrait.characters.filter((id) => id !== characterId);
+        }
+        return portrait;
+      });
+
+      // mutate editor data
+      onDelete(character.id);
+    };
+
     const isEdit = Boolean(character.id);
     characterDialogData = {
       ...characterDialogData,
       portraitIds: isEdit ? character.portraits : selected,
       open: true,
       character,
-      onSubmit
+      onSubmit: handleSubmit,
+      onDelete: handleDelete
     };
   };
 
@@ -192,8 +222,7 @@
 
         const filter = parseFilters(newFilter);
         const sort = parseSorting(newSort);
-        const expand = 'characters';
-        const { items, totalPages } = await getPortraits({ page: 1, filter, sort, expand });
+        const { items, totalPages } = await getPortraits({ page: 1, filter, sort });
 
         const queryString = `/admin?filter=${filter}&sort=${sort}`;
         window.history.pushState({}, '', queryString);
@@ -205,7 +234,7 @@
         data.portraits = items;
       } catch (err) {
         report('admin', err, { request: 'getPortraits', filter: newFilter, sort: newSort });
-        toastError(normalizeError(err));
+        toastError(err);
       }
     };
 
@@ -243,15 +272,14 @@
     try {
       const filter = parseFilters(filters);
       const sort = parseSorting(sorting);
-      const expand = 'characters';
-      const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort, expand });
+      const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort });
 
       page += 1;
       hasMore = page < totalPages;
       data.portraits = [...data.portraits, ...items];
     } catch (err) {
       report('admin', err, 'load more');
-      toastError(normalizeError(err));
+      toastError(err);
     }
   };
 
@@ -308,7 +336,7 @@
         {colors}
         {openEditorDialog}
         {openOriginalsDialog}
-        {openCharacterDialog}
+        {openEditCharacterDialog}
         {openSelectCharacterDialog}
         {handleClearSelection}
         isUploading={Boolean(uploaded.length)}

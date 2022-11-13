@@ -25,8 +25,7 @@ export const GET: RequestHandler = async ({ url }) => {
   const race = url.searchParams.get('race') || (defaultRace as TRace);
   const type = url.searchParams.get('type') || (defaultType as TType);
 
-  const data = await request<{ names: string[] }>(
-    `${baseUrl}/${race}/?count=${count}&nameType=${type}`
-  );
+  const requestUrl = `${baseUrl}/${race}/?count=${count}&nameType=${type}`;
+  const data = await request<{ names: string[] }>(requestUrl);
   return new Response(JSON.stringify(data?.names || []));
 };

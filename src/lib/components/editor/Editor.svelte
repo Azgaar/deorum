@@ -8,7 +8,6 @@
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
-  import { normalizeError } from '$lib/utils/errors';
   import { log, report } from '$lib/utils/log';
   import { isSameArray } from '$lib/utils/array';
   import { makePOJO } from '$lib/utils/object';
@@ -23,14 +22,16 @@
     TOpenOriginalsDialog,
     TPatchHandler,
     TPostHandler,
-    TOpenCharacterDialog,
+    TOpenEditCharacterDialog,
     TChangeableKey,
     TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
   import type { ICharacter } from '$lib/types/api.types';
+  import { request } from '$lib/utils/requests';
 
   export let model: TEditorData;
   $: current = makePOJO(model);
+  $: fetchCharacters(model.characters);
 
   export let originals: Map<string, { image: string; name: string }>;
   export let tags: Map<string, { image: string; name: string }>;
@@ -39,7 +40,7 @@
 
   export let openEditorDialog: TOpenEditorDialog;
   export let openOriginalsDialog: TOpenOriginalsDialog;
-  export let openCharacterDialog: TOpenCharacterDialog;
+  export let openEditCharacterDialog: TOpenEditCharacterDialog;
   export let openSelectCharacterDialog: TOpenSelectCharacterDialog;
 
   export let handleClearSelection: () => void;
@@ -56,7 +57,22 @@
   let isDeleteInitiated = false;
 
   $: originalName = originals.get(current.original)?.name;
-  $: characters = current['@expand']?.characters || [];
+  let characters: ICharacter[] = [];
+
+  const fetchCharacters = async (characterIds: string[]) => {
+    if (!characterIds.length || isUploading) {
+      characters = [];
+      return;
+    }
+
+    try {
+      const promises = characterIds.map((id) => request<ICharacter>(`/api/characters/${id}`));
+      characters = await Promise.all(promises);
+    } catch (error) {
+      toastError(error);
+      characters = [];
+    }
+  };
 
   const handleRemove = (key: 'styles' | 'colors' | 'tags', id: string) => () => {
     current[key] = current[key].filter((item) => item !== id);
@@ -76,28 +92,32 @@
 
   const handleCharacterClick = (characterToEdit: ICharacter | null) => () => {
     const onSubmit = (character: ICharacter) => {
-      if (!characterToEdit) {
-        current.characters = [...current.characters, character.id];
-        const characters = current['@expand'].characters || [];
-        current['@expand'].characters = [...characters, character];
+      if (characterToEdit) {
+        // character is changed
+        characters = characters.map((c) => (c.id === character.id ? character : c));
       } else {
-        current['@expand'].characters = current['@expand'].characters.map((c) =>
-          c.id === character.id ? character : c
-        );
+        // character is created
+        current.characters = [...current.characters, character.id];
+        characters = [...characters, character];
       }
     };
 
-    openCharacterDialog(characterToEdit || makePOJO(blankCharacter), onSubmit);
+    const onDelete = (characterId: string) => {
+      current.characters = current.characters.filter((id) => id !== characterId);
+      characters = characters.filter(({ id }) => id !== characterId);
+    };
+
+    openEditCharacterDialog(characterToEdit || makePOJO(blankCharacter), onSubmit, onDelete);
   };
 
   const handleSelectCharacterClick = () => {
-    const onSubmit = (characters: ICharacter[]) => {
-      const newCharacterIds = characters.map(({ id }) => id);
+    const onSubmit = (selectedCharacters: ICharacter[]) => {
+      const newCharacterIds = selectedCharacters.map(({ id }) => id);
       if (isSameArray(current.characters, newCharacterIds)) return;
 
       isChanged = true;
       current.characters = newCharacterIds;
-      current['@expand'].characters = characters;
+      characters = selectedCharacters;
     };
 
     openSelectCharacterDialog(current.characters, onSubmit);
@@ -157,7 +177,7 @@
       isChanged = false;
     } catch (error) {
       report('editor', error);
-      toastError(normalizeError(error));
+      toastError(error);
     } finally {
       isLoading = false;
     }
@@ -181,7 +201,7 @@
       toastSuccess($t('admin.success.deleted'));
     } catch (err) {
       report('editor', err, current);
-      toastError(normalizeError(err));
+      toastError(err);
     } finally {
       isLoading = false;
       isDeleteInitiated = false;
@@ -215,7 +235,7 @@
       <div class="element baseline">
         <div>{$t('admin.editor.characters')}:</div>
         <div class="character">
-          {#each characters as character (character.id)}
+          {#each characters as character (`${character.id}-${character.updated}`)}
             <EditButton
               onClick={handleCharacterClick(character)}
               label={deriveCharacterLabel(character)}
