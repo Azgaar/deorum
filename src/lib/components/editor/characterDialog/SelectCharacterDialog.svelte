@@ -13,12 +13,12 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
-  import type { ICharacter, IListResult } from '$lib/types/api.types';
+  import type { ICharacter, IRace, IListResult } from '$lib/types/api.types';
 
   export let open: boolean;
   export let currentIds: string[];
   export let onSubmit: (characters: ICharacter[]) => void;
-  export let races: Map<string, { name: string }>;
+  export let races: Map<string, IRace>;
 
   let page = 1;
   let hasMore = false;

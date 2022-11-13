@@ -51,7 +51,9 @@
     "gender": "Пол",
     "race": "Раса",
     "archetype": "Архетип",
-    "background": "Предыстория"
+    "background": "Предыстория",
+    "height": "Рост",
+    "weight": "Вес"
   },
   "genders": {
     "male": "мужчина",

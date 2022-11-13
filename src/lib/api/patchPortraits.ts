@@ -22,7 +22,6 @@ export async function patchPortraits(
 
   const characterChanges = changes.filter(({ key }) => key === 'characters');
   for (const { operation, value } of characterChanges) {
-    console.log(operation, value);
     const characterId = value as string;
     const character = await admin.records.getOne('characters', characterId);
     const portraits = getNewValue(operation, character.portraits, selected) as string[];

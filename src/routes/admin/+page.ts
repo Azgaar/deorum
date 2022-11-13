@@ -1,9 +1,11 @@
 import { getPortraits } from '$lib/api';
 import { getFullList } from '$lib/api/getFullList';
-import type { IFilters, ISorting } from '$lib/types/filters.types';
 import { toastError } from '$lib/stores';
 import { normalizeError } from '$lib/utils/errors';
 import { report } from '$lib/utils/log';
+
+import type { IFilters, ISorting } from '$lib/types/filters.types';
+import type { IRace } from '$lib/types/api.types';
 
 export const ssr = true;
 
@@ -52,7 +54,7 @@ export async function load({ url }: { url: URL }) {
     const tags = new Map(tagsData.map(({ id, image, name }) => [id, { image, name }]));
     const styles = new Map(stylesData.map(({ id, image, name }) => [id, { image, name }]));
     const colors = new Map(colorsData.map(({ image, name }) => [name, { image, name }]));
-    const races = new Map(racesData.map(({ id, name }) => [id, { name }]));
+    const races = new Map(racesData.map((race) => [race.id, race]));
     const archetypes = new Map(archetypesData.map(({ id, name }) => [id, { name }]));
     const backgrounds = new Map(backgroundsData.map(({ id, name }) => [id, { name }]));
 
@@ -84,7 +86,7 @@ export async function load({ url }: { url: URL }) {
       tags: new Map() as Map<string, { image: string; name: string }>,
       styles: new Map() as Map<string, { image: string; name: string }>,
       colors: new Map() as Map<string, { image: string; name: string }>,
-      races: new Map() as Map<string, { name: string }>,
+      races: new Map() as Map<string, IRace>,
       archetypes: new Map() as Map<string, { name: string }>,
       backgrounds: new Map() as Map<string, { name: string }>
     };

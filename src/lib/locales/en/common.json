@@ -51,7 +51,9 @@
     "gender": "Gender",
     "race": "Race",
     "archetype": "Archetype",
-    "background": "Background"
+    "background": "Background",
+    "height": "Height",
+    "weight": "Weight"
   },
   "genders": {
     "male": "male",

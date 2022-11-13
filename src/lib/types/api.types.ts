@@ -68,17 +68,32 @@ export interface ICharacter extends IRecord {
   archetype: string;
   background: string;
   portraits: string[];
+  weight: number;
+  height: number;
 
   '@expand': {
-    race: IRace;
-    archetype: IArchetype;
-    background: IBackground;
-    portraits: IPortrait[];
+    race?: IRace;
+    archetype?: IArchetype;
+    background?: IBackground;
+    portraits?: IPortrait[];
   };
 }
 
 export interface IRace extends IRecord {
   name: string;
+
+  ageMean: number;
+  ageDeviation: number;
+  ageMin: number;
+  ageMax: number;
+
+  heightMean: number;
+  heightDeviation: number;
+  heightGenderDeviation: number;
+
+  weightMean: number;
+  weightDeviation: number;
+  weightGenderDeviation: number;
 }
 
 export interface IArchetype extends IRecord {

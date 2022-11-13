@@ -7,18 +7,20 @@
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import { request } from '$lib/utils/requests';
+  import { blankRace } from '$lib/data/races';
 
   import Portraits from './portraits/Portraits.svelte';
   import RandomizeButton from '../RandomizeButton.svelte';
 
-  import type { ICharacter } from '$lib/types/api.types';
+  import type { ICharacter, IRace, TGender } from '$lib/types/api.types';
+  import { getRandomNumber } from '$lib/utils/probability';
 
   export let open: boolean;
   export let character: ICharacter;
   export let onSubmit: (character: ICharacter) => void;
   export let portraitIds: string[];
 
-  export let races: Map<string, { name: string }>;
+  export let races: Map<string, IRace>;
   export let archetypes: Map<string, { name: string }>;
   export let backgrounds: Map<string, { name: string }>;
 
@@ -33,9 +35,14 @@
   const archetypeOptions = createOptions(archetypes, 'archetypes');
   const backgroundOptions = createOptions(backgrounds, 'backgrounds');
 
-  const randomizeAge = () => {
-    const age = Math.floor(Math.random() * 100);
-    character.age = age;
+  $: onOpen(open);
+  let race: IRace = blankRace;
+  let range: ReturnType<typeof getRange>;
+
+  const onOpen = async (open: boolean) => {
+    if (!open) return;
+    race = races.get(character.race) || blankRace;
+    range = getRange(race);
   };
 
   const randomizeName = async () => {
@@ -44,18 +51,71 @@
     character.name = names?.[0] || '';
   };
 
+  const randomizeAge = () => {
+    const age = getRandomNumber({
+      mean: race.ageMean,
+      deviation: race.ageDeviation,
+      min: race.ageMin,
+      max: race.ageMax
+    });
+    character.age = age;
+  };
+
+  const randomizeHeight = () => {
+    const mean = deviateByGenre(race.heightMean, race.heightGenderDeviation);
+    const height = getRandomNumber({ mean, deviation: race.heightDeviation });
+    character.height = height;
+  };
+
+  const randomizeWeight = () => {
+    const mean = deviateByGenre(race.weightMean, race.weightGenderDeviation);
+    const weight = getRandomNumber({ mean, deviation: race.weightDeviation });
+    character.weight = weight;
+  };
+
+  function deviateByGenre(initial: number, genderDeviation: number) {
+    if (character.gender === 'male') return initial + genderDeviation;
+    if (character.gender === 'female') return initial - genderDeviation;
+    return initial;
+  }
+
+  function getRange(race: IRace) {
+    const heightMin =
+      deviateByGenre(race.heightMean, race.heightGenderDeviation) - race.heightDeviation;
+    const heightMax =
+      deviateByGenre(race.heightMean, race.heightGenderDeviation) + race.heightDeviation;
+
+    const weightMin =
+      deviateByGenre(race.weightMean, race.weightGenderDeviation) - race.weightDeviation;
+    const weightMax =
+      deviateByGenre(race.weightMean, race.weightGenderDeviation) + race.weightDeviation;
+
+    return {
+      age: `${race.ageMin} – ${race.ageMax}`,
+      height: `${heightMin} – ${heightMax}`,
+      weight: `${weightMin} – ${weightMax}`
+    };
+  }
+
   const handleValueChange = (attribute: keyof ICharacter) => (value: number | string) => {
     (character[attribute] as string | number) = value;
+
+    if (attribute === 'race') {
+      race = races.get(value as string) || blankRace;
+      range = getRange(race);
+    }
+
+    if (attribute === 'gender') range = getRange(race);
   };
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
 
-    const { id, name, age, gender, race, archetype, background } = character;
+    const { id, name, age, gender, race, archetype, background, height, weight } = character;
     const portraits = portraitIds;
 
     const method = id ? 'PATCH' : 'PUT';
-    const body = { id, name, age, gender, race, archetype, background, portraits };
+    const body = { id, name, age, gender, race, archetype, background, height, weight, portraits };
     const responseCharacter = await request<ICharacter>('/api/characters', method, body);
 
     if (responseCharacter) {
@@ -106,25 +166,6 @@
           </div>
 
           <div class="element">
-            <div>{$t('common.character.age')}:</div>
-            <div>
-              <NumberInput value={character.age} onChange={handleValueChange('age')} />
-              <span style="font-size: small; white-space: nowrap;">0 – 100</span>
-              <RandomizeButton onClick={randomizeAge} />
-            </div>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="element">
-            <div>{$t('common.character.name')}:</div>
-            <div>
-              <TextInput value={character.name} onChange={handleValueChange('name')} />
-              <RandomizeButton onClick={randomizeName} />
-            </div>
-          </div>
-
-          <div class="element">
             <div>{$t('common.character.archetype')}:</div>
             <Select
               value={character.archetype}
@@ -140,6 +181,43 @@
               options={backgroundOptions}
               onChange={handleValueChange('background')}
             />
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="element">
+            <div>{$t('common.character.name')}:</div>
+            <div>
+              <TextInput value={character.name} onChange={handleValueChange('name')} />
+              <RandomizeButton onClick={randomizeName} />
+            </div>
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.age')}:</div>
+            <div>
+              <NumberInput value={character.age} onChange={handleValueChange('age')} />
+              <span class="extent">{range?.age}</span>
+              <RandomizeButton onClick={randomizeAge} />
+            </div>
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.height')}:</div>
+            <div>
+              <NumberInput value={character.height} onChange={handleValueChange('height')} />
+              <span class="extent">{range?.height}</span>
+              <RandomizeButton onClick={randomizeHeight} />
+            </div>
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.weight')}:</div>
+            <div>
+              <NumberInput value={character.weight} onChange={handleValueChange('weight')} />
+              <span class="extent">{range?.weight}</span>
+              <RandomizeButton onClick={randomizeWeight} />
+            </div>
           </div>
         </div>
       </div>
@@ -187,6 +265,11 @@
               display: flex;
               align-items: center;
               gap: 2px;
+            }
+
+            span.extent {
+              font-size: small;
+              white-space: nowrap;
             }
           }
         }

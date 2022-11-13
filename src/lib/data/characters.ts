@@ -8,6 +8,8 @@ export const blankCharacter: ICharacter = {
   race: '',
   archetype: '',
   background: '',
+  weight: 0,
+  height: 0,
   portraits: [],
 
   '@collectionId': '',

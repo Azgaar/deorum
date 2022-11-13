@@ -192,7 +192,8 @@
 
         const filter = parseFilters(newFilter);
         const sort = parseSorting(newSort);
-        const { items, totalPages } = await getPortraits({ page: 1, filter, sort });
+        const expand = 'characters';
+        const { items, totalPages } = await getPortraits({ page: 1, filter, sort, expand });
 
         const queryString = `/admin?filter=${filter}&sort=${sort}`;
         window.history.pushState({}, '', queryString);
@@ -242,7 +243,8 @@
     try {
       const filter = parseFilters(filters);
       const sort = parseSorting(sorting);
-      const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort });
+      const expand = 'characters';
+      const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort, expand });
 
       page += 1;
       hasMore = page < totalPages;

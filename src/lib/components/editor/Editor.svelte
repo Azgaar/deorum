@@ -12,7 +12,7 @@
   import { log, report } from '$lib/utils/log';
   import { isSameArray } from '$lib/utils/array';
   import { makePOJO } from '$lib/utils/object';
-  import { blankCharacter } from '$lib/utils/characters';
+  import { blankCharacter } from '$lib/data/characters';
 
   import EditButton from './EditButton.svelte';
 
