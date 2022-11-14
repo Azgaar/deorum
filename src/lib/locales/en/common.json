@@ -138,6 +138,7 @@
     "entertainer": "entertainer",
     "doctor": "doctor",
     "artisan": "artisan",
-    "merchant": "merchant"
+    "merchant": "merchant",
+    "hunter": "hunter"
   }
 }

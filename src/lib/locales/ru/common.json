@@ -138,6 +138,7 @@
     "entertainer": "артист",
     "doctor": "лекарь",
     "artisan": "ремесленник",
-    "merchant": "торговец"
+    "merchant": "торговец",
+    "hunter": "hunter"
   }
 }

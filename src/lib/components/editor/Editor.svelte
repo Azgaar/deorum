@@ -60,8 +60,6 @@
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
 
-  $: console.log(characters);
-
   const fetchCharacters = async (characterIds: string[]) => {
     if (!characterIds.length || isUploading) {
       characters = [];

@@ -151,6 +151,10 @@
       height: min(560px, 90vh);
       overflow-y: auto;
 
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
       span.label {
         display: grid;
         grid-template-columns: 40px 1fr;

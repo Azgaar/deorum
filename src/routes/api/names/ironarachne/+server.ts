@@ -5,27 +5,32 @@ const baseUrl = 'https://muna.ironarachne.com';
 const defaultRace = 'human';
 const defaultType = 'male';
 
-type TRace =
-  | 'dragonborn'
-  | 'dwarf'
-  | 'elf'
-  | 'gnome'
-  | 'goblin'
-  | 'halfling'
-  | 'halfelf'
-  | 'halforc'
-  | 'human'
-  | 'orc'
-  | 'tiefling'
-  | 'troll';
-type TType = 'male' | 'female' | 'family';
+const supportedRaces = [
+  'dragonborn',
+  'dwarf',
+  'elf',
+  'gnome',
+  'goblin',
+  'halfling',
+  'halfelf',
+  'halforc',
+  'human',
+  'orc',
+  'tiefling',
+  'troll'
+];
+const supportedTypes = ['male', 'female', 'family'];
 
 export const GET: RequestHandler = async ({ url }) => {
   const count = Number(url.searchParams.get('quantity'));
-  const race = url.searchParams.get('race') || (defaultRace as TRace);
-  const type = url.searchParams.get('type') || (defaultType as TType);
+
+  let race = url.searchParams.get('race');
+  if (!race || !supportedRaces.includes(race)) race = defaultRace;
+
+  let type = url.searchParams.get('type');
+  if (!type || !supportedTypes.includes(type)) type = defaultType;
 
   const requestUrl = `${baseUrl}/${race}/?count=${count}&nameType=${type}`;
   const data = await request<{ names: string[] }>(requestUrl);
-  return new Response(JSON.stringify(data?.names || []));
+  return new Response(JSON.stringify(data.names || []));
 };

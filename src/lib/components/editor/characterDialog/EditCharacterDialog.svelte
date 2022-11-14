@@ -50,7 +50,8 @@
 
   const randomizeName = async () => {
     try {
-      const url = `/api/names/ironarachne?quantity=1&race=${character.race}&type=${character.gender}`;
+      const raceName = races.get(character.race)?.name || '';
+      const url = `/api/names/ironarachne?quantity=1&race=${raceName}&type=${character.gender}`;
       const names = await request<string[]>(url);
       character.name = names[0] || '';
     } catch (err) {
