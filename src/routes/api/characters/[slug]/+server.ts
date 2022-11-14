@@ -4,10 +4,13 @@ import { log, report } from '$lib/utils/log';
 
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async ({ params, url }) => {
   try {
     const id = params.slug;
-    const charactersList = await admin.records.getOne('characters', id);
+    const filter = url.searchParams.get('filter') || '';
+    const expand = url.searchParams.get('expand') || '';
+
+    const charactersList = await admin.records.getOne('characters', id, { filter, expand });
     log('characters', `Loading character ${id}`);
     return new Response(JSON.stringify(charactersList));
   } catch (err) {

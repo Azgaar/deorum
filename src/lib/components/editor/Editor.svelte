@@ -12,6 +12,7 @@
   import { isSameArray } from '$lib/utils/array';
   import { makePOJO } from '$lib/utils/object';
   import { blankCharacter } from '$lib/data/characters';
+  import { deriveCharacterLabel } from '$lib/utils/characters';
 
   import EditButton from './EditButton.svelte';
 
@@ -26,7 +27,7 @@
     TChangeableKey,
     TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
-  import type { ICharacter } from '$lib/types/api.types';
+  import type { ICharacter, IRace } from '$lib/types/api.types';
   import { request } from '$lib/utils/requests';
 
   export let model: TEditorData;
@@ -59,6 +60,8 @@
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
 
+  $: console.log(characters);
+
   const fetchCharacters = async (characterIds: string[]) => {
     if (!characterIds.length || isUploading) {
       characters = [];
@@ -66,7 +69,10 @@
     }
 
     try {
-      const promises = characterIds.map((id) => request<ICharacter>(`/api/characters/${id}`));
+      const expand = 'race,archetype,background,portraits';
+      const promises = characterIds.map((id) =>
+        request<ICharacter>(`/api/characters/${id}?expand=${expand}`)
+      );
       characters = await Promise.all(promises);
     } catch (error) {
       toastError(error);
@@ -121,12 +127,6 @@
     };
 
     openSelectCharacterDialog(current.characters, onSubmit);
-  };
-
-  const deriveCharacterLabel = (character: ICharacter) => {
-    const name = character.name || $t('common.character.unnamed');
-    const age = character.age || '';
-    return [name, age].filter((value) => value).join(', ');
   };
 
   const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
@@ -343,10 +343,6 @@
       overflow: hidden;
       display: flex;
       justify-content: center;
-
-      @media (max-width: 599px) {
-        display: none;
-      }
 
       img {
         height: 100%;

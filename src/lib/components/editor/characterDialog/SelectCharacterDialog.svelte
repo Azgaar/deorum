@@ -9,6 +9,7 @@
   import { report } from '$lib/utils/log';
   import { toastError } from '$lib/stores';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { deriveCharacterLabel } from '$lib/utils/characters';
 
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
@@ -74,22 +75,6 @@
     return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?thumb=100x100`;
   };
 
-  const deriveCharacterLabel = (character: ICharacter): string[] => {
-    const { name, gender, age } = character;
-    const { race: charRace, archetype, background } = character['@expand'];
-
-    const elements = {
-      name: name || $t('common.character.unnamed'),
-      gender: gender ? $t(`common.genders.${gender}`) : null,
-      race: race && charRace?.name ? $t(`common.races.${charRace.name}`) : null,
-      archetype: archetype ? $t(`common.archetypes.${archetype.name}`) : null,
-      background: background ? $t(`common.backgrounds.${background.name}`) : null,
-      age: age || null
-    };
-
-    return Object.values(elements).filter((value) => value);
-  };
-
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
 
@@ -118,7 +103,7 @@
             <Checkbox bind:group={currentIds} value={character.id} />
             <span slot="label" class="label">
               <img src={derivePrimaryImagePath(character)} alt={character.name} />
-              {deriveCharacterLabel(character).join(', ')}
+              {deriveCharacterLabel(character)}
             </span>
           </FormField>
         </li>

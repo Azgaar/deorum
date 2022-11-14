@@ -334,6 +334,7 @@
         {tags}
         {styles}
         {colors}
+        {races}
         {openEditorDialog}
         {openOriginalsDialog}
         {openEditCharacterDialog}

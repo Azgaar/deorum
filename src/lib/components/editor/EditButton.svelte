@@ -10,7 +10,7 @@
   if (isLower) text = text.toLowerCase();
 </script>
 
-<button type="button" on:click={onClick}>{icon} {text}</button>
+<button type="button" on:click={onClick} title={text}>{icon} {text}</button>
 
 <style lang="scss">
   button {
@@ -25,6 +25,10 @@
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
     white-space: nowrap;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   button:hover {
