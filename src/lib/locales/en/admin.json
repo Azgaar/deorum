@@ -136,7 +136,19 @@
     "cannibal": "cannibal",
     "gnome woman": "gnome woman",
     "orc": "orc",
-    "high elf": "high elf"
+    "elf knightess": "elf knightess",
+    "high elf": "high elf",
+    "high elf maiden": "heigh elf maiden",
+    "bard": "bard",
+    "scholar": "scholar",
+    "lute player": "lute player",
+    "elf scholar": "elf scholar",
+    "draconid": "draconid",
+    "lizardman": "lizardman",
+    "draconid maiden": "draconid maiden",
+    "bagpiper": "bagpiper",
+    "dark elf": "dark elf",
+    "dark elf maiden": "dark elf maiden"
   },
   "colors": {
     "red": "red",

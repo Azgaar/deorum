@@ -136,7 +136,19 @@
     "cannibal": "каннибал",
     "gnome woman": "женщина-гном",
     "orc": "орк",
-    "high elf": "эльфийка"
+    "elf knightess": "эльфийка-рыцарь",
+    "high elf": "светлый эльф",
+    "high elf maiden": "светлая эльфийка",
+    "bard": "бард",
+    "scholar": "учёный",
+    "lute player": "лютнист",
+    "elf scholar": "эльф-учёный",
+    "draconid": "драконид",
+    "lizardman": "ящеролюд",
+    "draconid maiden": "драконидка",
+    "bagpiper": "волынщица",
+    "dark elf": "тёмный эльф",
+    "dark elf maiden": "тёмная эльфийка"
   },
   "colors": {
     "red": "красный",

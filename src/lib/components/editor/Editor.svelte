@@ -221,7 +221,7 @@
     <div class="element">
       <div>{$t('admin.editor.original')}:</div>
       <div class="grid column2">
-        <Label maxWidth="100px" label={{ name: originalName }} type="originals" />
+        <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
         <EditButton onClick={handleOriginalChange} />
       </div>
     </div>
