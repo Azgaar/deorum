@@ -91,7 +91,8 @@
     "humanoid": "гуманоид",
     "ent": "энт",
     "insectoid": "инсектоид",
-    "centaur": "кентавр"
+    "centaur": "кентавр",
+    "satyr": "сатир"
   },
   "archetypes": {
     "warrior": "воин",

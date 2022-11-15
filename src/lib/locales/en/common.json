@@ -91,7 +91,8 @@
     "humanoid": "humanoid",
     "ent": "ent",
     "insectoid": "insectoid",
-    "centaur": "centaur"
+    "centaur": "centaur",
+    "satyr": "satyr"
   },
   "archetypes": {
     "warrior": "warrior",
