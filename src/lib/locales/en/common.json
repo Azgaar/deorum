@@ -88,7 +88,10 @@
     "triton": "triton",
     "demigod": "demigod",
     "birdman": "birdman",
-    "humanoid": "humanoid"
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "insectoid",
+    "centaur": "centaur"
   },
   "archetypes": {
     "warrior": "warrior",

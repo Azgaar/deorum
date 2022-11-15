@@ -88,7 +88,10 @@
     "triton": "тритон",
     "demigod": "полубог",
     "birdman": "птицелюд",
-    "humanoid": "гуманоид"
+    "humanoid": "гуманоид",
+    "ent": "энт",
+    "insectoid": "инсектоид",
+    "centaur": "кентавр"
   },
   "archetypes": {
     "warrior": "воин",
