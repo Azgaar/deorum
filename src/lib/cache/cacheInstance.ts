@@ -6,7 +6,7 @@ export const cache = new Cache({ debug: false });
 const EXPIRATION = 1000 * 60 * 60 * 6; // 6 hours
 
 export const getCachedList = async <T>(
-  collection: 'portraits' | 'tags',
+  collection: 'portraits' | 'tags' | 'characters',
   filter = '',
   sort = '',
   expand = ''

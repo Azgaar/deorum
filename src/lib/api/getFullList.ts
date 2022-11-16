@@ -7,7 +7,8 @@ import type {
   IQuality,
   IArchetype,
   IBackground,
-  IRace
+  IRace,
+  ICharacter
 } from '$lib/types/api.types';
 import admin from './admin';
 import { BATCH_SIZE } from '$lib/config';
@@ -22,6 +23,7 @@ interface IData {
   races: IRace[];
   archetypes: IArchetype[];
   backgrounds: IBackground[];
+  characters: ICharacter[];
 }
 
 export async function getFullList<K extends keyof IData>(

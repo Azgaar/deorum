@@ -16,7 +16,8 @@ export const log = (domain: string, message: string, ...args: unknown[]) => {
 
 export const report = (domain: string, err: unknown, ...args: unknown[]) => {
   const message = normalizeError(err);
-  const details = catchErrorDetails(err);
+  let details = catchErrorDetails(err);
+  if (details === message) details = null;
 
   if (browser) {
     console.error(`%c${domain}`, style, message, args);

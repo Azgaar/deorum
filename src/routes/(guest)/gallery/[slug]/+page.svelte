@@ -9,6 +9,7 @@
 
   import type { PBError } from '$lib/types/error.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import type { TGender } from '$lib/types/api.types';
 
   export let data: import('./$types').PageData;
 
@@ -27,7 +28,11 @@
 
   // select carousel items
   let carousel = getCarouselItems(data.items, data.currentId);
-  const refreshCarousel = () => (carousel = getCarouselItems(data.items, data.currentId));
+  let current = carousel[CURRENT_INDEX];
+  const refreshCarousel = () => {
+    carousel = getCarouselItems(data.items, data.currentId);
+    current = carousel[CURRENT_INDEX];
+  };
 
   // lazily preload images that comes initially, but not displayed in the carousel
   const carouselIds = carousel.map(({ id }) => id);
@@ -73,6 +78,12 @@
     showNext(id > data.currentId)();
   };
 
+  const getGenderIcon = (gender: TGender | '') => {
+    if (gender === 'male') return '♂️';
+    if (gender === 'female') return '♀️';
+    return '🤷‍♂️';
+  };
+
   onMount(() => {
     const rotateRightKeys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
     const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
@@ -101,27 +112,19 @@
   <section class="carousel">
     {#each carousel as item (item.id)}
       <figure class:current={item.id === data.currentId} on:click={handleClick(item.id)}>
-        <img
-          src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`}
-          alt={item.id}
-          draggable="false"
-        />
-        {#if item.id === data.currentId}
-          <figcaption>
-            <div>
-              <h1>{item.name || ''}</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget rutrum erat, quis
-                tristique magna. Etiam sit amet volutpat mauris. Pellentesque eu fermentum augue,
-                eget porttitor ipsum. Vivamus porttitor erat lorem...
-              </p>
-              <aside>
-                <span>Human</span>
-                <span>Warlock</span>
-              </aside>
-            </div>
-          </figcaption>
-        {/if}
+        <div class="imageContainer">
+          <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.id} draggable="false" />
+        </div>
+
+        <figcaption>
+          <h1>{item.name} {getGenderIcon(item.gender)}</h1>
+          <aside>
+            <span>{item.race}</span>
+            <span>{item.age}</span>
+            <span>{item.archetype}</span>
+            <span>{item.background}</span>
+          </aside>
+        </figcaption>
       </figure>
     {/each}
   </section>
@@ -148,44 +151,17 @@
     user-select: none;
 
     section.carousel {
-      --carousel-item-height: 150px;
-      --carousel-item-width: 150px;
-      max-width: 1000px;
+      --item-width: clamp(300px, 30vw, 512px);
+      font-size: clamp(14px, 1.4vw, 28px);
+      --second-item-scale: 0.8;
+      --third-item-scale: 0.5;
+      --image-zoom: 1.5;
+      max-width: min(1800px, 90vw);
       min-height: 360px;
-      font-size: 14px;
       z-index: 0;
 
       @media screen and (max-width: 599px) {
         max-width: 320px;
-        font-size: 14px;
-      }
-
-      @media screen and (min-width: 1200px) {
-        --carousel-item-height: 150px;
-        --carousel-item-width: 150px;
-        max-width: 1000px;
-        font-size: 14px;
-      }
-
-      @media screen and (min-width: 1500px) {
-        --carousel-item-height: 170px;
-        --carousel-item-width: 170px;
-        max-width: 1200px;
-        font-size: 18px;
-      }
-
-      @media screen and (min-width: 1920px) {
-        --carousel-item-height: 200px;
-        --carousel-item-width: 200px;
-        max-width: 1500px;
-        font-size: 20px;
-      }
-
-      @media screen and (min-width: 2500px) {
-        --carousel-item-height: 256px;
-        --carousel-item-width: 256px;
-        max-width: 2000px;
-        font-size: 26px;
       }
 
       position: relative;
@@ -196,90 +172,61 @@
       figure {
         position: absolute;
         margin: 0;
-        width: var(--carousel-item-width);
-        height: var(--carousel-item-height);
+        width: var(--item-width);
+        height: calc(var(--item-width) * 1.25);
         z-index: 0;
         opacity: 0;
 
-        transform: translateX(-50%);
+        transform: translateX(-50%) scale(1);
         transition: all 0.3s ease-in-out;
         overflow: hidden;
         cursor: pointer;
 
-        img {
-          width: 100%;
-          aspect-ratio: 1/1;
+        padding: 1rem;
+        background-color: $surface;
 
-          transition: all 0.5s ease-out;
-          transform: scale3d(1, 1, 1);
+        div.imageContainer {
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            aspect-ratio: 1/1;
+
+            transition: all 1s ease-out 1s;
+            transform: translateY(0) scale3d(1, 1, 1);
+          }
+
+          img:hover {
+            transform: translateY(25%) scale3d(var(--image-zoom), var(--image-zoom), 1);
+          }
         }
 
         figcaption {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          inset: 0;
+          display: grid;
+          grid-template-rows: 3fr 2fr;
+          place-items: center;
 
-          outline-color: color.adjust($text, $alpha: -1);
-          outline-style: double;
-          outline-width: 2px;
-          outline-offset: -4px;
-          transition: outline 0.2s ease-out;
-          transition-delay: 0.2s;
+          h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            text-shadow: 0px 0px 1rem black;
+          }
 
-          div {
-            position: absolute;
-            padding: 16px 32px;
-            height: calc(100% - 2 * 16px);
+          aside {
+            display: flex;
+            gap: 0.5rem;
 
-            top: 78%;
-            transition: all 0.4s ease-out;
-
-            display: grid;
-            grid-template-rows: 1fr 3fr 1fr;
-            place-items: center;
-
-            h1 {
-              font-size: 1.5em;
-              margin: 0;
-              text-shadow: 0px 0px 12px black;
-            }
-
-            p {
-              margin: 0;
-            }
-
-            aside {
-              display: flex;
-              gap: 8px;
-
-              span {
-                padding: 4px 8px;
-                border-radius: 12px;
-                background-color: rgba(36, 19, 18, 0.9);
-              }
+            span {
+              padding: 0.4em 1em;
+              border-radius: 1em;
+              background-color: rgba(36, 19, 18, 0.9);
             }
           }
         }
       }
-
-      figure.current:hover {
-        img {
-          filter: brightness(0.4);
-          transform: scale3d(1.25, 1.25, 1);
-        }
-
-        figcaption {
-          outline-color: color.adjust($text, $alpha: -0.5);
-
-          div {
-            top: 0%;
-          }
-        }
-      }
-
       figure:nth-child(1),
       figure:nth-child(5) {
+        transform: translateX(-50%) scale(var(--third-item-scale));
         opacity: 0.4;
         animation: fadeIn04 0.3s ease-in-out;
 
@@ -295,8 +242,7 @@
 
       figure:nth-child(2),
       figure:nth-child(4) {
-        height: calc(var(--carousel-item-height) * 1.6);
-        width: calc(var(--carousel-item-width) * 1.6);
+        transform: translateX(-50%) scale(var(--second-item-scale));
         z-index: 1;
         opacity: 0.9;
       }
@@ -310,13 +256,10 @@
       }
 
       figure:nth-child(3) {
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
-          0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
-        height: calc(var(--carousel-item-height) * 2);
-        width: calc(var(--carousel-item-width) * 2);
         left: 50%;
         z-index: 2;
-
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
+          0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
         opacity: 1;
       }
 

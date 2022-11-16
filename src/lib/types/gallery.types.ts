@@ -1,5 +1,14 @@
+import type { TGender } from './api.types';
+
 export interface IGalleryItem {
   id: string;
   image: string;
-  name: string | null;
+  name: string;
+  gender: TGender | '';
+  race: string;
+  archetype: string;
+  background: string;
+  age: number;
+  weight: number;
+  height: number;
 }
