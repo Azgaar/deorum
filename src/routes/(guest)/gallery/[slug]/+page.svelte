@@ -7,7 +7,6 @@
   import { preloadImage, request } from '$lib/utils/requests';
   import { report } from '$lib/utils/log';
 
-  import type { PBError } from '$lib/types/error.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import type { TGender } from '$lib/types/api.types';
 
@@ -28,16 +27,14 @@
 
   // select carousel items
   let carousel = getCarouselItems(data.items, data.currentId);
-  let current = carousel[CURRENT_INDEX];
   const refreshCarousel = () => {
     carousel = getCarouselItems(data.items, data.currentId);
-    current = carousel[CURRENT_INDEX];
   };
 
   // lazily preload images that comes initially, but not displayed in the carousel
   const carouselIds = carousel.map(({ id }) => id);
   const initialItemsInReserve = data.items.filter(({ id }) => !carouselIds.includes(id));
-  initialItemsInReserve.forEach(preloadImage);
+  initialItemsInReserve.forEach((item) => preloadImage(`${PORTRAITS_IMAGE_PATH}/${item.image}`));
 
   const showNext = (right: boolean) => () => {
     const nextIndex = right ? CURRENT_INDEX + 1 : CURRENT_INDEX - 1;
@@ -60,13 +57,13 @@
     try {
       const url = `/api/gallery/more?edgeId=${edgeId}&right=${right}`;
       const moreItems = await request<IGalleryItem[]>(url);
-      moreItems.forEach(preloadImage);
+      moreItems.forEach((item) => preloadImage(`${PORTRAITS_IMAGE_PATH}/${item.image}`));
 
       data.items = right ? [...data.items, ...moreItems] : [...moreItems, ...data.items];
       refreshCarousel();
     } catch (error) {
       report('gallery', error, { right });
-      toastError((error as PBError).message);
+      toastError(error);
     } finally {
       isLoadingMore = false;
     }
@@ -113,7 +110,7 @@
     {#each carousel as item (item.id)}
       <figure class:current={item.id === data.currentId} on:click={handleClick(item.id)}>
         <div class="imageContainer">
-          <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.id} draggable="false" />
+          <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.name} draggable="false" />
         </div>
 
         <figcaption>

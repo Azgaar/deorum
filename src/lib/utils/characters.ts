@@ -1,6 +1,7 @@
 import { t } from '$lib/locales/translations';
 
 import type { ICharacter } from '$lib/types/api.types';
+import type { IGalleryItem } from '$lib/types/gallery.types';
 import { get } from 'svelte/store';
 import { report } from './log';
 
@@ -41,4 +42,17 @@ export const verifyCharacter = (char: ICharacter) => {
   if (!age) return file(`No age for character ${char.id}`, char);
 
   return true;
+};
+
+export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
+  const { id, name, gender, age, height, weight } = character;
+  const portraits = character['@expand'].portraits || [];
+  const mainPortrait = portraits[0];
+
+  const image = `${mainPortrait.id}/${mainPortrait.image}`;
+  const race = character['@expand'].race?.name || '';
+  const archetype = character['@expand'].archetype?.name || '';
+  const background = character['@expand'].background?.name || '';
+
+  return { id, image, name, race, gender, archetype, background, age, weight, height };
 };

@@ -8,7 +8,7 @@
 
   export let data: import('./$types').PageData;
   $: key = data.current.id;
-  $: preloadImage(data.next);
+  $: preloadImage(`${PORTRAITS_IMAGE_PATH}/${data.next.id}/${data.next.image}`);
 
   const handleClick = (event: MouseEvent, add: boolean, tagId: string) => {
     patchPortraitTags(key, add, tagId);

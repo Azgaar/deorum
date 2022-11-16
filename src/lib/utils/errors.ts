@@ -1,8 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { ClientResponseError } from 'pocketbase';
 
-import { report } from './log';
-
 export function normalizeError(err: unknown): string {
   if (typeof err === 'string') return err;
   if (err instanceof ClientResponseError) return err.data.message;

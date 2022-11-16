@@ -4,8 +4,7 @@ import { getRandomIndex, sliceElements } from '$lib/utils/array';
 import { getCachedList } from '$lib/cache/cacheInstance';
 
 import type { ICharacter } from '$lib/types/api.types';
-import type { IGalleryItem } from '$lib/types/gallery.types';
-import { verifyCharacter } from '$lib/utils/characters';
+import { getGalleryItemData, verifyCharacter } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
 
 export const filter = '(inactive=false)';
@@ -32,20 +31,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const current = validCharacters[currentIndex];
   const before = sliceElements(validCharacters, currentIndex - SELECT_BEFORE, currentIndex);
   const after = sliceElements(validCharacters, currentIndex + 1, currentIndex + SELECT_AFTER + 1);
-
-  const selection = [...before, current, ...after];
-  const items: IGalleryItem[] = selection.map((character) => {
-    const { id, name, gender, age, height, weight } = character;
-    const portraits = character['@expand'].portraits || [];
-    const mainPortrait = portraits[0];
-
-    const image = `${mainPortrait.id}/${mainPortrait.image}`;
-    const race = character['@expand'].race?.name || '';
-    const archetype = character['@expand'].archetype?.name || '';
-    const background = character['@expand'].background?.name || '';
-
-    return { id, image, name, race, gender, archetype, background, age, weight, height };
-  });
+  const items = [...before, current, ...after].map(getGalleryItemData);
 
   log('gallery', `Loading character ${params.slug}, ${currentIndex}/${characters.length}`);
 

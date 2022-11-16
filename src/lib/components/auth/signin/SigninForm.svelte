@@ -10,7 +10,6 @@
   import { log, report } from '$lib/utils/log';
 
   import PasswordInput from '../password/PasswordInput.svelte';
-  import type { PBError } from '$lib/types/error.types';
 
   export let onClose: () => void;
 
@@ -29,7 +28,7 @@
       onClose();
     } catch (error) {
       report('auth', error);
-      toastError((error as PBError).message);
+      toastError(error);
     } finally {
       isLoading = false;
     }

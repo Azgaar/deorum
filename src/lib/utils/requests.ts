@@ -1,8 +1,6 @@
 import { browser } from '$app/environment';
 import type { HttpMethod } from '@sveltejs/kit/types/private';
 
-import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-
 export const request = async <T>(
   url: string,
   method: HttpMethod = 'GET',
@@ -16,10 +14,10 @@ export const request = async <T>(
   return body;
 };
 
-export function preloadImage({ id, image }: { id: string; image: string }) {
+export function preloadImage(src: string) {
   if (browser) {
     const nextImage = new Image();
     nextImage.fetchPriority = 'low';
-    nextImage.src = `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
+    nextImage.src = src;
   }
 }
