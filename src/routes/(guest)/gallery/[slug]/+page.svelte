@@ -8,7 +8,8 @@
   import { report } from '$lib/utils/log';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import type { TGender } from '$lib/types/api.types';
+  import Figure from './Figure.svelte';
+  import Arrows from './Arrows.svelte';
 
   export let data: import('./$types').PageData;
 
@@ -75,12 +76,6 @@
     showNext(id > data.currentId)();
   };
 
-  const getGenderIcon = (gender: TGender | '') => {
-    if (gender === 'male') return '♂️';
-    if (gender === 'female') return '♀️';
-    return '🤷‍♂️';
-  };
-
   onMount(() => {
     const rotateRightKeys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
     const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
@@ -108,37 +103,13 @@
 <div class="container">
   <section class="carousel">
     {#each carousel as item (item.id)}
-      <figure class:current={item.id === data.currentId} on:click={handleClick(item.id)}>
-        <div class="imageContainer">
-          <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.name} draggable="false" />
-        </div>
-
-        <figcaption>
-          <h1>{item.name} {getGenderIcon(item.gender)}</h1>
-          <aside>
-            <span>{item.race}</span>
-            <span>{item.age}</span>
-            <span>{item.archetype}</span>
-            <span>{item.background}</span>
-          </aside>
-        </figcaption>
-      </figure>
+      <div class="item" on:click={handleClick(item.id)}>
+        <Figure {item} />
+      </div>
     {/each}
   </section>
 
-  <div class="arrows">
-    <button aria-label="previous" on:click={showNext(false)}>
-      <svg viewBox="0 0 5 20">
-        <path d="M5 0 L0 10 L5 20 Z" />
-      </svg>
-    </button>
-
-    <button aria-label="next" on:click={showNext(true)}>
-      <svg viewBox="0 0 5 20">
-        <path d="M0 0 L5 10 L0 20 Z" />
-      </svg>
-    </button>
-  </div>
+  <Arrows {showNext} />
 </div>
 
 <style lang="scss">
@@ -148,12 +119,12 @@
     user-select: none;
 
     section.carousel {
-      --item-width: clamp(300px, 30vw, 512px);
-      font-size: clamp(14px, 1.4vw, 28px);
+      --item-width: clamp(300px, 25vw, 512px);
+      font-size: clamp(14px, 1.2vw, 26px);
       --second-item-scale: 0.8;
       --third-item-scale: 0.5;
-      --image-zoom: 1.5;
-      max-width: min(1800px, 90vw);
+      --image-zoom: 1.4;
+      max-width: min(1800px, 85vw);
       min-height: 360px;
       z-index: 0;
 
@@ -166,63 +137,18 @@
       align-items: center;
       margin: 0 auto;
 
-      figure {
+      .item {
         position: absolute;
-        margin: 0;
         width: var(--item-width);
-        height: calc(var(--item-width) * 1.25);
         z-index: 0;
         opacity: 0;
 
         transform: translateX(-50%) scale(1);
         transition: all 0.3s ease-in-out;
-        overflow: hidden;
-        cursor: pointer;
-
-        padding: 1rem;
-        background-color: $surface;
-
-        div.imageContainer {
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            aspect-ratio: 1/1;
-
-            transition: all 1s ease-out 1s;
-            transform: translateY(0) scale3d(1, 1, 1);
-          }
-
-          img:hover {
-            transform: translateY(25%) scale3d(var(--image-zoom), var(--image-zoom), 1);
-          }
-        }
-
-        figcaption {
-          display: grid;
-          grid-template-rows: 3fr 2fr;
-          place-items: center;
-
-          h1 {
-            font-size: 1.25rem;
-            margin: 0;
-            text-shadow: 0px 0px 1rem black;
-          }
-
-          aside {
-            display: flex;
-            gap: 0.5rem;
-
-            span {
-              padding: 0.4em 1em;
-              border-radius: 1em;
-              background-color: rgba(36, 19, 18, 0.9);
-            }
-          }
-        }
       }
-      figure:nth-child(1),
-      figure:nth-child(5) {
+
+      .item:nth-child(1),
+      .item:nth-child(5) {
         transform: translateX(-50%) scale(var(--third-item-scale));
         opacity: 0.4;
         animation: fadeIn04 0.3s ease-in-out;
@@ -237,22 +163,22 @@
         }
       }
 
-      figure:nth-child(2),
-      figure:nth-child(4) {
+      .item:nth-child(2),
+      .item:nth-child(4) {
         transform: translateX(-50%) scale(var(--second-item-scale));
         z-index: 1;
         opacity: 0.9;
       }
 
-      figure:nth-child(1) {
+      .item:nth-child(1) {
         left: 15%;
       }
 
-      figure:nth-child(2) {
+      .item:nth-child(2) {
         left: 30%;
       }
 
-      figure:nth-child(3) {
+      .item:nth-child(3) {
         left: 50%;
         z-index: 2;
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
@@ -260,44 +186,12 @@
         opacity: 1;
       }
 
-      figure:nth-child(4) {
+      .item:nth-child(4) {
         left: 70%;
       }
 
-      figure:nth-child(5) {
+      .item:nth-child(5) {
         left: 85%;
-      }
-    }
-
-    div.arrows {
-      button {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-
-        border: 0;
-        background: none;
-        cursor: pointer;
-        color: $primary;
-        transition: all 0.2s ease-in-out;
-      }
-
-      button:first-child {
-        left: 0;
-      }
-
-      button:last-child {
-        right: 0;
-      }
-
-      button:hover {
-        color: color.scale($primary, $lightness: 5%);
-      }
-
-      svg {
-        width: 50px;
-        aspect-ratio: 1/2;
-        fill: currentColor;
       }
     }
   }
