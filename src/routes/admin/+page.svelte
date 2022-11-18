@@ -134,7 +134,7 @@
     originalsDialogData = { open: true, entries, selected, onSubmit };
   };
 
-  let characterDialogData = {
+  let editCharacterDialogData = {
     open: false,
     character: {} as ICharacter,
     onSubmit: (_: ICharacter) => {},
@@ -142,7 +142,9 @@
     portraitIds: [] as string[],
     races,
     archetypes,
-    backgrounds
+    backgrounds,
+    tags,
+    openEditorDialog
   };
 
   const openEditCharacterDialog: TOpenEditCharacterDialog = (character, onSubmit, onDelete) => {
@@ -176,8 +178,8 @@
     };
 
     const isEdit = Boolean(character.id);
-    characterDialogData = {
-      ...characterDialogData,
+    editCharacterDialogData = {
+      ...editCharacterDialogData,
       portraitIds: isEdit ? character.portraits : selected,
       open: true,
       character,
@@ -334,7 +336,6 @@
         {tags}
         {styles}
         {colors}
-        {races}
         {openEditorDialog}
         {openOriginalsDialog}
         {openEditCharacterDialog}
@@ -353,9 +354,9 @@
   </aside>
 </main>
 
+<EditCharacterDialog {...editCharacterDialogData} />
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog {...originalsDialogData} />
-<EditCharacterDialog {...characterDialogData} />
 <SelectCharacterDialog {...selectCharacterDialogData} />
 
 <Filters {...filtersData} />

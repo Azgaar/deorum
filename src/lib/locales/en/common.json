@@ -53,7 +53,8 @@
     "archetype": "Archetype",
     "background": "Background",
     "height": "Height",
-    "weight": "Weight"
+    "weight": "Weight",
+    "bio": "Biography"
   },
   "genders": {
     "male": "male",

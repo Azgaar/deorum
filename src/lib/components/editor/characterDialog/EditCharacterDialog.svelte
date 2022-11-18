@@ -13,9 +13,12 @@
   import { toastError } from '$lib/stores';
 
   import Portraits from './portraits/Portraits.svelte';
-  import RandomizeButton from '../RandomizeButton.svelte';
+  import BiographyEditor from './biography/BiographyEditor.svelte';
+  import TagsEditor from './tags/TagsEditor.svelte';
+  import IconButton from '../IconButton.svelte';
 
   import type { ICharacter, IRace } from '$lib/types/api.types';
+  import type { TOpenEditorDialog } from '$lib/types/editor.types';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -23,9 +26,12 @@
   export let onDelete: (characterId: string) => void;
   export let portraitIds: string[];
 
+  export let tags: Map<string, { name: string; image: string }>;
   export let races: Map<string, IRace>;
   export let archetypes: Map<string, { name: string }>;
   export let backgrounds: Map<string, { name: string }>;
+
+  export let openEditorDialog: TOpenEditorDialog;
 
   const createOptions = (map: Map<string, { name: string }>, category: string) => [
     ['', 'common.values.undefined'],
@@ -122,7 +128,7 @@
     event.preventDefault();
 
     try {
-      const { id, name, age, gender, race, archetype, background, height, weight } = character;
+      const { id, name, age, gender, race, archetype, background, height, weight, bio } = character;
       const responseCharacter = await request<ICharacter>('/api/characters', id ? 'PATCH' : 'PUT', {
         id,
         name,
@@ -133,7 +139,8 @@
         background,
         height,
         weight,
-        portraits: portraitIds
+        portraits: portraitIds,
+        bio
       });
 
       onSubmit(responseCharacter);
@@ -220,7 +227,7 @@
             <div>{$t('common.character.name')}:</div>
             <div>
               <TextInput value={character.name} onChange={handleValueChange('name')} />
-              <RandomizeButton onClick={randomizeName} />
+              <IconButton onClick={randomizeName}>🎲</IconButton>
             </div>
           </div>
 
@@ -229,7 +236,7 @@
             <div>
               <NumberInput value={character.age} onChange={handleValueChange('age')} />
               <span class="extent">{range?.age}</span>
-              <RandomizeButton onClick={randomizeAge} />
+              <IconButton onClick={randomizeAge}>🎲</IconButton>
             </div>
           </div>
 
@@ -238,7 +245,7 @@
             <div>
               <NumberInput value={character.height} onChange={handleValueChange('height')} />
               <span class="extent">{range?.height}</span>
-              <RandomizeButton onClick={randomizeHeight} />
+              <IconButton onClick={randomizeHeight}>🎲</IconButton>
             </div>
           </div>
 
@@ -247,11 +254,14 @@
             <div>
               <NumberInput value={character.weight} onChange={handleValueChange('weight')} />
               <span class="extent">{range?.weight}</span>
-              <RandomizeButton onClick={randomizeWeight} />
+              <IconButton onClick={randomizeWeight}>🎲</IconButton>
             </div>
           </div>
         </div>
       </div>
+
+      <TagsEditor bind:tags={character.tags} tagsMap={tags} {openEditorDialog} />
+      <BiographyEditor {character} onChange={handleValueChange('bio')} />
     </div>
 
     <div class="actions">
@@ -285,7 +295,7 @@
     div.content {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 12px;
 
       div.columns {
         display: grid;

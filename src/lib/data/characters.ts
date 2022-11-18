@@ -11,6 +11,11 @@ export const blankCharacter: ICharacter = {
   weight: 0,
   height: 0,
   portraits: [],
+  bio: '',
+  tags: [],
+
+  created: '',
+  updated: '',
 
   '@collectionId': '',
   '@collectionName': '',

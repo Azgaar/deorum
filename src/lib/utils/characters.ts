@@ -1,3 +1,4 @@
+import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
 
 import type { ICharacter } from '$lib/types/api.types';
@@ -12,8 +13,8 @@ export const deriveCharacterLabel = (character: ICharacter): string => {
 
   const elements = {
     name: name || $t('common.character.unnamed'),
-    gender: gender ? $t(`common.genders.${gender}`) : null,
     race: race?.name ? $t(`common.races.${race.name}`) : null,
+    gender: gender ? $t(`common.genders.${gender}`) : null,
     archetype: archetype ? $t(`common.archetypes.${archetype.name}`) : null,
     background: background ? $t(`common.backgrounds.${background.name}`) : null,
     age: age || null
@@ -55,4 +56,19 @@ export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
   const background = character['@expand'].background?.name || '';
 
   return { id, image, name, race, gender, archetype, background, age, weight, height };
+};
+
+export const getTags = (character: ICharacter) => {
+  const mainPortrait = character['@expand'].portraits?.[0];
+  if (!mainPortrait) return '';
+
+  // const tags = character['@expand'];
+  return '';
+};
+
+export const selectSections = () => {
+  return sections
+    .filter((section) => Math.random() < section.chance)
+    .map(({ name }) => name)
+    .join(', ');
 };

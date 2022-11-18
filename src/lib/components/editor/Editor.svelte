@@ -3,31 +3,31 @@
 
   import admin from '$lib/api/admin';
   import { getChanges } from '$lib/api/patchPortraits';
-  import Chip from '$lib/components/chips/Chip.svelte';
-  import Label from '$lib/components/label/Label.svelte';
+  import Chip from '$lib/components/editor/chips/Chip.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
+  import Label from '$lib/components/label/Label.svelte';
+  import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
-  import { log, report } from '$lib/utils/log';
   import { isSameArray } from '$lib/utils/array';
-  import { makePOJO } from '$lib/utils/object';
-  import { blankCharacter } from '$lib/data/characters';
   import { deriveCharacterLabel } from '$lib/utils/characters';
+  import { log, report } from '$lib/utils/log';
+  import { makePOJO } from '$lib/utils/object';
 
   import EditButton from './EditButton.svelte';
 
+  import type { ICharacter } from '$lib/types/api.types';
   import type {
-    TEditorData,
+    TChangeableKey,
     TDeleteHandler,
+    TEditorData,
+    TOpenEditCharacterDialog,
     TOpenEditorDialog,
     TOpenOriginalsDialog,
+    TOpenSelectCharacterDialog,
     TPatchHandler,
-    TPostHandler,
-    TOpenEditCharacterDialog,
-    TChangeableKey,
-    TOpenSelectCharacterDialog
+    TPostHandler
   } from '$lib/types/editor.types';
-  import type { ICharacter, IRace } from '$lib/types/api.types';
   import { request } from '$lib/utils/requests';
 
   export let model: TEditorData;
@@ -56,6 +56,8 @@
   let isChanged = false;
   let isLoading = false;
   let isDeleteInitiated = false;
+
+  $: console.log('editor', current.tags);
 
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
@@ -111,7 +113,12 @@
       characters = characters.filter(({ id }) => id !== characterId);
     };
 
-    openEditCharacterDialog(characterToEdit || makePOJO(blankCharacter), onSubmit, onDelete);
+    if (characterToEdit) openEditCharacterDialog(characterToEdit, onSubmit, onDelete);
+    else {
+      const character = makePOJO(blankCharacter);
+      character.tags = current.tags;
+      openEditCharacterDialog(character, onSubmit, onDelete);
+    }
   };
 
   const handleSelectCharacterClick = () => {
