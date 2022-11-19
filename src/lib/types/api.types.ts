@@ -71,12 +71,15 @@ export interface ICharacter extends IRecord {
   portraits: string[];
   weight: number;
   height: number;
+  bio: string;
+  tags: string[];
 
   '@expand': {
     race?: IRace;
     archetype?: IArchetype;
     background?: IBackground;
     portraits?: IPortrait[];
+    tags?: ITag[];
   };
 }
 

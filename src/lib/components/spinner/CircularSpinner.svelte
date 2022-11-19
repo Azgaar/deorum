@@ -3,7 +3,7 @@
   export let absolute: boolean = false;
 </script>
 
-<div class="loader" class:absolute style="width: {size}px;" />
+<div class="loader" class:absolute style="width: {size}px; height: {size}px" />
 
 <style lang="scss">
   .absolute {

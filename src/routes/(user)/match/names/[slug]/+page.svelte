@@ -75,11 +75,9 @@
     </div>
 
     <div class="line">
-      <BasicButton
-        variant="primary"
-        onClick={requestMoreSamples}
-        label={$t('admin.match.moreSamples')}
-      />
+      <BasicButton variant="primary" onClick={requestMoreSamples}
+        >{$t('admin.match.moreSamples')}</BasicButton
+      >
 
       <a href={`./${data.next?.id}`}>
         {$t('common.controls.next')} &rarr;

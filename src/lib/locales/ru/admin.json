@@ -266,15 +266,55 @@
     "9": "девять",
     "10": "десять"
   },
+  "sections": {
+    "Family origin": "Происхождение",
+    "Birthplace": "Место рождения",
+    "Family lifestyle": "Стиль жизни семьи",
+    "Childhood home": "Отчий дом",
+    "Childhood memories": "Детские воспоминания",
+    "Early life": "Детство",
+    "Mentor": "Наставник",
+    "Later development": "Дальнейшее развитие",
+    "Current occupation": "Текущая профессия",
+    "Work motive": "Мотивация для работы",
+    "Best friend": "Лучший друг",
+    "Nemesis": "Главный враг",
+    "Marriage": "Брак",
+    "Daughter": "Дочь",
+    "Son": "Сын",
+    "Siblings": "Братья и сёстры",
+    "Afraid of": "Страх",
+    "Personality": "Личность",
+    "Favorite food": "Любимая еда",
+    "Life credo": "Жизненное кредо",
+    "Adventure": "Приключение",
+    "Amulet": "Амулет",
+    "Life-defining event": "Жизнеопределяющее событие",
+    "Flaw": "Недостаток",
+    "Talent": "Талант",
+    "Symbol": "Символ",
+    "Crime": "Преступление",
+    "Favorite weapon": "Любимое оружие",
+    "Mannerism": "Манеры",
+    "Spellbook": "Книга заклинаний",
+    "Secret": "Секрет",
+    "Famous quote": "Известная цитата",
+    "Dream": "Сон",
+    "Regret": "Сожаление",
+    "Tangled history": "Запутанная история",
+    "Disability": "Увечье"
+  },
   "success": {
     "uploaded": "Загружено",
     "changesSaved": "Изменения сохранены",
-    "delected": "Удалено"
+    "delected": "Удалено",
+    "copied": "Скопировано"
   },
   "errors": {
     "selectOriginal": "Выберите изображение-оригинал",
     "selectColor": "Выберите хотя бы один цвет",
     "selectStyle": "Выберите хотя бы один стиль",
-    "selectTag": "Выберите хотя бы один ярлык"
+    "selectTag": "Выберите хотя бы один ярлык",
+    "copy": "Не удалось скопировать в буфер обмена"
   }
 }

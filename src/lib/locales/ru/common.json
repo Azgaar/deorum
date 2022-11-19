@@ -53,7 +53,8 @@
     "archetype": "Архетип",
     "background": "Предыстория",
     "height": "Рост",
-    "weight": "Вес"
+    "weight": "Вес",
+    "bio": "Биография"
   },
   "genders": {
     "male": "мужчина",

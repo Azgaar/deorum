@@ -4,7 +4,7 @@ import type { HttpMethod } from '@sveltejs/kit/types/private';
 export const request = async <T>(
   url: string,
   method: HttpMethod = 'GET',
-  data?: unknown
+  data?: Record<string, unknown>
 ): Promise<T> => {
   const options: RequestInit = { method, headers: { 'content-type': 'application/json' } };
   if (data) options.body = JSON.stringify(data);

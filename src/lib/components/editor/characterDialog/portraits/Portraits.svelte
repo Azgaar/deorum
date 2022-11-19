@@ -52,8 +52,6 @@
 
 <style lang="scss">
   div.portraits {
-    padding-bottom: 8px;
-
     display: grid;
     gap: 4px;
     grid-template-columns: 1fr auto;

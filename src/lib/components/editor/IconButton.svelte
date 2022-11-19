@@ -1,22 +1,32 @@
 <script lang="ts">
   export let onClick: () => void;
+  export let disabled = false;
 </script>
 
-<button type="button" on:click={onClick}>🎲</button>
+<button type="button" {disabled} on:click={onClick}>
+  <slot />
+</button>
 
 <style lang="scss">
   button {
-    width: min-content;
     border: none;
     color: $text;
-    font-size: 1rem;
-    text-align: left;
-
     cursor: pointer;
-    padding: 0.1em 0.3em;
+
     background: rgba($secondary, 0.5);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
+
+    display: flex;
+    font-size: 1rem;
+    width: 23px;
+    height: 23px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button[disabled] {
+    cursor: wait;
   }
 
   button:hover {

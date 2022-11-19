@@ -1,10 +1,10 @@
 <script lang="ts">
   import Dialog, { Title } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
+  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import { request } from '$lib/utils/requests';
   import { blankRace } from '$lib/data/races';
@@ -13,9 +13,13 @@
   import { toastError } from '$lib/stores';
 
   import Portraits from './portraits/Portraits.svelte';
-  import RandomizeButton from '../RandomizeButton.svelte';
+  import BiographyEditor from './biography/BiographyEditor.svelte';
+  import TagsEditor from './tags/TagsEditor.svelte';
+  import IconButton from '../IconButton.svelte';
 
-  import type { ICharacter, IRace } from '$lib/types/api.types';
+  import type { IArchetype, IBackground, ICharacter, IRace } from '$lib/types/api.types';
+  import type { TOpenEditorDialog } from '$lib/types/editor.types';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -23,9 +27,12 @@
   export let onDelete: (characterId: string) => void;
   export let portraitIds: string[];
 
+  export let tags: Map<string, { name: string; image: string }>;
   export let races: Map<string, IRace>;
   export let archetypes: Map<string, { name: string }>;
   export let backgrounds: Map<string, { name: string }>;
+
+  export let openEditorDialog: TOpenEditorDialog;
 
   const createOptions = (map: Map<string, { name: string }>, category: string) => [
     ['', 'common.values.undefined'],
@@ -41,9 +48,11 @@
   $: onOpen(open);
   let race: IRace = blankRace;
   let range: ReturnType<typeof getRange>;
+  let isLoading = false;
 
   const onOpen = async (open: boolean) => {
     if (!open) return;
+    isLoading = false;
     race = races.get(character.race) || blankRace;
     range = getRange(race);
   };
@@ -112,7 +121,18 @@
 
     if (attribute === 'race') {
       race = races.get(value as string) || blankRace;
+      character['@expand'].race = race;
       range = getRange(race);
+    }
+
+    if (attribute === 'archetype') {
+      const archetype = archetypes.get(value as string);
+      if (archetype) character['@expand'].archetype = archetype as IArchetype;
+    }
+
+    if (attribute === 'background') {
+      const background = backgrounds.get(value as string);
+      if (background) character['@expand'].background = background as IBackground;
     }
 
     if (attribute === 'gender') range = getRange(race);
@@ -122,30 +142,37 @@
     event.preventDefault();
 
     try {
-      const { id, name, age, gender, race, archetype, background, height, weight } = character;
-      const responseCharacter = await request<ICharacter>('/api/characters', id ? 'PATCH' : 'PUT', {
-        id,
-        name,
-        age,
-        gender,
-        race,
-        archetype,
-        background,
-        height,
-        weight,
-        portraits: portraitIds
-      });
+      isLoading = true;
+      const { id, name, age, gender, race, archetype, background, height, weight, bio, tags } =
+        character;
+      const expand = 'race,archetype,background,portraits';
+      const responseCharacter = await request<ICharacter>(
+        `/api/characters?expand=${expand}`,
+        id ? 'PATCH' : 'PUT',
+        {
+          id,
+          name,
+          age,
+          gender,
+          race,
+          archetype,
+          background,
+          height,
+          weight,
+          portraits: portraitIds,
+          bio,
+          tags
+        }
+      );
 
       onSubmit(responseCharacter);
       open = false;
     } catch (error) {
       report('character editor', error);
       toastError(error);
+    } finally {
+      isLoading = false;
     }
-  };
-
-  const handleCancel = () => {
-    open = false;
   };
 
   const handleDelete = async () => {
@@ -220,7 +247,7 @@
             <div>{$t('common.character.name')}:</div>
             <div>
               <TextInput value={character.name} onChange={handleValueChange('name')} />
-              <RandomizeButton onClick={randomizeName} />
+              <IconButton onClick={randomizeName}>🎲</IconButton>
             </div>
           </div>
 
@@ -229,7 +256,7 @@
             <div>
               <NumberInput value={character.age} onChange={handleValueChange('age')} />
               <span class="extent">{range?.age}</span>
-              <RandomizeButton onClick={randomizeAge} />
+              <IconButton onClick={randomizeAge}>🎲</IconButton>
             </div>
           </div>
 
@@ -238,7 +265,7 @@
             <div>
               <NumberInput value={character.height} onChange={handleValueChange('height')} />
               <span class="extent">{range?.height}</span>
-              <RandomizeButton onClick={randomizeHeight} />
+              <IconButton onClick={randomizeHeight}>🎲</IconButton>
             </div>
           </div>
 
@@ -247,30 +274,37 @@
             <div>
               <NumberInput value={character.weight} onChange={handleValueChange('weight')} />
               <span class="extent">{range?.weight}</span>
-              <RandomizeButton onClick={randomizeWeight} />
+              <IconButton onClick={randomizeWeight}>🎲</IconButton>
             </div>
           </div>
         </div>
       </div>
+
+      <TagsEditor bind:tags={character.tags} tagsMap={tags} {openEditorDialog} />
+      <BiographyEditor {character} {tags} onChange={handleValueChange('bio')} />
     </div>
 
     <div class="actions">
       <div>
         {#if character.id}
-          <Button type="button" style="color: white" on:click={handleDelete}>
-            <Label>{$t('common.controls.delete')}</Label>
-          </Button>
+          <BasicButton disabled={isLoading} variant="text" onClick={handleDelete}>
+            {$t('common.controls.delete')}
+          </BasicButton>
         {/if}
       </div>
 
       <div>
-        <Button type="button" style="color: white" on:click={handleCancel}>
-          <Label>{$t('common.controls.cancel')}</Label>
-        </Button>
+        {#if isLoading}
+          <CircularSpinner size={20} />
+        {/if}
 
-        <Button type="submit" style="color: white">
-          <Label>{$t('common.controls.apply')}</Label>
-        </Button>
+        <BasicButton disabled={isLoading} variant="text" onClick={() => (open = false)}>
+          {$t('common.controls.cancel')}
+        </BasicButton>
+
+        <BasicButton type="submit" variant="text">
+          {$t('common.controls.apply')}
+        </BasicButton>
       </div>
     </div>
   </form>
@@ -285,7 +319,7 @@
     div.content {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 12px;
 
       div.columns {
         display: grid;
@@ -323,6 +357,11 @@
       display: flex;
       justify-content: space-between;
       gap: 8px;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 </style>

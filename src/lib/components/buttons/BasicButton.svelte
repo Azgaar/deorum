@@ -1,11 +1,12 @@
 <script lang="ts">
-  export let variant: 'primary';
-  export let label: string;
-  export let onClick: (event: MouseEvent) => void;
+  export let variant: 'primary' | 'text' = 'primary';
+  export let type: 'button' | 'submit' | 'reset' = 'button';
+  export let onClick = (event: MouseEvent) => {};
+  export let disabled = false;
 </script>
 
-<button class={variant} on:click={onClick}>
-  {label}
+<button {type} {disabled} class={variant} on:click={onClick}>
+  <slot />
 </button>
 
 <style lang="scss">
@@ -19,10 +20,8 @@
     padding: 0 0.8rem;
     cursor: pointer;
     user-select: none;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
-      0px 1px 5px 0px rgb(0 0 0 / 12%);
 
-    color: $text;
+    color: color.adjust($text, $lightness: -10%);
     font-size: 0.8em;
     opacity: 1;
     transition: all 0.2s ease-in-out;
@@ -30,13 +29,24 @@
 
   button.primary {
     background-color: $primary;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
+      0px 1px 5px 0px rgb(0 0 0 / 12%);
+
+    &:hover {
+      background-color: color.scale($primary, $lightness: 5%);
+    }
+
+    &:active {
+      background-color: color.adjust($primary, $lightness: -10%);
+    }
   }
 
-  button.primary:hover {
-    background-color: color.adjust($primary, $lightness: -5%);
-  }
+  button.text {
+    background-color: transparent;
+    border: none;
 
-  button:active {
-    background-color: color.adjust($primary, $lightness: -10%);
+    &:hover {
+      color: $text;
+    }
   }
 </style>

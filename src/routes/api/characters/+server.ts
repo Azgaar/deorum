@@ -36,10 +36,11 @@ export const PUT: RequestHandler = async ({ request }) => {
   }
 };
 
-export const PATCH: RequestHandler = async ({ request }) => {
+export const PATCH: RequestHandler = async ({ request, url }) => {
   try {
+    const expand = url.searchParams.get('expand') || '';
     const data = await request.json();
-    const character = await admin.records.update('characters', data.id, data);
+    const character = await admin.records.update('characters', data.id, data, { expand });
     log('characters', `Update character ${data.id}`, data);
     await updatePortraits(character.portraits, character.id);
     return new Response(JSON.stringify(character));
