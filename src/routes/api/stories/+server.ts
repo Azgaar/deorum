@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request }) => {
     log('story', `Generated story for ${tokens} tokens for prompt:\n${prompt}\n=>\n${story}`);
     return new Response(JSON.stringify({ story }));
   } catch (err) {
-    report('story', err, prompt);
+    report('story', err);
     throw createServerError(err);
   }
 };
