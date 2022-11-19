@@ -57,8 +57,6 @@
   let isLoading = false;
   let isDeleteInitiated = false;
 
-  $: console.log('editor', current.tags);
-
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
 

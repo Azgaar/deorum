@@ -2,29 +2,43 @@
   import { t } from '$lib/locales/translations';
   import IconButton from '../../IconButton.svelte';
 
-  import type { ICharacter } from '$lib/types/api.types';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-  import { selectSections } from '$lib/utils/characters';
+  import { createBasicPrompt } from '$lib/utils/characters';
+  import { request } from '$lib/utils/requests';
+  import { toastError, toastSuccess } from '$lib/stores';
+  import { report } from '$lib/utils/log';
+
+  import type { ICharacter } from '$lib/types/api.types';
 
   export let character: ICharacter;
+  export let tags: Map<string, { name: string }>;
   export let onChange: (value: string) => void;
 
   let isLoading = false;
-  $: console.log(character);
 
-  const doNothing = () => {
-    // do nothing
+  const showOptions = () => {
+    // TODO: Implement
   };
 
-  const generateBio = () => {
-    isLoading = true;
+  const copyBio = () => {
+    navigator.clipboard.writeText(character.bio).then(
+      () => toastSuccess($t('admin.success.copied')),
+      () => toastError($t('admin.errors.copy'))
+    );
+  };
 
-    const sections = selectSections();
-    // Biography of a dark fantasy character.
-    // Male Elf, 110 years old, height 187, weight 61. Name: Ayas Zylrie. Archetype: lover. Background: spy.
-    // Tags: young, male, long-eared, dark-skinned.
-    // Contains sections: Family origin, Birthplace, Childhood home, Early Life, Later development, Current occupation, Work motive, Best friend, Marriage, Afraid of, Personality, Life credo, Trinke, Symbol.
-    // High quality text, detailed biography in Dark Fantasy style. Dark Fantasy character biography.
+  const generateBio = async () => {
+    try {
+      isLoading = true;
+      const prompt = createBasicPrompt(character, tags);
+      const { story } = await request<{ story: string }>('/api/stories', 'POST', { prompt });
+      onChange(story.trim());
+    } catch (err) {
+      report('story generator', err);
+      toastError(err);
+    } finally {
+      isLoading = false;
+    }
   };
 </script>
 
@@ -32,7 +46,7 @@
   <div class="label">
     <label for="bio">{$t('common.character.bio')}:</label>
     <div>
-      <IconButton onClick={doNothing}>⚙️</IconButton>
+      <IconButton onClick={copyBio}>📋</IconButton>
       {#if isLoading}
         <IconButton disabled onClick={generateBio}>
           <CircularSpinner size={16} />
@@ -40,6 +54,7 @@
       {:else}
         <IconButton onClick={generateBio}>🎲</IconButton>
       {/if}
+      <IconButton onClick={showOptions}>⚙️</IconButton>
     </div>
   </div>
   <textarea

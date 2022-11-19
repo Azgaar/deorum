@@ -307,12 +307,14 @@
   "success": {
     "uploaded": "Successfully uploaded",
     "changesSaved": "Changes are saved",
-    "delected": "Successfully deleted"
+    "delected": "Successfully deleted",
+    "copied": "Copied to you clipboard"
   },
   "errors": {
     "selectOriginal": "Please select original image",
     "selectColor": "Please select at least one color",
     "selectStyle": "Please select at least one style",
-    "selectTag": "Please select at least one tag"
+    "selectTag": "Please select at least one tag",
+    "copy": "Copy failed. Please copy manually"
   }
 }
