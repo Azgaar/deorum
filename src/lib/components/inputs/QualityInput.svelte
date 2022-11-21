@@ -38,6 +38,7 @@
 
       span {
         pointer-events: none;
+        white-space: nowrap;
       }
 
       span:not(.current) {

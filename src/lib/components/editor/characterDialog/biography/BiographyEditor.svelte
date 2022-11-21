@@ -15,9 +15,17 @@
   export let onChange: (value: string) => void;
 
   let isLoading = false;
+  let customPrompt = '';
+  let showPrompt = false;
 
-  const showOptions = () => {
-    // TODO: Implement
+  const togglePrompt = () => {
+    if (showPrompt) {
+      showPrompt = false;
+      return;
+    }
+
+    if (!customPrompt) customPrompt = createBasicPrompt(character, tags);
+    showPrompt = true;
   };
 
   const copyBio = () => {
@@ -30,7 +38,7 @@
   const generateBio = async () => {
     try {
       isLoading = true;
-      const prompt = createBasicPrompt(character, tags);
+      const prompt = showPrompt && customPrompt ? customPrompt : createBasicPrompt(character, tags);
       const { story } = await request<{ story: string }>('/api/stories', 'POST', { prompt });
       onChange(story.trim());
     } catch (err) {
@@ -42,7 +50,7 @@
   };
 </script>
 
-<div class="bio">
+<div class="bioEditor">
   <div class="label">
     <label for="bio">{$t('common.character.bio')}:</label>
     <div>
@@ -54,19 +62,18 @@
       {:else}
         <IconButton onClick={generateBio}>🎲</IconButton>
       {/if}
-      <IconButton onClick={showOptions}>⚙️</IconButton>
+      <IconButton onClick={togglePrompt}>⚙️</IconButton>
     </div>
   </div>
-  <textarea
-    id="bio"
-    value={character.bio}
-    on:input={(e) => onChange(e.currentTarget.value)}
-    rows="30"
-  />
+
+  <div class="textareas">
+    {#if showPrompt}<textarea bind:value={customPrompt} />{/if}
+    <textarea value={character.bio} on:input={(e) => onChange(e.currentTarget.value)} />
+  </div>
 </div>
 
 <style lang="scss">
-  div.bio {
+  div.bioEditor {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -81,20 +88,25 @@
       }
     }
 
-    textArea {
+    div.textareas {
+      display: flex;
+      gap: 8px;
       height: 300px;
-      padding: 8px;
 
-      background-color: $secondary;
-      border: none;
-      border-radius: 4px;
-      outline: none;
+      textArea {
+        padding: 8px;
+        background-color: $secondary;
+        border: none;
+        border-radius: 4px;
+        outline: none;
+        flex: 1;
 
-      // reader mode
-      font-family: Helvetica, sans-serif;
-      font-size: 14px;
-      color: #dee7ea;
-      line-height: 1.3;
+        // reader mode
+        font-family: Helvetica, sans-serif;
+        font-size: 14px;
+        color: #dee7ea;
+        line-height: 1.3;
+      }
     }
   }
 </style>

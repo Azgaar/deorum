@@ -281,7 +281,10 @@
       </div>
 
       <TagsEditor bind:tags={character.tags} tagsMap={tags} {openEditorDialog} />
-      <BiographyEditor {character} {tags} onChange={handleValueChange('bio')} />
+
+      {#key character.id}
+        <BiographyEditor {character} {tags} onChange={handleValueChange('bio')} />
+      {/key}
     </div>
 
     <div class="actions">
