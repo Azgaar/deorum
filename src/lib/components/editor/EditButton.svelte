@@ -20,7 +20,7 @@
     text-align: left;
 
     cursor: pointer;
-    padding: 0.1em 0.3em;
+    padding: 1px 4px;
     background: rgba($secondary, 0.5);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;

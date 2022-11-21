@@ -67,6 +67,7 @@
     }
 
     try {
+      characters = [];
       const expand = 'race,archetype,background,portraits';
       const promises = characterIds.map((id) =>
         request<ICharacter>(`/api/characters/${id}?expand=${expand}`)
@@ -238,6 +239,12 @@
       <div class="element baseline">
         <div>{$t('admin.editor.characters')}:</div>
         <div class="character">
+          {#if !characters.length}
+            {#each current.characters as characterId (characterId)}
+              <div class="loadingPlaceholder">...</div>
+            {/each}
+          {/if}
+
           {#each characters as character (`${character.id}-${character.updated}`)}
             <EditButton
               onClick={handleCharacterClick(character)}
@@ -410,6 +417,17 @@
 
         div.column2 {
           grid-template-columns: 3fr 2fr;
+        }
+
+        div.loadingPlaceholder {
+          height: 21px;
+          padding: 1px 4px;
+          background: rgba($secondary, 0.5);
+          border-radius: 16px;
+
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
         }
       }
 
