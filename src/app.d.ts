@@ -11,7 +11,7 @@ declare namespace App {
       slug: string;
     };
   }
-  // interface PageError {}
+  // interface Error {}
   // interface Platform {}
 }
 
