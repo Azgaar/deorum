@@ -211,11 +211,26 @@
       isDeleteInitiated = false;
     }
   };
+
+  const converImage = async () => {
+    const buffer = await fetch(image).then((res) => res.arrayBuffer());
+    console.log('converImage', buffer);
+    const output = await fetch('/api/images/convert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/octet-stream' },
+      body: buffer
+    }).then((res) => res.arrayBuffer());
+    console.log('converImage', output);
+    const blob = new Blob([output], { type: 'image/webp' });
+    const src = URL.createObjectURL(blob);
+    console.log('converImage', src);
+    document.getElementById('editorImage')?.setAttribute('src', src);
+  };
 </script>
 
 <section class="editor">
   <header>
-    <img src={image} alt="preview" class:multiple={selectedImages > 1} />
+    <img id="editorImage" src={image} alt="preview" class:multiple={selectedImages > 1} />
     <svg class="selectedImages">
       <text x="33%" y="80%">{selectedImages > 1 ? selectedImages : ''}</text>
     </svg>
@@ -299,6 +314,12 @@
         {/each}
         <EditButton onClick={handleListEdit('styles', styles)} />
       </div>
+    </div>
+
+    <div>
+      <Button variant="raised" on:click={converImage}>
+        <MuiLabel>Convert image</MuiLabel>
+      </Button>
     </div>
 
     <div class="deletionBlock">

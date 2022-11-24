@@ -1,19 +1,17 @@
+import webp from 'webp-converter';
 import type { RequestHandler } from '@sveltejs/kit';
-import { Readable, PassThrough } from 'stream';
-import ffmpeg from 'fluent-ffmpeg';
-import { path } from '@ffmpeg-installer/ffmpeg';
 
 import { createServerError } from '$lib/utils/errors';
 
-ffmpeg.setFfmpegPath(path);
+webp.grant_permission();
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
-    const { buffer } = await request.json();
-    const fileBuffer = Buffer.from(buffer as ArrayBuffer);
+    const buffer = await request.arrayBuffer();
+    console.log('Converter buffer', buffer);
+    const fileBuffer = Buffer.from(buffer);
     console.log('Converter fileBuffer', fileBuffer);
-    const stream = bufferToStream(fileBuffer);
-    const output = await convertImage(stream, 'webp');
+    const output = await convertImage(fileBuffer);
     console.log('Converter output', output);
     return new Response(output, { headers: { 'Content-Type': 'image/webp' } });
   } catch (err) {
@@ -22,33 +20,10 @@ export const POST: RequestHandler = async ({ request }) => {
   }
 };
 
-function bufferToStream(buffer: Buffer): Readable {
-  const readable = new Readable();
-  readable._read = function () {
-    console.log('noop');
-  };
-  readable.push(buffer);
-  readable.push(null);
-  return readable;
-}
-
-function convertImage(stream: Readable, toFormat: string): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    const passthrough = new PassThrough();
-
-    ffmpeg()
-      .input(stream)
-      .outputFormat(toFormat)
-      .on('error', reject)
-      .stream(passthrough, { end: true });
-
-    passthrough.on('data', (data) => chunks.push(data));
-    passthrough.on('error', reject);
-    passthrough.on('end', () => {
-      const originalImage = Buffer.concat(chunks);
-      const editedImage = originalImage.copyWithin(4, -4).slice(0, -4);
-      return resolve(editedImage);
-    });
-  });
+async function convertImage(buffer: Buffer): Promise<Buffer> {
+  const promise = webp.buffer2webpbuffer(buffer, 'jpg', '-q 80') as Promise<Buffer>;
+  console.log('convertImage', promise);
+  const result = await promise;
+  console.log('convertImage', result);
+  return result;
 }
