@@ -3,8 +3,6 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 import { createServerError } from '$lib/utils/errors';
 
-webp.grant_permission();
-
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const buffer = await request.arrayBuffer();
