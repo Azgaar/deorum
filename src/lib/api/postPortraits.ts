@@ -3,14 +3,17 @@ import { changeableKeys, type TEditorData, type IUploadedPortrait } from '$lib/t
 import { log } from '$lib/utils/log';
 import { postForm } from '$lib/utils/requests';
 import { pluralize } from '$lib/utils/string';
+import { converImage } from './convertImage';
 
 export async function postPortraits(uploaded: IUploadedPortrait[], editorData: TEditorData) {
-  // const promises = uploaded.map(({ src }) => fetch(src).then((res) => res.arrayBuffer()));
+  const images = await Promise.all(uploaded.map(({ file }) => converImage(file)));
 
-  const promises = uploaded.map(({ file }) => {
+  console.log('images', images);
+
+  const promises = images.map((image) => {
     const formData = createFormData(editorData);
     formData.set('active', 'true');
-    formData.set('image', file);
+    formData.set('image', image);
     return postForm<IPortrait>('/api/portraits', formData);
   });
 

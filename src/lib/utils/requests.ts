@@ -15,10 +15,7 @@ export const request = async <T>(
 };
 
 export const postForm = async <T>(url: string, formData: FormData): Promise<T> => {
-  const res = await fetch(url, {
-    method: 'POST',
-    body: formData
-  });
+  const res = await fetch(url, { method: 'POST', body: formData });
   const body = await res.json();
   if (!res.ok) throw new Error(body.message || res.statusText);
   return body;
