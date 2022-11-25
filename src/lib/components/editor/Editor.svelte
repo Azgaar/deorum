@@ -224,13 +224,13 @@
 
     const blob = new Blob([output], { type: 'image/webp' });
     const src = URL.createObjectURL(blob);
-    document.getElementById('editorImage')?.setAttribute('src', src);
+    image = src;
   };
 </script>
 
 <section class="editor">
   <header>
-    <img id="editorImage" src={image} alt="preview" class:multiple={selectedImages > 1} />
+    <img src={image} alt="preview" class:multiple={selectedImages > 1} />
     <svg class="selectedImages">
       <text x="33%" y="80%">{selectedImages > 1 ? selectedImages : ''}</text>
     </svg>

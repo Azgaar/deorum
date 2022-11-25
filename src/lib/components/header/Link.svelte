@@ -6,11 +6,13 @@
 
   export let link: ILink;
   const { id, key, to, reload, prefetch } = link;
+
+  const isActive = $page?.route?.id?.includes(id);
 </script>
 
 <a
   href={to}
-  class:active={$page.route.id?.includes(id)}
+  class:active={isActive}
   data-sveltekit-reload={reload ? '' : undefined}
   data-sveltekit-prefetch={prefetch ? '' : undefined}
 >
