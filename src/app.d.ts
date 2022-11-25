@@ -21,4 +21,4 @@ interface HTMLImageElement extends HTMLElement {
 
 declare const APP_VERSION: string;
 
-declare module 'memory-cache';
+declare module 'webp-converter';

@@ -1,27 +1,31 @@
 import webp from 'webp-converter';
 import type { RequestHandler } from '@sveltejs/kit';
 
+import { log, report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    const contentType = request.headers.get('content-type');
+    const imageType = contentType?.split('/')[1] ?? 'jpg';
+
     const buffer = await request.arrayBuffer();
-    console.log('Converter buffer', buffer);
     const fileBuffer = Buffer.from(buffer);
-    console.log('Converter fileBuffer', fileBuffer);
-    const output = await convertImage(fileBuffer);
-    console.log('Converter output', output);
+    const output = await convertImage(fileBuffer, imageType);
+
+    log(
+      'Image conversion',
+      `Converted ${imageType} to webp. Size reduced from ${fileBuffer.length} to ${output.length}`
+    );
     return new Response(output, { headers: { 'Content-Type': 'image/webp' } });
   } catch (err) {
-    // report('characters', err);
+    report('Image conversion', err);
     throw createServerError(err);
   }
 };
 
-async function convertImage(buffer: Buffer): Promise<Buffer> {
-  const promise = webp.buffer2webpbuffer(buffer, 'jpg', '-q 80', '/tmp/') as Promise<Buffer>;
-  console.log('convertImage', promise);
+async function convertImage(buffer: Buffer, type: string): Promise<Buffer> {
+  const promise = webp.buffer2webpbuffer(buffer, type, '-q 80', '/tmp/') as Promise<Buffer>;
   const result = await promise;
-  console.log('convertImage', result);
   return result;
 }

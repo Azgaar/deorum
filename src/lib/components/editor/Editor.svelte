@@ -213,17 +213,17 @@
   };
 
   const converImage = async () => {
-    const buffer = await fetch(image).then((res) => res.arrayBuffer());
-    console.log('converImage', buffer);
+    const input = await fetch(image).then((res) => res.arrayBuffer());
+    const imageType = image.split('.').pop();
+
     const output = await fetch('/api/images/convert', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/octet-stream' },
-      body: buffer
+      headers: { 'Content-Type': `image/${imageType}` },
+      body: input
     }).then((res) => res.arrayBuffer());
-    console.log('converImage', output);
+
     const blob = new Blob([output], { type: 'image/webp' });
     const src = URL.createObjectURL(blob);
-    console.log('converImage', src);
     document.getElementById('editorImage')?.setAttribute('src', src);
   };
 </script>

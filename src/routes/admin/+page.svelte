@@ -366,7 +366,7 @@
   style="display: none;"
   id="filesInput"
   type="file"
-  accept="image/jpg, image/jpeg, image/png"
+  accept="image/webp, image/jpg, image/jpeg, image/png"
   multiple
 />
 
