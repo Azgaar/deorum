@@ -21,7 +21,7 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 async function convertImage(buffer: Buffer): Promise<Buffer> {
-  const promise = webp.buffer2webpbuffer(buffer, 'jpg', '-q 80') as Promise<Buffer>;
+  const promise = webp.buffer2webpbuffer(buffer, 'jpg', '-q 80', '/tmp/') as Promise<Buffer>;
   console.log('convertImage', promise);
   const result = await promise;
   console.log('convertImage', result);
