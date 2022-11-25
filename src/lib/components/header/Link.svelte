@@ -10,7 +10,7 @@
 
 <a
   href={to}
-  class:active={$page.routeId?.includes(id)}
+  class:active={$page.route.id?.includes(id)}
   data-sveltekit-reload={reload ? '' : undefined}
   data-sveltekit-prefetch={prefetch ? '' : undefined}
 >
