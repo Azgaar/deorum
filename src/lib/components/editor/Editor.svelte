@@ -217,6 +217,7 @@
   const convertImage = async () => {
     try {
       const updatedPortrait = await patchPortraitImage(current.id, image);
+      model.image = updatedPortrait.image;
       image = `${PORTRAITS_IMAGE_PATH}/${current.id}/${updatedPortrait.image}`;
       toastSuccess($t('admin.success.converted'));
     } catch (err) {
