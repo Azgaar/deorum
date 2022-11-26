@@ -14,6 +14,17 @@ export const request = async <T>(
   return body;
 };
 
+export const sendFormData = async <T>(
+  url: string,
+  formData: FormData,
+  method: 'POST' | 'PATCH' | 'PUT'
+): Promise<T> => {
+  const res = await fetch(url, { method, body: formData });
+  const body = await res.json();
+  if (!res.ok) throw new Error(body.message || res.statusText);
+  return body;
+};
+
 export function preloadImage(src: string) {
   if (browser) {
     const nextImage = new Image();

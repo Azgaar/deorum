@@ -1,18 +1,18 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { changeableKeys, type TEditorData, type IUploadedPortrait } from '$lib/types/editor.types';
 import { log } from '$lib/utils/log';
+import { sendFormData } from '$lib/utils/requests';
 import { pluralize } from '$lib/utils/string';
-import admin from './admin';
+import { convertImageFile } from './convertImage';
 
 export async function postPortraits(uploaded: IUploadedPortrait[], editorData: TEditorData) {
-  const promises = uploaded.map(({ file }) => {
+  const images = await Promise.all(uploaded.map(({ file }) => convertImageFile(file)));
+
+  const promises = images.map((image) => {
     const formData = createFormData(editorData);
     formData.set('active', 'true');
-    formData.set('image', file);
-
-    return admin.records.create('portraits', formData, {
-      $autoCancel: false
-    }) as unknown as Promise<IPortrait>;
+    formData.set('image', image);
+    return sendFormData<IPortrait>('/api/portraits', formData, 'POST');
   });
 
   const results = await Promise.all(promises);

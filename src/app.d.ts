@@ -11,7 +11,7 @@ declare namespace App {
       slug: string;
     };
   }
-  // interface PageError {}
+  // interface Error {}
   // interface Platform {}
 }
 
@@ -21,4 +21,4 @@ interface HTMLImageElement extends HTMLElement {
 
 declare const APP_VERSION: string;
 
-declare module 'memory-cache';
+declare module 'webp-converter';

@@ -11,8 +11,7 @@
   import Filters from '$lib/components/filters/Filters.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { getPortraits, patchPortraits, postPortraits } from '$lib/api';
-  import { deletePortraits } from '$lib/api/deletePortraits';
+  import { getPortraits, patchPortraits, postPortraits, deletePortraits } from '$lib/api';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
@@ -366,7 +365,7 @@
   style="display: none;"
   id="filesInput"
   type="file"
-  accept="image/jpg, image/jpeg, image/png"
+  accept="image/webp, image/jpg, image/jpeg, image/png"
   multiple
 />
 

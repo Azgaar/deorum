@@ -3,9 +3,10 @@
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let onClick = (event: MouseEvent) => {};
   export let disabled = false;
+  export let style = '';
 </script>
 
-<button {type} {disabled} class={variant} on:click={onClick}>
+<button {type} {disabled} {style} class={variant} on:click={onClick}>
   <slot />
 </button>
 

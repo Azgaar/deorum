@@ -1,10 +1,11 @@
 <script lang="ts">
-  import Button, { Label as MuiLabel } from '@smui/button';
+  import MuiButton, { Label as MuiLabel } from '@smui/button';
 
-  import admin from '$lib/api/admin';
+  import { patchPortraitImage } from '$lib/api';
   import { getChanges } from '$lib/api/patchPortraits';
   import Chip from '$lib/components/editor/chips/Chip.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Label from '$lib/components/label/Label.svelte';
   import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
@@ -28,6 +29,7 @@
     TPatchHandler,
     TPostHandler
   } from '$lib/types/editor.types';
+  import { convertableImageTypes, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { request } from '$lib/utils/requests';
 
   export let model: TEditorData;
@@ -57,6 +59,7 @@
   let isLoading = false;
   let isDeleteInitiated = false;
 
+  $: isConvertable = convertableImageTypes.includes(image.split('.').pop() || '');
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
 
@@ -157,7 +160,6 @@
     };
 
   const handleCancel = () => {
-    admin.cancelAllRequests();
     handleClearSelection();
   };
 
@@ -193,7 +195,7 @@
     if (isDeleteInitiated) {
       setTimeout(() => {
         isDeleteInitiated = false;
-      }, 4000);
+      }, 7000);
     }
   };
 
@@ -209,6 +211,17 @@
     } finally {
       isLoading = false;
       isDeleteInitiated = false;
+    }
+  };
+
+  const convertImage = async () => {
+    try {
+      const updatedPortrait = await patchPortraitImage(current.id, image);
+      image = `${PORTRAITS_IMAGE_PATH}/${current.id}/${updatedPortrait.image}`;
+      toastSuccess($t('admin.success.converted'));
+    } catch (err) {
+      report('editor', err, current);
+      toastError(err);
     }
   };
 </script>
@@ -301,36 +314,41 @@
       </div>
     </div>
 
-    <div class="deletionBlock">
-      <Button variant="raised" on:click={initiateDeletion}>
-        <MuiLabel
-          >{$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}</MuiLabel
-        >
-      </Button>
+    {#if isConvertable}
+      <div>
+        <BasicButton onClick={convertImage}>
+          {$t('admin.editor.convertImage')}
+        </BasicButton>
+      </div>
+    {/if}
 
-      <Button
-        variant="raised"
-        on:click={triggerDeletion}
+    <div class="deletionBlock">
+      <BasicButton onClick={initiateDeletion}>
+        {$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}
+      </BasicButton>
+
+      <BasicButton
+        onClick={triggerDeletion}
         style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
       >
-        <MuiLabel>{$t('common.controls.confirm')}</MuiLabel>
-      </Button>
+        {$t('common.controls.confirm')}
+      </BasicButton>
     </div>
   </main>
 
   <footer>
-    <Button variant="raised" on:click={handleCancel} style="width: 50%;">
+    <MuiButton variant="raised" on:click={handleCancel} style="width: 50%;">
       <MuiLabel>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</MuiLabel>
-    </Button>
+    </MuiButton>
 
-    <Button
+    <MuiButton
       variant="raised"
       on:click={handleChangesSave}
       disabled={!isChanged || isLoading}
       style="width: 50%;"
     >
       <MuiLabel>{$t('common.controls.save')}</MuiLabel>
-    </Button>
+    </MuiButton>
   </footer>
 </section>
 
