@@ -5,8 +5,6 @@ import { log, report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
 
 export const POST: RequestHandler = async ({ request }) => {
-  console.log('hello');
-
   try {
     const contentType = request.headers.get('content-type');
     const imageType = contentType?.split('/')[1] ?? 'jpg';
@@ -21,7 +19,9 @@ export const POST: RequestHandler = async ({ request }) => {
 
     log(
       'Image conversion',
-      `Converted ${imageType} to webp. Size reduced from ${request} to ${newSize} kb (${percent}%)`
+      `Converted ${imageType} to webp. Size reduced from ${oldSize.toFixed(2)} to ${newSize.toFixed(
+        2
+      )} kb (${percent}%)`
     );
 
     return new Response(output, { headers: { 'Content-Type': 'image/webp' } });

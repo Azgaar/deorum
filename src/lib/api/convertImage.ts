@@ -20,7 +20,6 @@ export const convertImageFile = async (file: File) => {
 export const convertImageUrl = async (src: string) => {
   const type = `image/${src.split('.').pop()}`;
   const arrayBuffer = await fetch(src).then((res) => res.arrayBuffer());
-  console.log('convertImageUrl', src, type, arrayBuffer);
 
   if (!convertableMimeTypes.includes(type)) {
     const oldFilename = src.split('/').pop() as string;

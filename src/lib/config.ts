@@ -27,5 +27,5 @@ export const qualities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 export const MATCH_TAGS_NUMBER = 6;
 export const MATCH_NAMES_NUMBER = 5;
 
-export const convertableImageTypes = ['png', 'jpeg', 'jpg', 'gif', 'webp'];
+export const convertableImageTypes = ['png', 'jpeg', 'jpg', 'gif'];
 export const defaultFileName = 'deorum';
