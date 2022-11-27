@@ -1,0 +1,19 @@
+export const humanMaleNames = [
+  'Aarav',
+  'Aarush',
+  'Abdul',
+  'Abdullah',
+  'Abe',
+  'Abel',
+  'Abraham',
+  'Abram',
+  'Ace',
+  'Adam',
+  'Adan',
+  'Adolfo',
+  'Adolph',
+  'Adrian',
+  'Adrien',
+  'Ahmad',
+  'Ahmed'
+];

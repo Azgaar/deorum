@@ -60,9 +60,9 @@
   const randomizeName = async () => {
     try {
       const raceName = races.get(character.race)?.name || '';
-      const url = `/api/names/ironarachne?quantity=1&race=${raceName}&type=${character.gender}`;
-      const names = await request<string[]>(url);
-      character.name = names[0] || '';
+      const body = { race: raceName, gender: character.gender };
+      const name = await request<string>('/api/names', 'POST', body);
+      character.name = name;
     } catch (err) {
       report('character editor', err);
       toastError(err);

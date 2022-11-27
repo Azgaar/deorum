@@ -28,3 +28,13 @@ export const getRandomNumber = ({
   if (max && value > max) return max;
   return value;
 };
+
+export const getRandomElement = <T>(array: T[]) => {
+  return array[Math.floor(Math.random() * array.length)];
+};
+
+export const weight = (weights: { [key: string]: number }): string[] => {
+  return Object.entries(weights)
+    .map(([choise, weight]) => new Array(weight).fill(choise))
+    .flat();
+};
