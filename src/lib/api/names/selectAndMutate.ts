@@ -31,11 +31,12 @@ const consonants = weight({
   Z: 2
 });
 
-export const selectAndMutate = (names: string[]) => {
+export const selectAndMutate = (names: string[], filter: boolean) => {
   const source = getRandomElement(names);
   const firstLetter = source[0];
-  const isVowel = vowels.includes(firstLetter);
-  const replacement = isVowel ? getRandomElement(vowels) : getRandomElement(consonants);
+  let letters = vowels.includes(firstLetter) ? vowels : consonants;
+  if (filter) letters = letters.filter((letter) => letter !== firstLetter);
+  const replacement = getRandomElement(letters);
 
   return source.replace(firstLetter, replacement);
 };

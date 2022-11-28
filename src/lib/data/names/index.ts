@@ -1,12 +1,21 @@
+import { selectAndCombine } from '$lib/api/names/selectAndCombine';
 import { selectAndMutate } from '$lib/api/names/selectAndMutate';
+import { getRandomElement } from '$lib/utils/probability';
+
+import { dwarfClanAdj } from './dwarf-clan-adj';
+import { dwarfClanNounAdj } from './dwarf-clan-noun';
+import { dwarfFeMaleNames } from './dwarf-female';
+import { dwarfMaleNames } from './dwarf-male';
+import { gnomeFemaleNames } from './gnome-female';
+import { gnomeMaleNames } from './gnome-male';
 import { humanFemaleNames } from './human-female';
 import { humanMaleNames } from './human-male';
 
-// human
+// human +
 // elf
 // half-elf
-// dwarf
-// gnome
+// dwarf ?
+// gnome ?
 // orc
 // half-orc
 // goblin
@@ -37,28 +46,28 @@ import { humanMaleNames } from './human-male';
 
 interface INamesData {
   [race: string]: {
-    male: INamesDataElement;
-    female: INamesDataElement;
+    male: () => string;
+    female: () => string;
+    clan?: () => string;
+    clanChance?: number;
   };
-}
-
-interface INamesDataElement {
-  names: string[]; // list of source names
-  selected: number; // chance to just select a random name from the list, not generate
-  method: (names: string[]) => string; // generation function
 }
 
 export const namesData: INamesData = {
   human: {
-    male: {
-      names: humanMaleNames,
-      method: selectAndMutate,
-      selected: 0.05 // 5%
-    },
-    female: {
-      names: humanFemaleNames,
-      method: selectAndMutate,
-      selected: 0.05 // 5%
-    }
+    male: () => selectAndMutate(humanMaleNames, true),
+    female: () => selectAndMutate(humanFemaleNames, true),
+    clanChance: 0
+  },
+  dwarf: {
+    male: () => getRandomElement(dwarfMaleNames),
+    female: () => getRandomElement(dwarfFeMaleNames),
+    clan: () => selectAndCombine(dwarfClanAdj, dwarfClanNounAdj),
+    clanChance: 1
+  },
+  gnome: {
+    male: () => selectAndMutate(gnomeMaleNames, false),
+    female: () => selectAndMutate(gnomeFemaleNames, false),
+    clanChance: 0
   }
 };
