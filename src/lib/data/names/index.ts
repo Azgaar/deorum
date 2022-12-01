@@ -1,5 +1,6 @@
 import { selectAndCombine } from '$lib/api/names/selectAndCombine';
 import { selectAndMutate } from '$lib/api/names/selectAndMutate';
+import { selectAndReplaceFirstLetter } from '$lib/api/names/selectAndReplaceFirstLetter';
 import { getRandomElement } from '$lib/utils/probability';
 
 import { dwarfClanAdj } from './dwarf-clan-adj';
@@ -55,8 +56,8 @@ interface INamesData {
 
 export const namesData: INamesData = {
   human: {
-    male: () => selectAndMutate(humanMaleNames, true),
-    female: () => selectAndMutate(humanFemaleNames, true),
+    male: () => selectAndReplaceFirstLetter(humanMaleNames, true),
+    female: () => selectAndReplaceFirstLetter(humanFemaleNames, true),
     clanChance: 0
   },
   dwarf: {
@@ -66,8 +67,8 @@ export const namesData: INamesData = {
     clanChance: 1
   },
   gnome: {
-    male: () => selectAndMutate(gnomeMaleNames, false),
-    female: () => selectAndMutate(gnomeFemaleNames, false),
+    male: () => selectAndMutate(gnomeMaleNames, 1),
+    female: () => selectAndMutate(gnomeFemaleNames, 1),
     clanChance: 0
   }
 };
