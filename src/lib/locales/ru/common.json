@@ -109,7 +109,15 @@
     "sage": "мудрец",
     "trickster": "озорник",
     "creator": "созидатель",
-    "merchant": "торговец"
+    "merchant": "торговец",
+    "companion": "компаньон",
+    "villain": "злодей",
+    "damsel": "дама",
+    "outcast": "изгой",
+    "chosen-one": "избранный",
+    "rebel": "бунтарь",
+    "wanderer": "скиталец",
+    "mentor": "наставник"
   },
   "backgrounds": {
     "knight": "рыцарь",

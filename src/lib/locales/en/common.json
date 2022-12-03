@@ -109,7 +109,15 @@
     "sage": "sage",
     "trickster": "trickster",
     "creator": "creator",
-    "merchant": "merchant"
+    "merchant": "merchant",
+    "companion": "companion",
+    "villain": "villain",
+    "damsel": "damsel",
+    "outcast": "outcast",
+    "chosen-one": "chosen one",
+    "rebel": "rebel",
+    "wanderer": "wanderer",
+    "mentor": "mentor"
   },
   "backgrounds": {
     "knight": "knight",
