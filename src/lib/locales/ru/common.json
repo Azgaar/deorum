@@ -152,6 +152,13 @@
     "doctor": "лекарь",
     "artisan": "ремесленник",
     "merchant": "торговец",
-    "hunter": "hunter"
+    "hunter": "охотник",
+    "fisher": "рыбак",
+    "herbalist": "травник",
+    "battle mage": "боевой маг",
+    "soothsayer": "предсказатель",
+    "surgeon": "хирург",
+    "necromancer": "некромант",
+    "paladin": "паладин"
   }
 }

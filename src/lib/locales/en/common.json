@@ -152,6 +152,13 @@
     "doctor": "doctor",
     "artisan": "artisan",
     "merchant": "merchant",
-    "hunter": "hunter"
+    "hunter": "hunter",
+    "fisher": "fisher",
+    "herbalist": "herbalist",
+    "battle mage": "battle mage",
+    "soothsayer": "soothsayer",
+    "surgeon": "surgeon",
+    "necromancer": "necromancer",
+    "paladin": "paladin"
   }
 }
