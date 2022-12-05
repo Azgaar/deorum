@@ -2,7 +2,7 @@
   "menu": {
     "subtitle": "Admin Panel: Gallery",
     "hint": "Select a portrait to edit it. Check the boxes to select multiple portraits",
-    "filter": "Filter Portraits",
+    "filter": "Filter",
     "upload": "Upload Images",
     "statistics": "Statistics"
   },

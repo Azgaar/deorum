@@ -1,94 +1,30 @@
 <script lang="ts">
   import MuiButton, { Label as MuiLabel } from '@smui/button';
 
-  import { getChanges } from '$lib/api/patchPortraits';
   import Label from '$lib/components/label/Label.svelte';
-  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import { t } from '$lib/locales/translations';
-  import { toastError, toastSuccess } from '$lib/stores';
-  import { log, report } from '$lib/utils/log';
-  import { makePOJO } from '$lib/utils/object';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 
-  import EditButton from '../EditButton.svelte';
-
-  import type {
-    TChangeableKey,
-    TDeleteHandler,
-    TPatchCharacterHandler
-  } from '$lib/types/editor.types';
-  import type { ICharacter } from '$lib/types/api.types';
+  import type { ICharacter, IRace } from '$lib/types/api.types';
 
   export let model: ICharacter;
-  $: current = makePOJO(model);
 
-  // export let portraits: Map<string, { image: string; name: string }>;
-  export let races: { id: string; name: string }[];
-  export let archetypes: { id: string; name: string }[];
-  export let backgrounds: { id: string; name: string }[];
+  export let races: Map<string, IRace>;
+  export let archetypes: Map<string, { name: string }>;
+  export let backgrounds: Map<string, { name: string }>;
+  // export let tags: Map<string, { name: string; image: string }>;
 
   export let handleClearSelection: () => void;
   export let selectedImages: number;
   export let image: string;
+  export let handleEdit = () => {};
 
-  export let handlePatch: TPatchCharacterHandler;
-  export let handleDelete: TDeleteHandler;
-
-  let isChanged = false;
-  let isLoading = false;
-  let isDeleteInitiated = false;
-
-  $: race = races.find(({ id }) => current.race === id)?.name;
-  $: archetype = archetypes.find(({ id }) => current.archetype === id)?.name;
-  $: background = backgrounds.find(({ id }) => current.background === id)?.name;
-
-  $: console.log(race, archetype, background);
-
-  const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
-    if (value !== current[attribute]) {
-      (current[attribute] as string | number) = value;
-      isChanged = true;
-    }
-  };
-
-  const handleChangesSave = async () => {
-    if (!current.race) return toastError($t('admin.errors.selectRace'));
-
-    try {
-      isLoading = true;
-      await handlePatch(current);
-      toastSuccess($t('admin.success.changesSaved'));
-      isChanged = false;
-    } catch (error) {
-      report('editor', error);
-      toastError(error);
-    } finally {
-      isLoading = false;
-    }
-  };
-
-  const initiateDeletion = () => {
-    isDeleteInitiated = !isDeleteInitiated;
-
-    if (isDeleteInitiated) {
-      setTimeout(() => {
-        isDeleteInitiated = false;
-      }, 7000);
-    }
-  };
-
-  const triggerDeletion = async () => {
-    try {
-      isLoading = true;
-      await handleDelete();
-      log('editor', 'Portrait deleted', current);
-      toastSuccess($t('admin.success.deleted'));
-    } catch (err) {
-      report('editor', err, current);
-      toastError(err);
-    } finally {
-      isLoading = false;
-      isDeleteInitiated = false;
-    }
+  const getPortraits = (current: ICharacter) => {
+    const portraits = current?.['@expand']?.portraits || [];
+    const image = portraits.map(
+      ({ id, image }) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}?thumb=100x100`
+    );
+    return image;
   };
 </script>
 
@@ -100,68 +36,71 @@
     </svg>
   </header>
 
-  <main class="editor">
-    <div class="element">
-      <div>{$t('admin.statistics.portraits')}:</div>
-      <div class="grid column2" />
-    </div>
-
-    <div class="element">
-      <div>{$t('common.character.race')}:</div>
-      <div class="grid column2">
-        {#key race}
-          <Label maxWidth="125px" label={{ name: race }} module="common" type="races" />
-        {/key}
-        <EditButton onClick={() => {}} />
+  {#key model}
+    <main class="editor">
+      <div class="grid">
+        <div>{$t('common.character.name')}:</div>
+        <div>{model.name}</div>
       </div>
-    </div>
 
-    <div class="element">
-      <div>{$t('common.character.archetype')}:</div>
-      <div class="grid column2">
-        {#key archetype}
-          <Label maxWidth="125px" label={{ name: archetype }} module="common" type="archetypes" />
-        {/key}
-        <EditButton onClick={() => {}} />
+      <div class="grid">
+        <div>{$t('common.character.gender')}:</div>
+        <Label maxWidth="125px" label={{ name: model.gender }} module="common" type="genders" />
       </div>
-    </div>
 
-    <div class="element">
-      <div>{$t('common.character.background')}:</div>
-      <div class="grid column2">
-        {#key background}
-          <Label maxWidth="125px" label={{ name: background }} module="common" type="backgrounds" />
-        {/key}
-        <EditButton onClick={() => {}} />
+      <div class="grid">
+        <div>{$t('common.character.race')}:</div>
+        <Label
+          maxWidth="125px"
+          label={{ name: races.get(model.race)?.name }}
+          module="common"
+          type="races"
+        />
       </div>
-    </div>
 
-    <div class="deletionBlock">
-      <BasicButton onClick={initiateDeletion}>
-        {$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}
-      </BasicButton>
+      <div class="grid">
+        <div>{$t('common.character.archetype')}:</div>
+        <Label
+          maxWidth="125px"
+          label={{ name: archetypes.get(model.archetype)?.name }}
+          module="common"
+          type="archetypes"
+        />
+      </div>
 
-      <BasicButton
-        onClick={triggerDeletion}
-        style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
-      >
-        {$t('common.controls.confirm')}
-      </BasicButton>
-    </div>
-  </main>
+      <div class="grid">
+        <div>{$t('common.character.background')}:</div>
+        <Label
+          maxWidth="125px"
+          label={{ name: backgrounds.get(model.background)?.name }}
+          module="common"
+          type="backgrounds"
+        />
+      </div>
+
+      <div class="grid">
+        <div>{$t('common.character.bio')}:</div>
+        <div class="clamp">{model.bio}</div>
+      </div>
+
+      <div class="vertical">
+        <div>{$t('admin.statistics.portraits')}:</div>
+        <div class="portraits">
+          {#each getPortraits(model) as src}
+            <img {src} alt="portrait" />
+          {/each}
+        </div>
+      </div>
+    </main>
+  {/key}
 
   <footer>
     <MuiButton variant="raised" on:click={handleClearSelection} style="width: 50%;">
-      <MuiLabel>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</MuiLabel>
+      <MuiLabel>{$t('common.controls.clear')}</MuiLabel>
     </MuiButton>
 
-    <MuiButton
-      variant="raised"
-      on:click={handleChangesSave}
-      disabled={!isChanged || isLoading}
-      style="width: 50%;"
-    >
-      <MuiLabel>{$t('common.controls.save')}</MuiLabel>
+    <MuiButton variant="raised" on:click={handleEdit} style="width: 50%;">
+      <MuiLabel>{$t('common.controls.edit')}</MuiLabel>
     </MuiButton>
   </footer>
 </section>
@@ -176,6 +115,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
+
     @media (max-width: 599px) {
       height: auto;
     }
@@ -223,54 +163,37 @@
       flex-direction: column;
       gap: 0.6rem;
 
-      div.element {
-        display: grid;
-        grid-template-columns: minmax(90px, 1fr) 2fr;
-        gap: 4px;
-        align-items: center;
-        overflow-wrap: anywhere;
-
-        div.character {
-          display: grid;
-          gap: 2px 4px;
-        }
-
-        div.chipsContainer {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2px 4px;
-        }
-
-        div.grid {
-          display: grid;
-          gap: 0.5rem;
-          align-items: center;
-        }
-
-        div.column2 {
-          grid-template-columns: 3fr 2fr;
-        }
-
-        div.loadingPlaceholder {
-          height: 21px;
-          padding: 1px 4px;
-          background: rgba($secondary, 0.5);
-          border-radius: 16px;
-
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-        }
-      }
-
-      div.baseline {
-        align-items: baseline;
-      }
-
-      div.deletionBlock {
+      div.grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 8px;
+
+        .clamp {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
+        }
+      }
+
+      div.vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+
+        .portraits {
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(4, minmax(64px, 1fr));
+          gap: 4px;
+
+          img {
+            height: 100%;
+            width: 100%;
+            border-radius: 4px;
+          }
+        }
       }
     }
 

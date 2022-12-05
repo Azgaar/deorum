@@ -23,20 +23,24 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     const sort = url.searchParams.get('sort') || DEFAULT_SORT;
     const params = new URLSearchParams({ page: page.toString(), filter, sort, expand: EXPAND });
 
-    const [charactersRes, racesData, archetypesData, backgroundsData] = await Promise.all([
-      fetch(`/api/characters?${params.toString()}`),
-      getFullList('races'),
-      getFullList('archetypes'),
-      getFullList('backgrounds')
-    ]);
+    const [charactersRes, racesData, archetypesData, backgroundsData, tagsData] = await Promise.all(
+      [
+        fetch(`/api/characters?${params.toString()}`),
+        getFullList('races'),
+        getFullList('archetypes'),
+        getFullList('backgrounds'),
+        getFullList('tags')
+      ]
+    );
 
     const charactersList = await (<Promise<IListResult<ICharacter>>>charactersRes.json());
     const characters = makePOJO(charactersList.items);
     const hasMore = charactersList.totalPages > 1;
 
-    const races = racesData.map(({ id, name }) => ({ id, name }));
+    const races = racesData.map((race) => makePOJO(race));
     const archetypes = archetypesData.map(({ id, name }) => ({ id, name }));
     const backgrounds = backgroundsData.map(({ id, name }) => ({ id, name }));
+    const tags = tagsData.map(({ id, name, image }) => ({ id, name, image }));
 
     return {
       page,
@@ -46,7 +50,8 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       characters,
       races,
       archetypes,
-      backgrounds
+      backgrounds,
+      tags
     };
   } catch (error) {
     report('admin', error, url);
@@ -60,7 +65,8 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       characters: [],
       races: [],
       archetypes: [],
-      backgrounds: []
+      backgrounds: [],
+      tags: []
     };
   }
 };

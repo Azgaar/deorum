@@ -2,6 +2,8 @@
   import Checkbox from '@smui/checkbox';
 
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
+  import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
+  import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
   import Menu from '$lib/components/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
 
@@ -12,21 +14,23 @@
   import { report } from '$lib/utils/log';
 
   import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
-  import type { TDeleteHandler, TPatchCharacterHandler } from '$lib/types/editor.types';
+  import type { TOpenEditorDialog } from '$lib/types/editor.types';
 
   const EXPAND = 'portraits';
 
   export let data: import('./$types').PageData;
 
-  // incoming data: immutable
-  const { races, archetypes, backgrounds } = data;
+  // incoming data: immutable, turn arrays into maps
+  const races = new Map(data.races.map((race) => [race.id, race]));
+  const archetypes = new Map(data.archetypes.map(({ id, name }) => [id, { name }]));
+  const backgrounds = new Map(data.backgrounds.map(({ id, name }) => [id, { name }]));
+  const tags = new Map(data.tags.map(({ id, name, image }) => [id, { name, image }]));
 
   // incoming data: mutable
   let { page, hasMore, filters, sorting } = data;
 
   // reactive data
   let selected: string[] = [];
-
   $: characters = data.characters || [];
   $: charactersMap = new Map(characters.map((char) => [char.id, char]));
   $: model = getModel(selected);
@@ -77,30 +81,60 @@
     selected = [];
   };
 
-  const createPatchHandler = (): TPatchCharacterHandler => async (current) => {
-    // const results = await patchPortraits(selected, portraitsMap, changes);
-    // const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
-
-    // data.portraits = data.portraits.map((portrait) => {
-    //   const updated = resultsMap.get(portrait.id);
-    //   return updated || portrait;
-    // });
-
-    selected = [];
-  };
-
-  const createDeleteHandler = (): TDeleteHandler => async () => {
-    // await deletePortraits(selected);
-    // data.portraits = data.portraits.filter((portrait) => !selected.includes(portrait.id));
-    selected = [];
-  };
-
   const getMainImage = (item: ICharacter) => {
     const portraits = item['@expand'].portraits as IPortrait[];
     if (!portraits?.length) return '';
 
     const { id, image } = portraits[0];
     return `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
+  };
+
+  let editorDialogData = {
+    open: false,
+    key: '',
+    entries: [] as [string, { image: string; name: string }][],
+    selected: [] as string[],
+    onSubmit: (_: string[]) => {}
+  };
+
+  const openEditorDialog: TOpenEditorDialog = (key, entries, selected, onSubmit) => {
+    editorDialogData = { open: true, key, entries, selected, onSubmit };
+  };
+
+  let editCharacterDialogData = {
+    open: false,
+    character: {} as ICharacter,
+    onSubmit: (_: ICharacter) => {},
+    onDelete: (_: string) => {},
+    portraitIds: [] as string[],
+    races,
+    archetypes,
+    backgrounds,
+    tags,
+    openEditorDialog
+  };
+
+  const createEditHandler = (model: ICharacter) => () => {
+    const onSubmit = (updateCharacter: ICharacter) => {
+      data.characters = data.characters.map((char) =>
+        char.id === updateCharacter.id ? updateCharacter : char
+      );
+      selected = selected;
+    };
+
+    const onDelete = (characterId: string) => {
+      data.characters = data.characters.filter(({ id }) => id !== characterId);
+      selected = [];
+    };
+
+    editCharacterDialogData = {
+      ...editCharacterDialogData,
+      open: true,
+      portraitIds: model.portraits,
+      character: model,
+      onSubmit,
+      onDelete
+    };
   };
 </script>
 
@@ -150,8 +184,7 @@
           {handleClearSelection}
           image={getMainImage(model)}
           selectedImages={selected.length}
-          handlePatch={createPatchHandler()}
-          handleDelete={createDeleteHandler()}
+          handleEdit={createEditHandler(model)}
         />
       </div>
     {:else}
@@ -159,6 +192,9 @@
     {/if}
   </aside>
 </main>
+
+<EditCharacterDialog {...editCharacterDialogData} />
+<EditorDialog {...editorDialogData} />
 
 <style lang="scss">
   @use 'sass:color';

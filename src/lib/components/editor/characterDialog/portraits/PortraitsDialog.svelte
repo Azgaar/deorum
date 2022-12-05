@@ -81,7 +81,12 @@
   };
 </script>
 
-<Dialog bind:open aria-labelledby="portraits-dialog" aria-describedby="portraits-dialog">
+<Dialog
+  bind:open
+  style="max-width: 100%;"
+  aria-labelledby="portraits-dialog"
+  aria-describedby="portraits-dialog"
+>
   <section class="title">
     <div>{$t('common.controls.select')} {$t('admin.statistics.portraits').toLowerCase()}</div>
     <Select value={original} options={originalOptions} onChange={handleOriginalChange} />
@@ -120,6 +125,10 @@
 </Dialog>
 
 <style lang="scss">
+  :global(.mdc-dialog .mdc-dialog__surface) {
+    max-width: 100%;
+  }
+
   section.title {
     padding: 1rem 1.5rem;
     font-size: large;
