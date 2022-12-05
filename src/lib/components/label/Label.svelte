@@ -3,6 +3,7 @@
 
   export let label: ILabel | undefined;
   export let type: string;
+  export let module: string = 'admin';
   export let maxWidth: string = 'unset';
 
   interface ILabel {
@@ -10,7 +11,7 @@
     name?: string;
   }
 
-  let text = label?.name ? $t(`admin.${type}.${label.name}`, { default: label.name }) : '';
+  let text = label?.name ? $t(`${module}.${type}.${label.name}`, { default: label.name }) : '';
 </script>
 
 <div class="label" style="max-width: {maxWidth}">

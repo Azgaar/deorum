@@ -1,7 +1,7 @@
 <script lang="ts">
   import Checkbox from '@smui/checkbox';
 
-  import Editor from '$lib/components/editor/Editor.svelte';
+  import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
@@ -303,14 +303,13 @@
           />
 
           {#if !uploaded.length || selected.includes(item.id)}
-            <div class="checkbox" class:hidden={!selected.length && !selected.includes(item.id)}>
+            <div class="checkbox" class:hidden={!selected.includes(item.id)}>
               <Checkbox
                 on:click={handleCheck(item.id)}
                 checked={selected.includes(item.id)}
                 disabled={uploaded.length > 0}
                 touch
                 ripple={false}
-                class="checkboxInput"
               />
             </div>
           {/if}
@@ -329,7 +328,7 @@
 
   <aside class="pane">
     {#if model}
-      <Editor
+      <PortraitEditor
         {model}
         {originals}
         {tags}
