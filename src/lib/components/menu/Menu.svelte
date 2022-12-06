@@ -50,6 +50,10 @@
       <Label>{$t('admin.menu.filter')}</Label>
     </Button>
 
+    <Button variant="raised">
+      <a href="/characters">{$t('admin.menu.characters')}</a>
+    </Button>
+
     <Button variant="raised" on:click={openStatistics}>
       <Label>{$t('admin.menu.statistics')}</Label>
     </Button>

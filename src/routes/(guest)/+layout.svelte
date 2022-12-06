@@ -22,6 +22,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Deorum</title>
+</svelte:head>
+
 <div class="root" lang={$language}>
   <Header links={getNavLinks($role)} />
 
