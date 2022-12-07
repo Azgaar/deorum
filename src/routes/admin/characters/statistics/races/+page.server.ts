@@ -25,7 +25,7 @@ export const load: import('./$types').PageServerLoad = async () => {
   const statistics: IStatistics[] = Object.entries(aggregated)
     .map(([id, count]) => {
       const { name, image } = racesMap.get(id) || {};
-      const src = image ? `${RACES_IMAGE_PATH}/${id}/${image}` : PLACEHOLDER_IMAGE;
+      const src = image ? `${RACES_IMAGE_PATH}/${id}/${image}?thumb=100x100` : PLACEHOLDER_IMAGE;
       return { name, image: src, count };
     })
     .sort((a, b) => b.count - a.count);
