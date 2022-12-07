@@ -10,10 +10,11 @@ export const GET: RequestHandler = async ({ url }) => {
   try {
     const page = Number(url.searchParams.get('page')) || 1;
     const filter = url.searchParams.get('filter') || '';
+    const sort = url.searchParams.get('sort') || '';
     const expand = url.searchParams.get('expand') || '';
     const PAGE_SIZE = 50;
 
-    const options = { filter, expand };
+    const options = { filter, sort, expand };
     const charactersList = await admin.records.getList('characters', page, PAGE_SIZE, options);
     log('characters', `Loading ${PAGE_SIZE} characters`);
     return new Response(JSON.stringify(charactersList));

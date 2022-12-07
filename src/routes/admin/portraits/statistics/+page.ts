@@ -2,5 +2,5 @@ import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-  throw redirect(308, '/admin/statistics/originals');
+  throw redirect(308, '/admin/portraits/statistics/originals');
 }

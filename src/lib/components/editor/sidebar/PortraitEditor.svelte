@@ -15,7 +15,7 @@
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
 
-  import EditButton from './EditButton.svelte';
+  import EditButton from '../EditButton.svelte';
 
   import type { ICharacter } from '$lib/types/api.types';
   import type {
@@ -239,7 +239,9 @@
     <div class="element">
       <div>{$t('admin.editor.original')}:</div>
       <div class="grid column2">
-        <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
+        {#key originalName}
+          <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
+        {/key}
         <EditButton onClick={handleOriginalChange} />
       </div>
     </div>

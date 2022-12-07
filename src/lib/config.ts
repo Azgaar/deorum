@@ -2,6 +2,7 @@ export const URL = 'https://deorum.fly.dev';
 
 export const ORIGINALS_IMAGE_PATH = `${URL}/api/files/xdi3wpvo8djw6n3`;
 export const PORTRAITS_IMAGE_PATH = `${URL}/api/files/ovnifljz2gtnz5u`;
+export const RACES_IMAGE_PATH = `${URL}/api/files/muaq37oeccoi92j`;
 
 export const COOKIE_NAME = 'pb_auth';
 

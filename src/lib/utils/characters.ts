@@ -26,22 +26,22 @@ export const deriveCharacterLabel = (character: ICharacter): string => {
     .join(', ');
 };
 
-const file = (issue: string, character: ICharacter) => {
-  report('characters', issue, character);
+const file = (issue: string) => {
+  report('characters', issue);
   return false;
 };
 
 export const verifyCharacter = (char: ICharacter) => {
   const portraits = char['@expand'].portraits;
-  if (!portraits?.length) return file(`No portraits for character ${char.id}`, char);
-  if (!char['@expand'].race) return file(`No race data for character ${char.id}`, char);
-  if (!char['@expand'].archetype) return file(`No archetype data for character ${char.id}`, char);
-  if (!char['@expand'].background) return file(`No background data for character ${char.id}`, char);
+  if (!portraits?.length) return file(`No portraits for character ${char.id}`);
+  if (!char['@expand'].race) return file(`No race data for character ${char.id}`);
+  if (!char['@expand'].archetype) return file(`No archetype data for character ${char.id}`);
+  if (!char['@expand'].background) return file(`No background data for character ${char.id}`);
 
   const { name, gender, age } = char;
-  if (!name) return file(`No name for character ${char.id}`, char);
-  if (!gender) return file(`No gender for character ${char.id}`, char);
-  if (!age) return file(`No age for character ${char.id}`, char);
+  if (!name) return file(`No name for character ${char.id}`);
+  if (!gender) return file(`No gender for character ${char.id}`);
+  if (!age) return file(`No age for character ${char.id}`);
 
   return true;
 };
