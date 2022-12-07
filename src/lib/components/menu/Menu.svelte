@@ -10,19 +10,14 @@
   import { VERSION } from '$lib/constants';
   import { user } from '$lib/stores';
   import { logout } from '$lib/api/auth';
+  import { browser } from '$app/environment';
 
   export let openFilters: () => void;
 
   let signin = false;
   let signup = false;
 
-  const triggerUpload = () => {
-    document.getElementById('filesInput')?.click();
-  };
-
-  const openStatistics = () => {
-    goto('/admin/statistics/originals');
-  };
+  let isPortraitsPage = browser ? window.location.pathname.includes('portraits') : true;
 </script>
 
 <section class="menu">
@@ -50,15 +45,23 @@
       <Label>{$t('admin.menu.filter')}</Label>
     </Button>
 
-    <Button variant="raised">
-      <a href="/characters">{$t('admin.menu.characters')}</a>
-    </Button>
+    {#if !isPortraitsPage}
+      <Button variant="raised" on:click={() => goto('./portraits')}>
+        {$t('admin.menu.portraits')}
+      </Button>
+    {/if}
 
-    <Button variant="raised" on:click={openStatistics}>
+    {#if isPortraitsPage}
+      <Button variant="raised" on:click={() => goto('./characters')}>
+        {$t('admin.menu.characters')}
+      </Button>
+    {/if}
+
+    <Button variant="raised" on:click={() => goto('/admin/statistics/originals')}>
       <Label>{$t('admin.menu.statistics')}</Label>
     </Button>
 
-    <Button variant="raised" on:click={triggerUpload}>
+    <Button variant="raised" on:click={() => document.getElementById('filesInput')?.click()}>
       <Label>{$t('admin.menu.upload')}</Label>
     </Button>
 
