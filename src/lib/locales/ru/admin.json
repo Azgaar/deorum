@@ -29,7 +29,11 @@
   },
   "statistics": {
     "portraits": "Портреты",
-    "averageQuality": "Качество"
+    "averageQuality": "Качество",
+    "races": "Расы",
+    "genders": "Гендеры",
+    "archetypes": "Архетипы",
+    "backgrounds": "Предыстории"
   },
   "gallery": {
     "portrait": "Портрет",

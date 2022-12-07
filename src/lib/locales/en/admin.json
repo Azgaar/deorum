@@ -29,7 +29,11 @@
   },
   "statistics": {
     "portraits": "Portraits",
-    "averageQuality": "Mean quality"
+    "averageQuality": "Mean quality",
+    "races": "Races",
+    "genders": "Genders",
+    "archetypes": "Arhcetypes",
+    "backgrounds": "Backgrounds"
   },
   "gallery": {
     "portrait": "Portrait",

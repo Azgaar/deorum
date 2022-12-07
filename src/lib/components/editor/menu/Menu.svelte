@@ -18,6 +18,7 @@
   let signup = false;
 
   let isPortraitsPage = browser ? window.location.pathname.includes('portraits') : true;
+  let page = isPortraitsPage ? 'portraits' : 'characters';
 </script>
 
 <section class="menu">
@@ -57,7 +58,7 @@
       </Button>
     {/if}
 
-    <Button variant="raised" on:click={() => goto('/admin/statistics/originals')}>
+    <Button variant="raised" on:click={() => goto(`./${page}/statistics`)}>
       <Label>{$t('admin.menu.statistics')}</Label>
     </Button>
 

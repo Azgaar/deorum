@@ -85,6 +85,7 @@ export interface ICharacter extends IRecord {
 
 export interface IRace extends IRecord {
   name: string;
+  image: string;
 
   ageMean: number;
   ageDeviation: number;

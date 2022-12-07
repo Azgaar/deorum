@@ -9,14 +9,23 @@
     }[];
   };
 
-  export let type: 'colors' | 'styles' | 'tags' | 'quality';
+  export let type:
+    | 'colors'
+    | 'styles'
+    | 'tags'
+    | 'quality'
+    | 'races'
+    | 'genders'
+    | 'archetypes'
+    | 'backgrounds';
+  export let module: 'admin' | 'common' = 'admin';
 </script>
 
 <div class="container">
   {#each data.statistics as stats (stats.name)}
     <div class="item">
-      {#if stats.name}<div class="name">{$t(`admin.${type}.${stats.name}`)}</div>{/if}
-      <img src={stats.image} alt={stats.name} />
+      {#if stats.name}<div class="name">{$t(`${module}.${type}.${stats.name}`)}</div>{/if}
+      {#if stats.image}<img src={stats.image} alt={stats.name} />{/if}
       <div>{stats.count}</div>
     </div>
   {/each}

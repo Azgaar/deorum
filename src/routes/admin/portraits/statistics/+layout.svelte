@@ -7,7 +7,7 @@
     { id: 'styles', key: 'admin.editor.styles', to: './styles' },
     { id: 'colors', key: 'admin.editor.colors', to: './colors' },
     { id: 'quality', key: 'admin.editor.quality', to: './quality' },
-    { id: 'back', key: 'common.controls.back', to: '/admin' }
+    { id: 'back', key: 'common.controls.back', to: '/admin/portraits' }
   ];
 </script>
 

@@ -8,6 +8,7 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import { request } from '$lib/utils/requests';
   import { blankRace } from '$lib/data/races';
+  import { genders } from '$lib/data/genders';
   import { getRandomNumber } from '$lib/utils/probability';
   import { report } from '$lib/utils/log';
   import { toastError } from '$lib/stores';
@@ -39,8 +40,7 @@
     ...Array.from(map).map(([value, { name }]) => [value, `common.${category}.${name}`])
   ];
 
-  const genders = new Map(['male', 'female', 'non-binary'].map((v) => [v, { name: v }]));
-  const genderOptions = createOptions(genders, 'genders');
+  const genderOptions = createOptions(new Map(genders.map((v) => [v, { name: v }])), 'genders');
   const raceOptions = createOptions(races, 'races');
   const archetypeOptions = createOptions(archetypes, 'archetypes');
   const backgroundOptions = createOptions(backgrounds, 'backgrounds');

@@ -6,7 +6,7 @@
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
   import SelectCharacterDialog from '$lib/components/editor/characterDialog/SelectCharacterDialog.svelte';
-  import Menu from '$lib/components/menu/Menu.svelte';
+  import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/filters/Filters.svelte';
 

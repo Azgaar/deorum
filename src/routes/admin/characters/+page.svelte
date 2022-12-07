@@ -4,7 +4,7 @@
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
-  import Menu from '$lib/components/menu/Menu.svelte';
+  import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
