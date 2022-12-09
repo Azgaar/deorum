@@ -9,7 +9,7 @@ import type { PageServerLoad } from './$types';
 
 export const ssr = true;
 
-const EXPAND = 'portraits';
+const EXPAND = 'race,archetype,background,portraits';
 const DEFAULT_FILTER = '';
 const DEFAULT_SORT = '-created';
 

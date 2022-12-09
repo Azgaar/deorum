@@ -16,8 +16,6 @@
   import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
 
-  const EXPAND = 'portraits';
-
   export let data: import('./$types').PageData;
 
   // incoming data: immutable, turn arrays into maps
@@ -62,6 +60,7 @@
     try {
       const filter = parseFilters(filters);
       const sort = parseSorting(sorting);
+      const EXPAND = 'race,archetype,background,portraits';
       const params = new URLSearchParams({ page: String(page + 1), filter, sort, expand: EXPAND });
 
       const charactersList = await request<IListResult<ICharacter>>(

@@ -86,14 +86,14 @@ export const createBasicPrompt = (character: ICharacter, tags: Map<string, { nam
   const tagList = getTags(character, tags);
   const sectionList = selectSections();
 
-  const intro = 'Biography of a dark fantasy character';
+  const intro = 'Biography of a fantasy character';
   const specie = `${d.gender} ${d.race}`.trim();
   const part1 = [specie, d.age, d.height, d.weight].filter((v) => v).join(', ');
   const part2 = [d.name, d.archetype, d.background].filter((v) => v).join('. ');
   const tag = tagList.length ? `Tags: ${tagList.join(', ')}` : '';
   const section = sectionList.length ? `Contains sections: ${sectionList.join(', ')}` : '';
   const outro1 = 'High quality text';
-  const outro2 = `Detailed biography of ${d.race} in Dark Fantasy style.`;
+  const outro2 = `Detailed biography of ${d.race} in Fantasy style.`;
 
   const prompt = [intro, part1, part2, tag, section, outro1, outro2]
     .filter((v) => v)
