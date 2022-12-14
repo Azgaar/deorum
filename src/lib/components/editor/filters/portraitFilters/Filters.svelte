@@ -3,20 +3,20 @@
   import Button, { Label } from '@smui/button';
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
+  import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import { t } from '$lib/locales/translations';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import QualityFilter from './QualityFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
   import ColorsFilter from './ColorsFilter.svelte';
-  import EditorDialog from '../editorDialog/EditorDialog.svelte';
-  import Sorting from './Sorting.svelte';
+  import Sorting from '../Sorting.svelte';
 
-  import type { IFilters, ISorting } from '$lib/types/filters.types';
+  import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 
   export let open: boolean;
-  export let filters: IFilters;
+  export let filters: IPortraitFilters;
   export let sorting: ISorting;
-  export let onSubmit: (filters: IFilters, sorting: ISorting) => void;
+  export let onSubmit: (filters: IPortraitFilters, sorting: ISorting) => void;
 
   export let originalsMap: Map<string, { image: string; name: string }>;
   export let tagsMap: Map<string, { image: string; name: string }>;

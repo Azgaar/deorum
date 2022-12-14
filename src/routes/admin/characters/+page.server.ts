@@ -3,7 +3,7 @@ import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
 import { makePOJO } from '$lib/utils/object';
 
-import type { IFilters, ISorting } from '$lib/types/filters.types';
+import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 import type { ICharacter, IListResult } from '$lib/types/api.types';
 import type { PageServerLoad } from './$types';
 
@@ -13,7 +13,7 @@ const EXPAND = 'race,archetype,background,portraits';
 const DEFAULT_FILTER = '';
 const DEFAULT_SORT = '-created';
 
-const filters: IFilters = { original: [], quality: [], colors: [], tags: [], styles: [] };
+const filters: IPortraitFilters = { original: [], quality: [], colors: [], tags: [], styles: [] };
 const sorting: ISorting = { key: 'created', order: 'desc' };
 
 export const load: PageServerLoad = async ({ url, fetch }) => {

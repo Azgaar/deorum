@@ -1,6 +1,6 @@
-import type { IFilters, ISorting } from '$lib/types/filters.types';
+import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 
-const operatorsMap: { [key in keyof IFilters]: '=' | '~' } = {
+const operatorsMap: { [key in keyof IPortraitFilters]: '=' | '~' } = {
   original: '=',
   quality: '=',
   colors: '~',
@@ -8,11 +8,11 @@ const operatorsMap: { [key in keyof IFilters]: '=' | '~' } = {
   styles: '~'
 };
 
-export function parseFilters(filters: IFilters) {
+export function parseFilters(filters: IPortraitFilters) {
   let query = '';
 
   for (const key in filters) {
-    const entity = key as keyof IFilters;
+    const entity = key as keyof IPortraitFilters;
     const values = filters[entity];
     if (values.length) {
       const base = values.map((value) => `${key}${operatorsMap[entity]}${parse(value)}`).join('||');

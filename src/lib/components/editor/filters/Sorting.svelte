@@ -1,10 +1,10 @@
 <script lang="ts">
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
-  import type { IFilters, ISorting } from '$lib/types/filters.types';
+  import type { ISorting } from '$lib/types/filters.types';
   import { t } from '$lib/locales/translations';
 
-  export let key: keyof IFilters;
+  export let key: string;
   export let sorting: ISorting;
 
   const ICON = '⇧';

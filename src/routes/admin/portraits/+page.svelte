@@ -8,7 +8,7 @@
   import SelectCharacterDialog from '$lib/components/editor/characterDialog/SelectCharacterDialog.svelte';
   import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
-  import Filters from '$lib/components/filters/Filters.svelte';
+  import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getPortraits, patchPortraits, postPortraits, deletePortraits } from '$lib/api';
@@ -28,7 +28,7 @@
     TOpenEditCharacterDialog,
     TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
-  import type { IFilters, ISorting } from '$lib/types/filters.types';
+  import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 
   export let data: import('./$types').PageData;
 
@@ -210,14 +210,14 @@
     open: false,
     filters,
     sorting,
-    onSubmit: (_: IFilters, __: ISorting) => {},
+    onSubmit: (_: IPortraitFilters, __: ISorting) => {},
     originalsMap: originals,
     tagsMap: tags,
     stylesMap: styles
   };
 
   const openFilters = () => {
-    const onSubmit = async (newFilter: IFilters, newSort: ISorting) => {
+    const onSubmit = async (newFilter: IPortraitFilters, newSort: ISorting) => {
       try {
         filtersData = { ...filtersData, open: false };
 
@@ -225,7 +225,7 @@
         const sort = parseSorting(newSort);
         const { items, totalPages } = await getPortraits({ page: 1, filter, sort });
 
-        const queryString = `/admin?filter=${filter}&sort=${sort}`;
+        const queryString = `/admin/portraits?filter=${filter}&sort=${sort}`;
         window.history.pushState({}, '', queryString);
 
         sorting = newSort;

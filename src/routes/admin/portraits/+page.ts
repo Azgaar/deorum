@@ -3,7 +3,7 @@ import { getFullList } from '$lib/api/getFullList';
 import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
 
-import type { IFilters, ISorting } from '$lib/types/filters.types';
+import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 import type { IRace } from '$lib/types/api.types';
 
 export const ssr = true;
@@ -13,7 +13,7 @@ const DEFAULT_FILTER = 'active = true';
 const DEFAULT_SORT = '-created';
 
 // TODO: parse from search params
-const filters: IFilters = { original: [], quality: [], colors: [], tags: [], styles: [] };
+const filters: IPortraitFilters = { original: [], quality: [], colors: [], tags: [], styles: [] };
 const sorting: ISorting = { key: 'created', order: 'desc' };
 
 /** @type {import('./$types').PageLoad} */

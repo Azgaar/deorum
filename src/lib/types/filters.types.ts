@@ -1,4 +1,4 @@
-export interface IFilters {
+export interface IPortraitFilters {
   original: string[];
   quality: number[];
   colors: string[];
@@ -6,7 +6,13 @@ export interface IFilters {
   styles: string[];
 }
 
+export interface ICharacterFilters {
+  races: string[];
+  archetypes: number[];
+  backgrounds: string[];
+}
+
 export interface ISorting {
-  key: keyof IFilters | 'created';
+  key: string;
   order: 'asc' | 'desc' | 'no';
 }
