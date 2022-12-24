@@ -157,7 +157,13 @@
     "dark elf": "dark elf",
     "dark elf maiden": "dark elf maiden",
     "yellow orc": "yellow orc",
-    "green orc": "green orc"
+    "green orc": "green orc",
+    "gnome baron": "gnome baron",
+    "gnome miner": "gnome miner",
+    "feline male": "feline male",
+    "orc female": "orc female",
+    "gnome elder": "gnome elder",
+    "gnome in goggles": "gnome in goggles"
   },
   "colors": {
     "red": "red",
