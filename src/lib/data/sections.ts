@@ -36,7 +36,7 @@ export const sections = [
   { name: 'Regret', chance: 0.35 },
   { name: 'Tangled history', chance: 0.4 },
   { name: 'Disability', chance: 0.25 },
-  { name: 'Favotire joke', chance: 0.15 },
+  { name: 'Favorite joke', chance: 0.15 },
   { name: 'Travel', chance: 0.15 },
   { name: 'Desire', chance: 0.1 }
 ];
