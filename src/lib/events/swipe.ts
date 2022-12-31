@@ -1,5 +1,5 @@
 // create custom event on swipe gesture
-export const createSwipeListener = (el: HTMLElement | Window, treshold = 50) => {
+export const createSwipeListener = (el: HTMLElement | Window, treshold = 20) => {
   let start: number;
   let end: number;
 

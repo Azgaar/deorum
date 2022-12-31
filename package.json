@@ -26,7 +26,7 @@
     "@smui/slider": "^6.1.0",
     "@smui/textfield": "^6.1.0",
     "@smui/tooltip": "^6.1.4",
-    "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-vercel": "^1.0.0",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
@@ -56,6 +56,5 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "type": "module",
-  "dependencies": {}
+  "type": "module"
 }

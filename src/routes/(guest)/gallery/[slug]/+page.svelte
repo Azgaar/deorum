@@ -99,20 +99,16 @@
     const goNext = showNext(true);
     const goPrev = showNext(false);
 
-    if (browser) {
-      createSwipeListener(window);
-      window.addEventListener('swipe-right', goNext);
-      window.addEventListener('swipe-left', goPrev);
-    }
+    createSwipeListener(window);
+    window.addEventListener('swipe-right', goNext);
+    window.addEventListener('swipe-left', goPrev);
 
     return () => {
       window.removeEventListener('keydown', handleKeydown);
 
-      if (browser) {
-        window.removeEventListener('swipe-right', goNext);
-        window.removeEventListener('swipe-left', goPrev);
-        createSwipeListener(window)();
-      }
+      window.removeEventListener('swipe-right', goNext);
+      window.removeEventListener('swipe-left', goPrev);
+      createSwipeListener(window)();
     };
   });
 </script>
