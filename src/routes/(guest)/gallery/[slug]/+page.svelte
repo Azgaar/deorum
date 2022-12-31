@@ -11,6 +11,7 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import Figure from './Figure.svelte';
   import Arrows from './Arrows.svelte';
+  import { browser } from '$app/environment';
 
   export let data: import('./$types').PageData;
 
@@ -95,17 +96,23 @@
 
     window.addEventListener('keydown', handleKeydown);
 
-    createSwipeListener(window);
     const goNext = showNext(true);
     const goPrev = showNext(false);
-    window.addEventListener('swipe-right', goNext);
-    window.addEventListener('swipe-left', goPrev);
+
+    if (browser) {
+      createSwipeListener(window);
+      window.addEventListener('swipe-right', goNext);
+      window.addEventListener('swipe-left', goPrev);
+    }
 
     return () => {
       window.removeEventListener('keydown', handleKeydown);
-      window.removeEventListener('swipe-right', goNext);
-      window.removeEventListener('swipe-left', goPrev);
-      createSwipeListener(window)();
+
+      if (browser) {
+        window.removeEventListener('swipe-right', goNext);
+        window.removeEventListener('swipe-left', goPrev);
+        createSwipeListener(window)();
+      }
     };
   });
 </script>

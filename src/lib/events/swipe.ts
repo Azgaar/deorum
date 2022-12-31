@@ -1,6 +1,6 @@
 // create custom event on swipe gesture
-const swipeRight = new CustomEvent('swipe-right', { bubbles: true });
-const swipeLeft = new CustomEvent('swipe-left', { bubbles: true });
+const swipeRight = CustomEvent && new CustomEvent('swipe-right', { bubbles: true });
+const swipeLeft = CustomEvent && new CustomEvent('swipe-left', { bubbles: true });
 
 export const createSwipeListener = (el: HTMLElement | Window, treshold = 50) => {
   let start: number;
