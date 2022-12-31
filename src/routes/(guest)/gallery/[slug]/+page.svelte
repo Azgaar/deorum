@@ -92,10 +92,10 @@
       }
     };
 
-    document.addEventListener('keydown', handleKeydown);
+    window.addEventListener('keydown', handleKeydown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeydown);
+      window.removeEventListener('keydown', handleKeydown);
     };
   });
 </script>
