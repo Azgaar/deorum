@@ -3,6 +3,7 @@
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { toastError } from '$lib/stores';
+  import { createSwipeListener } from '$lib/events/swipe';
   import { sliceElements } from '$lib/utils/array';
   import { preloadImage, request } from '$lib/utils/requests';
   import { report } from '$lib/utils/log';
@@ -94,8 +95,17 @@
 
     window.addEventListener('keydown', handleKeydown);
 
+    createSwipeListener(window);
+    const goNext = showNext(true);
+    const goPrev = showNext(false);
+    window.addEventListener('swipe-right', goNext);
+    window.addEventListener('swipe-left', goPrev);
+
     return () => {
       window.removeEventListener('keydown', handleKeydown);
+      window.removeEventListener('swipe-right', goNext);
+      window.removeEventListener('swipe-left', goPrev);
+      createSwipeListener(window)();
     };
   });
 </script>
