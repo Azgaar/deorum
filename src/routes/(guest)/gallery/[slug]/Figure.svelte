@@ -44,13 +44,6 @@
       img {
         width: 100%;
         aspect-ratio: 1/1;
-
-        transition: all 1s ease-out 1s;
-        transform: translateY(0) scale3d(1, 1, 1);
-      }
-
-      img:hover {
-        transform: translateY(20%) scale3d(var(--image-zoom), var(--image-zoom), 1);
       }
     }
 

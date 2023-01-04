@@ -11,7 +11,7 @@ export const log = (domain: string, message: string, ...args: unknown[]) => {
   if (browser) {
     console.info(`%c${domain}`, style, message);
     request('/api/log', 'POST', { domain, message, user: get(user), args });
-  } else console.info(`SERVER ${domain}: ${message}`, get(user), ...args);
+  } else console.info(`SERVER ${domain}: ${message}`, get(user) || '', ...(args || ''));
 };
 
 export const report = (domain: string, err: unknown, ...args: unknown[]) => {
@@ -22,5 +22,5 @@ export const report = (domain: string, err: unknown, ...args: unknown[]) => {
   if (browser) {
     console.error(`%c${domain}`, style, message, args);
     request('/api/report', 'POST', { domain, message, details, user: get(user), args });
-  } else console.error(`SERVER ${domain}: ${message}`, details, get(user), ...args);
+  } else console.error(`SERVER ${domain}: ${message}`, details, get(user) || '', ...(args || ''));
 };

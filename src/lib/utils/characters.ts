@@ -1,3 +1,4 @@
+import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
 
@@ -32,7 +33,7 @@ const file = (issue: string) => {
 };
 
 export const verifyCharacter = (char: ICharacter) => {
-  const portraits = char['@expand'].portraits;
+  const portraits = char['@expand']?.portraits;
   if (!portraits?.length) return file(`No portraits for character ${char.id}`);
   if (!char['@expand'].race) return file(`No race data for character ${char.id}`);
   if (!char['@expand'].archetype) return file(`No archetype data for character ${char.id}`);
@@ -101,4 +102,11 @@ export const createBasicPrompt = (character: ICharacter, tags: Map<string, { nam
     .join('. ');
 
   return prompt;
+};
+
+export const derivePrimaryImagePath = (character: ICharacter, thump: number | boolean = false) => {
+  const portrait = character['@expand']?.portraits?.[0];
+  if (!portrait) return '';
+  const thumbnail = thump ? `?thumb=${thump}x${thump}` : '';
+  return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?${thumbnail}`;
 };

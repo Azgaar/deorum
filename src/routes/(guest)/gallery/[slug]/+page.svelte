@@ -73,16 +73,26 @@
   };
 
   const handleClick = (id: string) => () => {
-    // temp, rework to show details
-    if (id === data.currentId) return;
+    if (id === data.currentId) {
+      location.href = `/${id}`;
+      return;
+    }
+
     showNext(id > data.currentId)();
   };
 
   onMount(() => {
-    const rotateRightKeys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
+    const seeDetails = ['Enter', 'NumpadEnter'];
+    const rotateRightKeys = ['Space', 'ArrowRight', 'ArrowDown'];
     const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
 
     const handleKeydown = (event: KeyboardEvent) => {
+      if (seeDetails.includes(event.code)) {
+        event.preventDefault();
+        location.href = `/${data.currentId}`;
+        return;
+      }
+
       if (rotateRightKeys.includes(event.code)) {
         event.preventDefault();
         showNext(true)();

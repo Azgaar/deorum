@@ -8,8 +8,7 @@
   import { request } from '$lib/utils/requests';
   import { report } from '$lib/utils/log';
   import { toastError } from '$lib/stores';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { deriveCharacterLabel } from '$lib/utils/characters';
+  import { deriveCharacterLabel, derivePrimaryImagePath } from '$lib/utils/characters';
 
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
@@ -69,12 +68,6 @@
     loadCharacters(characters);
   };
 
-  const derivePrimaryImagePath = (character: ICharacter) => {
-    const portrait = character['@expand']?.portraits?.[0];
-    if (!portrait) return '';
-    return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?thumb=100x100`;
-  };
-
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
 
@@ -102,7 +95,7 @@
           <FormField>
             <Checkbox bind:group={currentIds} value={character.id} />
             <span slot="label" class="label">
-              <img src={derivePrimaryImagePath(character)} alt={character.name} />
+              <img src={derivePrimaryImagePath(character, 100)} alt={character.name} />
               {deriveCharacterLabel(character)}
             </span>
           </FormField>

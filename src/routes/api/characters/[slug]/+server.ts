@@ -10,9 +10,9 @@ export const GET: RequestHandler = async ({ params, url }) => {
     const filter = url.searchParams.get('filter') || '';
     const expand = url.searchParams.get('expand') || '';
 
-    const charactersList = await admin.records.getOne('characters', id, { filter, expand });
+    const character = await admin.records.getOne('characters', id, { filter, expand });
     log('characters', `Loading character ${id}`);
-    return new Response(JSON.stringify(charactersList));
+    return new Response(JSON.stringify(character));
   } catch (err) {
     report('characters', err);
     throw createServerError(err);

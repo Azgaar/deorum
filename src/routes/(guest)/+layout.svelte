@@ -28,11 +28,7 @@
 
 <div class="root" lang={$language}>
   <Header links={getNavLinks($role)} />
-
-  <main>
-    <slot />
-  </main>
-
+  <slot />
   <Footer />
 </div>
 
@@ -47,11 +43,5 @@
 
     display: flex;
     flex-direction: column;
-
-    main {
-      height: 100%;
-      display: grid;
-      place-items: center;
-    }
   }
 </style>
