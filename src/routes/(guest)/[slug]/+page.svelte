@@ -1,12 +1,16 @@
 <script lang="ts">
+  import { t } from '$lib/locales/translations';
   import { derivePrimaryImagePath } from '$lib/utils/characters';
 
   export let data: import('./$types').PageData;
 
-  const { bio } = data.character;
-  const image = derivePrimaryImagePath(data.character);
+  const { character } = data;
+  const { '@expand': expand, name, bio, gender, age, height, weight } = character;
 
-  console.log(data);
+  const image = derivePrimaryImagePath(character);
+  const race = $t(`common.races.${expand.race?.name}`);
+  const archetype = $t(`common.archetypes.${expand.archetype?.name}`);
+  const background = $t(`common.backgrounds.${expand.background?.name}`);
 </script>
 
 <main>
@@ -14,9 +18,40 @@
     <div class="left-column">
       <img src={image} alt="Character portrait" draggable="false" />
       <div class="list">
-        <div class="item">Item 1</div>
-        <div class="item">Item 2</div>
-        <div class="item">Item 3</div>
+        <div class="item">
+          <div>{name}</div>
+          <div>{$t(`common.genders.${gender}`)}</div>
+        </div>
+
+        <div class="item">
+          <div>{$t('common.character.race')}</div>
+          <div>{race}</div>
+        </div>
+
+        <div class="item">
+          <div>{$t('common.character.archetype')}</div>
+          <div>{archetype}</div>
+        </div>
+
+        <div class="item">
+          <div>{$t('common.character.background')}</div>
+          <div>{background}</div>
+        </div>
+
+        <div class="item">
+          <div>{$t('common.character.age')}</div>
+          <div>{age} {$t('common.metrics.yearsOld')}</div>
+        </div>
+
+        <div class="item">
+          <div>{$t('common.character.height')}</div>
+          <div>{height} {$t('common.metrics.cm')}</div>
+        </div>
+
+        <div class="item">
+          <div>{$t('common.character.weight')}</div>
+          <div>{weight} {$t('common.metrics.kg')}</div>
+        </div>
       </div>
     </div>
     <div class="right-column">
@@ -46,7 +81,6 @@
 
     .container {
       background-color: #000000b3;
-      height: 100%;
       padding: 16px;
       display: grid;
       grid-gap: 16px;
@@ -77,6 +111,12 @@
           display: flex;
           gap: 16px;
           flex-direction: column;
+
+          .item {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+          }
         }
       }
 

@@ -11,7 +11,6 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import Figure from './Figure.svelte';
   import Arrows from './Arrows.svelte';
-  import { browser } from '$app/environment';
 
   export let data: import('./$types').PageData;
 

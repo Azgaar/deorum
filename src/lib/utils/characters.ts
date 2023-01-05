@@ -2,7 +2,7 @@ import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
 
-import type { ICharacter } from '$lib/types/api.types';
+import type { ICharacter, TGender } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
 import { get } from 'svelte/store';
 import { report } from './log';
@@ -109,4 +109,10 @@ export const derivePrimaryImagePath = (character: ICharacter, thump: number | bo
   if (!portrait) return '';
   const thumbnail = thump ? `?thumb=${thump}x${thump}` : '';
   return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?${thumbnail}`;
+};
+
+export const getGenderIcon = (gender: TGender | '') => {
+  if (gender === 'male') return '♂️';
+  if (gender === 'female') return '♀️';
+  return '';
 };

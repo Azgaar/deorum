@@ -1,16 +1,10 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { getGenderIcon } from '$lib/utils/characters';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import type { TGender } from '$lib/types/api.types';
 
   export let item: IGalleryItem;
-
-  const getGenderIcon = (gender: TGender | '') => {
-    if (gender === 'male') return '♂️';
-    if (gender === 'female') return '♀️';
-    return '🤷‍♂️';
-  };
 </script>
 
 <figure>
