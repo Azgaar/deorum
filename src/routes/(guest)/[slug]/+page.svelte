@@ -5,12 +5,18 @@
   export let data: import('./$types').PageData;
 
   const { character } = data;
-  const { '@expand': expand, name, bio, gender, age, height, weight } = character;
+  const { '@expand': expand, name, gender, age, height, weight, bio } = character;
 
   const image = derivePrimaryImagePath(character);
   const race = $t(`common.races.${expand.race?.name}`);
   const archetype = $t(`common.archetypes.${expand.archetype?.name}`);
   const background = $t(`common.backgrounds.${expand.background?.name}`);
+
+  const bioHtml =
+    '<p style="margin-block-start: 0">' +
+    bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />') +
+    '</p>';
+  console.log(data);
 </script>
 
 <main>
@@ -55,7 +61,7 @@
       </div>
     </div>
     <div class="right-column">
-      <textarea spellcheck="false">{bio}</textarea>
+      {@html bioHtml}
     </div>
   </div>
 </main>
@@ -65,7 +71,7 @@
   $mobile: 'max-width: 599px';
 
   main {
-    flex: 1;
+    overflow-y: auto;
 
     padding: 16px 32px;
     display: flex;
@@ -80,14 +86,18 @@
     color: #dee7ea;
 
     .container {
-      background-color: #000000b3;
+      max-width: 1300px;
+      height: max-content;
+      background-color: #170904d9;
+
       padding: 16px;
       display: grid;
       grid-gap: 16px;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 320px 1fr;
+      justify-items: center;
 
       @media ($mobile) {
-        grid-template-columns: auto;
+        grid-template-columns: minmax(200px, 380px);
         grid-template-rows: auto 1fr;
       }
 
@@ -99,12 +109,7 @@
         img {
           user-select: none;
           aspect-ratio: 1/1;
-          width: 320px;
-
-          @media ($mobile) {
-            width: 100%;
-            max-width: 380px;
-          }
+          width: 100%;
         }
 
         .list {
@@ -117,27 +122,6 @@
             justify-content: space-between;
             gap: 8px;
           }
-        }
-      }
-
-      .right-column {
-        overflow: hidden;
-        display: flex;
-
-        textarea {
-          flex: 1;
-          padding: 0 8px 16px 0;
-          line-height: 1.3;
-          margin-top: -4px;
-
-          color: inherit;
-          font-size: inherit;
-          font-family: inherit;
-
-          background: none;
-          border: none;
-          outline: none;
-          resize: none;
         }
       }
     }
