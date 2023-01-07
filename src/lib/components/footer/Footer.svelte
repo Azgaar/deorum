@@ -15,14 +15,10 @@
   $mobile: 'max-width: 599px';
 
   footer {
-    height: 58px;
+    height: 48px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-
-    @media ($mobile) {
-      display: none;
-    }
 
     .version {
       padding: 10px 16px;

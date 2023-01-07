@@ -17,7 +17,7 @@
   const getNavLinks = (role: Role): ILink[] => {
     const { signin, signup, logout, match, admin } = linksMap;
     if (role === Role.ADMIN) return [match, admin, logout];
-    if (role === Role.USER) return [match, logout];
+    if (role === Role.USER) return [logout];
     return [signin, signup]; // Role.GUEST
   };
 </script>

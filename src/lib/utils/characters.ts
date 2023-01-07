@@ -111,7 +111,7 @@ export const derivePrimaryImagePath = (character: ICharacter, thump: number | bo
   return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?${thumbnail}`;
 };
 
-export const getGenderIcon = (gender: TGender | '') => {
+export const getGenderIcon = (gender: string) => {
   if (gender === 'male') return '♂️';
   if (gender === 'female') return '♀️';
   return '';

@@ -1,11 +1,12 @@
-<div>
+<main>
   <slot />
-</div>
+</main>
 
 <style lang="scss">
   @use 'sass:color';
 
-  div {
+  main {
+    align-self: center;
     padding: 16px 0px;
     background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
   }
