@@ -17,7 +17,7 @@
   const getNavLinks = (role: Role): ILink[] => {
     const { signin, signup, logout, match, admin } = linksMap;
     if (role === Role.ADMIN) return [match, admin, logout];
-    if (role === Role.USER) return [match, logout];
+    if (role === Role.USER) return [logout];
     return [signin, signup]; // Role.GUEST
   };
 </script>
@@ -28,11 +28,7 @@
 
 <div class="root" lang={$language}>
   <Header links={getNavLinks($role)} />
-
-  <main>
-    <slot />
-  </main>
-
+  <slot />
   <Footer />
 </div>
 
@@ -47,11 +43,6 @@
 
     display: flex;
     flex-direction: column;
-
-    main {
-      height: 100%;
-      display: grid;
-      place-items: center;
-    }
+    justify-content: space-between;
   }
 </style>

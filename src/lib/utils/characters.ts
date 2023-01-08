@@ -1,3 +1,4 @@
+import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
 
@@ -32,7 +33,7 @@ const file = (issue: string) => {
 };
 
 export const verifyCharacter = (char: ICharacter) => {
-  const portraits = char['@expand'].portraits;
+  const portraits = char['@expand']?.portraits;
   if (!portraits?.length) return file(`No portraits for character ${char.id}`);
   if (!char['@expand'].race) return file(`No race data for character ${char.id}`);
   if (!char['@expand'].archetype) return file(`No archetype data for character ${char.id}`);
@@ -46,17 +47,20 @@ export const verifyCharacter = (char: ICharacter) => {
   return true;
 };
 
+// IGalleryItem is a minimal representation of a ICharacter
+// used to reduce data amount sent from server to the client
 export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
-  const { id, name, gender, age, height, weight } = character;
-  const portraits = character['@expand'].portraits || [];
+  const { id, name, gender, age, height, weight, bio, '@expand': expand } = character;
+
+  const portraits = expand.portraits || [];
   const mainPortrait = portraits[0];
-
   const image = `${mainPortrait.id}/${mainPortrait.image}`;
-  const race = character['@expand'].race?.name || '';
-  const archetype = character['@expand'].archetype?.name || '';
-  const background = character['@expand'].background?.name || '';
 
-  return { id, image, name, race, gender, archetype, background, age, weight, height };
+  const race = expand.race?.name || '';
+  const archetype = expand.archetype?.name || '';
+  const background = expand.background?.name || '';
+
+  return { id, image, name, race, gender, archetype, background, age, weight, height, bio };
 };
 
 const getTags = (character: ICharacter, tags: Map<string, { name: string }>): string[] => {
@@ -101,4 +105,17 @@ export const createBasicPrompt = (character: ICharacter, tags: Map<string, { nam
     .join('. ');
 
   return prompt;
+};
+
+export const derivePrimaryImagePath = (character: ICharacter, thump: number | boolean = false) => {
+  const portrait = character['@expand']?.portraits?.[0];
+  if (!portrait) return '';
+  const thumbnail = thump ? `?thumb=${thump}x${thump}` : '';
+  return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?${thumbnail}`;
+};
+
+export const getGenderIcon = (gender: string) => {
+  if (gender === 'male') return '♂️';
+  if (gender === 'female') return '♀️';
+  return '';
 };

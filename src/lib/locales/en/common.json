@@ -56,6 +56,11 @@
     "weight": "Weight",
     "bio": "Biography"
   },
+  "metrics": {
+    "yearsOld": "years old",
+    "cm": "cm",
+    "kg": "kg"
+  },
   "genders": {
     "male": "male",
     "female": "female",

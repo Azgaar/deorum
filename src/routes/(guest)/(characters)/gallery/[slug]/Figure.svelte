@@ -1,16 +1,10 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { getGenderIcon } from '$lib/utils/characters';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import type { TGender } from '$lib/types/api.types';
 
   export let item: IGalleryItem;
-
-  const getGenderIcon = (gender: TGender | '') => {
-    if (gender === 'male') return '♂️';
-    if (gender === 'female') return '♀️';
-    return '🤷‍♂️';
-  };
 </script>
 
 <figure>
@@ -44,13 +38,6 @@
       img {
         width: 100%;
         aspect-ratio: 1/1;
-
-        transition: all 1s ease-out 1s;
-        transform: translateY(0) scale3d(1, 1, 1);
-      }
-
-      img:hover {
-        transform: translateY(20%) scale3d(var(--image-zoom), var(--image-zoom), 1);
       }
     }
 

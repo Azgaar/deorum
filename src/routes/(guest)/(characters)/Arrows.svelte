@@ -1,15 +1,16 @@
 <script lang="ts">
-  export let showNext: (right: boolean) => () => void;
+  export let next: () => void;
+  export let prev: () => void;
 </script>
 
 <div class="arrows">
-  <button aria-label="previous" on:click={showNext(false)}>
+  <button aria-label="previous" on:click={prev}>
     <svg viewBox="0 0 5 20">
       <path d="M5 0 L0 10 L5 20 Z" />
     </svg>
   </button>
 
-  <button aria-label="next" on:click={showNext(true)}>
+  <button aria-label="next" on:click={next}>
     <svg viewBox="0 0 5 20">
       <path d="M0 0 L5 10 L0 20 Z" />
     </svg>
@@ -26,6 +27,7 @@
       transform: translateY(-50%);
 
       border: 0;
+      outline: none;
       background: none;
       cursor: pointer;
       color: $primary;
