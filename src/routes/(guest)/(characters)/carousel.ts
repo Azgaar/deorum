@@ -45,9 +45,11 @@ export class Carousel {
 
   // lazily preload images that comes initially, but not displayed in the carousel
   private preloadImages(items: IGalleryItem[]) {
-    const carouselIds = items.map(({ id }) => id);
+    const carouselIds = get(this.carousel).map(({ id }) => id);
     const initialItemsInReserve = items.filter(({ id }) => !carouselIds.includes(id));
-    initialItemsInReserve.forEach((item) => preloadImage(`${PORTRAITS_IMAGE_PATH}/${item.image}`));
+    initialItemsInReserve.forEach((item) => {
+      preloadImage(`${PORTRAITS_IMAGE_PATH}/${item.image}`);
+    });
   }
 
   // load more items from the server
