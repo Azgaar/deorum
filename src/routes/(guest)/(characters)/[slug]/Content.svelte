@@ -1,6 +1,7 @@
 <script lang="ts">
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import CharacterDetails from './CharacterDetails.svelte';
+  import Picture from '$lib/components/picture/Picture.svelte';
   import type { IGalleryItem } from '$lib/types/gallery.types';
 
   export let item: IGalleryItem;
@@ -14,14 +15,11 @@
 
 <div class="content" id={item.id}>
   <div class="left-column">
-    <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" draggable="false" />
+    <Picture src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" />
     <CharacterDetails {item} />
   </div>
+
   <div class="right-column">
-    {@html getBioHtml(item.bio)}
-    {@html getBioHtml(item.bio)}
-    {@html getBioHtml(item.bio)}
-    {@html getBioHtml(item.bio)}
     {@html getBioHtml(item.bio)}
   </div>
 </div>
@@ -36,9 +34,9 @@
 
     padding: 16px;
     display: grid;
+    justify-items: center;
     grid-gap: 16px;
     grid-template-columns: 320px 1fr;
-    justify-items: center;
 
     @media ($mobile) {
       grid-template-columns: minmax(200px, 380px);
@@ -46,15 +44,10 @@
     }
 
     .left-column {
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 16px;
-
-      img {
-        user-select: none;
-        aspect-ratio: 1/1;
-        width: 100%;
-      }
     }
   }
 </style>
