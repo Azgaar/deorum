@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, setContext } from 'svelte';
+  import { page } from '$app/stores';
 
   import { createSwipeListener } from '$lib/events/swipe';
 
@@ -18,7 +19,8 @@
     const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (seeDetails.includes(event.code)) {
+      const isGallery = $page.route.id?.match('/gallery/');
+      if (isGallery && seeDetails.includes(event.code)) {
         event.preventDefault();
         location.href = `/${data.currentId}`;
         return;
