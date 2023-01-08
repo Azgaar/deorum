@@ -11,4 +11,5 @@ export interface IGalleryItem {
   age: number;
   weight: number;
   height: number;
+  bio: string;
 }

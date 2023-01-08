@@ -1,22 +1,27 @@
 <script lang="ts">
-  import { derivePrimaryImagePath } from '$lib/utils/characters';
+  import { getContext } from 'svelte';
+
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import CharacterDetails from './CharacterDetails.svelte';
+  import type { Carousel } from '../carousel';
 
-  export let data: import('./$types').PageData;
-
-  const { character } = data;
-  const image = derivePrimaryImagePath(character);
+  const carousel: Carousel = getContext('carousel');
+  const item = carousel.currentItem;
 
   const bioHtml = `<p style="margin-block-start: 0">
-    ${character.bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />')}
+    ${item.bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />')}
   </p>`;
 </script>
 
 <main>
   <div class="container">
     <div class="left-column">
-      <img src={image} alt="Character portrait" draggable="false" />
-      <CharacterDetails {character} />
+      <img
+        src={`${PORTRAITS_IMAGE_PATH}/${item.image}`}
+        alt="Character portrait"
+        draggable="false"
+      />
+      <CharacterDetails {item} />
     </div>
     <div class="right-column">
       {@html bioHtml}
@@ -44,10 +49,9 @@
     color: #dee7ea;
 
     .container {
-      max-width: 1300px;
+      max-width: 1050px;
       height: max-content;
       background-color: #170904d9;
-      // background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
 
       padding: 16px;
       display: grid;

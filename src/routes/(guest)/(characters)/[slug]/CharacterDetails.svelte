@@ -2,14 +2,10 @@
   import { t } from '$lib/locales/translations';
   import { getGenderIcon } from '$lib/utils/characters';
   import { capitalize } from '$lib/utils/string';
-  import type { ICharacter } from '$lib/types/api.types';
+  import type { IGalleryItem } from '$lib/types/gallery.types';
 
-  export let character: ICharacter;
-
-  const { '@expand': expand, name, gender, age, height, weight } = character;
-  const race = $t(`common.races.${expand.race?.name}`);
-  const archetype = $t(`common.archetypes.${expand.archetype?.name}`);
-  const background = $t(`common.backgrounds.${expand.background?.name}`);
+  export let item: IGalleryItem;
+  const { name, gender, age, height, weight, race, archetype, background } = item;
 </script>
 
 <div class="desktop">
@@ -20,17 +16,17 @@
 
   <div class="item">
     <div>{$t('common.character.race')}</div>
-    <div>{race}</div>
+    <div>{$t(`common.races.${race}`)}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.archetype')}</div>
-    <div>{archetype}</div>
+    <div>{$t(`common.archetypes.${archetype}`)}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.background')}</div>
-    <div>{background}</div>
+    <div>{$t(`common.backgrounds.${background}`)}</div>
   </div>
 
   <div class="item">

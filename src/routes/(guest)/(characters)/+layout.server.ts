@@ -2,19 +2,17 @@ import { error, redirect } from '@sveltejs/kit';
 
 import { getRandomIndex, sliceElements } from '$lib/utils/array';
 import { getCachedList } from '$lib/cache/cacheInstance';
-
-import type { ICharacter } from '$lib/types/api.types';
 import { getGalleryItemData, verifyCharacter } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
+import { charactersConfig } from '$lib/config';
 
-export const filter = '(inactive=false)';
-export const sort = 'id';
-export const expand = 'race,archetype,background,portraits';
+import type { ICharacter } from '$lib/types/api.types';
 
 const SELECT_BEFORE = 10;
 const SELECT_AFTER = 15;
 
 export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
+  const { filter, sort, expand } = charactersConfig;
   const characters = await getCachedList<ICharacter>('characters', filter, sort, expand);
   if (!characters || !characters.length) throw error(503, 'No characters returned');
 
@@ -33,7 +31,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const after = sliceElements(validCharacters, currentIndex + 1, currentIndex + SELECT_AFTER + 1);
   const items = [...before, current, ...after].map(getGalleryItemData);
 
-  log('gallery', `Loading character ${params.slug}, ${currentIndex}/${characters.length}`);
+  log('characters', `Loading character ${current.name} ${params.slug}`);
 
   return { items, currentId: current.id };
 };

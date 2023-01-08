@@ -2,7 +2,7 @@ import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
 
-import type { ICharacter, TGender } from '$lib/types/api.types';
+import type { ICharacter } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
 import { get } from 'svelte/store';
 import { report } from './log';
@@ -47,17 +47,20 @@ export const verifyCharacter = (char: ICharacter) => {
   return true;
 };
 
+// IGalleryItem is a minimal representation of a ICharacter
+// used to reduce data amount sent from server to the client
 export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
-  const { id, name, gender, age, height, weight } = character;
-  const portraits = character['@expand'].portraits || [];
+  const { id, name, gender, age, height, weight, bio, '@expand': expand } = character;
+
+  const portraits = expand.portraits || [];
   const mainPortrait = portraits[0];
-
   const image = `${mainPortrait.id}/${mainPortrait.image}`;
-  const race = character['@expand'].race?.name || '';
-  const archetype = character['@expand'].archetype?.name || '';
-  const background = character['@expand'].background?.name || '';
 
-  return { id, image, name, race, gender, archetype, background, age, weight, height };
+  const race = expand.race?.name || '';
+  const archetype = expand.archetype?.name || '';
+  const background = expand.background?.name || '';
+
+  return { id, image, name, race, gender, archetype, background, age, weight, height, bio };
 };
 
 const getTags = (character: ICharacter, tags: Map<string, { name: string }>): string[] => {

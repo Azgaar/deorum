@@ -30,3 +30,10 @@ export const MATCH_NAMES_NUMBER = 5;
 
 export const convertableImageTypes = ['png', 'jpeg', 'jpg', 'gif'];
 export const defaultFileName = 'deorum';
+
+export const charactersConfig = {
+  filter: '(inactive=false)',
+  sort: 'id',
+  expand: 'race,archetype,background,portraits',
+  batch: 15
+};
