@@ -14,19 +14,20 @@ const LOAD_ON_IMAGES_LEFT = 8;
 export class Carousel {
   items: IGalleryItem[];
   currentId: string;
-  currentItem: IGalleryItem;
   isLoadingMore: boolean;
 
   // Svelte reactive store with items currently displayed in the carousel
   carousel: Writable<IGalleryItem[]>;
+  currentItem: Writable<IGalleryItem>;
 
   constructor(items: IGalleryItem[], currentId: string) {
     this.items = items;
     this.currentId = currentId;
-    this.currentItem = items[0]; // temp
     this.isLoadingMore = false;
 
     this.carousel = writable();
+    this.currentItem = writable();
+
     this.updateCarousel(items, currentId);
     this.preloadImages(items);
   }
@@ -34,11 +35,11 @@ export class Carousel {
   // slice items array to get carousel items
   private updateCarousel(items: IGalleryItem[], currentId: string) {
     const currentIdx = items.findIndex(({ id }) => id === currentId);
-    this.currentItem = items[currentIdx];
+    this.currentItem.set(items[currentIdx]);
 
     const before = sliceElements(items, currentIdx - TAIL_IMAGES, currentIdx);
     const after = sliceElements(items, currentIdx + 1, currentIdx + 1 + TAIL_IMAGES);
-    const carousel = [...before, this.currentItem, ...after];
+    const carousel = [...before, items[currentIdx], ...after];
     this.carousel.set(carousel);
   }
 

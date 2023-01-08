@@ -52,15 +52,13 @@
 </script>
 
 <main>
-  <div class="container">
-    <slot />
-    <Arrows next={carousel.next} prev={carousel.prev} />
-  </div>
+  <slot />
+  <Arrows next={carousel.next} prev={carousel.prev} />
 </main>
 
 <style lang="scss">
-  div.container {
-    width: 100%;
-    user-select: none;
+  main {
+    height: 100%;
+    overflow-y: auto;
   }
 </style>

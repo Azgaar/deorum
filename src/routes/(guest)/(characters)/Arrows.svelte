@@ -27,6 +27,7 @@
       transform: translateY(-50%);
 
       border: 0;
+      outline: none;
       background: none;
       cursor: pointer;
       color: $primary;
