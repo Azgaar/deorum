@@ -5,64 +5,63 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
 
   export let item: IGalleryItem;
-  const { name, gender, age, height, weight, race, archetype, background } = item;
 </script>
 
 <div class="desktop">
   <div class="item">
-    <div>{name}</div>
-    <div>{$t(`common.genders.${gender}`)}</div>
+    <div>{item.name}</div>
+    <div>{$t(`common.genders.${item.gender}`)}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.race')}</div>
-    <div>{$t(`common.races.${race}`)}</div>
+    <div>{$t(`common.races.${item.race}`)}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.archetype')}</div>
-    <div>{$t(`common.archetypes.${archetype}`)}</div>
+    <div>{$t(`common.archetypes.${item.archetype}`)}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.background')}</div>
-    <div>{$t(`common.backgrounds.${background}`)}</div>
+    <div>{$t(`common.backgrounds.${item.background}`)}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.age')}</div>
-    <div>{age} {$t('common.metrics.yearsOld')}</div>
+    <div>{item.age} {$t('common.metrics.yearsOld')}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.height')}</div>
-    <div>{height} {$t('common.metrics.cm')}</div>
+    <div>{item.height} {$t('common.metrics.cm')}</div>
   </div>
 
   <div class="item">
     <div>{$t('common.character.weight')}</div>
-    <div>{weight} {$t('common.metrics.kg')}</div>
+    <div>{item.weight} {$t('common.metrics.kg')}</div>
   </div>
 </div>
 
 <div class="mobile">
   <div class="item">
-    <div><b>{name}</b></div>
-    <div>{capitalize(race)} {getGenderIcon(gender)}</div>
+    <div><b>{item.name}</b></div>
+    <div>{capitalize(item.race)} {getGenderIcon(item.gender)}</div>
   </div>
 
   <div class="item">
-    <div>{$t('common.character.archetype')}: {archetype}</div>
-    <div>{$t('common.character.background')}: {background}</div>
+    <div>{$t('common.character.archetype')}: {item.archetype}</div>
+    <div>{$t('common.character.background')}: {item.background}</div>
   </div>
 
   <div class="item">
-    <div>{$t('common.character.age')}: {age}</div>
+    <div>{$t('common.character.age')}: {item.age}</div>
     <div>
-      {$t('common.character.height')}: {height}
+      {$t('common.character.height')}: {item.height}
       {$t('common.metrics.cm')}
       {@html '&emsp;'}
-      {$t('common.character.weight')}: {weight}
+      {$t('common.character.weight')}: {item.weight}
       {$t('common.metrics.kg')}
     </div>
   </div>

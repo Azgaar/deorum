@@ -6,11 +6,9 @@
 
   export let item: IGalleryItem;
 
-  const getBioHtml = (bio: string) => `
-    <p style="margin-block-start: 0">
-      ${bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />')}
-    </p>
-  `;
+  const getBioHtml = (bio: string) => `<p style="margin-block-start: 0">
+    ${bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />')}
+  </p>`;
 </script>
 
 <div class="content" id={item.id}>
