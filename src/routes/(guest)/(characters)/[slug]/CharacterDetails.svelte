@@ -9,7 +9,7 @@
 
 <div class="desktop">
   <div class="item">
-    <div>{item.name}</div>
+    <div class="name">{item.name}</div>
     <div>{$t(`common.genders.${item.gender}`)}</div>
   </div>
 
@@ -90,5 +90,9 @@
     display: flex;
     justify-content: space-between;
     gap: 8px;
+
+    .name {
+      font-weight: bold;
+    }
   }
 </style>

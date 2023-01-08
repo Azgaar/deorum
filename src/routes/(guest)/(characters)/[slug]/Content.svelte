@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { slide } from 'svelte/transition';
+
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import CharacterDetails from './CharacterDetails.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
@@ -18,7 +20,11 @@
   </div>
 
   <div class="right-column">
-    {@html getBioHtml(item.bio)}
+    {#key item.id}
+      <div in:slide>
+        {@html getBioHtml(item.bio)}
+      </div>
+    {/key}
   </div>
 </div>
 
