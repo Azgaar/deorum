@@ -322,7 +322,7 @@
   "success": {
     "uploaded": "Successfully uploaded",
     "changesSaved": "Changes are saved",
-    "delected": "Successfully deleted",
+    "deleted": "Successfully deleted",
     "copied": "Copied to you clipboard",
     "converted": "Successfully optimized"
   },
