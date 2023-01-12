@@ -163,7 +163,11 @@
     "feline male": "кот",
     "orc female": "женщина-орк",
     "gnome elder": "гном-старец",
-    "gnome in goggles": "гном в очках"
+    "gnome in goggles": "гном в очках",
+    "cat": "кот",
+    "gargoyle": "горгулья",
+    "golem": "голем",
+    "lizard": "ящер"
   },
   "colors": {
     "red": "красный",

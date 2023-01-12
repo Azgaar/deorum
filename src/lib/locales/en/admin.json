@@ -163,7 +163,11 @@
     "feline male": "feline male",
     "orc female": "orc female",
     "gnome elder": "gnome elder",
-    "gnome in goggles": "gnome in goggles"
+    "gnome in goggles": "gnome in goggles",
+    "cat": "cat",
+    "gargoyle": "gargoyle",
+    "golem": "golem",
+    "lizard": "lizard"
   },
   "colors": {
     "red": "red",
