@@ -21,6 +21,10 @@
   @use 'sass:color';
 
   div.arrows {
+    @media ($mobile) {
+      display: none;
+    }
+
     button {
       position: absolute;
       top: 50%;

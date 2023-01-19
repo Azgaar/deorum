@@ -12,8 +12,6 @@
 </footer>
 
 <style lang="scss">
-  $mobile: 'max-width: 599px';
-
   footer {
     height: 48px;
     display: flex;

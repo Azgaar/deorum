@@ -29,8 +29,6 @@
 </div>
 
 <style lang="scss">
-  $mobile: 'max-width: 599px';
-
   .content {
     max-width: 1050px;
     height: max-content;

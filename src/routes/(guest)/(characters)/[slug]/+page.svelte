@@ -13,7 +13,6 @@
 
 <style lang="scss">
   @use 'sass:color';
-  $mobile: 'max-width: 599px';
 
   div.wrapper {
     display: flex;

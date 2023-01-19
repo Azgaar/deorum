@@ -44,9 +44,6 @@
   $height: 48px;
   $asideWidth: 160px;
 
-  $mobile: 'max-width: 599px';
-  $desktop: 'min-width: 600px';
-
   header {
     height: $height;
     background-color: color.adjust(black, $alpha: -0.8);
