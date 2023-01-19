@@ -22,3 +22,12 @@ interface HTMLImageElement extends HTMLElement {
 declare const APP_VERSION: string;
 
 declare module 'webp-converter';
+
+declare namespace svelteHTML {
+  interface HTMLAttributes<T> {
+    'on:swipeRight'?: (e: CustomEvent) => void;
+    'on:swipeLeft'?: (e: CustomEvent) => void;
+    'on:swipeUp'?: (e: CustomEvent) => void;
+    'on:swipeDown'?: (e: CustomEvent) => void;
+  }
+}

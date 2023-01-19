@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount, setContext } from 'svelte';
+  import { setContext } from 'svelte';
   import { page } from '$app/stores';
 
-  import { createSwipeListener } from '$lib/events/swipe';
+  import { swipe } from '$lib/events/swipe';
 
   import type { LayoutData } from './$types';
   import Arrows from './Arrows.svelte';
@@ -13,45 +13,38 @@
   let carousel = new Carousel(data.items, data.currentId);
   setContext('carousel', carousel);
 
-  onMount(() => {
-    const seeDetails = ['Enter', 'NumpadEnter'];
-    const rotateRightKeys = ['Space', 'ArrowRight', 'ArrowDown'];
-    const rotateLeftKeys = ['ArrowLeft', 'ArrowUp', 'Backspace'];
+  const keyBindings = {
+    drill: ['Enter', 'NumpadEnter'],
+    next: ['Space', 'ArrowRight', 'ArrowDown'],
+    prev: ['ArrowLeft', 'ArrowUp', 'Backspace']
+  };
 
-    const handleKeydown = (event: KeyboardEvent) => {
-      const isGallery = $page.route.id?.match('/gallery/');
-      if (isGallery && seeDetails.includes(event.code)) {
-        event.preventDefault();
-        location.href = `/${data.currentId}`;
-        return;
-      }
+  const handleKeydown = (event: KeyboardEvent) => {
+    const isGallery = $page.route.id?.match('/gallery/');
+    if (isGallery && keyBindings.drill.includes(event.code)) {
+      event.preventDefault();
+      location.href = `/${carousel.currentId}`;
+      return;
+    }
 
-      if (rotateRightKeys.includes(event.code)) {
-        event.preventDefault();
-        carousel.next();
-      }
+    if (keyBindings.next.includes(event.code)) {
+      event.preventDefault();
+      carousel.next();
+    }
 
-      if (rotateLeftKeys.includes(event.code)) {
-        event.preventDefault();
-        carousel.prev();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeydown);
-
-    createSwipeListener(window);
-    window.addEventListener('swipe-right', carousel.next);
-    window.addEventListener('swipe-left', carousel.prev);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeydown);
-
-      window.removeEventListener('swipe-right', carousel.next);
-      window.removeEventListener('swipe-left', carousel.prev);
-      createSwipeListener(window)();
-    };
-  });
+    if (keyBindings.prev.includes(event.code)) {
+      event.preventDefault();
+      carousel.prev();
+    }
+  };
 </script>
+
+<svelte:window
+  on:keydown={handleKeydown}
+  use:swipe
+  on:swipeRight={carousel.next}
+  on:swipeLeft={carousel.prev}
+/>
 
 <main>
   <slot />
