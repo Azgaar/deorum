@@ -29,10 +29,6 @@
     border-radius: 24px;
     transition: all 0.2s ease-in-out;
     padding: 8px 24px;
-
-    @media screen and (max-width: 599px) {
-      padding: 2px 12px;
-    }
   }
 
   a:hover {

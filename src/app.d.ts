@@ -29,5 +29,6 @@ declare namespace svelteHTML {
     'on:swipeLeft'?: (e: CustomEvent) => void;
     'on:swipeUp'?: (e: CustomEvent) => void;
     'on:swipeDown'?: (e: CustomEvent) => void;
+    'on:clickOutside'?: (e: CustomEvent) => void;
   }
 }

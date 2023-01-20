@@ -2,6 +2,7 @@
   import { getContext } from 'svelte';
 
   import Content from './Content.svelte';
+  import ActionsPane from './ActionsPane.svelte';
   import type { Carousel } from '../carousel';
 
   const { currentItem }: Carousel = getContext('carousel');
@@ -9,6 +10,7 @@
 
 <div class="wrapper">
   <Content item={$currentItem} />
+  <ActionsPane item={$currentItem} />
 </div>
 
 <style lang="scss">

@@ -2,17 +2,23 @@
   import { t } from '$lib/locales/translations';
   import { VERSION } from '$lib/constants';
 
-  const appName = 'Deorum: Fantasy Character Creator';
+  const appNameFull = 'Deorum: Fantasy Character Creator';
+  const appNameShort = 'Deorum';
   const author = 'Azgaar';
   const year = new Date().getFullYear();
 </script>
 
 <footer>
-  <span class="version">{appName}. {author}, {year}. {$t('common.info.version')}{VERSION}</span>
+  <span class="version desktop"
+    >{appNameFull}. {author}, {year}. {$t('common.info.version')}{VERSION}</span
+  >
+  <span class="version mobile">{appNameShort} {$t('common.info.version')}{VERSION}</span>
 </footer>
 
 <style lang="scss">
   footer {
+    pointer-events: none;
+
     height: 48px;
     display: flex;
     justify-content: flex-end;
@@ -24,6 +30,26 @@
       font-size: 10px;
       color: $text;
       opacity: 0.1;
+    }
+  }
+
+  @media ($desktop) {
+    .mobile {
+      display: none;
+    }
+
+    .desktop {
+      display: block;
+    }
+  }
+
+  @media ($mobile) {
+    .mobile {
+      display: block;
+    }
+
+    .desktop {
+      display: none;
     }
   }
 </style>

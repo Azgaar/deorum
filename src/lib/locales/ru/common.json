@@ -165,5 +165,12 @@
     "surgeon": "хирург",
     "necromancer": "некромант",
     "paladin": "паладин"
+  },
+  "export": {
+    "export": "Экспорт",
+    "portrait": "Портрет",
+    "cardImage": "Карточка",
+    "text": "Текстовый файл",
+    "json": "JSON файл"
   }
 }

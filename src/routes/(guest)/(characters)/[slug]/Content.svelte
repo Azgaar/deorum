@@ -13,7 +13,7 @@
   </p>`;
 </script>
 
-<div class="content" id={item.id}>
+<div id="characterCard" class="content">
   <div class="left-column">
     <Picture src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" />
     <CharacterDetails {item} />
@@ -21,9 +21,7 @@
 
   <div class="right-column">
     {#key item.id}
-      <div in:slide>
-        {@html getBioHtml(item.bio)}
-      </div>
+      {@html getBioHtml(item.bio)}
     {/key}
   </div>
 </div>
