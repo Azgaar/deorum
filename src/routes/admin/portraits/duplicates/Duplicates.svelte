@@ -51,6 +51,9 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 
+      height: 100%;
+      overflow-y: auto;
+
       .imageContainer {
         position: relative;
         aspect-ratio: 1;
