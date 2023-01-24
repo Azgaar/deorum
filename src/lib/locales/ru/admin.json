@@ -6,7 +6,10 @@
     "characters": "Персонажи",
     "portraits": "Портреты",
     "upload": "Загрузить изображения",
-    "statistics": "Статистика"
+    "statistics": "Статистика",
+    "duplicates": "Поиск дубликатов",
+    "duplicatesHint": "Прокрутите портреты, чтобы найти дубликаты",
+    "openDuplicates": "Открыть дубликаты"
   },
   "editor": {
     "selected": "Выбрано",

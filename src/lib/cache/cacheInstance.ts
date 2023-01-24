@@ -1,11 +1,11 @@
 import { getFullList } from '$lib/api/getFullList';
-import { request } from '$lib/utils/requests';
 import Cache from './cache';
 
 export const cache = new Cache({ debug: false });
 
 const EXPIRATION = 1000 * 60 * 60 * 6; // 6 hours
 
+// DO NOT CALL FROM CLIENT SIDE
 export const getCachedList = async <T>(
   collection: 'portraits' | 'tags' | 'characters',
   filter = '',

@@ -53,6 +53,10 @@
     {/if}
 
     {#if isPortraitsPage}
+      <Button variant="raised" on:click={() => goto(`./${page}/duplicates`)}>
+        {$t('admin.menu.duplicates')}
+      </Button>
+
       <Button variant="raised" on:click={() => goto('./characters')}>
         {$t('admin.menu.characters')}
       </Button>

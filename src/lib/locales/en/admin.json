@@ -6,7 +6,10 @@
     "characters": "Characters",
     "portraits": "Portraits",
     "upload": "Upload Images",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "duplicates": "Duplicates",
+    "duplicatesHint": "Scroll portraits to search for duplicates",
+    "openDuplicates": "Open duplicates"
   },
   "editor": {
     "selected": "Selected",
