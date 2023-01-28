@@ -19,12 +19,12 @@
   export let image: string;
   export let handleEdit = () => {};
 
-  const getPortraits = (current: ICharacter) => {
+  const getImageSrcs = (current: ICharacter) => {
     const portraits = current?.['@expand']?.portraits || [];
-    const image = portraits.map(
+    const images = portraits.map(
       ({ id, image }) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}?thumb=100x100`
     );
-    return image;
+    return images;
   };
 </script>
 
@@ -86,7 +86,7 @@
       <div class="vertical">
         <div>{$t('admin.statistics.portraits')}:</div>
         <div class="portraits">
-          {#each getPortraits(model) as src}
+          {#each getImageSrcs(model) as src}
             <img {src} alt="portrait" />
           {/each}
         </div>

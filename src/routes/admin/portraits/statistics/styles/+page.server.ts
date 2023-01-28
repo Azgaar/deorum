@@ -1,13 +1,16 @@
-import { getFullList } from '$lib/api/getFullList';
+import { getCachedList } from '$lib/cache/cacheInstance';
+
+import type { IPortrait, IStyle } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
 
 export const load: import('./$types').PageServerLoad = async () => {
-  const [portraits, styles] = await Promise.all([getFullList('portraits'), getFullList('styles')]);
-  const stylesMap = new Map(styles.map(({ id, image, name }) => [id, { image, name }]));
+  const [portraits, styles] = await Promise.all([
+    getCachedList<IPortrait>('portraits'),
+    getCachedList<IStyle>('styles')
+  ]);
 
-  // aggregate data
   const aggregated = portraits.reduce((acc, { styles }) => {
     for (const style of styles) {
       if (!acc[style]) acc[style] = 0;
@@ -21,6 +24,7 @@ export const load: import('./$types').PageServerLoad = async () => {
     if (!aggregated[id]) aggregated[id] = 0;
   }
 
+  const stylesMap = new Map(styles.map(({ id, image, name }) => [id, { image, name }]));
   const statistics: IStatistics[] = Object.entries(aggregated)
     .map(([id, count]) => ({ ...stylesMap.get(id), count }))
     .sort((a, b) => b.count - a.count);

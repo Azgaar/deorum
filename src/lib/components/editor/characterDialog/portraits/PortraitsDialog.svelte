@@ -1,18 +1,18 @@
 <script lang="ts">
-  import Dialog, { type DialogComponentDev } from '@smui/dialog';
+  import Dialog from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Checkbox from '@smui/checkbox';
 
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { getPortraits } from '$lib/api/getPortraits';
-  import { getFullList } from '$lib/api/getFullList';
   import { report } from '$lib/utils/log';
+  import { toJson } from '$lib/utils/requests';
   import { toastError } from '$lib/stores';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
+  import { getCachedList } from '$lib/cache/cacheInstance';
 
-  import type { IPortrait } from '$lib/types/api.types';
+  import type { IListResult, IOriginal, IPortrait } from '$lib/types/api.types';
 
   export let open: boolean;
   export let ids: string[];
@@ -37,7 +37,10 @@
     try {
       isLoading = true;
       const filter = original ? `original="${original}"` : '';
-      const portraitsList = await getPortraits({ page, filter });
+      const portraitsList = await toJson<IListResult<IPortrait>>(
+        fetch(`/api/portraits?page=${page}&pageSize=100&filter=${filter}`)
+      );
+
       hasMore = portraitsList.totalPages > page;
       portraits = [...portraits, ...portraitsList.items];
     } catch (error) {
@@ -50,7 +53,7 @@
 
   const loadOriginals = async () => {
     try {
-      const originals = await getFullList<'originals'>('originals');
+      const originals = await getCachedList<IOriginal>('originals');
       const all = ['', $t('common.values.all')];
       const options = originals.map(({ id, name }) => [
         id,

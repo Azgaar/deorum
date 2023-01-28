@@ -6,7 +6,7 @@ import admin from '$lib/api/admin';
 
 export const PATCH: RequestHandler = async ({ params, request }) => {
   try {
-    const id = params.id as string;
+    const id = params.slug as string;
     const formData = await request.formData();
     const result = await admin.records.update('portraits', id, formData);
     log('Portraits', 'Update portrait', formData);

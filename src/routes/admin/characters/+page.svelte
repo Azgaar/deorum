@@ -25,7 +25,7 @@
   const tags = new Map(data.tags.map(({ id, name, image }) => [id, { name, image }]));
 
   // incoming data: mutable
-  let { page, hasMore, filters, sorting } = data;
+  let { page, pageSize, hasMore, filters, sorting } = data;
 
   // reactive data
   let selected: string[] = [];
@@ -58,10 +58,13 @@
 
   const handleLoadMore = async () => {
     try {
-      const filter = parseFilters(filters);
-      const sort = parseSorting(sorting);
-      const EXPAND = 'race,archetype,background,portraits';
-      const params = new URLSearchParams({ page: String(page + 1), filter, sort, expand: EXPAND });
+      const params = new URLSearchParams({
+        page: String(page + 1),
+        pageSize: String(pageSize),
+        filter: parseFilters(filters),
+        sort: parseSorting(sorting),
+        expand: 'race,archetype,background,portraits'
+      });
 
       const charactersList = await request<IListResult<ICharacter>>(
         `/api/characters?${params.toString()}`

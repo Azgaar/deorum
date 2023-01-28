@@ -1,7 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 
 import { getRandomIndex } from '$lib/utils/array';
-import { makePOJO } from '$lib/utils/object';
 import { getCachedList } from '$lib/cache/cacheInstance';
 import { log } from '$lib/utils/log';
 
@@ -28,5 +27,5 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
 
   log('match', `Matching portrait ${current.id} with random names`);
 
-  return { current: makePOJO(current), next: makePOJO(next) };
+  return { current, next };
 };

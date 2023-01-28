@@ -11,12 +11,13 @@
   import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { getPortraits, patchPortraits, postPortraits, deletePortraits } from '$lib/api';
+  import { patchPortraits, postPortraits, deletePortraits } from '$lib/api';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
+  import { toJson } from '$lib/utils/requests';
 
-  import type { ICharacter, IPortrait } from '$lib/types/api.types';
+  import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
   import type {
     TEditorData,
     IUploadedPortrait,
@@ -30,20 +31,28 @@
   } from '$lib/types/editor.types';
   import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 
-  export let data: import('./$types').PageData;
+  import type { PageData } from './$types';
 
-  // incoming data: immutable
-  const { originals, tags, styles, colors, races, archetypes, backgrounds } = data;
+  export let data: PageData;
+
+  // incoming data: immutable maps
+  const originals = new Map(data.originals.map(({ id, image, name }) => [id, { image, name }]));
+  const tags = new Map(data.tags.map(({ id, image, name }) => [id, { image, name }]));
+  const styles = new Map(data.styles.map(({ id, image, name }) => [id, { image, name }]));
+  const colors = new Map(data.colors.map(({ image, name }) => [name, { image, name }]));
+  const races = new Map(data.races.map((race) => [race.id, race]));
+  const archetypes = new Map(data.archetypes.map(({ id, name }) => [id, { name }]));
+  const backgrounds = new Map(data.backgrounds.map(({ id, name }) => [id, { name }]));
 
   // incoming data: mutable
-  let { page, hasMore, filters, sorting } = data;
+  let { page, pageSize, hasMore, filters, sorting } = data;
 
   // reactive data
   let selected: string[] = [];
   let uploaded: IUploadedPortrait[] = [];
 
-  $: portraits = data.portraits || [];
-  $: portraitsMap = new Map(portraits.map((p) => [p.id, p]));
+  $: portraits = data.portraits;
+  $: portraitsMap = new Map(data.portraits.map((p) => [p.id, p]));
   $: model = getModel(selected, uploaded);
 
   const getModel = (selected: string[], uploaded: IUploadedPortrait[]) => {
@@ -223,7 +232,16 @@
 
         const filter = parseFilters(newFilter);
         const sort = parseSorting(newSort);
-        const { items, totalPages } = await getPortraits({ page: 1, filter, sort });
+        const searchParams = new URLSearchParams({
+          page: '1',
+          pageSize: String(pageSize),
+          filter,
+          sort
+        });
+
+        const { items, totalPages } = await toJson<IListResult<IPortrait>>(
+          fetch(`/api/portraits?${searchParams}`)
+        );
 
         const queryString = `/admin/portraits?filter=${filter}&sort=${sort}`;
         window.history.pushState({}, '', queryString);
@@ -271,9 +289,16 @@
 
   const handleLoadMore = async () => {
     try {
-      const filter = parseFilters(filters);
-      const sort = parseSorting(sorting);
-      const { items, totalPages } = await getPortraits({ page: page + 1, filter, sort });
+      const searchParams = new URLSearchParams({
+        page: String(page + 1),
+        pageSize: String(pageSize),
+        filter: parseFilters(filters),
+        sort: parseSorting(sorting)
+      });
+
+      const { items, totalPages } = await toJson<IListResult<IPortrait>>(
+        fetch(`/api/portraits?${searchParams}`)
+      );
 
       page += 1;
       hasMore = page < totalPages;

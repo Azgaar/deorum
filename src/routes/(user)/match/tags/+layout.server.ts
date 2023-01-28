@@ -2,7 +2,6 @@ import { error, redirect } from '@sveltejs/kit';
 
 import { MATCH_TAGS_NUMBER } from '$lib/config';
 import { getRandomElements, getRandomIndex, shuffle } from '$lib/utils/array';
-import { makePOJO } from '$lib/utils/object';
 import { getCachedList } from '$lib/cache/cacheInstance';
 import { log } from '$lib/utils/log';
 
@@ -45,5 +44,5 @@ export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const tagsString = randomTags.map(({ name }) => name).join(', ');
   log('match', `Matching portrait ${current.id} with tags ${tagsString}`);
 
-  return { current: makePOJO(current), next: makePOJO(next), tags: makePOJO(randomTags) };
+  return { current, next, tags: randomTags };
 };

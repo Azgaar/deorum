@@ -1,7 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 
 import { getRandomIndex, sliceElements } from '$lib/utils/array';
-import { getCachedList } from '$lib/cache/cacheInstance';
 import { getGalleryItemData, verifyCharacter } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
 import { charactersConfig } from '$lib/config';
@@ -11,12 +10,13 @@ import type { ICharacter } from '$lib/types/api.types';
 const SELECT_BEFORE = 10;
 const SELECT_AFTER = 15;
 
-export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
+export const load: import('./$types').LayoutServerLoad = async ({ params, fetch }) => {
   const { filter, sort, expand } = charactersConfig;
-  const characters = await getCachedList<ICharacter>('characters', filter, sort, expand);
-  if (!characters || !characters.length) throw error(503, 'No characters returned');
+  const res = await fetch(`/api/characters?sort=${sort}&filter=${filter}&expand=${expand}`);
+  const allCharacters = await (<Promise<ICharacter[]>>res.json());
+  if (!allCharacters || !allCharacters.length) throw error(503, 'No characters returned');
 
-  const validCharacters = characters.filter(verifyCharacter);
+  const validCharacters = allCharacters.filter(verifyCharacter);
   if (!validCharacters.length) throw error(503, 'No valid characters found');
 
   const currentIndex =

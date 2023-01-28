@@ -1,6 +1,8 @@
-import { getFullList } from '$lib/api/getFullList';
-import type { IStatistics } from '$lib/types/statistics.types';
 import { makePOJO } from '$lib/utils/object';
+import { getCachedList } from '$lib/cache/cacheInstance';
+
+import type { IStatistics } from '$lib/types/statistics.types';
+import type { IColor, IOriginal, IPortrait, IQuality, IStyle, ITag } from '$lib/types/api.types';
 
 export const csr = false;
 
@@ -29,21 +31,14 @@ function sortObject(obj: Record<string, number>, byKey = false) {
 
 export const load: import('./$types').PageServerLoad = async () => {
   const [portraits, originals, tags, styles, colors, quality] = await Promise.all([
-    getFullList('portraits'),
-    getFullList('originals'),
-    getFullList('tags'),
-    getFullList('styles'),
-    getFullList('colors'),
-    getFullList('quality')
+    getCachedList<IPortrait>('portraits'),
+    getCachedList<IOriginal>('originals'),
+    getCachedList<ITag>('tags'),
+    getCachedList<IStyle>('styles'),
+    getCachedList<IColor>('colors'),
+    getCachedList<IQuality>('quality')
   ]);
 
-  const originalsMap = new Map(originals.map(({ id, image, name }) => [id, { name, image }]));
-  const tagsMap = new Map(tags.map(({ id, image, name }) => [id, { image, name }]));
-  const stylesMap = new Map(styles.map(({ id, image, name }) => [id, { image, name }]));
-  const colorsMap = new Map(colors.map(({ image, name }) => [name, { image, name }]));
-  const qualityMap = new Map(quality.map(({ image, name }) => [name, { image, name }]));
-
-  // aggregate data
   const aggregated = portraits.reduce((acc, { original, quality, colors, tags, styles }) => {
     if (!acc[original]) acc[original] = makePOJO(initial);
     acc[original].portraits++;
@@ -68,6 +63,12 @@ export const load: import('./$types').PageServerLoad = async () => {
 
     return acc;
   }, {} as IAggregatedData);
+
+  const originalsMap = new Map(originals.map(({ id, image, name }) => [id, { name, image }]));
+  const tagsMap = new Map(tags.map(({ id, image, name }) => [id, { image, name }]));
+  const stylesMap = new Map(styles.map(({ id, image, name }) => [id, { image, name }]));
+  const colorsMap = new Map(colors.map(({ image, name }) => [name, { image, name }]));
+  const qualityMap = new Map(quality.map(({ image, name }) => [name, { image, name }]));
 
   const statistics: IStatsData[] = Object.entries(aggregated)
     .map(([id, { portraits, quality, colors, tags, styles }]) => ({

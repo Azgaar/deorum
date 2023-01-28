@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
 
-export const load: import('./$types').PageLoad = async () => {
+export const load: PageLoad = async () => {
   throw redirect(307, `/admin/portraits`);
 };

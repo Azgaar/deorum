@@ -1,16 +1,16 @@
-import { getFullList } from '$lib/api/getFullList';
+import { getCachedList } from '$lib/cache/cacheInstance';
+
+import type { IBackground, ICharacter } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
 
 export const load: import('./$types').PageServerLoad = async () => {
   const [characters, backgrounds] = await Promise.all([
-    getFullList('characters'),
-    getFullList('backgrounds')
+    getCachedList<ICharacter>('characters'),
+    getCachedList<IBackground>('backgrounds')
   ]);
-  const backgroundsMap = new Map(backgrounds.map(({ id, name }) => [id, { name }]));
 
-  // aggregate data
   const aggregated = characters.reduce((acc, { background }) => {
     if (!acc[background]) acc[background] = 0;
     acc[background] += 1;
@@ -22,6 +22,7 @@ export const load: import('./$types').PageServerLoad = async () => {
     if (!aggregated[id]) aggregated[id] = 0;
   }
 
+  const backgroundsMap = new Map(backgrounds.map(({ id, name }) => [id, { name }]));
   const statistics: IStatistics[] = Object.entries(aggregated)
     .map(([id, count]) => {
       const { name } = backgroundsMap.get(id) || {};

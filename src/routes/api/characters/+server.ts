@@ -1,35 +1,48 @@
 import admin from '$lib/api/admin';
-import { BATCH_SIZE } from '$lib/config';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
+import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
+import { toJson } from '$lib/utils/requests';
 
-import type { IPortrait } from '$lib/types/api.types';
+import type { ICharacter, IPortrait } from '$lib/types/api.types';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
-    const page = Number(url.searchParams.get('page')) || 1;
+    const page = Number(url.searchParams.get('page'));
+    const pageSize = Number(url.searchParams.get('pageSize'));
+
     const filter = url.searchParams.get('filter') || '';
     const sort = url.searchParams.get('sort') || '';
     const expand = url.searchParams.get('expand') || '';
-    const PAGE_SIZE = 50;
 
-    const options = { filter, sort, expand };
-    const charactersList = await admin.records.getList('characters', page, PAGE_SIZE, options);
-    log('characters', `Loading ${PAGE_SIZE} characters`);
-    return new Response(JSON.stringify(charactersList));
+    if (page && pageSize) {
+      const args = [page, pageSize, filter, sort, expand] as const;
+      const charactersPage = await getCachedPage<ICharacter>('characters', ...args);
+      log('characters', `Loading ${pageSize} characters`);
+      return new Response(JSON.stringify(charactersPage));
+    }
+
+    const allCharacters = await getCachedList<ICharacter>('characters', filter, sort, expand);
+    log('characters', `Loading all characters`);
+    return new Response(JSON.stringify(allCharacters));
   } catch (err) {
     report('characters', err);
     throw createServerError(err);
   }
 };
 
-export const PUT: RequestHandler = async ({ request }) => {
+export const PUT: RequestHandler = async ({ request, fetch }) => {
   try {
     const data = await request.json();
     const character = await admin.records.create('characters', data);
     log('characters', `Create character`, data);
-    await updatePortraits(character.portraits, character.id);
+
+    const currentPortraits = await toJson<IPortrait[]>(
+      fetch(`/api/portraits?filter=characters~"${character.id}"`)
+    );
+    await updatePortraits(character.portraits, character.id, currentPortraits);
+
     return new Response(JSON.stringify(character));
   } catch (err) {
     report('characters', err);
@@ -37,13 +50,18 @@ export const PUT: RequestHandler = async ({ request }) => {
   }
 };
 
-export const PATCH: RequestHandler = async ({ request, url }) => {
+export const PATCH: RequestHandler = async ({ request, url, fetch }) => {
   try {
     const expand = url.searchParams.get('expand') || '';
     const data = await request.json();
     const character = await admin.records.update('characters', data.id, data, { expand });
     log('characters', `Update character ${data.id}`, data);
-    await updatePortraits(character.portraits, character.id);
+
+    const currentPortraits = await toJson<IPortrait[]>(
+      fetch(`/api/portraits?filter=characters~"${character.id}"`)
+    );
+    await updatePortraits(character.portraits, character.id, currentPortraits);
+
     return new Response(JSON.stringify(character));
   } catch (err) {
     report('characters', err);
@@ -51,10 +69,12 @@ export const PATCH: RequestHandler = async ({ request, url }) => {
   }
 };
 
-async function updatePortraits(portraitIds: string[], characterId: string) {
+async function updatePortraits(
+  portraitIds: string[],
+  characterId: string,
+  currentPortraits: IPortrait[] = []
+) {
   try {
-    const filter = `characters~"${characterId}"`;
-    const currentPortraits = await admin.records.getFullList('portraits', BATCH_SIZE, { filter });
     const portraitsToRemove = currentPortraits.filter(
       (portrait) => !portraitIds.includes(portrait.id)
     ) as unknown as IPortrait[];

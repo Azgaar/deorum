@@ -32,3 +32,8 @@ export function preloadImage(src: string) {
     nextImage.src = src;
   }
 }
+
+export async function toJson<T>(promise: Promise<Response>) {
+  const response = await promise;
+  return <T>response.json();
+}

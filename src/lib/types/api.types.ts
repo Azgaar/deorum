@@ -1,16 +1,28 @@
 import type { Role } from '../stores/auth';
 
-export interface IListResult<M> {
+export type TCollection =
+  | 'portraits'
+  | 'characters'
+  | 'originals'
+  | 'tags'
+  | 'styles'
+  | 'colors'
+  | 'quality'
+  | 'races'
+  | 'archetypes'
+  | 'backgrounds';
+
+export interface IListResult<T> {
   page: number;
   perPage: number;
   totalItems: number;
   totalPages: number;
-  items: Array<M>;
+  items: Array<T>;
 }
 
 interface IRecord {
   '@collectionId': string;
-  '@collectionName': string;
+  '@collectionName': TCollection;
   '@expand': {
     [key: string]: unknown;
   };

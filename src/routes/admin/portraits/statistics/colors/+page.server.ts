@@ -1,4 +1,6 @@
-import { getFullList } from '$lib/api/getFullList';
+import { getCachedList } from '$lib/cache/cacheInstance';
+
+import type { IColor, IPortrait } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
@@ -8,10 +10,11 @@ interface IAggregatedData {
 }
 
 export const load: import('./$types').PageServerLoad = async () => {
-  const [portraits, colors] = await Promise.all([getFullList('portraits'), getFullList('colors')]);
-  const colorsMap = new Map(colors.map(({ image, name }) => [name, { image, name }]));
+  const [portraits, colors] = await Promise.all([
+    getCachedList<IPortrait>('portraits'),
+    getCachedList<IColor>('colors')
+  ]);
 
-  // aggregate data
   const aggregated = portraits.reduce((acc, { colors }) => {
     for (const color of colors) {
       if (!acc[color]) acc[color] = 0;
@@ -25,6 +28,7 @@ export const load: import('./$types').PageServerLoad = async () => {
     if (!aggregated[name]) aggregated[name] = 0;
   }
 
+  const colorsMap = new Map(colors.map(({ image, name }) => [name, { image, name }]));
   const statistics: IStatistics[] = Object.entries(aggregated)
     .map(([name, count]) => ({ ...colorsMap.get(name), count }))
     .sort((a, b) => b.count - a.count);
