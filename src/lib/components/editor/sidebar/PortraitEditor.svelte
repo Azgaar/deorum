@@ -1,7 +1,6 @@
 <script lang="ts">
   import MuiButton, { Label as MuiLabel } from '@smui/button';
 
-  import { getChanges } from '$lib/api/patchPortraits';
   import Chip from '$lib/components/editor/chips/Chip.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
@@ -16,6 +15,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { request, sendFormData } from '$lib/utils/requests';
   import { convertImageUrl, isConvertableFormat } from '$lib/utils/images';
+  import { getChanges } from '$lib/utils/portraits';
 
   import EditButton from '../EditButton.svelte';
 

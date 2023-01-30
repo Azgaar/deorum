@@ -11,12 +11,11 @@
   import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { patchPortraits } from '$lib/api';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
   import { request, sendFormData } from '$lib/utils/requests';
-  import { createFormData } from '$lib/utils/portraits';
+  import { createFormData, getPatchData } from '$lib/utils/portraits';
   import { convertImageFile } from '$lib/utils/images';
 
   import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
@@ -262,15 +261,30 @@
   };
 
   const createPatchHandler = (): TPatchHandler => async (changes) => {
-    const results = await patchPortraits(selected, portraitsMap, changes);
-    const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
+    const patches = [];
+    for (const id of selected) {
+      const portrait = portraitsMap.get(id);
+      if (!portrait) continue;
 
-    data.portraits = data.portraits.map((portrait) => {
-      const updated = resultsMap.get(portrait.id);
-      return updated || portrait;
-    });
+      const patchData = getPatchData(changes, portrait);
+      if (Object.keys(patchData).length) patches.push({ id, patchData });
+    }
 
-    selected = [];
+    try {
+      const payload = { ids: selected, changes, patches };
+      const results = await request<IPortrait[]>('/api/portraits', 'PATCH', payload);
+      const resultsMap = new Map(results.map((portrait) => [portrait.id, portrait]));
+
+      data.portraits = data.portraits.map((portrait) => {
+        const updated = resultsMap.get(portrait.id);
+        return updated || portrait;
+      });
+
+      selected = [];
+    } catch (err) {
+      report('admin', err, { request: 'patchPortraits', selected, changes, patches });
+      toastError(err);
+    }
   };
 
   const createPostHandler = (): TPostHandler => async (editorData: TEditorData) => {

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import { getPortrait } from '$lib/api/getPortrait';
+  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
+
   import { toastError } from '$lib/stores';
   import { report } from '$lib/utils/log';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
+  import { request } from '$lib/utils/requests';
+  import type { IPortrait } from '$lib/types/api.types';
 
   export let id: string;
   export let actions: {
@@ -37,7 +39,7 @@
     };
 
     try {
-      const portrait = await getPortrait({ id });
+      const portrait = await request<IPortrait>(`/api/portraits/${id}`);
       img.src = `${PORTRAITS_IMAGE_PATH}/${id}/${portrait.image}?thumb=100x100`;
       img.onload = handleLoad;
       img.onerror = handleError;

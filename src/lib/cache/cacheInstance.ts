@@ -1,4 +1,4 @@
-import { getFullList, getPage } from '$lib/api/getData';
+import { getElement, getFullList, getPage } from '$lib/api/getData';
 import { makePOJO } from '$lib/utils/object';
 
 import type { IListResult, TCollection } from '$lib/types/api.types';
@@ -40,7 +40,7 @@ export const getCachedPage = async <T>(
   const key = [collection, page, pageSize, filter, sort, expand].join('-');
 
   const cached = cache.get(key);
-  if (cached?.length) return new Promise((resolve) => resolve(cached));
+  if (cached) return new Promise((resolve) => resolve(cached));
 
   const list = (await getPage(collection, page, pageSize, filter, sort, expand)) as IListResult<T>;
   const serialized = makePOJO(list);
@@ -49,19 +49,20 @@ export const getCachedPage = async <T>(
   return serialized;
 };
 
-export const getCachedItem = async <T>(
-  type: 'character',
+// DO NOT CALL FROM CLIENT SIDE
+export const getCachedElement = async <T>(
+  collection: TCollection,
   id: string,
-  request: Promise<Response>,
   expand = ''
 ): Promise<T> => {
-  const key = [type, id, expand].join('-');
+  const key = [collection, id, expand].join('-');
 
   const cached = cache.get(key);
   if (cached) return new Promise((resolve) => resolve(cached));
 
-  const response = await request;
-  const item = await response.json();
-  cache.put(key, item, EXPIRATION);
-  return item;
+  const element = (await getElement(collection, id, expand)) as T;
+  const serialized = makePOJO(element);
+
+  cache.put(key, serialized, EXPIRATION);
+  return serialized;
 };

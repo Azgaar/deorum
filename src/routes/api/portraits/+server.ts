@@ -2,11 +2,13 @@ import { error, json, type RequestHandler } from '@sveltejs/kit';
 
 import { log, report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
+import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
+import { pluralize } from '$lib/utils/string';
+import { getNewValue } from '$lib/utils/portraits';
 import admin from '$lib/api/admin';
 
-import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
 import type { IPortrait } from '$lib/types/api.types';
-import { pluralize } from '$lib/utils/string';
+import type { IChange } from '$lib/types/editor.types';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -41,7 +43,42 @@ export const POST: RequestHandler = async ({ request }) => {
     log('portraits', 'Upload portrait', formData);
     return json(result);
   } catch (err) {
-    report('Portraits', err);
+    report('portraits', err);
+    throw createServerError(err);
+  }
+};
+
+export const PATCH: RequestHandler = async ({ request }) => {
+  try {
+    const { ids, changes, patches } = (await request.json()) as {
+      ids: string[];
+      changes: IChange[];
+      patches: { id: string; patchData: Partial<IPortrait> }[];
+    };
+
+    if (!ids || !ids.length) throw error(400, 'No ids provided for update');
+    if (!changes || !changes.length) throw error(400, 'No changes provided for update');
+    if (!patches || !patches.length) throw error(400, 'No patches provided for update');
+
+    // change characters
+    for (const { key, operation, value } of changes) {
+      if (key !== 'characters') continue;
+      const characterId = value as string;
+      const character = await admin.records.getOne('characters', characterId);
+      const portraits = getNewValue(operation, character.portraits, ids) as string[];
+      await admin.records.update('characters', characterId, { portraits });
+    }
+
+    // change portraits
+    const promises = patches.map(({ id, patchData }) =>
+      admin.records.update('portraits', id, patchData, { expand: 'characters' })
+    );
+    const result = await Promise.all(promises);
+
+    log('editor', `Update ${pluralize('portrait', ids.length)} ${ids.join(', ')}`, changes);
+    return json(result);
+  } catch (err) {
+    report('portraits', err);
     throw createServerError(err);
   }
 };
@@ -55,7 +92,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
     log('portraits', `Delete ${pluralize('portrait', ids.length)} ${ids.join(', ')}`);
     return json(result);
   } catch (err) {
-    report('Portraits', err);
+    report('portraits', err);
     throw createServerError(err);
   }
 };

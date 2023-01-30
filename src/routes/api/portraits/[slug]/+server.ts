@@ -2,7 +2,24 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 import { log, report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
+import { getCachedElement } from '$lib/cache/cacheInstance';
 import admin from '$lib/api/admin';
+
+import type { IPortrait } from '$lib/types/api.types';
+
+export const GET: RequestHandler = async ({ url, params }) => {
+  try {
+    const id = params.slug as string;
+    const expand = url.searchParams.get('expand') || '';
+
+    const portrait = await getCachedElement<IPortrait>('portraits', id, expand);
+    log('portraits', `Loading portrait ${id}`);
+    return new Response(JSON.stringify(portrait));
+  } catch (err) {
+    report('portraits', err);
+    throw createServerError(err);
+  }
+};
 
 export const PATCH: RequestHandler = async ({ params, request }) => {
   try {
@@ -10,10 +27,10 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     const patchData = await request.json();
 
     const result = await admin.records.update('portraits', id, patchData);
-    log('Portraits', 'Update portrait', patchData);
+    log('portraits', 'Update portrait', patchData);
     return json(result);
   } catch (err) {
-    report('Portraits', err);
+    report('portraits', err);
     throw createServerError(err);
   }
 };
