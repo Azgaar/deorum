@@ -36,7 +36,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       expand: EXPAND
     });
 
-    const [charactersList, races, archetypes, backgrounds, tags] = await Promise.all([
+    const [charactersList, tags, races, archetypes, backgrounds] = await Promise.all([
       toJson<IListResult<ICharacter>>(fetch(`/api/characters?${params}`)),
       getCachedList<ITag>('tags'),
       getCachedList<IRace>('races'),

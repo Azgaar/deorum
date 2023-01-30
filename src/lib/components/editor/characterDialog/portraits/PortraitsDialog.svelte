@@ -144,20 +144,21 @@
     padding: 0 1.5rem;
 
     div.content {
+      width: min(500px, 90vw);
       height: min(560px, 90vh);
       overflow-y: auto;
 
       div {
         height: min-content;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         grid-gap: 3px;
 
         div {
           position: relative;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          align-items: flex-end;
+          justify-content: flex-end;
 
           img {
             width: 100%;
@@ -178,7 +179,7 @@
 
           &:hover {
             img {
-              filter: brightness(0.8);
+              filter: brightness(0.9);
             }
 
             div.checkbox {
