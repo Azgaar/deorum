@@ -33,6 +33,11 @@ export const convertImageUrl = async (src: string) => {
   return new File([blob], `${defaultFileName}.webp`, { type: 'image/webp' });
 };
 
+export const isConvertableFormat = (src: string) => {
+  const type = `image/${src.split('.')?.pop()}`;
+  return convertableMimeTypes.includes(type);
+};
+
 function fileToArrayBuffer(file: File): Promise<ArrayBuffer> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

@@ -1,7 +1,6 @@
 <script lang="ts">
   import MuiButton, { Label as MuiLabel } from '@smui/button';
 
-  import { patchPortraitImage } from '$lib/api';
   import { getChanges } from '$lib/api/patchPortraits';
   import Chip from '$lib/components/editor/chips/Chip.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
@@ -14,10 +13,13 @@
   import { deriveCharacterLabel } from '$lib/utils/characters';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { request, sendFormData } from '$lib/utils/requests';
+  import { convertImageUrl, isConvertableFormat } from '$lib/utils/images';
 
   import EditButton from '../EditButton.svelte';
 
-  import type { ICharacter } from '$lib/types/api.types';
+  import type { ICharacter, IPortrait } from '$lib/types/api.types';
   import type {
     TChangeableKey,
     TDeleteHandler,
@@ -29,8 +31,6 @@
     TPatchHandler,
     TPostHandler
   } from '$lib/types/editor.types';
-  import { convertableMimeTypes, PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { request } from '$lib/utils/requests';
 
   export let model: TEditorData;
   $: current = makePOJO(model);
@@ -59,7 +59,7 @@
   let isLoading = false;
   let isDeleteInitiated = false;
 
-  $: isConvertable = convertableMimeTypes.includes(image.split('.').pop() || '');
+  $: isConvertable = isConvertableFormat(image);
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
 
@@ -216,9 +216,18 @@
 
   const convertImage = async () => {
     try {
-      const updatedPortrait = await patchPortraitImage(current.id, image);
-      model.image = updatedPortrait.image;
-      image = `${PORTRAITS_IMAGE_PATH}/${current.id}/${updatedPortrait.image}`;
+      const imageFile = await convertImageUrl(image);
+      const formData = new FormData();
+      formData.set('image', imageFile);
+
+      const result = await sendFormData<IPortrait>(
+        `/api/portraits/${current.id}/image`,
+        formData,
+        'PATCH'
+      );
+
+      model.image = result.image;
+      image = `${PORTRAITS_IMAGE_PATH}/${current.id}/${result.image}`;
       toastSuccess($t('admin.success.converted'));
     } catch (err) {
       report('editor', err, current);
