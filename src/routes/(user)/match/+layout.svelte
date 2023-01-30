@@ -12,7 +12,6 @@
 
   $: links = [
     { id: 'tags', key: 'common.navigation.tags', to: `/match/tags/${currentId}` },
-    { id: 'names', key: 'common.navigation.names', to: `/match/names/${currentId}` },
     { id: 'next', key: 'common.navigation.next', to: `./${nextId}`, prefetch: true }
   ];
 

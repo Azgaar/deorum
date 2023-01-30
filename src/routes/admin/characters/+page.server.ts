@@ -1,6 +1,7 @@
 import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
+import { getCachedList } from '$lib/cache/cacheInstance';
 
 import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 import type {
@@ -12,7 +13,6 @@ import type {
   ITag
 } from '$lib/types/api.types';
 import type { PageServerLoad } from './$types';
-import { getCachedList } from '$lib/cache/cacheInstance';
 
 export const ssr = true;
 

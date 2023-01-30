@@ -38,8 +38,7 @@
     "match": "Match",
     "admin": "Admin",
     "next": "Next",
-    "tags": "Tags",
-    "names": "Names"
+    "tags": "Tags"
   },
   "errors": {
     "unauthorized": "Please sign in to access this page"
