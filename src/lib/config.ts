@@ -23,12 +23,14 @@ export const colors = [
   'grey'
 ];
 
-export const qualities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+export const qualities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 
 export const MATCH_TAGS_NUMBER = 6;
 export const MATCH_NAMES_NUMBER = 5;
 
-export const convertableImageTypes = ['png', 'jpeg', 'jpg', 'gif'];
+const convertableImageFormats = ['png', 'jpeg', 'jpg', 'gif'] as const;
+export const convertableMimeTypes = convertableImageFormats.map((type) => `image/${type}`);
+
 export const defaultFileName = 'deorum';
 
 export const charactersConfig = {

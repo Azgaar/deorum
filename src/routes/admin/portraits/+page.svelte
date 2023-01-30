@@ -11,11 +11,13 @@
   import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { patchPortraits, postPortraits } from '$lib/api';
+  import { patchPortraits } from '$lib/api';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
-  import { request } from '$lib/utils/requests';
+  import { request, sendFormData } from '$lib/utils/requests';
+  import { createFormData } from '$lib/utils/portraits';
+  import { convertImageFile } from '$lib/utils/images';
 
   import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
   import type {
@@ -30,7 +32,6 @@
     TOpenSelectCharacterDialog
   } from '$lib/types/editor.types';
   import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -273,12 +274,25 @@
   };
 
   const createPostHandler = (): TPostHandler => async (editorData: TEditorData) => {
-    const results = await postPortraits(uploaded, editorData);
-    data.portraits = [...results, ...data.portraits];
+    try {
+      const promises = uploaded.map(async ({ file }) => {
+        const formData = createFormData(editorData);
+        const convertedImage = await convertImageFile(file);
+        formData.set('image', convertedImage);
+        formData.set('active', 'true');
+        return sendFormData<IPortrait>('/api/portraits', formData, 'POST');
+      });
 
-    selected = [];
-    uploaded.forEach((portrait) => URL.revokeObjectURL(portrait.src));
-    uploaded = [];
+      const results = await Promise.all(promises);
+      data.portraits = [...results, ...data.portraits];
+
+      uploaded.forEach((portrait) => URL.revokeObjectURL(portrait.src));
+      uploaded = [];
+      selected = [];
+    } catch (err) {
+      report('admin', err, { request: 'uploadPortraits', editorData });
+      toastError(err);
+    }
   };
 
   const createDeleteHandler = (): TDeleteHandler => async () => {

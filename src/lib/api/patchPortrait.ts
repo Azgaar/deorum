@@ -1,7 +1,7 @@
 import type { IPortrait } from '$lib/types/api.types';
 import { sendFormData } from '$lib/utils/requests';
 import admin from './admin';
-import { convertImageUrl } from './convertImage';
+import { convertImageUrl } from '../utils/images';
 import { getPortrait } from './getPortrait';
 
 export async function patchPortraitTags(id: string, add: boolean, tagId: string) {

@@ -29,7 +29,7 @@
     TPatchHandler,
     TPostHandler
   } from '$lib/types/editor.types';
-  import { convertableImageTypes, PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { convertableMimeTypes, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { request } from '$lib/utils/requests';
 
   export let model: TEditorData;
@@ -59,7 +59,7 @@
   let isLoading = false;
   let isDeleteInitiated = false;
 
-  $: isConvertable = convertableImageTypes.includes(image.split('.').pop() || '');
+  $: isConvertable = convertableMimeTypes.includes(image.split('.').pop() || '');
   $: originalName = originals.get(current.original)?.name;
   let characters: ICharacter[] = [];
 

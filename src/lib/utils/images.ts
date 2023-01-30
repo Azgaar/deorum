@@ -1,12 +1,9 @@
-import { convertableImageTypes, defaultFileName } from '$lib/config';
-
-const convertableMimeTypes = convertableImageTypes.map((type) => `image/${type}`);
+import { convertableMimeTypes, defaultFileName } from '$lib/config';
 
 export const convertImageFile = async (file: File) => {
-  if (!convertableImageTypes.includes(file.type)) return file;
+  if (!convertableMimeTypes.includes(file.type)) return file;
 
   const arrayBuffer = await fileToArrayBuffer(file);
-
   const output = await fetch('/api/images/convert', {
     method: 'POST',
     headers: { 'Content-Type': file.type },
@@ -18,7 +15,7 @@ export const convertImageFile = async (file: File) => {
 };
 
 export const convertImageUrl = async (src: string) => {
-  const type = `image/${src.split('.').pop()}`;
+  const type = `image/${src.split('.')?.pop()}`;
   const arrayBuffer = await fetch(src).then((res) => res.arrayBuffer());
 
   if (!convertableMimeTypes.includes(type)) {
