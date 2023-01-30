@@ -1,26 +1,31 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { patchPortraitTags } from '$lib/api/patchPortrait';
   import Label from '$lib/components/label/Label.svelte';
   import PushButton from '$lib/components/buttons/PushButton.svelte';
-  import { preloadImage } from '$lib/utils/requests';
+  import { preloadImage, request } from '$lib/utils/requests';
 
-  export let data: import('./$types').PageData;
-  $: key = data.current.id;
+  import type { PageData } from './$types';
+
+  export let data: PageData;
   $: preloadImage(`${PORTRAITS_IMAGE_PATH}/${data.next.id}/${data.next.image}`);
 
-  const handleClick = (event: MouseEvent, add: boolean, tagId: string) => {
-    patchPortraitTags(key, add, tagId);
-
+  const handleClick = async (event: MouseEvent, add: boolean, tagId: string) => {
     const target = event.target as HTMLElement;
     target.classList.add('hidden');
+
+    const oldTags = data.current.tags;
+    if (add && oldTags.includes(tagId)) return null;
+    if (!add && !oldTags.includes(tagId)) return null;
+
+    const tags = add ? [...oldTags, tagId] : oldTags.filter((t) => t !== tagId);
+    request(`/api/portraits/${data.current.id}`, 'PATCH', { tags });
   };
 </script>
 
 <div class="container">
   <section class="portrait">
-    {#key key}
+    {#key data.current.id}
       <img
         width={320}
         height={320}
