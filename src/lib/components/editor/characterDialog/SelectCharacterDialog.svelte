@@ -41,9 +41,10 @@
   const loadCharacters = async (currentCharacters: ICharacter[]) => {
     try {
       isLoading = true;
+      const pageSize = 100;
       const filter = race ? `race="${race}"` : '';
       const expand = 'race,archetype,background,portraits';
-      const url = `/api/characters?page=${page}&filter=${filter}&expand=${expand}`;
+      const url = `/api/characters?page=${page}&pageSize=${pageSize}&filter=${filter}&expand=${expand}`;
       const charactersList = await request<IListResult<ICharacter>>(url);
 
       hasMore = charactersList.totalPages > page;

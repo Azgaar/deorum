@@ -1,8 +1,10 @@
+import { error } from '@sveltejs/kit';
+
 import admin from '$lib/api/admin';
-import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
 import { toJson } from '$lib/utils/requests';
+import { createServerError } from '$lib/utils/errors';
 
 import type { ICharacter, IPortrait } from '$lib/types/api.types';
 import type { RequestHandler } from './$types';
@@ -16,7 +18,8 @@ export const GET: RequestHandler = async ({ url }) => {
     const sort = url.searchParams.get('sort') || '';
     const expand = url.searchParams.get('expand') || '';
 
-    if (page && pageSize) {
+    if (page) {
+      if (!pageSize) throw error(400, 'Page size is not defined');
       const args = [page, pageSize, filter, sort, expand] as const;
       const charactersPage = await getCachedPage<ICharacter>('characters', ...args);
       log('characters', `Loading ${pageSize} characters`);
