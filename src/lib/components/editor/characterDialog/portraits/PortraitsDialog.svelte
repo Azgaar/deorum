@@ -6,7 +6,7 @@
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { report } from '$lib/utils/log';
-  import { toJson } from '$lib/utils/requests';
+  import { request } from '$lib/utils/requests';
   import { toastError } from '$lib/stores';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
@@ -37,8 +37,8 @@
     try {
       isLoading = true;
       const filter = original ? `original="${original}"` : '';
-      const portraitsList = await toJson<IListResult<IPortrait>>(
-        fetch(`/api/portraits?page=${page}&pageSize=100&filter=${filter}`)
+      const portraitsList = await request<IListResult<IPortrait>>(
+        `/api/portraits?page=${page}&pageSize=100&filter=${filter}`
       );
 
       hasMore = portraitsList.totalPages > page;

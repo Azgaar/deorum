@@ -11,11 +11,11 @@
   import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
 
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { patchPortraits, postPortraits, deletePortraits } from '$lib/api';
+  import { patchPortraits, postPortraits } from '$lib/api';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
-  import { toJson } from '$lib/utils/requests';
+  import { request } from '$lib/utils/requests';
 
   import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
   import type {
@@ -239,8 +239,8 @@
           sort
         });
 
-        const { items, totalPages } = await toJson<IListResult<IPortrait>>(
-          fetch(`/api/portraits?${searchParams}`)
+        const { items, totalPages } = await request<IListResult<IPortrait>>(
+          `/api/portraits?${searchParams}`
         );
 
         const queryString = `/admin/portraits?filter=${filter}&sort=${sort}`;
@@ -282,9 +282,14 @@
   };
 
   const createDeleteHandler = (): TDeleteHandler => async () => {
-    await deletePortraits(selected);
-    data.portraits = data.portraits.filter((portrait) => !selected.includes(portrait.id));
-    selected = [];
+    try {
+      await request('/api/portraits', 'DELETE', { ids: selected });
+      data.portraits = data.portraits.filter((portrait) => !selected.includes(portrait.id));
+      selected = [];
+    } catch (err) {
+      report('admin', err, { request: 'deletePortraits', ids: selected });
+      toastError(err);
+    }
   };
 
   const handleLoadMore = async () => {
@@ -296,8 +301,8 @@
         sort: parseSorting(sorting)
       });
 
-      const { items, totalPages } = await toJson<IListResult<IPortrait>>(
-        fetch(`/api/portraits?${searchParams}`)
+      const { items, totalPages } = await request<IListResult<IPortrait>>(
+        `/api/portraits?${searchParams}`
       );
 
       page += 1;
