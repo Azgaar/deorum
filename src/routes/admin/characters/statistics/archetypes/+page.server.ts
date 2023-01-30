@@ -1,4 +1,4 @@
-import { getCachedList } from '$lib/cache/cacheInstance';
+import { toJson } from '$lib/utils/requests';
 
 import type { IStatistics } from '$lib/types/statistics.types';
 import type { IArchetype, ICharacter } from '$lib/types/api.types';
@@ -7,8 +7,8 @@ export const csr = false;
 
 export const load: import('./$types').PageServerLoad = async () => {
   const [characters, archetypes] = await Promise.all([
-    getCachedList<ICharacter>('characters'),
-    getCachedList<IArchetype>('archetypes')
+    toJson<ICharacter[]>(fetch('/api/characters')),
+    toJson<IArchetype[]>(fetch('/api/originals'))
   ]);
 
   const aggregated = characters.reduce((acc, { archetype }) => {

@@ -1,7 +1,6 @@
 import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
-import { getCachedList } from '$lib/cache/cacheInstance';
 
 import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 import type {
@@ -41,13 +40,13 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     const [portraitsList, originals, tags, styles, colors, races, archetypes, backgrounds] =
       await Promise.all([
         toJson<IListResult<IPortrait>>(fetch(`/api/portraits?${searchParams}`)),
-        getCachedList<IOriginal>('originals'),
-        getCachedList<ITag>('tags'),
-        getCachedList<IStyle>('styles'),
-        getCachedList<IColor>('colors'),
-        getCachedList<IRace>('races'),
-        getCachedList<IArchetype>('archetypes'),
-        getCachedList<IBackground>('backgrounds')
+        toJson<IOriginal[]>(fetch('/api/originals')),
+        toJson<ITag[]>(fetch('/api/tags')),
+        toJson<IStyle[]>(fetch('/api/styles')),
+        toJson<IColor[]>(fetch('/api/colors')),
+        toJson<IRace[]>(fetch('/api/races')),
+        toJson<IArchetype[]>(fetch('/api/archetypes')),
+        toJson<IBackground[]>(fetch('/api/backgrounds'))
       ]);
 
     const portraits = portraitsList.items;

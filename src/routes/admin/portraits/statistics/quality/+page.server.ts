@@ -1,14 +1,14 @@
-import { getCachedList } from '$lib/cache/cacheInstance';
+import { toJson } from '$lib/utils/requests';
 
 import type { IPortrait, IQuality } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
 
-export const load: import('./$types').PageServerLoad = async () => {
+export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, quality] = await Promise.all([
-    getCachedList<IPortrait>('portraits'),
-    getCachedList<IQuality>('quality')
+    toJson<IPortrait[]>(fetch('/api/portraits')),
+    toJson<IQuality[]>(fetch('/api/quality'))
   ]);
 
   const aggregated = portraits.reduce((acc, { quality }) => {

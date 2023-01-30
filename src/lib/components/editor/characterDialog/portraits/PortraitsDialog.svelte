@@ -10,7 +10,6 @@
   import { toastError } from '$lib/stores';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-  import { getCachedList } from '$lib/cache/cacheInstance';
 
   import type { IListResult, IOriginal, IPortrait } from '$lib/types/api.types';
 
@@ -53,7 +52,7 @@
 
   const loadOriginals = async () => {
     try {
-      const originals = await getCachedList<IOriginal>('originals');
+      const originals = await request<IOriginal[]>('/api/originals');
       const all = ['', $t('common.values.all')];
       const options = originals.map(({ id, name }) => [
         id,

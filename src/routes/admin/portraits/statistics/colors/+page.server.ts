@@ -1,4 +1,4 @@
-import { getCachedList } from '$lib/cache/cacheInstance';
+import { toJson } from '$lib/utils/requests';
 
 import type { IColor, IPortrait } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
@@ -9,10 +9,10 @@ interface IAggregatedData {
   [color: string]: number;
 }
 
-export const load: import('./$types').PageServerLoad = async () => {
+export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, colors] = await Promise.all([
-    getCachedList<IPortrait>('portraits'),
-    getCachedList<IColor>('colors')
+    toJson<IPortrait[]>(fetch('/api/portraits')),
+    toJson<IColor[]>(fetch('/api/colors'))
   ]);
 
   const aggregated = portraits.reduce((acc, { colors }) => {

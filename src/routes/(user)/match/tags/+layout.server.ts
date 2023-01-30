@@ -2,7 +2,7 @@ import { error, redirect } from '@sveltejs/kit';
 
 import { MATCH_TAGS_NUMBER } from '$lib/config';
 import { getRandomElements, getRandomIndex, shuffle } from '$lib/utils/array';
-import { getCachedList } from '$lib/cache/cacheInstance';
+import { toJson } from '$lib/utils/requests';
 import { log } from '$lib/utils/log';
 
 import type { IPortrait, ITag } from '$lib/types/api.types';
@@ -24,8 +24,8 @@ const selectRandomTags = (currentTags: string[], allTags: ITag[]): ITag[] => {
 
 export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
   const [portraits, tags] = await Promise.all([
-    getCachedList<IPortrait>('portraits', 'active=true&&quality>6'),
-    getCachedList<ITag>('tags')
+    toJson<IPortrait[]>(fetch('/api/portraits?filter=active=true&&quality>6')),
+    toJson<ITag[]>(fetch('/api/tags'))
   ]);
 
   if (!portraits || !portraits.length) throw error(503, 'No portraits returned');

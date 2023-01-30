@@ -1,5 +1,5 @@
-import { getCachedList } from '$lib/cache/cacheInstance';
 import { genders } from '$lib/data/genders';
+import { toJson } from '$lib/utils/requests';
 
 import type { ICharacter } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
@@ -7,7 +7,7 @@ import type { IStatistics } from '$lib/types/statistics.types';
 export const csr = false;
 
 export const load: import('./$types').PageServerLoad = async () => {
-  const characters = await getCachedList<ICharacter>('characters');
+  const characters = await toJson<ICharacter[]>(fetch('/api/characters'));
 
   // aggregate data
   const aggregated = characters.reduce((acc, { gender }) => {

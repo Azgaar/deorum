@@ -1,5 +1,5 @@
-import { getCachedList } from '$lib/cache/cacheInstance';
 import { RACES_IMAGE_PATH } from '$lib/config';
+import { toJson } from '$lib/utils/requests';
 
 import type { ICharacter, IRace } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
@@ -10,8 +10,8 @@ const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/40';
 
 export const load: import('./$types').PageServerLoad = async () => {
   const [characters, races] = await Promise.all([
-    getCachedList<ICharacter>('characters'),
-    getCachedList<IRace>('races')
+    toJson<ICharacter[]>(fetch('/api/characters')),
+    toJson<IRace[]>(fetch('/api/races'))
   ]);
 
   const aggregated = characters.reduce((acc, { race }) => {

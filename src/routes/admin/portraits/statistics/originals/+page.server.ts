@@ -1,5 +1,5 @@
 import { makePOJO } from '$lib/utils/object';
-import { getCachedList } from '$lib/cache/cacheInstance';
+import { toJson } from '$lib/utils/requests';
 
 import type { IStatistics } from '$lib/types/statistics.types';
 import type { IColor, IOriginal, IPortrait, IQuality, IStyle, ITag } from '$lib/types/api.types';
@@ -29,14 +29,14 @@ function sortObject(obj: Record<string, number>, byKey = false) {
   return Object.entries(obj).sort(([, a], [, b]) => b - a);
 }
 
-export const load: import('./$types').PageServerLoad = async () => {
+export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, originals, tags, styles, colors, quality] = await Promise.all([
-    getCachedList<IPortrait>('portraits'),
-    getCachedList<IOriginal>('originals'),
-    getCachedList<ITag>('tags'),
-    getCachedList<IStyle>('styles'),
-    getCachedList<IColor>('colors'),
-    getCachedList<IQuality>('quality')
+    toJson<IPortrait[]>(fetch('/api/portraits')),
+    toJson<IOriginal[]>(fetch('/api/originals')),
+    toJson<ITag[]>(fetch('/api/tags')),
+    toJson<IStyle[]>(fetch('/api/styles')),
+    toJson<IColor[]>(fetch('/api/colors')),
+    toJson<IQuality[]>(fetch('/api/quality'))
   ]);
 
   const aggregated = portraits.reduce((acc, { original, quality, colors, tags, styles }) => {
