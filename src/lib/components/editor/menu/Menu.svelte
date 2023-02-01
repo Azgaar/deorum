@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import Button, { Label } from '@smui/button';
 
@@ -8,7 +9,7 @@
   import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
   import SignupDialog from '$lib/components/auth/signup/SignupDialog.svelte';
   import { VERSION } from '$lib/constants';
-  import { user } from '$lib/stores';
+
   import { logout } from '$lib/api/auth';
   import { browser } from '$app/environment';
 
@@ -18,7 +19,7 @@
   let signup = false;
 
   let isPortraitsPage = browser ? window.location.pathname.includes('portraits') : true;
-  let page = isPortraitsPage ? 'portraits' : 'characters';
+  let pageType = isPortraitsPage ? 'portraits' : 'characters';
 </script>
 
 <section class="menu">
@@ -30,7 +31,7 @@
   <main>
     <div class="hint">{$t('admin.menu.hint')}</div>
 
-    {#if !$user}
+    {#if !$page.data.role}
       <Button variant="raised" on:click={() => (signin = true)}>
         <Label>{$t('common.auth.signin')}</Label>
       </Button>
@@ -53,7 +54,7 @@
     {/if}
 
     {#if isPortraitsPage}
-      <Button variant="raised" on:click={() => goto(`./${page}/duplicates`)}>
+      <Button variant="raised" on:click={() => goto(`./${pageType}/duplicates`)}>
         {$t('admin.menu.duplicates')}
       </Button>
 
@@ -62,7 +63,7 @@
       </Button>
     {/if}
 
-    <Button variant="raised" on:click={() => goto(`./${page}/statistics`)}>
+    <Button variant="raised" on:click={() => goto(`./${pageType}/statistics`)}>
       <Label>{$t('admin.menu.statistics')}</Label>
     </Button>
 
@@ -70,7 +71,7 @@
       <Label>{$t('admin.menu.upload')}</Label>
     </Button>
 
-    {#if $user}
+    {#if $page.data.role}
       <Button variant="raised" on:click={logout}>
         <Label>{$t('common.auth.logout')}</Label>
       </Button>
