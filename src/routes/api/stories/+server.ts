@@ -1,8 +1,8 @@
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
+import { Role } from '$lib/config';
 import { authorize } from '$lib/api/auth';
 import { requestStory } from '$lib/api/openAI';
-import { Role } from '$lib/stores';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 
@@ -14,11 +14,11 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!prompt) throw new Error('No prompt provided');
 
     const cookie = request.headers.get('cookie');
-    if (!cookie) throw new Error('Unauthorized, no cookie provided');
+    if (!cookie) throw error(401, 'Unauthorized, no cookie provided');
 
     const user = await authorize(cookie);
     const role = user?.profile?.role;
-    if (role !== Role.ADMIN) throw new Error('Unauthorized, admin access required');
+    if (role !== Role.ADMIN) throw error(401, 'Unauthorized, admin access required');
 
     const response = await requestStory(prompt);
     const story = response.data.choices[0].text || '';

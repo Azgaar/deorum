@@ -22,7 +22,7 @@ const selectRandomTags = (currentTags: string[], allTags: ITag[]): ITag[] => {
   return shuffle([...existingTags, ...randomTags]);
 };
 
-export const load: import('./$types').LayoutServerLoad = async ({ params }) => {
+export const load: import('./$types').LayoutServerLoad = async ({ params, fetch }) => {
   const [portraits, tags] = await Promise.all([
     toJson<IPortrait[]>(fetch('/api/portraits?filter=active=true&&quality>6')),
     toJson<ITag[]>(fetch('/api/tags'))

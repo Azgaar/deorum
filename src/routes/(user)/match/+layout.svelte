@@ -5,7 +5,6 @@
 
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
-  import { language } from '$lib/stores';
 
   $: currentId = $page.data.current.id;
   $: nextId = $page.data.next.id;
@@ -33,7 +32,7 @@
   });
 </script>
 
-<div class="root" lang={$language}>
+<div class="root">
   {#key nextId}
     <Header {links} />
   {/key}

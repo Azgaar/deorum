@@ -6,7 +6,7 @@ import type { IStatistics } from '$lib/types/statistics.types';
 
 export const csr = false;
 
-export const load: import('./$types').PageServerLoad = async () => {
+export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const characters = await toJson<ICharacter[]>(fetch('/api/characters'));
 
   // aggregate data

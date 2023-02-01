@@ -4,8 +4,7 @@ import type { Cookies } from '@sveltejs/kit';
 import { ADMIN_USERNAME, ADMIN_PASSWORD } from '$env/static/private';
 import admin from '$lib/api/admin';
 import { authorize, isSignedIn } from '$lib/api/auth';
-import { COOKIE_NAME } from '$lib/config';
-import { Role } from '$lib/stores';
+import { COOKIE_NAME, Role } from '$lib/config';
 import { report } from '$lib/utils/log';
 
 const redirectToSignIn = (sourceUrl: string) =>
@@ -46,7 +45,8 @@ const protectRoutes: import('@sveltejs/kit').Handle = async ({ event, resolve })
     const user = await authorize(cookie);
     if (!user) return redirectToSignIn(target);
 
-    const allowedRoutes = routesProtection[user?.profile?.role];
+    const role: Role = user?.profile?.role || Role.GUEST;
+    const allowedRoutes = routesProtection[role];
     if (allowedRoutes.every((route) => !url.includes(route))) return redirectToSignIn(target);
   }
 

@@ -8,7 +8,7 @@ export const csr = false;
 
 const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/40';
 
-export const load: import('./$types').PageServerLoad = async () => {
+export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [characters, races] = await Promise.all([
     toJson<ICharacter[]>(fetch('/api/characters')),
     toJson<IRace[]>(fetch('/api/races'))

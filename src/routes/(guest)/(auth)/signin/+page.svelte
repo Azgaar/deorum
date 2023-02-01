@@ -15,8 +15,7 @@
   const onClose = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const to = searchParams.get('to');
-
-    goto(to || '/');
+    goto(to || '/', { invalidateAll: true });
   };
 </script>
 

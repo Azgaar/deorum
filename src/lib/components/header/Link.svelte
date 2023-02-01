@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { page } from '$app/stores';
 
   import { t } from '$lib/locales/translations';
@@ -7,14 +8,14 @@
   export let link: ILink;
   const { id, key, to, reload, prefetch } = link;
 
-  const isActive = $page?.route?.id?.includes(id);
+  $: isActive = $page?.route?.id?.includes(id);
 </script>
 
 <a
   href={to}
   class:active={isActive}
   data-sveltekit-reload={reload ? '' : undefined}
-  data-sveltekit-prefetch={prefetch ? '' : undefined}
+  data-sveltekit-preload-data={prefetch ? '' : undefined}
 >
   {$t(key)}
 </a>

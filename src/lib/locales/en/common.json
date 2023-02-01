@@ -35,6 +35,7 @@
     "password": "Password (8 chars min)"
   },
   "navigation": {
+    "gallery": "Gallery",
     "match": "Match",
     "admin": "Admin",
     "next": "Next",

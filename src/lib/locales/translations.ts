@@ -1,5 +1,7 @@
 import i18n from 'sveltekit-i18n';
 
+export const locales = ['en', 'ru'];
+
 const config: import('sveltekit-i18n').Config = {
   fallbackLocale: 'en',
   loaders: [
@@ -20,4 +22,4 @@ const config: import('sveltekit-i18n').Config = {
   ]
 };
 
-export const { t, locale, locales, loading, loadTranslations } = new i18n(config);
+export const { t, locale, loading, loadTranslations } = new i18n(config);

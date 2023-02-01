@@ -5,10 +5,16 @@
   import Spinner from '$lib/components/spinner/Spinner.svelte';
 </script>
 
+<svelte:head>
+  <title>Deorum</title>
+</svelte:head>
+
 <slot />
+
 <div class="loading" class:navigating={$navigating}>
   <Spinner />
 </div>
+
 <Snackbar />
 
 <style lang="scss">

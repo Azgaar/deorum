@@ -2,16 +2,17 @@
   import { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
+  import { page } from '$app/stores';
 
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { t } from '$lib/locales/translations';
   import { signup } from '$lib/api/auth';
-  import { language, toastError } from '$lib/stores';
+  import { toastError } from '$lib/stores';
 
   import PasswordInput from '../password/PasswordInput.svelte';
   import { log, report } from '$lib/utils/log';
 
-  export let onClose: null | (() => void) = null;
+  export let onClose = () => {};
 
   let email = '';
   let password = '';
@@ -23,12 +24,10 @@
 
     try {
       isLoading = true;
-      const lang = $language;
-      await signup({ email, password, lang });
+      await signup({ email, password, lang: $page.data.lang });
       log('auth', `Signup successful: ${email}`);
 
-      if (!onClose) window.location.href = '/';
-      else onClose();
+      onClose();
     } catch (error) {
       report('auth', error);
       toastError(error);
