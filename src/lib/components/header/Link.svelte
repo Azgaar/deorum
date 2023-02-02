@@ -8,7 +8,7 @@
   export let link: ILink;
   const { id, key, to, reload, prefetch } = link;
 
-  $: isActive = $page?.route?.id?.includes(id);
+  $: isActive = $page.route.id?.includes(id);
 </script>
 
 <a
