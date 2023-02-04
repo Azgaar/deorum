@@ -6,7 +6,7 @@
     { id: 'genders', key: 'admin.statistics.genders', to: './genders' },
     { id: 'archetypes', key: 'admin.statistics.archetypes', to: './archetypes' },
     { id: 'backgrounds', key: 'admin.statistics.backgrounds', to: './backgrounds' },
-    { id: 'back', key: 'common.controls.back', to: '/admin/characters' }
+    { id: 'cancel', key: 'common.controls.back', to: '/admin/characters' }
   ];
 </script>
 
