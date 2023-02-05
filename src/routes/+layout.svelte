@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <title>Deorum</title>
+  <title>Deorum: fantasy characters creator by Azgaar</title>
 </svelte:head>
 
 <slot />
