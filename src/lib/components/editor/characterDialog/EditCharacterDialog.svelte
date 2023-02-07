@@ -151,7 +151,7 @@
         id ? 'PATCH' : 'PUT',
         {
           id,
-          name,
+          name: name.trim(),
           age,
           gender,
           race,
@@ -160,7 +160,7 @@
           height,
           weight,
           portraits: portraitIds,
-          bio,
+          bio: bio.trim(),
           tags
         }
       );
