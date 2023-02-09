@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 
 import admin from '$lib/api/admin';
 import { log, report } from '$lib/utils/log';
-import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
+import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
 import { toJson } from '$lib/utils/requests';
 import { createServerError } from '$lib/utils/errors';
 
@@ -39,6 +39,7 @@ export const PUT: RequestHandler = async ({ request, fetch }) => {
   try {
     const data = await request.json();
     const character = await admin.records.create('characters', data);
+    invalidateCache('characters');
     log('characters', `Create character`, data);
 
     const currentPortraits = await toJson<IPortrait[]>(
@@ -58,6 +59,7 @@ export const PATCH: RequestHandler = async ({ request, url, fetch }) => {
     const expand = url.searchParams.get('expand') || '';
     const data = await request.json();
     const character = await admin.records.update('characters', data.id, data, { expand });
+    invalidateCache('characters');
     log('characters', `Update character ${data.id}`, data);
 
     const currentPortraits = await toJson<IPortrait[]>(
@@ -109,6 +111,10 @@ async function updatePortraits(
       );
       const addedIds = portraitsToAdd.map(({ id }) => id).join(', ');
       log('characters', `Add character ${characterId} to portraits: ${addedIds}`);
+    }
+
+    if (portraitsToAdd.length || portraitsToRemove.length) {
+      invalidateCache('portraits');
     }
   } catch (err) {
     report('characters', err);

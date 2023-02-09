@@ -66,3 +66,8 @@ export const getCachedElement = async <T>(
   cache.put(key, serialized, EXPIRATION);
   return serialized;
 };
+
+// DO NOT CALL FROM CLIENT SIDE
+export const invalidateCache = (collection: TCollection) => {
+  cache.invalidate(collection);
+};

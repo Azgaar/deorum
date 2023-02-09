@@ -130,6 +130,18 @@ export default class Cache {
       return Object.keys(_cache);
     };
 
+    this.invalidate = function (collection) {
+      var count = 0;
+      for (var key in _cache) {
+        if (key.startsWith(collection)) {
+          this.del(key);
+          count++;
+        }
+      }
+
+      return count;
+    };
+
     this.exportJson = function () {
       var plainJsCache = {};
 

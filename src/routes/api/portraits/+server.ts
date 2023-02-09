@@ -2,7 +2,7 @@ import { error, json, type RequestHandler } from '@sveltejs/kit';
 
 import { log, report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
-import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
+import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
 import { pluralize } from '$lib/utils/string';
 import { getNewValue } from '$lib/utils/portraits';
 import admin from '$lib/api/admin';
@@ -40,6 +40,7 @@ export const POST: RequestHandler = async ({ request }) => {
   try {
     const formData = await request.formData();
     const result = await admin.records.create('portraits', formData, { $autoCancel: false });
+    invalidateCache('portraits');
     log('portraits', 'Upload portrait', formData);
     return json(result);
   } catch (err) {
@@ -75,6 +76,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
     );
     const result = await Promise.all(promises);
 
+    invalidateCache('portraits');
     log('editor', `Update ${pluralize('portrait', ids.length)} ${ids.join(', ')}`, changes);
     return json(result);
   } catch (err) {
@@ -89,6 +91,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
     if (!ids || !ids.length) throw error(400, 'No ids provided for deletion');
 
     const result = await Promise.all(ids.map((id) => admin.records.delete('portraits', id)));
+    invalidateCache('portraits');
     log('portraits', `Delete ${pluralize('portrait', ids.length)} ${ids.join(', ')}`);
     return json(result);
   } catch (err) {

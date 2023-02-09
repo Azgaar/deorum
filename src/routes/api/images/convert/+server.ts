@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const percent = Math.round((newSize / oldSize) * 100);
 
     log(
-      'Image conversion',
+      'images',
       `Converted ${imageType} to webp. Size reduced from ${oldSize.toFixed(2)} to ${newSize.toFixed(
         2
       )} kb (${percent}%)`
@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     return new Response(output, { headers: { 'Content-Type': 'image/webp' } });
   } catch (err) {
-    report('Image conversion', err);
+    report('images', err);
     throw createServerError(err);
   }
 };

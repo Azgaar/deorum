@@ -1,4 +1,5 @@
 import admin from '$lib/api/admin';
+import { invalidateCache } from '$lib/cache/cacheInstance';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 
@@ -23,6 +24,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
   try {
     const id = params.slug;
     const character = await admin.records.delete('characters', id);
+    invalidateCache('characters');
     log('characters', `Character ${id} is deleted`);
     return new Response(JSON.stringify(character));
   } catch (err) {
