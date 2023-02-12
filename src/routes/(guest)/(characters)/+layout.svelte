@@ -54,6 +54,7 @@
 <style lang="scss">
   main {
     height: 100%;
+    flex: 1;
     overflow-y: auto;
   }
 </style>
