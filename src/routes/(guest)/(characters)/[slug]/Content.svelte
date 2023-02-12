@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { slide } from 'svelte/transition';
-
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import CharacterDetails from './CharacterDetails.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';

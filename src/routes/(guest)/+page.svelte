@@ -14,9 +14,7 @@
     </div>
 
     <div class="controls">
-      <a href="/gallery" data-sveltekit-preload-data>
-        {$t('common.landing.openGallery')}
-      </a>
+      <a href="/gallery">{$t('common.landing.openGallery')} </a>
     </div>
   </div>
 </main>
@@ -30,15 +28,21 @@
 
     padding: 48px;
 
+    @media ($mobile) {
+      padding: 16px;
+    }
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    overflow-y: auto;
 
     .content {
       padding: 24px;
       max-width: 1000px;
-      background-color: #170904d9;
+      // backround gradient: ligher at top and darker at bottom
+      background: linear-gradient(150deg, #160a05a4, #170904d9);
+      border-radius: 8px;
 
       .title > h1 {
         margin: 8px;
@@ -52,6 +56,14 @@
         line-height: 1.2;
       }
 
+      @media ($mobile) {
+        padding: 8px 16px;
+
+        .title > h1 {
+          font-size: 1.4rem;
+        }
+      }
+
       .description {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -60,6 +72,17 @@
         p {
           font-size: 1.5rem;
           line-height: 1.4;
+        }
+
+        @media ($mobile) {
+          grid-template-columns: 1fr;
+          gap: 8px;
+
+          p {
+            margin: 0;
+            text-align: center;
+            font-size: 0.9rem;
+          }
         }
       }
 

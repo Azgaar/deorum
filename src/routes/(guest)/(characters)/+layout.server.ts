@@ -7,6 +7,8 @@ import { charactersConfig } from '$lib/config';
 
 import type { ICharacter } from '$lib/types/api.types';
 
+export const ssr = true;
+
 const SELECT_BEFORE = 10;
 const SELECT_AFTER = 15;
 

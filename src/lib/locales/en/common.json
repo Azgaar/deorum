@@ -178,5 +178,8 @@
     "cardImage": "Card image",
     "text": "Text file",
     "json": "JSON file"
+  },
+  "gallery": {
+    "showDetails": "Show details"
   }
 }

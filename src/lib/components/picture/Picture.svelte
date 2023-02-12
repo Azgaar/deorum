@@ -38,7 +38,6 @@
       on:load={onLoad}
       on:error={onLoad}
       in:fade={fadeIn}
-      out:fade={fadeDelayed}
     />
   {/key}
 

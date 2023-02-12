@@ -178,5 +178,8 @@
     "cardImage": "Карточка",
     "text": "Текстовый файл",
     "json": "JSON файл"
+  },
+  "gallery": {
+    "showDetails": "Показать детали"
   }
 }

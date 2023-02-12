@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
   import { page } from '$app/stores';
 
   import { t } from '$lib/locales/translations';
@@ -15,7 +14,8 @@
   href={to}
   class:active={isActive}
   data-sveltekit-reload={reload ? '' : undefined}
-  data-sveltekit-preload-data={prefetch ? '' : undefined}
+  data-sveltekit-preload-data={prefetch ? 'hover' : undefined}
+  data-sveltekit-preload-code={prefetch ? 'eager' : undefined}
 >
   {$t(key)}
 </a>

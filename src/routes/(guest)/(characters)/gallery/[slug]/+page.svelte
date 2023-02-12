@@ -7,11 +7,7 @@
   const items = carousel.carousel;
 
   const handleClick = (id: string) => () => {
-    if (id === carousel.currentId) {
-      location.href = `/${id}`;
-      return;
-    }
-
+    if (id === carousel.currentId) return;
     carousel.move(id > carousel.currentId);
   };
 </script>
@@ -20,7 +16,7 @@
   <section class="carousel">
     {#each $items as item (item.id)}
       <div class="item" on:click={handleClick(item.id)}>
-        <Figure {item} />
+        <Figure {item} isCentral={item.id === carousel.currentId} id={item.id} />
       </div>
     {/each}
   </section>
@@ -71,6 +67,7 @@
         transform: translateX(-50%) scale(var(--third-item-scale));
         opacity: 0.4;
         animation: fadeIn04 0.3s ease-in-out;
+        cursor: pointer;
 
         @keyframes fadeIn04 {
           from {
@@ -87,6 +84,7 @@
         transform: translateX(-50%) scale(var(--second-item-scale));
         z-index: 1;
         opacity: 0.9;
+        cursor: pointer;
       }
 
       .item:nth-child(1) {
