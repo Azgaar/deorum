@@ -1,4 +1,4 @@
-import type { Role } from '../stores/auth';
+import type { Role } from '$lib/config';
 
 export type TCollection =
   | 'portraits'
@@ -48,15 +48,18 @@ export interface IPortrait extends IRecord {
   };
 }
 
+export interface IOriginal extends IRecord {
+  image: string;
+  name: string;
+}
+
 export interface ITag extends IRecord {
   name: string;
-  emoji: string;
   image: string;
 }
 
 export interface IStyle extends IRecord {
   name: string;
-  emoji: string;
   image: string;
 }
 
@@ -67,7 +70,6 @@ export interface IColor extends IRecord {
 
 export interface IQuality extends IRecord {
   name: string;
-  emoji: string;
   image: string;
 }
 
@@ -131,19 +133,4 @@ export interface IUser {
     role: Role;
     lang: string;
   };
-}
-
-export interface IOriginal extends IRecord {
-  image: string;
-  name: string;
-}
-
-export interface IStyle extends IRecord {
-  emoji: string;
-  name: string;
-}
-
-export interface ITag extends IRecord {
-  emoji: string;
-  name: string;
 }
