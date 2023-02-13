@@ -1,8 +1,10 @@
 <script lang="ts">
   import { setContext } from 'svelte';
+  import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
 
   import { swipe } from '$lib/events/swipe';
+  import { allowHotkeys } from '$lib/utils/hotkeys';
 
   import type { LayoutData } from './$types';
   import Arrows from './Arrows.svelte';
@@ -20,6 +22,8 @@
   };
 
   const handleKeydown = (event: KeyboardEvent) => {
+    if (!allowHotkeys()) return;
+
     const isGallery = $page.route.id?.match('/gallery/');
     if (isGallery && keyBindings.drill.includes(event.code)) {
       event.preventDefault();
@@ -37,6 +41,17 @@
       carousel.prev();
     }
   };
+
+  // for some reason, moving to other layout doesn't trigger onMount callback
+  // so we need to remove event listeners manually on afterNavigate
+  afterNavigate(() => {
+    const isLayoutChanged = !$page.route.id?.match('(characters)');
+    if (isLayoutChanged) {
+      window.removeEventListener('keydown', handleKeydown);
+      window.removeEventListener('swipeRight', carousel.next);
+      window.removeEventListener('swipeLeft', carousel.prev);
+    }
+  });
 </script>
 
 <svelte:window

@@ -1,3 +1,5 @@
+import { allowHotkeys } from '$lib/utils/hotkeys';
+
 const TRESHOLD = 40;
 
 export function swipe(node: Node) {
@@ -16,6 +18,8 @@ export function swipe(node: Node) {
   };
 
   const handleEnd = (e: Event) => {
+    if (!allowHotkeys()) return;
+
     const touch = (e as TouchEvent).changedTouches[0];
     const endX = touch.clientX;
     const endY = touch.clientY;
