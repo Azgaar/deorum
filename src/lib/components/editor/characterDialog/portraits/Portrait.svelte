@@ -71,8 +71,8 @@
 <style lang="scss">
   div.portrait {
     position: relative;
-    min-width: 64px;
-    min-height: 64px;
+    min-width: 100px;
+    min-height: 100px;
 
     background-color: $secondary;
     border-radius: 4px;
@@ -82,8 +82,8 @@
     align-items: center;
 
     img {
-      width: 64px;
-      height: 64px;
+      width: 100px;
+      height: 100px;
       border-radius: 4px;
 
       opacity: 1;
@@ -99,8 +99,6 @@
 
     div.buttons {
       position: absolute;
-      font-size: 16px;
-      font-weight: 900;
       transition: opacity 0.5s ease-in-out;
       transition-delay: 0.5s;
       opacity: 0;
@@ -128,9 +126,7 @@
 
       button:nth-child(3) {
         grid-area: center;
-        font-size: 16px;
       }
-
       button:nth-child(4) {
         grid-area: right;
       }
@@ -140,10 +136,11 @@
       }
 
       button {
+        font-size: 20px;
         border: none;
         background: none;
         color: $text;
-        padding: 3px;
+        padding: 8px;
         line-height: 1;
         cursor: pointer;
 

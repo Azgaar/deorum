@@ -63,11 +63,12 @@
     }
 
     .add {
-      width: 64px;
-      height: 64px;
+      width: 40px;
+      height: 40px;
       border-radius: 4px;
+      color: rgba($text, 0.6);
       background-color: rgba($secondary, 0.6);
-      transition: background-color 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
 
       display: flex;
       justify-content: center;
@@ -77,6 +78,7 @@
       user-select: none;
 
       &:hover {
+        color: $text;
         background-color: $secondary;
       }
     }

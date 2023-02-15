@@ -185,7 +185,7 @@
         .portraits {
           width: 100%;
           display: grid;
-          grid-template-columns: repeat(4, minmax(64px, 1fr));
+          grid-template-columns: repeat(4, 1fr);
           gap: 4px;
 
           img {
