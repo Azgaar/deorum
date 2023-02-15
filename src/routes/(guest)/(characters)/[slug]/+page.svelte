@@ -10,7 +10,6 @@
 
 <div class="wrapper">
   <Content item={$currentItem} />
-  <ActionsPane item={$currentItem} />
 </div>
 
 <style lang="scss">
@@ -22,7 +21,6 @@
     align-items: center;
 
     font-size: 14px;
-    font-family: Helvetica, sans-serif;
     color: #dee7ea;
 
     padding: 16px 32px;

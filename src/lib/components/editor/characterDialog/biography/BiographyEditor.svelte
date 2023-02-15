@@ -102,7 +102,6 @@
         flex: 1;
 
         // reader mode
-        font-family: Helvetica, sans-serif;
         font-size: 14px;
         color: #dee7ea;
         line-height: 1.3;

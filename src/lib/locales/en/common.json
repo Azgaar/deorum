@@ -172,6 +172,11 @@
     "necromancer": "necromancer",
     "paladin": "paladin"
   },
+  "edit": {
+    "portrait": "Portrait",
+    "details": "Details",
+    "bio": "Biography"
+  },
   "export": {
     "export": "Export",
     "portrait": "Portrait image",

@@ -30,21 +30,21 @@
     <section>
       <div>
         <Wrapper>
-          <span>{$t(`common.races.${item.race}`, { default: item.race })}</span>
+          <div>{$t(`common.races.${item.race}`, { default: item.race })}</div>
           <Tooltip>{$t('common.character.race')}</Tooltip>
         </Wrapper>
       </div>
 
       <div>
         <Wrapper>
-          <span>{$t(`common.archetypes.${item.archetype}`, { default: item.archetype })}</span>
+          <div>{$t(`common.archetypes.${item.archetype}`, { default: item.archetype })}</div>
           <Tooltip>{$t('common.character.archetype')}</Tooltip>
         </Wrapper>
       </div>
 
       <div>
         <Wrapper>
-          <span>{$t(`common.backgrounds.${item.background}`, { default: item.background })} </span>
+          <div>{$t(`common.backgrounds.${item.background}`, { default: item.background })}</div>
           <Tooltip>{$t('common.character.background')}</Tooltip>
         </Wrapper>
       </div>
@@ -113,10 +113,16 @@
         gap: 0.5rem;
 
         > div {
+          max-width: 70px;
           padding: 0.4em 1em;
           border-radius: 1em;
-          background-color: rgba(36, 19, 18, 0.9);
           background-color: color.adjust($on-surface, $alpha: -0.1);
+
+          > div {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
         }
       }
     }

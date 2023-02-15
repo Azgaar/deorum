@@ -1,5 +1,6 @@
 <script lang="ts">
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import ActionsPane from './ActionsPane.svelte';
   import CharacterDetails from './CharacterDetails.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
   import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -11,41 +12,55 @@
   </p>`;
 </script>
 
-<div id="characterCard" class="content">
-  <div class="left-column">
-    <Picture src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" />
-    <CharacterDetails {item} />
-  </div>
+<article id="characterCard">
+  <section class="content">
+    <div class="left-column">
+      <Picture src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" />
+      <CharacterDetails {item} />
+    </div>
 
-  <div class="right-column">
-    {#key item.id}
-      {@html getBioHtml(item.bio)}
-    {/key}
-  </div>
-</div>
+    <div class="right-column">
+      {#key item.id}
+        {@html getBioHtml(item.bio)}
+      {/key}
+    </div>
+  </section>
+
+  <ActionsPane {item} />
+</article>
 
 <style lang="scss">
-  .content {
+  article {
     max-width: 1050px;
     height: max-content;
     background-color: #170904d9;
 
     padding: 16px;
-    display: grid;
-    justify-items: center;
-    grid-gap: 16px;
-    grid-template-columns: 320px 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-    @media ($mobile) {
-      grid-template-columns: minmax(200px, 380px);
-      grid-template-rows: auto 1fr;
-    }
+    section.content {
+      display: grid;
+      justify-items: center;
+      grid-gap: 16px;
+      grid-template-columns: 320px 1fr;
 
-    .left-column {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      @media ($mobile) {
+        grid-template-columns: minmax(200px, 380px);
+        grid-template-rows: auto 1fr;
+      }
+
+      .left-column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .right-column {
+        line-height: 1.2;
+      }
     }
   }
 </style>
