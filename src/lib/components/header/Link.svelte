@@ -12,6 +12,7 @@
 
 <a
   href={to}
+  target={to.startsWith('http') ? '_blank' : undefined}
   class:active={isActive}
   data-sveltekit-reload={reload ? '' : undefined}
   data-sveltekit-preload-data={prefetch ? 'hover' : undefined}

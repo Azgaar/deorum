@@ -1,11 +1,19 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
   import { clickOutside } from '$lib/events/clickOutside';
+  import BiographyEditor from './BiographyEditor.svelte';
   import { exportChar } from './export';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
 
   export let item: IGalleryItem;
+
+  const editor = {
+    portrait: false,
+    details: false,
+    bio: false,
+    show: (type: 'portrait' | 'details' | 'bio') => () => (editor[type] = true)
+  };
 
   const editOptions = {
     show: false,
@@ -31,15 +39,15 @@
         on:clickOutside={editOptions.close}
         on:click={editOptions.close}
       >
-        <button on:click={exportChar(item, 'portrait')}>{$t('common.edit.portrait')}</button>
-        <button on:click={exportChar(item, 'cardImage')}>{$t('common.edit.details')}</button>
-        <button on:click={exportChar(item, 'text')}>{$t('common.edit.bio')}</button>
+        <button on:click={editor.show('portrait')}>{$t('common.details.edit.portrait')}</button>
+        <button on:click={editor.show('details')}>{$t('common.details.edit.details')}</button>
+        <button on:click={editor.show('bio')}>{$t('common.details.edit.bio')}</button>
       </div>
     {/if}
   </div>
 
   <div>
-    <button on:click={exportOptions.open}>{$t('common.export.export')}</button>
+    <button on:click={exportOptions.open}>{$t('common.details.export.export')}</button>
 
     {#if exportOptions.show}
       <div
@@ -48,14 +56,22 @@
         on:clickOutside={exportOptions.close}
         on:click={exportOptions.close}
       >
-        <button on:click={exportChar(item, 'portrait')}>{$t('common.export.portrait')}</button>
-        <button on:click={exportChar(item, 'cardImage')}>{$t('common.export.cardImage')}</button>
-        <button on:click={exportChar(item, 'text')}>{$t('common.export.text')}</button>
-        <button on:click={exportChar(item, 'json')}>{$t('common.export.json')}</button>
+        <button on:click={exportChar(item, 'portrait')}
+          >{$t('common.details.export.portrait')}</button
+        >
+        <button on:click={exportChar(item, 'cardImage')}
+          >{$t('common.details.export.cardImage')}</button
+        >
+        <button on:click={exportChar(item, 'text')}>{$t('common.details.export.text')}</button>
+        <button on:click={exportChar(item, 'json')}>{$t('common.details.export.json')}</button>
       </div>
     {/if}
   </div>
 </section>
+
+{#if editor.bio}
+  <BiographyEditor bind:open={editor.bio} bind:item />
+{/if}
 
 <style lang="scss">
   @use 'sass:color';

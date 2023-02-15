@@ -42,7 +42,7 @@
 <style lang="scss">
   @use 'sass:color';
   $height: 48px;
-  $asideWidth: 160px;
+  $asideWidth: 220px;
 
   header {
     height: $height;
@@ -93,6 +93,7 @@
           font-size: 30px;
           width: 40px;
           height: 40px;
+          cursor: pointer;
         }
 
         .backdrop {
@@ -118,7 +119,7 @@
           top: $height;
           right: 0;
           bottom: 0;
-          background-color: $background;
+          background-image: linear-gradient(135deg, rgba(12, 2, 1, 1), rgba(32, 10, 2, 0.9));
           z-index: 1;
 
           display: flex;
@@ -135,6 +136,10 @@
             flex-direction: column;
             align-items: center;
             gap: 16px;
+
+            li {
+              white-space: nowrap;
+            }
           }
         }
 

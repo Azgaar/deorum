@@ -6,6 +6,7 @@
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import { request } from '$lib/utils/requests';
   import { blankRace } from '$lib/data/races';
   import { genders } from '$lib/data/genders';
@@ -20,7 +21,6 @@
 
   import type { IArchetype, IBackground, ICharacter, IRace } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
-  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
 
   export let open: boolean;
   export let character: ICharacter;

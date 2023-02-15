@@ -12,7 +12,6 @@
   export let races: Map<string, IRace>;
   export let archetypes: Map<string, { name: string }>;
   export let backgrounds: Map<string, { name: string }>;
-  // export let tags: Map<string, { name: string; image: string }>;
 
   export let handleClearSelection: () => void;
   export let selectedImages: number;

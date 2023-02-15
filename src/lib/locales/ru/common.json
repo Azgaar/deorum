@@ -5,7 +5,7 @@
     "delete": "Удалить",
     "add": "Добавить",
     "create": "Создать",
-    "edit": "Редактировать",
+    "edit": "Изменить",
     "search": "Поиск",
     "clear": "Отчистить",
     "back": "Назад",
@@ -39,7 +39,8 @@
     "match": "Совпадения",
     "admin": "Админ",
     "next": "Следующий",
-    "tags": "Теги"
+    "myCharacters": "Мои персонажи",
+    "donate": "Поддержать проект"
   },
   "errors": {
     "unauthorized": "Войдите в систему, чтобы получить доступ к этой странице"
@@ -172,17 +173,24 @@
     "necromancer": "некромант",
     "paladin": "паладин"
   },
-  "edit": {
-    "portrait": "Portrait",
-    "details": "Details",
-    "bio": "Biography"
-  },
-  "export": {
-    "export": "Экспорт",
-    "portrait": "Портрет",
-    "cardImage": "Карточка",
-    "text": "Текстовый файл",
-    "json": "JSON файл"
+  "details": {
+    "edit": {
+      "portrait": "Портрет",
+      "details": "Детали",
+      "bio": "Биографию"
+    },
+    "export": {
+      "export": "Экспорт",
+      "portrait": "Портрет",
+      "cardImage": "Карточка",
+      "text": "Текстовый файл",
+      "json": "JSON файл"
+    },
+    "editor": {
+      "editPortrait": "Изменить портрет",
+      "editDetails": "Изменить детали",
+      "editBio": "Изменить биографию"
+    }
   },
   "gallery": {
     "showDetails": "Показать детали"

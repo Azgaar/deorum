@@ -6,20 +6,25 @@
 
   import type { ILink } from '$lib/types/components.types';
 
-  const linksMap: { [key: string]: ILink } = {
+  const linksMap = {
     signin: { id: 'signin', key: 'common.auth.signin', to: '/signin' },
     signup: { id: 'signup', key: 'common.auth.signup', to: '/signup' },
     logout: { id: 'logout', key: 'common.auth.logout', to: '/logout' },
     gallery: { id: 'gallery', key: 'common.navigation.gallery', to: '/gallery' },
-    match: { id: 'match', key: 'common.navigation.match', to: '/match' },
+    myCharacters: {
+      id: 'myCharacters',
+      key: 'common.navigation.myCharacters',
+      to: '/my-characters'
+    },
+    donate: { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar' },
     admin: { id: 'admin', key: 'common.navigation.admin', to: '/admin' }
   };
 
   const getNavLinks = (role: Role): ILink[] => {
-    const { signin, signup, logout, gallery, match, admin } = linksMap;
-    if (role === Role.ADMIN) return [gallery, match, admin, logout];
-    if (role === Role.USER) return [gallery, logout];
-    return [signin, signup]; // Role.GUEST
+    const { signin, signup, logout, gallery, myCharacters, donate, admin } = linksMap;
+    if (role === Role.ADMIN) return [gallery, myCharacters, donate, admin, logout];
+    if (role === Role.USER) return [gallery, myCharacters, donate, logout];
+    return [gallery, myCharacters, donate, signup, signin]; // Role.GUEST
   };
 
   $: links = getNavLinks($page.data.role);

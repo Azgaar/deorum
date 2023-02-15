@@ -10,7 +10,8 @@
     fill: $text;
 
     position: absolute;
-    bottom: 4px;
-    left: 10px;
+    bottom: 6px;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 </style>

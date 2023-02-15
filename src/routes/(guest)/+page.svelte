@@ -70,8 +70,8 @@
         gap: 24px;
 
         p {
-          font-size: 1.5rem;
-          line-height: 1.4;
+          font-size: 1.4rem;
+          line-height: 1.3;
         }
 
         @media ($mobile) {
