@@ -98,6 +98,7 @@
     }
 
     figcaption {
+      overflow: hidden;
       display: grid;
       grid-template-rows: 3fr 2fr;
       place-items: center;
