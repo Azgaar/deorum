@@ -68,6 +68,8 @@ export const getCachedElement = async <T>(
 };
 
 // DO NOT CALL FROM CLIENT SIDE
-export const invalidateCache = (collection: TCollection) => {
-  cache.invalidate(collection);
+export const invalidateCache = (...collections: TCollection[]) => {
+  for (const collection of collections) {
+    cache.invalidate(collection);
+  }
 };
