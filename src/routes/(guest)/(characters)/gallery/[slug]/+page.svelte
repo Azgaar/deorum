@@ -36,7 +36,7 @@
       max-width: min(1800px, 85vw);
       min-height: 360px;
       z-index: 0;
-      font-size: clamp(14px, 1.2vw, 26px);
+      font-size: clamp(14px, 1vw, 24px);
 
       --item-width: clamp(300px, 25vw, 512px);
       --second-item-scale: 0.8;

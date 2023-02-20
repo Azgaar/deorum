@@ -10,6 +10,10 @@
   export let item: IGalleryItem;
   export let isCentral: boolean;
   export let id: string;
+
+  $: race = $t(`common.races.${item.race}`, { default: item.race });
+  $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
+  $: background = $t(`common.backgrounds.${item.background}`, { default: item.background });
 </script>
 
 <figure>
@@ -30,22 +34,22 @@
     <section>
       <div>
         <Wrapper>
-          <div>{$t(`common.races.${item.race}`, { default: item.race })}</div>
-          <Tooltip>{$t('common.character.race')}</Tooltip>
+          <div>{race}</div>
+          <Tooltip>{$t('common.character.race')}: {race}</Tooltip>
         </Wrapper>
       </div>
 
       <div>
         <Wrapper>
-          <div>{$t(`common.archetypes.${item.archetype}`, { default: item.archetype })}</div>
-          <Tooltip>{$t('common.character.archetype')}</Tooltip>
+          <div>{archetype}</div>
+          <Tooltip>{$t('common.character.archetype')}: {archetype}</Tooltip>
         </Wrapper>
       </div>
 
       <div>
         <Wrapper>
-          <div>{$t(`common.backgrounds.${item.background}`, { default: item.background })}</div>
-          <Tooltip>{$t('common.character.background')}</Tooltip>
+          <div>{background}</div>
+          <Tooltip>{$t('common.character.background')}: {background}</Tooltip>
         </Wrapper>
       </div>
     </section>
@@ -58,7 +62,7 @@
   figure {
     position: relative;
     margin: 0;
-    padding: 0.6rem;
+    padding: 0.6rem 0.6rem 0.8rem;
     background-color: $surface;
 
     div.imageContainer {
@@ -114,7 +118,7 @@
         gap: 0.5rem;
 
         > div {
-          max-width: 70px;
+          max-width: 150px;
           padding: 0.4em 1em;
           border-radius: 1em;
           background-color: color.adjust($on-surface, $alpha: -0.1);
