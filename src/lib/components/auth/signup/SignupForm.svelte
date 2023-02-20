@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { Actions, Title } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
   import Textfield from '@smui/textfield';
   import { page } from '$app/stores';
 
@@ -38,13 +36,12 @@
 </script>
 
 <form on:submit={handleSubmit}>
-  <Title>{$t('common.auth.signup')}</Title>
+  <div class="title">{$t('common.auth.signinTitle')}</div>
 
   <div class="body">
     <Textfield
       required
       type="email"
-      updateInvalid
       bind:value={email}
       disabled={isLoading}
       label={$t('common.auth.email')}
@@ -54,23 +51,31 @@
     <PasswordInput bind:password {isLoading} />
   </div>
 
-  <Actions>
+  <div class="actions">
     {#if onClose}
-      <Button type="button" style="color: white" on:click={onClose} disabled={isLoading}>
-        <Label>{$t('common.controls.cancel')}</Label>
-      </Button>
+      <button type="button" on:click={onClose} disabled={isLoading}>
+        {$t('common.controls.cancel')}
+      </button>
     {/if}
 
     <button type="submit" disabled={isLoading}>
-      {#if isLoading}
-        <CircularSpinner />
-      {/if}
       {$t('common.auth.signup')}
+      {#if isLoading}
+        <CircularSpinner absolute />
+      {/if}
     </button>
-  </Actions>
+  </div>
 </form>
 
 <style lang="scss">
+  @use 'sass:color';
+
+  div.title {
+    font-size: 1.2rem;
+    font-weight: 300;
+    padding: 1rem 2rem;
+  }
+
   div.body {
     width: min(300px, 90vw);
     padding: 1rem 2rem;
@@ -79,18 +84,37 @@
     gap: 1rem;
   }
 
-  button {
-    font-size: 0.875rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: white;
-    background: none;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-
+  div.actions {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 0.5rem;
+
+    button {
+      font-size: 0.8rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+
+      padding: 8px 16px;
+      border-radius: 24px;
+      color: $text;
+      transition: background 0.2s ease-in-out;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: color.adjust($text, $alpha: -0.85);
+      }
+
+      &:active {
+        background: color.adjust($text, $alpha: -0.95);
+      }
+    }
   }
 </style>

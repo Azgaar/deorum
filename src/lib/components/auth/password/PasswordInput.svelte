@@ -1,6 +1,7 @@
 <script lang="ts">
   import Textfield from '@smui/textfield';
-
+  import EyeOpen from '$lib/components/icons/EyeOpen.svelte';
+  import EyeClosed from '$lib/components/icons/EyeClosed.svelte';
   import { t } from '$lib/locales/translations';
 
   export let password: string = '';
@@ -19,16 +20,25 @@
   input$autocomplete="password"
   input$pattern={'.{8,}'}
 >
-  <div class="visibility" on:click={() => (visible = !visible)}>👁️</div>
+  <div class="visibility" on:click={() => (visible = !visible)}>
+    {#if visible}
+      <EyeClosed />
+    {:else}
+      <EyeOpen />
+    {/if}
+  </div>
 </Textfield>
 
 <style lang="scss">
   div.visibility {
     position: absolute;
     right: -16px;
+    top: 10px;
     padding: 1rem;
+
     cursor: pointer;
     user-select: none;
-    font-size: 1.2rem;
+    width: 14px;
+    height: 14px;
   }
 </style>
