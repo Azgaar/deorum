@@ -8,11 +8,12 @@
   $error: #d32f2f
 );
 
-// global styles
+@import url(https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap);
+
 html,
 body,
 textarea {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Lato', Helvetica, sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
