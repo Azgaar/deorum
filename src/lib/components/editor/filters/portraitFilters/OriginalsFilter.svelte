@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Dialog, { Actions, Title } from '@smui/dialog';
+  import Tooltip, { Wrapper } from '@smui/tooltip';
+  import Dialog, { Actions } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
@@ -9,6 +10,15 @@
   export let original: string[];
 
   export let entries: [string, { image: string; name: string }][];
+  $: search = '';
+  $: found = handleSearch(search);
+
+  const handleSearch = (search: string) => {
+    if (!search) entries;
+
+    const regex = new RegExp(search, 'i');
+    return entries?.filter(([, { name }]) => regex.test($t(`admin.originals.${name}`)));
+  };
 
   const handleSelect = (originalId: string) => () => {
     original = original.includes(originalId)
@@ -22,18 +32,30 @@
   };
 </script>
 
-<Dialog bind:open aria-labelledby="originals-filter" aria-describedby="originals-filter">
-  <Title>{$t('common.controls.select')} {$t('admin.editor.originals').toLowerCase()}</Title>
+<Dialog
+  bind:open
+  class="editorDialog"
+  aria-labelledby="originals-filter"
+  aria-describedby="originals-filter"
+>
+  <div class="title">
+    <span>{$t('common.controls.select')} {$t(`admin.editor.originals`).toLowerCase()}</span>
+    <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
+  </div>
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
-      {#each entries as [entryId, { image, name }] (entryId)}
+      {#each found as [entryId, { image, name }] (entryId)}
         <div class:selected={original.includes(entryId)}>
           <img
             on:click={handleSelect(entryId)}
             src={`${ORIGINALS_IMAGE_PATH}/${entryId}/${image}?thumb=100x100`}
             alt={name}
           />
+          <Wrapper>
+            <span class="checkmark" />
+            <Tooltip>{$t(`admin.originals.${name}`)}</Tooltip>
+          </Wrapper>
         </div>
       {/each}
     </div>
@@ -47,33 +69,67 @@
 </Dialog>
 
 <style lang="scss">
+  @use 'sass:color';
+
   form.body {
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     width: min(500px, 90vw);
-  }
 
-  div.content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    grid-gap: 3px;
+    div.content {
+      height: min(580px, 90vh);
 
-    div {
-      filter: brightness(0.6) grayscale(0.8);
-      transition: filter 0.2s ease-in-out;
-      cursor: pointer;
-    }
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 80px);
+      grid-auto-rows: 80px;
+      grid-gap: 3px;
+      padding: 0;
 
-    div:hover {
-      filter: brightness(0.6);
-    }
+      div {
+        position: relative;
+        cursor: pointer;
 
-    div.selected {
-      filter: brightness(1);
-    }
+        img {
+          width: 100%;
+          aspect-ratio: 1;
 
-    img {
-      width: 100%;
-      height: 100%;
+          transition: filter 0.2s ease-in-out;
+          filter: brightness(0.9);
+
+          &:hover {
+            filter: brightness(0.95);
+          }
+        }
+
+        .checkmark {
+          position: absolute;
+          bottom: 2px;
+          right: 2px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          background-color: color.adjust($surface, $alpha: -0.4);
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+
+          transition: all 0.2s ease-in-out;
+          opacity: 0;
+
+          &::after {
+            content: '✓';
+            color: $text;
+            font-size: 1.2rem;
+          }
+        }
+
+        &.selected {
+          .checkmark {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 </style>
