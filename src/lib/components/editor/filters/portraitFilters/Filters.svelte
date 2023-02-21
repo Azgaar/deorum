@@ -70,7 +70,7 @@
         <Sorting key="original" bind:sorting />
         <span>{$t('admin.editor.original')}:</span>
         {#if filters.original.length}
-          <div class="selected">
+          <div class="selected rounded">
             {#each filters.original as originalId (originalId)}
               <Wrapper>
                 <img
@@ -91,7 +91,7 @@
         <Sorting key="colors" bind:sorting />
         <span>{$t('admin.editor.colors')}:</span>
         {#if filters.colors.length}
-          <div class="selected">
+          <div class="selected rounded">
             {#each filters.colors as color (color)}
               <Wrapper>
                 <div style="background-color: {color};" />
@@ -110,7 +110,10 @@
           <div class="selected">
             {#each filters.tags as tagId (tagId)}
               <Wrapper>
-                <div>{tagsMap.get(tagId)?.image}</div>
+                <img
+                  src={tagsMap.get(tagId)?.image}
+                  alt={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
+                />
                 <Tooltip>{$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}</Tooltip>
               </Wrapper>
             {/each}
@@ -126,7 +129,10 @@
           <div class="selected">
             {#each filters.styles as styleId (styleId)}
               <Wrapper>
-                <div>{stylesMap.get(styleId)?.image}</div>
+                <img
+                  src={stylesMap.get(styleId)?.image}
+                  alt={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
+                />
                 <Tooltip>{$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}</Tooltip>
               </Wrapper>
             {/each}
@@ -183,6 +189,12 @@
         div {
           width: 20px;
           height: 20px;
+        }
+      }
+
+      .rounded {
+        img,
+        div {
           border-radius: 50%;
         }
       }
