@@ -25,7 +25,14 @@ const pageSize = 100;
 const page = 1;
 
 // TODO: parse from search params
-const filters: IPortraitFilters = { original: [], quality: [], colors: [], tags: [], styles: [] };
+const filters: IPortraitFilters = {
+  original: [],
+  quality: [],
+  colors: [],
+  tags: [],
+  styles: [],
+  hasCharacters: null
+};
 const sorting: ISorting = { key: 'created', order: 'desc' };
 
 export const load: PageServerLoad = async ({ url, fetch }) => {

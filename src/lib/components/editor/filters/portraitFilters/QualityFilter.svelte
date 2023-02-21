@@ -28,17 +28,19 @@
       padding: 0;
 
       cursor: pointer;
-      color: $text;
+      color: rgba($text, 0.3);
       background-color: rgba($secondary, 0.15);
       border: none;
       transition: all 0.2s ease-in-out;
     }
 
     button:hover {
+      color: rgba($text, 0.8);
       background-color: rgba($secondary, 0.3);
     }
 
     button.current {
+      color: $text;
       background-color: $secondary;
     }
   }

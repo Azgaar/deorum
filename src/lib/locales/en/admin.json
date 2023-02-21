@@ -23,7 +23,8 @@
     "characters": "Characters",
     "character": "character",
     "loadMore": "Load More",
-    "convertImage": "Optimize image"
+    "convertImage": "Optimize image",
+    "hasCharacters": "Has characters"
   },
   "sorting": {
     "asc": "Sort ascending",

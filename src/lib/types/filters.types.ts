@@ -4,6 +4,7 @@ export interface IPortraitFilters {
   colors: string[];
   tags: string[];
   styles: string[];
+  hasCharacters: boolean | null;
 }
 
 export interface ICharacterFilters {

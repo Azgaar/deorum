@@ -5,7 +5,8 @@ const operatorsMap: { [key in keyof IPortraitFilters]: '=' | '~' } = {
   quality: '=',
   colors: '~',
   tags: '~',
-  styles: '~'
+  styles: '~',
+  hasCharacters: '='
 };
 
 export function parseFilters(filters: IPortraitFilters) {
@@ -13,10 +14,16 @@ export function parseFilters(filters: IPortraitFilters) {
 
   for (const key in filters) {
     const entity = key as keyof IPortraitFilters;
-    const values = filters[entity];
-    if (values.length) {
-      const base = values.map((value) => `${key}${operatorsMap[entity]}${parse(value)}`).join('||');
+    const value = filters[entity];
 
+    if (entity === 'hasCharacters') {
+      if (value === null) continue;
+      if (value === true) query += `${query ? '&&' : ''}(characters!="[]")`;
+      else query += `${query ? '&&' : ''}(characters="[]")`;
+    }
+
+    if (Array.isArray(value) && value.length > 0) {
+      const base = value.map((value) => `${key}${operatorsMap[entity]}${parse(value)}`).join('||');
       query += `${query ? '&&' : ''}(${base})`;
     }
   }

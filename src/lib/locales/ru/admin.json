@@ -23,7 +23,8 @@
     "characters": "Персонажи",
     "character": "персонаж",
     "loadMore": "Загрузить ещё",
-    "convertImage": "Оптимизировать"
+    "convertImage": "Оптимизировать",
+    "hasCharacters": "С персонажами"
   },
   "sorting": {
     "asc": "Сортировать по возрастанию",

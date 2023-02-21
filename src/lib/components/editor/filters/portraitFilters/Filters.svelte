@@ -7,6 +7,7 @@
   import { t } from '$lib/locales/translations';
   import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import QualityFilter from './QualityFilter.svelte';
+  import HasCharactersFilter from './HasCharactersFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
   import ColorsFilter from './ColorsFilter.svelte';
   import Sorting from '../Sorting.svelte';
@@ -140,6 +141,11 @@
         {/if}
         <span class="edit" on:click={handleListEdit('styles', stylesMap, filters.styles)}>⚙️</span>
       </div>
+
+      <div class="item" class:inactive={filters.hasCharacters === null}>
+        <span>{$t('admin.editor.hasCharacters')}:</span>
+        <HasCharactersFilter bind:hasCharacters={filters.hasCharacters} />
+      </div>
     </div>
 
     <Actions>
@@ -176,6 +182,14 @@
       align-items: center;
       gap: 0.5rem;
 
+      span {
+        transition: all 0.2s ease-in-out;
+      }
+
+      &.inactive > span {
+        color: #aaa;
+      }
+
       span:first-child {
         flex: 1;
       }
@@ -198,10 +212,6 @@
           border-radius: 50%;
         }
       }
-    }
-
-    .item.inactive > span {
-      color: #aaa;
     }
 
     .edit {
