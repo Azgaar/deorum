@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import admin from '$lib/api/admin';
 import { invalidateCache } from '$lib/cache/cacheInstance';
 import { createServerError } from '$lib/utils/errors';
@@ -13,7 +14,7 @@ export const GET: RequestHandler = async ({ params, url }) => {
 
     const character = await admin.records.getOne('characters', id, { filter, expand });
     log('characters', `Loading character ${id}`);
-    return new Response(JSON.stringify(character));
+    return json(character);
   } catch (err) {
     report('characters', err);
     throw createServerError(err);
@@ -26,7 +27,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     const character = await admin.records.delete('characters', id);
     invalidateCache('characters', 'portraits');
     log('characters', `Character ${id} is deleted`);
-    return new Response(JSON.stringify(character));
+    return json(character);
   } catch (err) {
     report('characters', err);
     throw createServerError(err);

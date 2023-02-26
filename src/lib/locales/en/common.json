@@ -187,9 +187,7 @@
       "json": "JSON file"
     },
     "editor": {
-      "editPortrait": "Edit portrait",
-      "editDetails": "Edit details",
-      "editBio": "Edit biography"
+      "title": "Edit character"
     }
   },
   "gallery": {

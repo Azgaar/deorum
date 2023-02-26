@@ -3,7 +3,6 @@
 
   import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/chips/StatsChips.svelte';
-  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
 
   export let data: import('./$types').PageData;
 
@@ -31,7 +30,7 @@
             width="64px"
             height="64px"
             alt={stats.original.name}
-            src={`${ORIGINALS_IMAGE_PATH}/${stats.original.id}/${stats.original.image}?thumb=100x100`}
+            src={stats.original.image}
           />
         </Cell>
         <Cell style="text-transform: capitalize;">

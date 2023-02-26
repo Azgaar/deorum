@@ -4,7 +4,6 @@
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
-  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import Sorting from '../Sorting.svelte';
 
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
@@ -33,12 +32,7 @@
           <div class="selected">
             {#each filters.races as raceId (raceId)}
               <Wrapper>
-                <img
-                  alt={raceId}
-                  src={`${ORIGINALS_IMAGE_PATH}/${raceId}/${
-                    racesMap.get(raceId)?.image
-                  }?thumb=100x100`}
-                />
+                <img alt={raceId} src={racesMap.get(raceId)?.image} />
                 <Tooltip>{$t(`admin.originals.${racesMap.get(raceId)?.name}`)}</Tooltip>
               </Wrapper>
             {/each}

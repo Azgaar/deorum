@@ -1,4 +1,3 @@
-import { RACES_IMAGE_PATH } from '$lib/config';
 import { toJson } from '$lib/utils/requests';
 
 import type { ICharacter, IRace } from '$lib/types/api.types';
@@ -28,9 +27,8 @@ export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const racesMap = new Map(races.map(({ id, image, name }) => [id, { image, name }]));
   const statistics: IStatistics[] = Object.entries(aggregated)
     .map(([id, count]) => {
-      const { name, image } = racesMap.get(id) || {};
-      const src = image ? `${RACES_IMAGE_PATH}/${id}/${image}?thumb=100x100` : PLACEHOLDER_IMAGE;
-      return { name, image: src, count };
+      const { name, image = PLACEHOLDER_IMAGE } = racesMap.get(id) || {};
+      return { name, image, count };
     })
     .sort((a, b) => b.count - a.count);
 

@@ -187,9 +187,7 @@
       "json": "JSON файл"
     },
     "editor": {
-      "editPortrait": "Изменить портрет",
-      "editDetails": "Изменить детали",
-      "editBio": "Изменить биографию"
+      "title": "Изменить персонаж"
     }
   },
   "gallery": {

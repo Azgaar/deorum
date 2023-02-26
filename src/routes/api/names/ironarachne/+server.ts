@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import { request } from '$lib/utils/requests';
 import type { RequestHandler } from './$types';
 
@@ -32,5 +33,5 @@ export const GET: RequestHandler = async ({ url }) => {
 
   const requestUrl = `${baseUrl}/${race}/?count=${count}&nameType=${type}`;
   const data = await request<{ names: string[] }>(requestUrl);
-  return new Response(JSON.stringify(data.names || []));
+  return json(data.names || []);
 };

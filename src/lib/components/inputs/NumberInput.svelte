@@ -1,18 +1,11 @@
 <script lang="ts">
   export let value: number;
-  export let onChange: (value: number) => void;
   export let min: number = 0;
   export let max: number = Infinity;
   export let step: number = 1;
-
-  const handleChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    value = Number(target.value);
-    onChange(value);
-  };
 </script>
 
-<input type="number" {value} {min} {max} {step} on:change={handleChange} />
+<input type="number" bind:value {min} {max} {step} />
 
 <style lang="scss">
   input {

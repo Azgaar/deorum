@@ -24,12 +24,12 @@ export const GET: RequestHandler = async ({ url }) => {
       const args = [page, pageSize, filter, sort, expand] as const;
       const portraitsPage = await getCachedPage<IPortrait>('portraits', ...args);
       log('portraits', `Loading ${pageSize} portraits`);
-      return new Response(JSON.stringify(portraitsPage));
+      return json(portraitsPage);
     }
 
     const portraits = await getCachedList<IPortrait>('portraits', filter, sort, expand);
     log('portraits', `Loading all portraits`);
-    return new Response(JSON.stringify(portraits));
+    return json(portraits);
   } catch (err) {
     report('portraits', err);
     throw createServerError(err);

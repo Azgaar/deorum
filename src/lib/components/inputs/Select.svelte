@@ -2,17 +2,16 @@
   import { t } from '$lib/locales/translations';
 
   export let value: string;
+  export let onChange = (value: string) => {};
   export let options: string[][];
-  export let onChange: (value: string) => void;
 
   const handleChange = (e: Event) => {
     const target = e.target as HTMLSelectElement;
-    value = target.value;
-    onChange(value);
+    onChange(target.value);
   };
 </script>
 
-<select {value} on:change={handleChange}>
+<select bind:value on:change={handleChange}>
   {#each options as [value, label]}
     <option {value}>{$t(label)}</option>
   {/each}

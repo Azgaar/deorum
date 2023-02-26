@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 
 import admin from '$lib/api/admin';
 import { log, report } from '$lib/utils/log';
@@ -23,12 +23,12 @@ export const GET: RequestHandler = async ({ url }) => {
       const args = [page, pageSize, filter, sort, expand] as const;
       const charactersPage = await getCachedPage<ICharacter>('characters', ...args);
       log('characters', `Loading ${pageSize} characters`);
-      return new Response(JSON.stringify(charactersPage));
+      return json(charactersPage);
     }
 
     const allCharacters = await getCachedList<ICharacter>('characters', filter, sort, expand);
     log('characters', `Loading all characters`);
-    return new Response(JSON.stringify(allCharacters));
+    return json(allCharacters);
   } catch (err) {
     report('characters', err);
     throw createServerError(err);
@@ -47,7 +47,7 @@ export const PUT: RequestHandler = async ({ request, fetch }) => {
     );
     await updatePortraits(character.portraits, character.id, currentPortraits);
 
-    return new Response(JSON.stringify(character));
+    return json(character);
   } catch (err) {
     report('characters', err);
     throw createServerError(err);
@@ -67,7 +67,7 @@ export const PATCH: RequestHandler = async ({ request, url, fetch }) => {
     );
     await updatePortraits(character.portraits, character.id, currentPortraits);
 
-    return new Response(JSON.stringify(character));
+    return json(character);
   } catch (err) {
     report('characters', err);
     throw createServerError(err);

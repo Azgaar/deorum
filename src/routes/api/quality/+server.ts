@@ -8,14 +8,16 @@ import { concatImgSrc } from '$lib/utils/url';
 import type { IQuality } from '$lib/types/api.types';
 import type { RequestHandler } from './$types';
 
+const purgeData = ({ id, name, image }: IQuality) => ({
+  id,
+  name,
+  image: concatImgSrc('quality', id, image)
+});
+
 export const GET: RequestHandler = async () => {
   try {
     const rawQuality = await getCachedList<IQuality>('quality');
-    const quality = rawQuality.map(({ id, name, image }) => ({
-      id,
-      name,
-      image: concatImgSrc('quality', id, image)
-    }));
+    const quality = rawQuality.map(purgeData);
 
     log('quality', `Loading all quality`);
     return json(quality);

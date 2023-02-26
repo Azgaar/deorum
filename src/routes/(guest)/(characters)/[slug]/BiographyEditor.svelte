@@ -23,7 +23,7 @@
   };
 </script>
 
-<Dialog bind:open class="dialog" aria-labelledby="character-biography-editor" scrimClickAction="">
+<Dialog bind:open class="dialog" aria-label="character biography editor" scrimClickAction="">
   <Title>
     {$t('common.details.editor.editBio')}
   </Title>

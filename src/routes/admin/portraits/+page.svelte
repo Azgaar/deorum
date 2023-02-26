@@ -410,7 +410,10 @@
   </aside>
 </main>
 
-<EditCharacterDialog {...editCharacterDialogData} />
+{#if editCharacterDialogData.open}
+  <EditCharacterDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
+{/if}
+
 <EditorDialog {...editorDialogData} />
 <OriginalsDialog {...originalsDialogData} />
 <SelectCharacterDialog {...selectCharacterDialogData} />

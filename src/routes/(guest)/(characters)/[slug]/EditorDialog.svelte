@@ -5,40 +5,25 @@
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
-  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { t } from '$lib/locales/translations';
-  import { toastError } from '$lib/stores';
-  import { report } from '$lib/utils/log';
-  import { request } from '$lib/utils/requests';
   import { makePOJO } from '$lib/utils/object';
 
-  import IconButton from '../IconButton.svelte';
-  import BiographyEditor from './biography/BiographyEditor.svelte';
-  import Portraits from './portraits/Portraits.svelte';
-  import TagsEditor from './tags/TagsEditor.svelte';
-  import { createOptions } from './options';
-  import { getRange } from './range';
-  import { createRandomizer } from './randomize';
-
   import type { ICharacter, IRace } from '$lib/types/api.types';
-  import type { TOpenEditorDialog } from '$lib/types/editor.types';
+  import { getRange } from '$lib/components/editor/characterDialog/range';
+  import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
+  import { createOptions } from '$lib/components/editor/characterDialog/options';
+  import IconButton from '$lib/components/editor/IconButton.svelte';
+  import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
 
   export let open: boolean;
   export let character: ICharacter;
-  export let onSubmit: (character: ICharacter) => void;
-  export let onDelete: (characterId: string) => void;
-  export let portraitIds: string[];
 
   export let races: Map<string, IRace>;
   export let archetypes: Map<string, { name: string }>;
   export let backgrounds: Map<string, { name: string }>;
   export let tags: Map<string, { name: string; image: string }>;
 
-  export let openEditorDialog: TOpenEditorDialog;
-
   let current = makePOJO(character);
-  let isLoading = false;
-
   $: range = getRange(current.gender, current.race, races);
   $: randomize = createRandomizer(current, (updated: ICharacter) => (current = updated), races);
 
@@ -46,54 +31,12 @@
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
-
-    try {
-      isLoading = true;
-      const { id, name, age, gender, race, archetype, background, height, weight, bio, tags } =
-        current;
-      const expand = 'race,archetype,background,portraits';
-      const responseCharacter = await request<ICharacter>(
-        `/api/characters?expand=${expand}`,
-        id ? 'PATCH' : 'PUT',
-        {
-          id,
-          name: name.trim(),
-          age,
-          gender,
-          race,
-          archetype,
-          background,
-          height,
-          weight,
-          portraits: portraitIds,
-          bio: bio.trim(),
-          tags
-        }
-      );
-
-      onSubmit(responseCharacter);
-      open = false;
-    } catch (error) {
-      report('character editor', error);
-      toastError(error);
-    } finally {
-      isLoading = false;
-    }
+    character = current;
+    open = false;
   };
 
   const handleCancel = () => {
     open = false;
-  };
-
-  const handleDelete = async () => {
-    try {
-      await request<ICharacter>(`/api/characters/${current.id}`, 'DELETE');
-      onDelete(current.id);
-      open = false;
-    } catch (error) {
-      report('character editor', error);
-      toastError(error);
-    }
   };
 </script>
 
@@ -105,14 +48,11 @@
   scrimClickAction=""
 >
   <Title>
-    {$t(current.id ? 'common.controls.edit' : 'common.controls.create')}
-    {$t('admin.editor.character')}</Title
-  >
+    {$t('common.details.editor.title')}
+  </Title>
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
-      <Portraits bind:ids={portraitIds} />
-
       <div class="columns">
         <div class="column">
           <div class="element">
@@ -174,35 +114,19 @@
         </div>
       </div>
 
-      <TagsEditor bind:tags={current.tags} tagsMap={tags} {openEditorDialog} />
-
       {#key current.id}
         <BiographyEditor bind:character={current} {tags} />
       {/key}
     </div>
 
     <div class="actions">
-      <div>
-        {#if current.id}
-          <BasicButton disabled={isLoading} variant="text" onClick={handleDelete}>
-            {$t('common.controls.delete')}
-          </BasicButton>
-        {/if}
-      </div>
+      <BasicButton variant="text" onClick={handleCancel}>
+        {$t('common.controls.cancel')}
+      </BasicButton>
 
-      <div>
-        {#if isLoading}
-          <CircularSpinner size={20} />
-        {/if}
-
-        <BasicButton disabled={isLoading} variant="text" onClick={handleCancel}>
-          {$t('common.controls.cancel')}
-        </BasicButton>
-
-        <BasicButton type="submit" variant="text">
-          {$t('common.controls.apply')}
-        </BasicButton>
-      </div>
+      <BasicButton type="submit" variant="text">
+        {$t('common.controls.apply')}
+      </BasicButton>
     </div>
   </form>
 </Dialog>
@@ -252,13 +176,8 @@
     div.actions {
       padding: 12px 0;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       gap: 8px;
-
-      div {
-        display: flex;
-        align-items: center;
-      }
     }
   }
 </style>

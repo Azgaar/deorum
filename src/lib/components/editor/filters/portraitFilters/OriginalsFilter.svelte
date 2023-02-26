@@ -4,7 +4,6 @@
   import Button, { Label } from '@smui/button';
 
   import { t } from '$lib/locales/translations';
-  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
 
   export let open: boolean;
   export let original: string[];
@@ -47,11 +46,7 @@
     <div class="content">
       {#each found as [entryId, { image, name }] (entryId)}
         <div class:selected={original.includes(entryId)}>
-          <img
-            on:click={handleSelect(entryId)}
-            src={`${ORIGINALS_IMAGE_PATH}/${entryId}/${image}?thumb=100x100`}
-            alt={name}
-          />
+          <img on:click={handleSelect(entryId)} src={image} alt={name} />
           <Wrapper>
             <span class="checkmark" />
             <Tooltip>{$t(`admin.originals.${name}`)}</Tooltip>

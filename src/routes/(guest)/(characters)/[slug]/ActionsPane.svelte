@@ -1,24 +1,38 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
   import { clickOutside } from '$lib/events/clickOutside';
-  import BiographyEditor from './BiographyEditor.svelte';
+  import EditorDialog from './EditorDialog.svelte';
   import { exportChar } from './export';
+  import { request } from '$lib/utils/requests';
+  import { toastError } from '$lib/stores';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import type { IArchetype, IBackground, ICharacter, IRace, ITag } from '$lib/types/api.types';
+  import type { IEditorData } from './editor';
 
   export let item: IGalleryItem;
+  let editor = { open: false } as IEditorData;
 
-  const editor = {
-    portrait: false,
-    details: false,
-    bio: false,
-    show: (type: 'portrait' | 'details' | 'bio') => () => (editor[type] = true)
-  };
+  const handleEditClick = async () => {
+    try {
+      const expand = 'race,archetype,background,portraits';
+      const [character, racesArray, archetypesArray, backgroundsArray, tagsArray] =
+        await Promise.all([
+          request<ICharacter>(`/api/characters/${item.id}?expand=${expand}`),
+          request<IRace[]>('/api/races'),
+          request<IArchetype[]>('/api/archetypes'),
+          request<IBackground[]>('/api/backgrounds'),
+          request<ITag[]>('/api/tags')
+        ]);
 
-  const editOptions = {
-    show: false,
-    open: () => (editOptions.show = true),
-    close: () => (editOptions.show = false)
+      const races = new Map(racesArray.map((race) => [race.id, race]));
+      const archetypes = new Map(archetypesArray.map(({ id, name }) => [id, { name }]));
+      const backgrounds = new Map(backgroundsArray.map(({ id, name }) => [id, { name }]));
+      const tags = new Map(tagsArray.map(({ id, image, name }) => [id, { image, name }]));
+      editor = { open: true, character, races, archetypes, backgrounds, tags };
+    } catch (error) {
+      toastError(error);
+    }
   };
 
   const exportOptions = {
@@ -30,20 +44,7 @@
 
 <section class="actionsPane">
   <div>
-    <button on:click={editOptions.open}>{$t('common.controls.edit')}</button>
-
-    {#if editOptions.show}
-      <div
-        class="options"
-        use:clickOutside
-        on:clickOutside={editOptions.close}
-        on:click={editOptions.close}
-      >
-        <button on:click={editor.show('portrait')}>{$t('common.details.edit.portrait')}</button>
-        <button on:click={editor.show('details')}>{$t('common.details.edit.details')}</button>
-        <button on:click={editor.show('bio')}>{$t('common.details.edit.bio')}</button>
-      </div>
-    {/if}
+    <button on:click={handleEditClick}>{$t('common.controls.edit')}</button>
   </div>
 
   <div>
@@ -69,9 +70,11 @@
   </div>
 </section>
 
-{#if editor.bio}
-  <BiographyEditor bind:open={editor.bio} bind:item />
-{/if}
+{#if editor.open}<EditorDialog
+    {...editor}
+    bind:character={editor.character}
+    bind:open={editor.open}
+  />{/if}
 
 <style lang="scss">
   @use 'sass:color';

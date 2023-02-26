@@ -20,7 +20,7 @@ export interface IListResult<T> {
   items: Array<T>;
 }
 
-interface IRecord {
+export interface IRecord {
   '@collectionId': string;
   '@collectionName': TCollection;
   '@expand': {

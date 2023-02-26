@@ -11,12 +11,11 @@
   import type { ICharacter } from '$lib/types/api.types';
 
   export let character: ICharacter;
-  export let tags: Map<string, { name: string }>;
-  export let onChange: (value: string) => void;
+  export let tags: Map<string, { name: string; image: string }>;
 
   let isLoading = false;
-  let customPrompt = '';
   let showPrompt = false;
+  let customPrompt = '';
 
   const togglePrompt = () => {
     if (showPrompt) {
@@ -40,7 +39,7 @@
       isLoading = true;
       const prompt = showPrompt && customPrompt ? customPrompt : createBasicPrompt(character, tags);
       const { story } = await request<{ story: string }>('/api/stories', 'POST', { prompt });
-      onChange(story.trim());
+      character.bio = story;
     } catch (err) {
       report('story generator', err);
       toastError(err);
@@ -68,7 +67,7 @@
 
   <div class="textareas">
     {#if showPrompt}<textarea bind:value={customPrompt} />{/if}
-    <textarea value={character.bio} on:input={(e) => onChange(e.currentTarget.value)} />
+    <textarea bind:value={character.bio} />
   </div>
 </div>
 

@@ -25,7 +25,7 @@ registerRoute(
   ({ request }) => request.destination === 'script',
   new CacheFirst({
     cacheName: 'deorum-scripts',
-    plugins: getPolitics({ entries: 100, days: 30 })
+    plugins: getPolitics({ entries: 100, days: 10 })
   })
 );
 
@@ -33,7 +33,7 @@ registerRoute(
   ({ request }) => request.destination === 'style',
   new CacheFirst({
     cacheName: 'deorum-stylesheets',
-    plugins: getPolitics({ entries: 100, days: 30 })
+    plugins: getPolitics({ entries: 100, days: 10 })
   })
 );
 
@@ -49,7 +49,7 @@ registerRoute(
   ({ request }) => request.destination === 'image',
   new CacheFirst({
     cacheName: 'deorum-images',
-    plugins: getPolitics({ entries: 10000, days: 30 })
+    plugins: getPolitics({ entries: 10000, days: 60 })
   })
 );
 
@@ -57,6 +57,25 @@ registerRoute(
   ({ request }) => request.destination === 'font',
   new CacheFirst({
     cacheName: 'deorum-fonts',
-    plugins: getPolitics({ entries: 200, days: 30 })
+    plugins: getPolitics({ entries: 20, days: 1000 })
+  })
+);
+
+const immutable = [
+  '/api/races',
+  '/api/archetypes',
+  '/api/backgrounds',
+  '/api/tags',
+  '/api/originals',
+  '/api/styles',
+  '/api/colors',
+  '/api/quality'
+];
+
+registerRoute(
+  ({ url }) => immutable.some((path) => url.pathname.startsWith(path)),
+  new CacheFirst({
+    cacheName: 'deorum-json-immutable',
+    plugins: getPolitics({ entries: 20, days: 30 })
   })
 );
