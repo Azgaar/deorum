@@ -25,7 +25,7 @@
     height: 23px;
     text-indent: 6px;
     width: 100%;
-    font-size: 1rem;
+    font-size: smaller;
 
     color: $text;
     background-color: rgba($secondary, 0.5);

@@ -24,8 +24,8 @@ export const POST: RequestHandler = async ({ request }) => {
     const story = response.data.choices[0].text || '';
     const tokens = response.data.usage?.total_tokens;
 
-    log('story', `Generated story for ${tokens} tokens for prompt:\n${prompt}\n=>\n${story}`);
-    return json({ story });
+    log('story', `Generated story for ${tokens} tokens`);
+    return json({ story: story.trim() });
   } catch (err) {
     report('story', err);
     throw createServerError(err);
