@@ -71,30 +71,28 @@ const selectSections = (): string[] => {
 };
 
 export const createBasicPrompt = (character: ICharacter, tags: Map<string, { name: string }>) => {
-  const { name, gender, age, height, weight } = character;
+  const { name, gender, age } = character;
   const { race, archetype, background } = character['@expand'];
 
   const d = {
     gender,
     race: race ? race.name : '',
     age: age ? `${age} years old` : null,
-    height: height ? `height: ${height}` : null,
-    weight: weight ? `weight: ${weight}` : null,
     name: name ? `Name: ${name}` : null,
-    archetype: archetype ? `Archetype: ${archetype.name}` : null,
-    background: background ? `Background: ${background.name}` : null
+    archetype: archetype ? `Nature (behaviour pattern): ${archetype.name}` : null,
+    background: background ? `Background (origin): ${background.name}` : null
   };
   const tagList = getTags(character, tags);
   const sectionList = selectSections();
 
-  const intro = 'Biography of a fantasy character';
+  const intro = 'Literatural biography of a fantasy character';
   const specie = `${d.gender} ${d.race}`.trim();
-  const part1 = [specie, d.age, d.height, d.weight].filter((v) => v).join(', ');
+  const part1 = [specie, d.age].filter((v) => v).join(', ');
   const part2 = [d.name, d.archetype, d.background].filter((v) => v).join('. ');
   const tag = tagList.length ? `Tags: ${tagList.join(', ')}` : '';
   const section = sectionList.length ? `Contains sections: ${sectionList.join(', ')}` : '';
-  const outro1 = 'High quality text';
-  const outro2 = `Detailed biography of ${d.race} in Fantasy style.`;
+  const outro1 = 'Top quality text. Skip paragraph titles';
+  const outro2 = `Detailed well written fruty description of ${d.race} in Fantasy style.`;
 
   const prompt = [intro, part1, part2, tag, section, outro1, outro2]
     .filter((v) => v)
