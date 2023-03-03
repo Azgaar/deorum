@@ -1,24 +1,21 @@
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
-
 import type { ICharacter } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
-import { get } from 'svelte/store';
 import { report } from './log';
 import { capitalize } from './string';
 
 export const deriveCharacterLabel = (character: ICharacter): string => {
-  const $t = get(t);
   const { name, gender, age } = character;
   const { race, archetype, background } = character['@expand'];
 
   const elements = {
-    name: name || $t('common.character.unnamed'),
-    race: race?.name ? $t(`common.races.${race.name}`) : null,
-    gender: gender ? $t(`common.genders.${gender}`) : null,
-    archetype: archetype ? $t(`common.archetypes.${archetype.name}`) : null,
-    background: background ? $t(`common.backgrounds.${background.name}`) : null,
+    name: name || t.get('common.character.unnamed'),
+    race: race?.name ? t.get(`common.races.${race.name}`) : null,
+    gender: gender ? t.get(`common.genders.${gender}`) : null,
+    archetype: archetype ? t.get(`common.archetypes.${archetype.name}`) : null,
+    background: background ? t.get(`common.backgrounds.${background.name}`) : null,
     age: age || null
   };
 

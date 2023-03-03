@@ -2,12 +2,13 @@
   import { t } from '$lib/locales/translations';
   import IconButton from '../../IconButton.svelte';
 
+  import { page } from '$app/stores';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { createBasicPrompt } from '$lib/utils/characters';
   import { request } from '$lib/utils/requests';
   import { toastError, toastSuccess } from '$lib/stores';
   import { report } from '$lib/utils/log';
-
+  import { Role } from '$lib/config';
   import type { ICharacter } from '$lib/types/api.types';
 
   export let character: ICharacter;
@@ -29,8 +30,8 @@
 
   const copyBio = () => {
     navigator.clipboard.writeText(character.bio).then(
-      () => toastSuccess($t('admin.success.copied')),
-      () => toastError($t('admin.errors.copy'))
+      () => toastSuccess($t('common.success.copied')),
+      () => toastError($t('common.errors.copy'))
     );
   };
 
@@ -54,14 +55,18 @@
     <label for="bio">{$t('common.character.bio')}:</label>
     <div>
       <IconButton onClick={copyBio}>📋</IconButton>
-      {#if isLoading}
-        <IconButton disabled onClick={generateBio}>
-          <CircularSpinner size={16} />
-        </IconButton>
-      {:else}
-        <IconButton onClick={generateBio}>🎲</IconButton>
+
+      {#if $page.data.role === Role.ADMIN}
+        {#if isLoading}
+          <IconButton disabled onClick={generateBio}>
+            <CircularSpinner size={16} />
+          </IconButton>
+        {:else}
+          <IconButton onClick={generateBio}>🎲</IconButton>
+        {/if}
+
+        <IconButton onClick={togglePrompt}>⚙️</IconButton>
       {/if}
-      <IconButton onClick={togglePrompt}>⚙️</IconButton>
     </div>
   </div>
 

@@ -9,7 +9,8 @@
   onMount(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const unauthorized = searchParams.get('unauthorized');
-    if (unauthorized) toastError($t('common.errors.unauthorized'));
+    const role = searchParams.get('role');
+    if (unauthorized) toastError($t('common.errors.unauthorized', { variable: role } as any));
   });
 
   const onClose = () => {

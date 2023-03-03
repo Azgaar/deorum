@@ -42,8 +42,12 @@
     "myCharacters": "My Characters",
     "donate": "Donate"
   },
+  "success": {
+    "copied": "Copied to you clipboard"
+  },
   "errors": {
-    "unauthorized": "Please sign in to access this page"
+    "unauthorized": "Please sign in as {{variable}} to access this page",
+    "copy": "Copy failed. Please copy manually"
   },
   "landing": {
     "slogan": "Embark on an epic journey with Deorum – your source for unique fantasy characters for D&D and worldbuilding projects",
