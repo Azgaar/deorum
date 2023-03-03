@@ -1,10 +1,12 @@
-import { writable, get, type Writable, type Subscriber } from 'svelte/store';
+import { get, writable, type Subscriber, type Writable } from 'svelte/store';
 
-import { sliceElements } from '$lib/utils/array';
-import { preloadImage, request } from '$lib/utils/requests';
+import { browser } from '$app/environment';
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-import { report } from '$lib/utils/log';
 import { toastError } from '$lib/stores';
+import { sliceElements } from '$lib/utils/array';
+import { getGalleryItemData, getLocalCopy } from '$lib/utils/characters';
+import { report } from '$lib/utils/log';
+import { preloadImage, request } from '$lib/utils/requests';
 import type { IGalleryItem } from '$lib/types/gallery.types';
 
 const CURRENT_INDEX = 2;
@@ -21,15 +23,15 @@ export class Carousel {
   currentItem: Writable<IGalleryItem>;
 
   constructor(items: IGalleryItem[], currentId: string) {
-    this.items = items;
+    this.items = this.replaceWithLocalCopy(items);
     this.currentId = currentId;
     this.isLoadingMore = false;
 
     this.carousel = writable();
     this.currentItem = writable();
 
-    this.updateCarousel(items, currentId);
-    this.preloadImages(items);
+    this.updateCarousel(this.items, this.currentId);
+    this.preloadImages(this.items);
   }
 
   // slice items array to get carousel items
@@ -39,8 +41,7 @@ export class Carousel {
 
     const before = sliceElements(items, currentIdx - TAIL_IMAGES, currentIdx);
     const after = sliceElements(items, currentIdx + 1, currentIdx + 1 + TAIL_IMAGES);
-    const carousel = [...before, items[currentIdx], ...after];
-    this.carousel.set(carousel);
+    this.carousel.set([...before, items[currentIdx], ...after]);
   }
 
   // lazily preload images that comes initially, but not displayed in the carousel
@@ -52,6 +53,17 @@ export class Carousel {
     });
   }
 
+  // replace items with edited characters from local storage
+  private replaceWithLocalCopy(items: IGalleryItem[]) {
+    if (!browser) return items;
+
+    return items.map((item) => {
+      const localCopy = getLocalCopy(item.id);
+      if (localCopy) return getGalleryItemData(localCopy);
+      return item;
+    });
+  }
+
   // load more items from the server
   private async loadMore(right: boolean) {
     if (this.isLoadingMore) return;
@@ -60,18 +72,30 @@ export class Carousel {
     const edgeId = right ? this.items.at(-1)?.id : this.items.at(0)?.id;
 
     try {
-      const url = `/api/gallery/more?edgeId=${edgeId}&right=${right}`;
-      const moreItems = await request<IGalleryItem[]>(url);
+      const moreItems = await request<IGalleryItem[]>(
+        `/api/gallery/more?edgeId=${edgeId}&right=${right}`
+      );
+      const newItems = this.replaceWithLocalCopy(moreItems);
 
-      this.items = right ? [...this.items, ...moreItems] : [...moreItems, ...this.items];
+      this.items = right ? [...this.items, ...newItems] : [...newItems, ...this.items];
       this.updateCarousel(this.items, this.currentId);
-      this.preloadImages(moreItems);
+      this.preloadImages(newItems);
     } catch (error) {
       report('gallery', error, { right });
       toastError(error);
     } finally {
       this.isLoadingMore = false;
     }
+  }
+
+  public update(updatedItem: IGalleryItem) {
+    const updatedItems = this.items.map((item) => {
+      if (item.id === updatedItem.id) return updatedItem;
+      return item;
+    });
+
+    this.items = updatedItems;
+    this.updateCarousel(updatedItems, this.currentId);
   }
 
   // move carousel right or left

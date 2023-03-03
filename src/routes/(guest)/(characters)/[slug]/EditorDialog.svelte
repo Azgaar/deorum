@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import Dialog, { Title } from '@smui/dialog';
 
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
@@ -6,16 +7,20 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import { t } from '$lib/locales/translations';
-  import { makePOJO } from '$lib/utils/object';
+  import { getGalleryItemData, saveLocally } from '$lib/utils/characters';
+
+  import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
+  import { createOptions } from '$lib/components/editor/characterDialog/options';
+  import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
+  import { getRange } from '$lib/components/editor/characterDialog/range';
+  import IconButton from '$lib/components/editor/IconButton.svelte';
+  import type { Carousel } from '../carousel';
 
   import type { ICharacter, IRace } from '$lib/types/api.types';
-  import { getRange } from '$lib/components/editor/characterDialog/range';
-  import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
-  import { createOptions } from '$lib/components/editor/characterDialog/options';
-  import IconButton from '$lib/components/editor/IconButton.svelte';
-  import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
+  import type { IGalleryItem } from '$lib/types/gallery.types';
 
   export let open: boolean;
+  export let item: IGalleryItem;
   export let character: ICharacter;
 
   export let races: Map<string, IRace>;
@@ -23,15 +28,19 @@
   export let backgrounds: Map<string, { name: string }>;
   export let tags: Map<string, { name: string; image: string }>;
 
-  let current = makePOJO(character);
-  $: range = getRange(current.gender, current.race, races);
-  $: randomize = createRandomizer(current, (updated: ICharacter) => (current = updated), races);
+  $: range = getRange(character.gender, character.race, races);
+  $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
+  const carousel = getContext<Carousel>('carousel');
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
-    character = current;
+
+    saveLocally(character);
+    item = getGalleryItemData(character);
+    carousel.update(item);
+
     open = false;
   };
 
@@ -57,22 +66,22 @@
         <div class="column">
           <div class="element">
             <div>{$t('common.character.gender')}:</div>
-            <Select bind:value={current.gender} options={options.gender} />
+            <Select bind:value={character.gender} options={options.gender} />
           </div>
 
           <div class="element">
             <div>{$t('common.character.race')}:</div>
-            <Select bind:value={current.race} options={options.race} />
+            <Select bind:value={character.race} options={options.race} />
           </div>
 
           <div class="element">
             <div>{$t('common.character.archetype')}:</div>
-            <Select bind:value={current.archetype} options={options.archetype} />
+            <Select bind:value={character.archetype} options={options.archetype} />
           </div>
 
           <div class="element">
             <div>{$t('common.character.background')}:</div>
-            <Select bind:value={current.background} options={options.background} />
+            <Select bind:value={character.background} options={options.background} />
           </div>
         </div>
 
@@ -80,7 +89,7 @@
           <div class="element">
             <div>{$t('common.character.name')}:</div>
             <div>
-              <TextInput bind:value={current.name} />
+              <TextInput bind:value={character.name} />
               <IconButton onClick={randomize.name}>🎲</IconButton>
             </div>
           </div>
@@ -88,7 +97,7 @@
           <div class="element">
             <div>{$t('common.character.age')}:</div>
             <div>
-              <NumberInput bind:value={current.age} />
+              <NumberInput bind:value={character.age} />
               <span class="extent">{range?.age}</span>
               <IconButton onClick={randomize.age}>🎲</IconButton>
             </div>
@@ -97,7 +106,7 @@
           <div class="element">
             <div>{$t('common.character.height')}:</div>
             <div>
-              <NumberInput bind:value={current.height} />
+              <NumberInput bind:value={character.height} />
               <span class="extent">{range?.height}</span>
               <IconButton onClick={randomize.height}>🎲</IconButton>
             </div>
@@ -106,7 +115,7 @@
           <div class="element">
             <div>{$t('common.character.weight')}:</div>
             <div>
-              <NumberInput bind:value={current.weight} />
+              <NumberInput bind:value={character.weight} />
               <span class="extent">{range?.weight}</span>
               <IconButton onClick={randomize.weight}>🎲</IconButton>
             </div>
@@ -114,8 +123,8 @@
         </div>
       </div>
 
-      {#key current.id}
-        <BiographyEditor bind:character={current} {tags} />
+      {#key character.id}
+        <BiographyEditor bind:character {tags} />
       {/key}
     </div>
 

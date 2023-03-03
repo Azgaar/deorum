@@ -42,7 +42,7 @@
     }
   };
 
-  // for some reason, moving to other layout doesn't trigger onMount callback
+  // moving to other layout doesn't trigger onMount callback
   // so we need to remove event listeners manually on afterNavigate
   afterNavigate(() => {
     const isLayoutChanged = !$page.route.id?.match('(characters)');

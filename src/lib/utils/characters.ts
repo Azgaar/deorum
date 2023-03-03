@@ -119,3 +119,14 @@ export const getGenderIcon = (gender: string) => {
   if (gender === 'female') return '♀️';
   return '';
 };
+
+export const saveLocally = (character: ICharacter) => {
+  const data = JSON.stringify(character);
+  localStorage.setItem(`deorum-character-${character.id}`, data);
+};
+
+export const getLocalCopy = (id: string) => {
+  const data = localStorage.getItem(`deorum-character-${id}`);
+  if (!data) return null;
+  return JSON.parse(data) as ICharacter;
+};
