@@ -4,42 +4,54 @@ import { request } from '$lib/utils/requests';
 import { getRandomNumber } from '$lib/utils/probability';
 import { blankRace } from '$lib/data/races';
 
-import type { IRace, TGender } from '$lib/types/api.types';
+import type { ICharacter, IRace, TGender } from '$lib/types/api.types';
 
-export const createRandomizer = <T extends { race: string; gender: '' | TGender }>(
-  item: T,
-  setItem: (updatedCharacter: T) => void,
+export const createRandomizer = (
+  character: ICharacter,
+  setItem: (updatedCharacter: ICharacter) => void,
   races: Map<string, IRace>
 ) => {
   const randomize = {
     name: async () => {
-      const name = await getRandomName(item, races);
-      setItem({ ...item, name });
+      const name = await getRandomName(character, races);
+      setItem({ ...character, name });
     },
 
     age: () => {
-      const race = races.get(item.race) || blankRace;
+      const race = races.get(character.race) || blankRace;
       const age = getRandomNumber({
         mean: race.ageMean,
         deviation: race.ageDeviation,
         min: race.ageMin,
         max: race.ageMax
       });
-      setItem({ ...item, age });
+      setItem({ ...character, age });
     },
 
     height: () => {
-      const race = races.get(item.race) || blankRace;
-      const mean = deviateByGenre(item.gender, race.heightMean, race.heightGenderDeviation);
+      const race = races.get(character.race) || blankRace;
+      const mean = deviateByGenre(character.gender, race.heightMean, race.heightGenderDeviation);
       const height = getRandomNumber({ mean, deviation: race.heightDeviation });
-      setItem({ ...item, height });
+      setItem({ ...character, height });
     },
 
     weight: () => {
-      const race = races.get(item.race) || blankRace;
-      const mean = deviateByGenre(item.gender, race.weightMean, race.weightGenderDeviation);
+      const race = races.get(character.race) || blankRace;
+      const mean = deviateByGenre(character.gender, race.weightMean, race.weightGenderDeviation);
       const weight = getRandomNumber({ mean, deviation: race.weightDeviation });
-      setItem({ ...item, weight });
+      setItem({ ...character, weight });
+    },
+
+    portrait: () => {
+      const portraits = character['@expand'].portraits;
+      if (!portraits) return;
+
+      const [first, ...rest] = portraits;
+      const newCharacter = {
+        ...character,
+        '@expand': { ...character['@expand'], portraits: [...rest, first] }
+      };
+      setItem(newCharacter);
     }
   };
 

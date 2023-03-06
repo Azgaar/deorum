@@ -6,16 +6,18 @@
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
+  import Picture from '$lib/components/picture/Picture.svelte';
   import { t } from '$lib/locales/translations';
-  import { getGalleryItemData, saveLocally } from '$lib/utils/characters';
-
+  import { getCharacterImage, getGalleryItemData, saveLocally } from '$lib/utils/characters';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
   import { createOptions } from '$lib/components/editor/characterDialog/options';
   import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
   import { getRange } from '$lib/components/editor/characterDialog/range';
   import IconButton from '$lib/components/editor/IconButton.svelte';
-  import type { Carousel } from '../carousel';
+  import { loadSimilarPortraits } from './loadSimilarPortraits';
 
+  import type { Carousel } from '../carousel';
   import type { ICharacter, IRace } from '$lib/types/api.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
 
@@ -33,6 +35,11 @@
 
   const options = createOptions(races, archetypes, backgrounds);
   const carousel = getContext<Carousel>('carousel');
+
+  const handleRandomizePortraitHover = async () => {
+    const portraits = await loadSimilarPortraits(character);
+    character = { ...character, '@expand': { ...character['@expand'], portraits } };
+  };
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
@@ -64,24 +71,14 @@
     <div class="content">
       <div class="columns">
         <div class="column">
-          <div class="element">
-            <div>{$t('common.character.gender')}:</div>
-            <Select bind:value={character.gender} options={options.gender} />
-          </div>
-
-          <div class="element">
-            <div>{$t('common.character.race')}:</div>
-            <Select bind:value={character.race} options={options.race} />
-          </div>
-
-          <div class="element">
-            <div>{$t('common.character.archetype')}:</div>
-            <Select bind:value={character.archetype} options={options.archetype} />
-          </div>
-
-          <div class="element">
-            <div>{$t('common.character.background')}:</div>
-            <Select bind:value={character.background} options={options.background} />
+          <div class="portrait">
+            <Picture
+              src={`${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`}
+              alt="Character portrait"
+            />
+            <div on:mouseover|once={handleRandomizePortraitHover} on:focus={() => {}}>
+              <IconButton onClick={randomize.portrait}>🎲</IconButton>
+            </div>
           </div>
         </div>
 
@@ -120,6 +117,26 @@
               <IconButton onClick={randomize.weight}>🎲</IconButton>
             </div>
           </div>
+
+          <div class="element">
+            <div>{$t('common.character.gender')}:</div>
+            <Select bind:value={character.gender} options={options.gender} />
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.race')}:</div>
+            <Select bind:value={character.race} options={options.race} />
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.archetype')}:</div>
+            <Select bind:value={character.archetype} options={options.archetype} />
+          </div>
+
+          <div class="element">
+            <div>{$t('common.character.background')}:</div>
+            <Select bind:value={character.background} options={options.background} />
+          </div>
         </div>
       </div>
 
@@ -153,13 +170,23 @@
 
       div.columns {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
+        grid-template-columns: 4fr 5fr;
+        gap: 16px;
 
         div.column {
           display: flex;
           flex-direction: column;
           gap: 6px;
+
+          div.portrait {
+            position: relative;
+
+            div {
+              position: absolute;
+              bottom: 8px;
+              right: 8px;
+            }
+          }
 
           div.element {
             display: grid;

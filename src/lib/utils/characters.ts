@@ -44,14 +44,18 @@ export const verifyCharacter = (char: ICharacter) => {
   return true;
 };
 
+export const getCharacterImage = (character: ICharacter) => {
+  const { '@expand': expand } = character;
+  const portraits = expand.portraits || [];
+  const mainPortrait = portraits[0];
+  return `${mainPortrait.id}/${mainPortrait.image}`;
+};
+
 // IGalleryItem is a minimal representation of a ICharacter
 // used to reduce data amount sent from server to the client
 export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
   const { id, name, gender, age, height, weight, bio, '@expand': expand } = character;
-
-  const portraits = expand.portraits || [];
-  const mainPortrait = portraits[0];
-  const image = `${mainPortrait.id}/${mainPortrait.image}`;
+  const image = getCharacterImage(character);
 
   const race = expand.race?.name || '';
   const archetype = expand.archetype?.name || '';

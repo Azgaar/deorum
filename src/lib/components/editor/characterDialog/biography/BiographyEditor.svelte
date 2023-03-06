@@ -104,6 +104,7 @@
         border-radius: 4px;
         outline: none;
         flex: 1;
+        resize: none;
 
         // reader mode
         font-size: 14px;
