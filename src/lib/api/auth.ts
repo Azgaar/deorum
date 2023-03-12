@@ -36,15 +36,20 @@ export const logout = () => {
   document.cookie = `${COOKIE_NAME}=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 };
 
-export const authorize = async (cookie: string) => {
+const unauthorized = { user: null, client: null };
+
+export const authorize = async (request: Request) => {
+  const cookie = request.headers.get('cookie');
+  if (!cookie) return Promise.resolve(unauthorized);
+
   const client = new PocketBase(URL);
   client.authStore.loadFromCookie(cookie);
 
-  // check if cookie is invalid or empty
-  if (!client.authStore.model?.id) return null;
+  // check if cookie is invalid
+  if (!client.authStore.model?.id) return Promise.resolve(unauthorized);
 
   const { id } = client.authStore.model;
   const userData = await client.users.getOne(id);
   const user = makePOJO(userData) as unknown as IUser;
-  return user;
+  return { user, client };
 };

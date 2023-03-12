@@ -39,7 +39,7 @@
     "match": "Совпадения",
     "admin": "Админ",
     "next": "Следующий",
-    "myCharacters": "Мои персонажи",
+    "myCharacters": "Мои персонажи ({{variable}})",
     "donate": "Поддержать проект"
   },
   "success": {
@@ -195,6 +195,7 @@
     }
   },
   "gallery": {
-    "showDetails": "Показать детали"
+    "showDetails": "Показать детали",
+    "addToMyCharacters": "Добавить в Мои персонажи"
   }
 }

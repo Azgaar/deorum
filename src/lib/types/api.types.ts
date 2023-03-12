@@ -95,6 +95,8 @@ export interface ICharacter extends IRecord {
     portraits?: IPortrait[];
     tags?: ITag[];
   };
+
+  likes: number;
 }
 
 export interface IRace extends IRecord {
@@ -132,5 +134,6 @@ export interface IUser {
   profile: IRecord & {
     role: Role;
     lang: string;
+    liked: string[];
   };
 }

@@ -43,10 +43,7 @@ const protectRoutes: import('@sveltejs/kit').Handle = async ({ event, resolve })
 
   const protectedPath = protectedPaths.find(({ path }) => target.includes(path));
   if (protectedPath) {
-    const cookie = event.request.headers.get('cookie');
-    if (!cookie) return abortRequest(target, protectedPath.role);
-
-    const user = await authorize(cookie);
+    const { user } = await authorize(event.request);
     if (!user) return abortRequest(target, protectedPath.role);
 
     const role: Role = user?.profile?.role || Role.GUEST;

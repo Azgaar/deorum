@@ -142,6 +142,35 @@ export default class Cache {
       return count;
     };
 
+    this.update = function (collection, id, value) {
+      var count = 0;
+
+      for (const key in _cache) {
+        if (key.startsWith(collection)) {
+          const dataType = key.split('-').at(-1);
+          const data = _cache[key].value;
+
+          if (dataType === '$element' && data.id === id) {
+            if (_debug) console.info('Updating cache $element');
+            _cache[key].value = { ...data, ...value };
+            count++;
+          } else if (dataType === '$page') {
+            const items = data.items.map((item) => (item.id === id ? { ...item, ...value } : item));
+            if (_debug) console.info('Updating cache $page');
+            _cache[key].value = { ...data, items };
+            count++;
+          } else if (dataType === '$list') {
+            const items = data.map((item) => (item.id === id ? { ...item, ...value } : item));
+            if (_debug) console.info('Updating cache $list');
+            _cache[key].value = items;
+            count++;
+          }
+        }
+      }
+
+      return count;
+    };
+
     this.exportJson = function () {
       var plainJsCache = {};
 
@@ -165,6 +194,7 @@ export default class Cache {
       var skipDuplicates = options && options.skipDuplicates;
 
       for (var key in cacheToImport) {
+        // eslint-disable-next-line no-prototype-builtins
         if (cacheToImport.hasOwnProperty(key)) {
           if (skipDuplicates) {
             var existingRecord = _cache[key];

@@ -39,7 +39,7 @@
     "match": "Match",
     "admin": "Admin",
     "next": "Next",
-    "myCharacters": "My Characters",
+    "myCharacters": "My Characters ({{variable}})",
     "donate": "Donate"
   },
   "success": {
@@ -195,6 +195,7 @@
     }
   },
   "gallery": {
-    "showDetails": "Show details"
+    "showDetails": "Show details",
+    "addToMyCharacters": "Add to My Characters"
   }
 }

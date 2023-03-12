@@ -5,9 +5,10 @@
   import type { ILink } from '$lib/types/components.types';
 
   export let link: ILink;
-  const { id, key, to, reload, prefetch } = link;
+  const { id, key, to, reload, prefetch, variable } = link;
 
   $: isActive = $page.route.id?.includes(id);
+  $: label = $t(key, { variable } as any);
 </script>
 
 <a
@@ -18,7 +19,7 @@
   data-sveltekit-preload-data={prefetch ? 'hover' : undefined}
   data-sveltekit-preload-code={prefetch ? 'eager' : undefined}
 >
-  {$t(key)}
+  {label}
 </a>
 
 <style lang="scss">

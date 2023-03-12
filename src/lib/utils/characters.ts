@@ -54,14 +54,14 @@ export const getCharacterImage = (character: ICharacter) => {
 // IGalleryItem is a minimal representation of a ICharacter
 // used to reduce data amount sent from server to the client
 export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
-  const { id, name, gender, age, height, weight, bio, '@expand': expand } = character;
+  const { id, name, gender, age, height, weight, bio, '@expand': expand, likes } = character;
   const image = getCharacterImage(character);
 
   const race = expand.race?.name || '';
   const archetype = expand.archetype?.name || '';
   const background = expand.background?.name || '';
 
-  return { id, image, name, race, gender, archetype, background, age, weight, height, bio };
+  return { id, image, name, race, gender, archetype, background, age, weight, height, bio, likes };
 };
 
 const getTags = (character: ICharacter, tags: Map<string, { name: string }>): string[] => {

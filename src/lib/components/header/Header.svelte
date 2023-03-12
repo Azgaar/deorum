@@ -4,7 +4,7 @@
   import Book from './Book.svelte';
   import Link from './Link.svelte';
 
-  export let links: ILink[] = [];
+  export let links: ILink[];
 
   let collapsed = true;
   const toggleMenu = () => (collapsed = !collapsed);
@@ -15,7 +15,7 @@
 
   <nav class="desktop">
     <ul>
-      {#each links as link (link.key)}
+      {#each links as link (`${link.key}-${link.variable}`)}
         <li>
           <Link {link} />
         </li>
@@ -28,7 +28,7 @@
     <button class="menu" on:click={toggleMenu}>☰</button>
     <aside class:collapsed on:click={toggleMenu}>
       <ul>
-        {#each links as link (link.key)}
+        {#each links as link (`${link.key}-${link.variable}`)}
           <li>
             <Link {link} />
           </li>
