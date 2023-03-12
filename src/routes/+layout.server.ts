@@ -14,13 +14,15 @@ const getLocale = (request: Request, user: IUser | null) => {
   return 'en'; // fallback
 };
 
-export const load: import('./$types').LayoutServerLoad = async ({ request }) => {
+export const load: import('./$types').LayoutServerLoad = async ({ request, depends }) => {
   const { user } = await authorize(request);
 
   const lang = getLocale(request, user);
   const role = user?.profile.role || Role.GUEST;
   const email = user?.email || null;
   const liked = user?.profile.liked || [];
+
+  depends('userData');
 
   return { lang, role, email, liked };
 };

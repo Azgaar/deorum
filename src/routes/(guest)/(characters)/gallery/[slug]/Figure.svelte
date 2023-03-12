@@ -4,6 +4,7 @@
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
+  import { invalidate } from '$app/navigation';
   import { page } from '$app/stores';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { likes, toastError } from '$lib/stores';
@@ -12,6 +13,7 @@
   import LikeButton from '$lib/components/like/LikeButton.svelte';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import type { Carousel } from '../../carousel';
 
   export let item: IGalleryItem;
   export let isCentral: boolean;
@@ -25,10 +27,13 @@
   $: totalLikes = item.likes;
 
   const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
+  const carousel = getContext<Carousel>('carousel');
 
   const handleLikeClick = async () => {
     if (!$page.data.email) {
-      auth.request(handleLikeClick);
+      auth.request(() => {
+        if (!$likes[id]) handleLikeClick();
+      });
       return;
     }
 
@@ -40,6 +45,8 @@
 
     try {
       await request(`/api/characters/${id}/like`, wasLiked ? 'DELETE' : 'POST');
+      carousel.update({ ...item, likes: totalLikes });
+      invalidate('userData');
     } catch (error) {
       // revert optimistic update
       totalLikes = wasLiked ? totalLikes + 1 : totalLikes - 1;
