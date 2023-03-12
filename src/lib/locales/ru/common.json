@@ -30,6 +30,7 @@
     "signup": "Создать аккаунт",
     "signin": "Войти",
     "signinTitle": "Войти в систему",
+    "signupTitle": "Создать аккаунт",
     "logout": "Выйти",
     "email": "Email",
     "password": "Пароль (мин 8 символов)"

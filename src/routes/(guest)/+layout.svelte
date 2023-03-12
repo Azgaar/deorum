@@ -49,8 +49,8 @@
     background-size: cover;
     background-position: center;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 'header' 'main' 'footer';
   }
 </style>

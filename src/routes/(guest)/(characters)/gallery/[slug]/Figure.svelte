@@ -3,16 +3,21 @@
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
+  import { page } from '$app/stores';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { likes, toastError } from '$lib/stores';
+  import { request } from '$lib/utils/requests';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import LikeButton from '$lib/components/like/LikeButton.svelte';
+  import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
+
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import { request } from '$lib/utils/requests';
 
   export let item: IGalleryItem;
   export let isCentral: boolean;
   export let id: string;
+
+  let signin = false;
 
   $: race = $t(`common.races.${item.race}`, { default: item.race });
   $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
@@ -22,6 +27,11 @@
   $: totalLikes = item.likes;
 
   const handleLikeClick = async () => {
+    if (!$page.data.email) {
+      signin = true;
+      return;
+    }
+
     const wasLiked = isLiked;
 
     // optimistic update
@@ -91,6 +101,8 @@
     </section>
   </figcaption>
 </figure>
+
+<SigninDialog bind:open={signin} deferredAction={handleLikeClick} />
 
 <style lang="scss">
   @use 'sass:color';

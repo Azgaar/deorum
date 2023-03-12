@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
+  import { fade } from 'svelte/transition';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
 
@@ -61,15 +62,14 @@
   on:swipeLeft={carousel.prev}
 />
 
-<main>
+<main aria-label="characters layout" transition:fade>
   <slot />
   <Arrows next={carousel.next} prev={carousel.prev} />
 </main>
 
 <style lang="scss">
   main {
-    height: 100%;
-    flex: 1;
+    grid-area: main;
     overflow-y: auto;
   }
 </style>

@@ -8,4 +8,4 @@
   };
 </script>
 
-<SignupForm {onClose} />
+<SignupForm onSuccess={onClose} />

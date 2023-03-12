@@ -7,5 +7,5 @@
 </script>
 
 <Dialog bind:open aria-labelledby="signup-dialog" aria-describedby="signup-dialog">
-  <SignupForm {onClose} />
+  <SignupForm onSuccess={onClose} />
 </Dialog>

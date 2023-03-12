@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
   import { t } from '$lib/locales/translations';
 </script>
 
-<main>
+<main aria-label="landing page" transition:fade>
   <div class="content">
     <div class="title">
       <h1>{$t('common.landing.slogan')}</h1>
@@ -23,6 +24,7 @@
   @use 'sass:color';
 
   main {
+    grid-area: main;
     $color-primary: #fdd8ae;
     $color-primary-dark: #bab45e;
 

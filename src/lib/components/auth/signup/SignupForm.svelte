@@ -10,7 +10,8 @@
   import PasswordInput from '../password/PasswordInput.svelte';
   import { log, report } from '$lib/utils/log';
 
-  export let onClose = () => {};
+  export let onCancel: (() => void) | null = null;
+  export let onSuccess = () => {};
 
   let email = '';
   let password = '';
@@ -23,9 +24,8 @@
     try {
       isLoading = true;
       await signup({ email, password, lang: $page.data.lang });
+      onSuccess();
       log('auth', `Signup successful: ${email}`);
-
-      onClose();
     } catch (error) {
       report('auth', error);
       toastError(error);
@@ -36,7 +36,7 @@
 </script>
 
 <form on:submit={handleSubmit}>
-  <div class="title">{$t('common.auth.signinTitle')}</div>
+  <div class="title">{$t('common.auth.signupTitle')}</div>
 
   <div class="body">
     <Textfield
@@ -52,8 +52,8 @@
   </div>
 
   <div class="actions">
-    {#if onClose}
-      <button type="button" on:click={onClose} disabled={isLoading}>
+    {#if onCancel}
+      <button type="button" on:click={onCancel} disabled={isLoading}>
         {$t('common.controls.cancel')}
       </button>
     {/if}
@@ -70,50 +70,54 @@
 <style lang="scss">
   @use 'sass:color';
 
-  div.title {
-    font-size: 1.2rem;
-    font-weight: 300;
-    padding: 1rem 2rem;
-  }
+  form {
+    padding: 16px 0px;
 
-  div.body {
-    width: min(300px, 90vw);
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+    div.title {
+      font-size: 1.2rem;
+      font-weight: 300;
+      padding: 1rem 2rem;
+    }
 
-  div.actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 4px;
-    padding: 0.5rem;
-
-    button {
-      font-size: 0.8rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-
-      padding: 8px 16px;
-      border-radius: 24px;
-      color: $text;
-      transition: background 0.2s ease-in-out;
-      background: none;
-      border: none;
-      cursor: pointer;
-
+    div.body {
+      width: min(300px, 90vw);
+      padding: 1rem 2rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-      &:hover {
-        background: color.adjust($text, $alpha: -0.85);
-      }
+    div.actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 4px;
+      padding: 0.5rem;
 
-      &:active {
-        background: color.adjust($text, $alpha: -0.95);
+      button {
+        font-size: 0.8rem;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+
+        padding: 8px 16px;
+        border-radius: 24px;
+        color: $text;
+        transition: background 0.2s ease-in-out;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background: color.adjust($text, $alpha: -0.85);
+        }
+
+        &:active {
+          background: color.adjust($text, $alpha: -0.95);
+        }
       }
     }
   }

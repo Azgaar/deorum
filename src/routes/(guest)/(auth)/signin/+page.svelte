@@ -13,11 +13,11 @@
     if (unauthorized) toastError($t('common.errors.unauthorized', { variable: role } as any));
   });
 
-  const onClose = () => {
+  const onSuccess = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const to = searchParams.get('to');
     goto(to || '/', { invalidateAll: true });
   };
 </script>
 
-<SigninForm {onClose} />
+<SigninForm {onSuccess} />
