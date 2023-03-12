@@ -16,7 +16,7 @@ export const getCachedList = async <T>(
   sort = '',
   expand = ''
 ): Promise<T[]> => {
-  const key = [collection, filter, sort, expand].join('-');
+  const key = [collection, filter, sort, expand, '$list'].join('-');
 
   const cached = cache.get(key);
   if (cached?.length) return new Promise((resolve) => resolve(cached));
@@ -37,7 +37,7 @@ export const getCachedPage = async <T>(
   sort = '',
   expand = ''
 ): Promise<IListResult<T>> => {
-  const key = [collection, page, pageSize, filter, sort, expand].join('-');
+  const key = [collection, page, pageSize, filter, sort, expand, '$page'].join('-');
 
   const cached = cache.get(key);
   if (cached) return new Promise((resolve) => resolve(cached));
@@ -55,7 +55,7 @@ export const getCachedElement = async <T>(
   id: string,
   expand = ''
 ): Promise<T> => {
-  const key = [collection, id, expand].join('-');
+  const key = [collection, id, expand, '$element'].join('-');
 
   const cached = cache.get(key);
   if (cached) return new Promise((resolve) => resolve(cached));
@@ -72,4 +72,13 @@ export const invalidateCache = (...collections: TCollection[]) => {
   for (const collection of collections) {
     cache.invalidate(collection);
   }
+};
+
+// DO NOT CALL FROM CLIENT SIDE
+export const updateCache = (
+  collection: TCollection,
+  id: string,
+  partialValue: Record<string, unknown>
+) => {
+  cache.update(collection, id, partialValue);
 };

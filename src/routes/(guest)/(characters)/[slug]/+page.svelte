@@ -7,7 +7,7 @@
   import Picture from '$lib/components/picture/Picture.svelte';
   import type { Carousel } from '../carousel';
 
-  const { currentItem: item }: Carousel = getContext('carousel');
+  const { currentItem: item } = getContext<Carousel>('carousel');
 
   const getBioHtml = (bio: string) => `<p style="margin-block-start: 0">
     ${bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />')}

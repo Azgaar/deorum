@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ url, params }) => {
 
     const portrait = await getCachedElement<IPortrait>('portraits', id, expand);
     log('portraits', `Loading portrait ${id}`);
-    return new Response(JSON.stringify(portrait));
+    return json(portrait);
   } catch (err) {
     report('portraits', err);
     throw createServerError(err);

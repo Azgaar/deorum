@@ -5,7 +5,6 @@
 
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import { t } from '$lib/locales/translations';
-  import { ORIGINALS_IMAGE_PATH } from '$lib/config';
   import QualityFilter from './QualityFilter.svelte';
   import HasCharactersFilter from './HasCharactersFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
@@ -74,12 +73,7 @@
           <div class="selected rounded">
             {#each filters.original as originalId (originalId)}
               <Wrapper>
-                <img
-                  alt={originalId}
-                  src={`${ORIGINALS_IMAGE_PATH}/${originalId}/${
-                    originalsMap.get(originalId)?.image
-                  }?thumb=100x100`}
-                />
+                <img alt={originalId} src={originalsMap.get(originalId)?.image} />
                 <Tooltip>{$t(`admin.originals.${originalsMap.get(originalId)?.name}`)}</Tooltip>
               </Wrapper>
             {/each}

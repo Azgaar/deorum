@@ -30,6 +30,7 @@
     "signup": "Sign up",
     "signin": "Sign in",
     "signinTitle": "Sign in to your account",
+    "signupTitle": "Create a new account",
     "logout": "Log out",
     "email": "Email",
     "password": "Password (8 chars min)"
@@ -39,11 +40,15 @@
     "match": "Match",
     "admin": "Admin",
     "next": "Next",
-    "myCharacters": "My Characters",
+    "myCharacters": "My Characters ({{variable}})",
     "donate": "Donate"
   },
+  "success": {
+    "copied": "Copied to you clipboard"
+  },
   "errors": {
-    "unauthorized": "Please sign in to access this page"
+    "unauthorized": "Please sign in as {{variable}} to access this page",
+    "copy": "Copy failed. Please copy manually"
   },
   "landing": {
     "slogan": "Embark on an epic journey with Deorum – your source for unique fantasy characters for D&D and worldbuilding projects",
@@ -187,12 +192,11 @@
       "json": "JSON file"
     },
     "editor": {
-      "editPortrait": "Edit portrait",
-      "editDetails": "Edit details",
-      "editBio": "Edit biography"
+      "title": "Edit character"
     }
   },
   "gallery": {
-    "showDetails": "Show details"
+    "showDetails": "Show details",
+    "addToMyCharacters": "Add to My Characters"
   }
 }

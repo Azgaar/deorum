@@ -72,7 +72,7 @@
     display: none;
     @media (min-width: 600px) {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       flex-direction: column;
     }
   }

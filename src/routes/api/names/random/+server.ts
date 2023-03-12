@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import { log } from '$lib/utils/log';
 import { getRandomNames } from '$lib/utils/random';
 
@@ -8,6 +9,5 @@ export const GET: RequestHandler = async ({ url }) => {
   const names = getRandomNames(quantity);
 
   log('names', `Generating ${quantity} random names`);
-
-  return new Response(JSON.stringify(names));
+  return json(names);
 };

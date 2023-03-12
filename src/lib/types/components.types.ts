@@ -4,4 +4,5 @@ export interface ILink {
   to: string;
   reload?: boolean;
   prefetch?: boolean;
+  variable?: string;
 }

@@ -20,7 +20,6 @@
 
   $: onSrcChange(src);
 
-  const fadeIn = { duration: 300 };
   const fadeDelayed = { duration: 300, delay: 500 };
 </script>
 
@@ -30,15 +29,7 @@
   </svg>
 
   {#key src}
-    <img
-      {src}
-      {alt}
-      {loading}
-      draggable="false"
-      on:load={onLoad}
-      on:error={onLoad}
-      in:fade={fadeIn}
-    />
+    <img {src} {alt} {loading} draggable="false" on:load={onLoad} on:error={onLoad} />
   {/key}
 
   {#if isLoading}

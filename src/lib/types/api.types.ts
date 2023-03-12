@@ -20,7 +20,7 @@ export interface IListResult<T> {
   items: Array<T>;
 }
 
-interface IRecord {
+export interface IRecord {
   '@collectionId': string;
   '@collectionName': TCollection;
   '@expand': {
@@ -95,6 +95,8 @@ export interface ICharacter extends IRecord {
     portraits?: IPortrait[];
     tags?: ITag[];
   };
+
+  likes: number;
 }
 
 export interface IRace extends IRecord {
@@ -132,5 +134,6 @@ export interface IUser {
   profile: IRecord & {
     role: Role;
     lang: string;
+    liked: string[];
   };
 }

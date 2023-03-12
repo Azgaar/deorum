@@ -1,4 +1,8 @@
-<main>
+<script lang="ts">
+  import { fade } from 'svelte/transition';
+</script>
+
+<main aria-label="auth layout" transition:fade>
   <slot />
 </main>
 
@@ -6,8 +10,9 @@
   @use 'sass:color';
 
   main {
+    grid-area: main;
     align-self: center;
-    padding: 16px 0px;
+    justify-self: center;
     background-color: color.adjust($primary, $alpha: -0.1, $lightness: -10%);
   }
 </style>

@@ -3,16 +3,12 @@
   import { VERSION } from '$lib/constants';
 
   const appNameFull = 'Deorum: Fantasy Character Creator';
-  const appNameShort = 'Deorum';
   const author = 'Azgaar';
   const year = new Date().getFullYear();
 </script>
 
 <footer>
-  <span class="version desktop"
-    >{appNameFull}. {author}, {year}. {$t('common.info.version')}{VERSION}</span
-  >
-  <span class="version mobile">{appNameShort} {$t('common.info.version')}{VERSION}</span>
+  <span class="version">{appNameFull}. {author}, {year}. {$t('common.info.version')}{VERSION}</span>
 </footer>
 
 <style lang="scss">
@@ -33,23 +29,14 @@
     }
   }
 
-  @media ($desktop) {
-    .mobile {
-      display: none;
-    }
-
-    .desktop {
-      display: block;
-    }
-  }
-
   @media ($mobile) {
-    .mobile {
-      display: block;
-    }
+    footer {
+      height: 12px;
 
-    .desktop {
-      display: none;
+      .version {
+        padding: 2px 16px;
+        font-size: 8px;
+      }
     }
   }
 </style>

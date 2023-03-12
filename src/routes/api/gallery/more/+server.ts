@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 
 import { sliceElements } from '$lib/utils/array';
 import { log } from '$lib/utils/log';
@@ -29,5 +29,5 @@ export const GET: RequestHandler = async ({ url, fetch }) => {
   const items = sliceElements(validCharacters, from, to).map(getGalleryItemData);
 
   log('gallery', `Loading ${batch} more items`);
-  return new Response(JSON.stringify(items));
+  return json(items);
 };

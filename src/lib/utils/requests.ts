@@ -1,12 +1,18 @@
 import { browser } from '$app/environment';
 import type { HttpMethod } from '@sveltejs/kit/types/private';
 
+const defaultHeaders = {
+  'content-type': 'application/json',
+  accept: 'application/json'
+};
+
+// json requests only
 export const request = async <T>(
   url: string,
   method: HttpMethod = 'GET',
   data?: Record<string, unknown>
 ): Promise<T> => {
-  const options: RequestInit = { method, headers: { 'content-type': 'application/json' } };
+  const options: RequestInit = { method, headers: defaultHeaders };
   if (data) options.body = JSON.stringify(data);
   const res = await fetch(url, options);
   const body = await res.json();
@@ -14,6 +20,7 @@ export const request = async <T>(
   return body;
 };
 
+// form data requests only
 export const sendFormData = async <T>(
   url: string,
   formData: FormData,

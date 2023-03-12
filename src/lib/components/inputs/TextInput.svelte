@@ -1,15 +1,8 @@
 <script lang="ts">
   export let value: string;
-  export let onChange: (value: string) => void;
-
-  const handleChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    value = target.value;
-    onChange(value);
-  };
 </script>
 
-<input type="text" {value} on:change={handleChange} />
+<input type="text" bind:value />
 
 <style lang="scss">
   input {

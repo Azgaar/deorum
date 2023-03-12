@@ -1,5 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
+  import { fade } from 'svelte/transition';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
 
@@ -42,7 +43,7 @@
     }
   };
 
-  // for some reason, moving to other layout doesn't trigger onMount callback
+  // moving to other layout doesn't trigger onMount callback
   // so we need to remove event listeners manually on afterNavigate
   afterNavigate(() => {
     const isLayoutChanged = !$page.route.id?.match('(characters)');
@@ -61,15 +62,14 @@
   on:swipeLeft={carousel.prev}
 />
 
-<main>
+<main aria-label="characters layout" transition:fade>
   <slot />
   <Arrows next={carousel.next} prev={carousel.prev} />
 </main>
 
 <style lang="scss">
   main {
-    height: 100%;
-    flex: 1;
+    grid-area: main;
     overflow-y: auto;
   }
 </style>

@@ -2,21 +2,21 @@
   import { t } from '$lib/locales/translations';
   import IconButton from '../../IconButton.svelte';
 
+  import { page } from '$app/stores';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { createBasicPrompt } from '$lib/utils/characters';
   import { request } from '$lib/utils/requests';
   import { toastError, toastSuccess } from '$lib/stores';
   import { report } from '$lib/utils/log';
-
+  import { Role } from '$lib/config';
   import type { ICharacter } from '$lib/types/api.types';
 
   export let character: ICharacter;
-  export let tags: Map<string, { name: string }>;
-  export let onChange: (value: string) => void;
+  export let tags: Map<string, { name: string; image: string }>;
 
   let isLoading = false;
-  let customPrompt = '';
   let showPrompt = false;
+  let customPrompt = '';
 
   const togglePrompt = () => {
     if (showPrompt) {
@@ -30,8 +30,8 @@
 
   const copyBio = () => {
     navigator.clipboard.writeText(character.bio).then(
-      () => toastSuccess($t('admin.success.copied')),
-      () => toastError($t('admin.errors.copy'))
+      () => toastSuccess($t('common.success.copied')),
+      () => toastError($t('common.errors.copy'))
     );
   };
 
@@ -40,7 +40,7 @@
       isLoading = true;
       const prompt = showPrompt && customPrompt ? customPrompt : createBasicPrompt(character, tags);
       const { story } = await request<{ story: string }>('/api/stories', 'POST', { prompt });
-      onChange(story.trim());
+      character.bio = story;
     } catch (err) {
       report('story generator', err);
       toastError(err);
@@ -55,20 +55,24 @@
     <label for="bio">{$t('common.character.bio')}:</label>
     <div>
       <IconButton onClick={copyBio}>📋</IconButton>
-      {#if isLoading}
-        <IconButton disabled onClick={generateBio}>
-          <CircularSpinner size={16} />
-        </IconButton>
-      {:else}
-        <IconButton onClick={generateBio}>🎲</IconButton>
+
+      {#if $page.data.role === Role.ADMIN}
+        {#if isLoading}
+          <IconButton disabled onClick={generateBio}>
+            <CircularSpinner size={16} />
+          </IconButton>
+        {:else}
+          <IconButton onClick={generateBio}>🎲</IconButton>
+        {/if}
+
+        <IconButton onClick={togglePrompt}>⚙️</IconButton>
       {/if}
-      <IconButton onClick={togglePrompt}>⚙️</IconButton>
     </div>
   </div>
 
   <div class="textareas">
     {#if showPrompt}<textarea bind:value={customPrompt} />{/if}
-    <textarea value={character.bio} on:input={(e) => onChange(e.currentTarget.value)} />
+    <textarea bind:value={character.bio} />
   </div>
 </div>
 
@@ -100,6 +104,7 @@
         border-radius: 4px;
         outline: none;
         flex: 1;
+        resize: none;
 
         // reader mode
         font-size: 14px;

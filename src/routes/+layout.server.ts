@@ -1,6 +1,5 @@
 import { authorize } from '$lib/api/auth';
 import { locales } from '$lib/locales/translations';
-import { report } from '$lib/utils/log';
 import { Role } from '$lib/config';
 
 import type { IUser } from '$lib/types/api.types';
@@ -15,19 +14,15 @@ const getLocale = (request: Request, user: IUser | null) => {
   return 'en'; // fallback
 };
 
-export const load: import('./$types').LayoutServerLoad = async ({ request }) => {
-  let user: IUser | null = null;
-
-  try {
-    const cookie = request.headers.get('cookie');
-    if (cookie) user = await authorize(cookie);
-  } catch (error) {
-    report('auth', error, request);
-  }
+export const load: import('./$types').LayoutServerLoad = async ({ request, depends }) => {
+  const { user } = await authorize(request);
 
   const lang = getLocale(request, user);
-  const role = user?.profile?.role || Role.GUEST;
+  const role = user?.profile.role || Role.GUEST;
   const email = user?.email || null;
+  const liked = user?.profile.liked || [];
 
-  return { lang, role, email };
+  depends('userData');
+
+  return { lang, role, email, liked };
 };

@@ -2,7 +2,7 @@ import { Configuration, OpenAIApi } from 'openai';
 
 import { OPENAI_API_KEY } from '$env/static/private';
 
-const MODEL = 'text-curie-001'; // 'text-davinci-002';
+const MODEL = import.meta.env.DEV ? 'text-davinci-003' : 'text-curie-001';
 const MAX_TOKENS = 1000;
 const TEMPERATURE = 0.9;
 

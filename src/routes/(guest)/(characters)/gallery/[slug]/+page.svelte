@@ -3,7 +3,7 @@
   import Figure from './Figure.svelte';
   import type { Carousel } from '../../carousel';
 
-  const carousel: Carousel = getContext('carousel');
+  const carousel = getContext<Carousel>('carousel');
   const items = carousel.carousel;
 
   const handleClick = (id: string) => () => {

@@ -8,14 +8,16 @@ import { concatImgSrc } from '$lib/utils/url';
 import type { ITag } from '$lib/types/api.types';
 import type { RequestHandler } from './$types';
 
+const purgeData = ({ id, name, image }: ITag) => ({
+  id,
+  name,
+  image: concatImgSrc('tags', id, image)
+});
+
 export const GET: RequestHandler = async () => {
   try {
     const rawTags = await getCachedList<ITag>('tags');
-    const tags = rawTags.map(({ id, name, image }) => ({
-      id,
-      name,
-      image: concatImgSrc('tags', id, image)
-    }));
+    const tags = rawTags.map(purgeData);
 
     log('tags', `Loading all tags`);
     return json(tags);
