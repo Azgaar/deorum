@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { fade } from 'svelte/transition';
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
@@ -9,15 +10,12 @@
   import { request } from '$lib/utils/requests';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import LikeButton from '$lib/components/like/LikeButton.svelte';
-  import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
 
   export let item: IGalleryItem;
   export let isCentral: boolean;
   export let id: string;
-
-  let signin = false;
 
   $: race = $t(`common.races.${item.race}`, { default: item.race });
   $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
@@ -26,9 +24,11 @@
   $: isLiked = Boolean($likes[id]);
   $: totalLikes = item.likes;
 
+  const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
+
   const handleLikeClick = async () => {
     if (!$page.data.email) {
-      signin = true;
+      auth.request(handleLikeClick);
       return;
     }
 
@@ -101,8 +101,6 @@
     </section>
   </figcaption>
 </figure>
-
-<SigninDialog bind:open={signin} deferredAction={handleLikeClick} />
 
 <style lang="scss">
   @use 'sass:color';

@@ -3,6 +3,7 @@
   import { likes } from '$lib/stores';
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
+  import SigninContext from '$lib/components/auth/signin/SigninContext.svelte';
   import { Role } from '$lib/config';
 
   import type { ILink } from '$lib/types/components.types';
@@ -36,7 +37,9 @@
 
 <div class="root" lang={$page.data.lang}>
   <Header {links} />
-  <slot />
+  <SigninContext>
+    <slot />
+  </SigninContext>
   <Footer />
 </div>
 
