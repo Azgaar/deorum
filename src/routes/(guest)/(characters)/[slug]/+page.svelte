@@ -1,10 +1,9 @@
 <script lang="ts">
   import { getContext } from 'svelte';
 
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import ActionsPane from './ActionsPane.svelte';
   import CharacterDetails from './CharacterDetails.svelte';
-  import Picture from '$lib/components/picture/Picture.svelte';
+  import CharacterPicture from './CharacterPicture.svelte';
   import type { Carousel } from '../carousel';
 
   const { currentItem: item } = getContext<Carousel>('carousel');
@@ -18,7 +17,7 @@
   <article id="characterCard">
     <section class="content">
       <div class="left-column">
-        <Picture src={`${PORTRAITS_IMAGE_PATH}/${$item.image}`} alt="Character portrait" />
+        <CharacterPicture item={$item} />
         <CharacterDetails item={$item} />
       </div>
 

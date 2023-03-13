@@ -16,7 +16,7 @@
   <section class="carousel">
     {#each $items as item (item.id)}
       <div class="item" on:click={handleClick(item.id)}>
-        <Figure {item} isCentral={item.id === carousel.currentId} id={item.id} />
+        <Figure {item} isCentral={item.id === carousel.currentId} />
       </div>
     {/each}
   </section>

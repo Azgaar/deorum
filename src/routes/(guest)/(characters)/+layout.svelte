@@ -3,13 +3,12 @@
   import { fade } from 'svelte/transition';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
-
   import { swipe } from '$lib/events/swipe';
   import { allowHotkeys } from '$lib/utils/hotkeys';
 
-  import type { LayoutData } from './$types';
   import Arrows from './Arrows.svelte';
   import { Carousel } from './carousel';
+  import type { LayoutData } from './$types';
 
   export let data: LayoutData;
 
