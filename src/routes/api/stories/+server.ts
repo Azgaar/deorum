@@ -13,10 +13,9 @@ export const POST: RequestHandler = async ({ request }) => {
     const { prompt } = await request.json();
     if (!prompt) throw new Error('No prompt provided');
 
-    const cookie = request.headers.get('cookie');
-    if (!cookie) throw error(401, 'Unauthorized, no cookie provided');
+    const { user } = await authorize(request);
+    if (!user) throw error(401, 'Unauthorized, no cookie provided');
 
-    const user = await authorize(cookie);
     const role = user?.profile?.role;
     if (role !== Role.ADMIN) throw error(401, 'Unauthorized, admin access required');
 

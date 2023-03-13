@@ -39,7 +39,7 @@ export const logout = () => {
 const unauthorized = { user: null, client: null };
 
 export const authorize = async (request: Request) => {
-  const cookie = request.headers.get('cookie');
+  const cookie = request.headers?.get('cookie');
   if (!cookie) return Promise.resolve(unauthorized);
 
   const client = new PocketBase(URL);

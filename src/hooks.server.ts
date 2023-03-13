@@ -9,8 +9,7 @@ import { report } from '$lib/utils/log';
 
 const protectedPaths = [
   { path: 'admin', role: Role.ADMIN },
-  { path: 'match', role: Role.USER },
-  { path: '/api/stories', role: Role.ADMIN }
+  { path: 'match', role: Role.USER }
 ];
 
 const getPageLanguage = (cookies: Cookies) => {
