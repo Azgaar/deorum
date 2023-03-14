@@ -17,7 +17,9 @@ export const blankCharacter: ICharacter = {
   created: '',
   updated: '',
 
+  likes: 0,
+
   '@collectionId': '',
-  '@collectionName': '',
+  '@collectionName': 'characters',
   '@expand': {}
 };

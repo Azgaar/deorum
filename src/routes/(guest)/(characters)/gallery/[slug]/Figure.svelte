@@ -27,7 +27,7 @@
           <LikeButton {item} />
         </div>
 
-        <a class="showDetails" href={`/${item.id}`}>
+        <a class="showDetails" data-sveltekit-preload-data="hover" href={`/${item.id}`}>
           <Wrapper>
             <ArrowRight />
             <Tooltip>{$t('common.gallery.showDetails')}</Tooltip>

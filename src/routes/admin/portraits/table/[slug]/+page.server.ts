@@ -12,5 +12,5 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
   const searchParams = new URLSearchParams({ page, pageSize, filter, sort, expand });
   const portraits = await toJson<IListResult<IPortrait>>(fetch(`/api/portraits?${searchParams}`));
 
-  return { portraits, page };
+  return { portraits, page: Number(page) };
 };

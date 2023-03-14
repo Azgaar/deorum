@@ -9,8 +9,8 @@
   import { request } from '$lib/utils/requests';
   import Heart from '$lib/components/icons/Heart.svelte';
 
-  import type { Carousel } from 'src/routes/(guest)/(characters)/carousel';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
 
   export let item: IGalleryItem;
 
