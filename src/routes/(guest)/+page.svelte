@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { prefetch } from '$app/navigation';
+  import { preloadData } from '$app/navigation';
   import { t } from '$lib/locales/translations';
   import { preloadImage, request } from '$lib/utils/requests';
   import { report } from '$lib/utils/log';
@@ -15,7 +15,7 @@
     try {
       const galleryItems = await request<IGalleryItem[]>(`/api/gallery/preload`);
       randomCharacterId = galleryItems[2].id; // middle item
-      prefetch(`/gallery/${randomCharacterId}`);
+      preloadData(`/gallery/${randomCharacterId}`);
 
       galleryItems.forEach((item) => {
         preloadImage(`${PORTRAITS_IMAGE_PATH}/${item.image}`);
@@ -38,7 +38,7 @@
     </div>
 
     <div class="controls">
-      <a href="/gallery/{randomCharacterId}">{$t('common.landing.openGallery')} </a>
+      <a href="/gallery/{randomCharacterId}">{$t('common.landing.openGallery')}</a>
     </div>
   </div>
 </main>

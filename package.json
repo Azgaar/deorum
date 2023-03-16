@@ -26,8 +26,8 @@
     "@smui/slider": "^6.1.0",
     "@smui/textfield": "^6.1.0",
     "@smui/tooltip": "^6.1.4",
-    "@sveltejs/adapter-vercel": "^1.0.0",
-    "@sveltejs/kit": "next",
+    "@sveltejs/adapter-vercel": "^2.3.1",
+    "@sveltejs/kit": "^1.5.0",
     "@types/dom-to-image": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
@@ -35,20 +35,20 @@
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "openai": "^3.1.0",
+    "eventsource-parser": "^0.1.0",
     "pocketbase": "^0.7.1",
     "prettier": "^2.6.2",
     "prettier-plugin-svelte": "^2.7.0",
     "rollup": "^2.79.0",
     "rollup-plugin-terser": "^7.0.2",
     "smui-theme": "^6.1.3",
-    "svelte": "^3.50.1",
-    "svelte-check": "^2.7.1",
+    "svelte": "^3.54.0",
+    "svelte-check": "^3.0.1",
     "svelte-preprocess": "^4.10.6",
     "sveltekit-i18n": "^2.2.2",
-    "tslib": "^2.3.1",
-    "typescript": "^4.7.4",
-    "vite": "^3.1.0",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
     "webp-converter": "^2.3.3",
     "workbox-cacheable-response": "^6.5.4",
     "workbox-expiration": "^6.5.4",
@@ -56,7 +56,7 @@
     "workbox-strategies": "^6.5.4"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": "18.x"
   },
   "type": "module"
 }

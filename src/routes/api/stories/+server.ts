@@ -1,12 +1,16 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 import { Role } from '$lib/config';
 import { authorize } from '$lib/api/auth';
-import { requestStory } from '$lib/api/openAI';
+import { openAIStream } from '$lib/api/openAI';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 
 import type { RequestHandler } from './$types';
+
+export const config: import('@sveltejs/adapter-vercel').Config = {
+  runtime: 'edge'
+};
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
@@ -19,12 +23,9 @@ export const POST: RequestHandler = async ({ request }) => {
     const role = user?.profile?.role;
     if (role !== Role.ADMIN) throw error(401, 'Unauthorized, admin access required');
 
-    const response = await requestStory(prompt);
-    const story = response.data.choices[0].text || '';
-    const tokens = response.data.usage?.total_tokens;
-
-    log('story', `Generated story for ${tokens} tokens`);
-    return json({ story: story.trim() });
+    const stream = await openAIStream(prompt);
+    log('story', 'Generating story', { prompt });
+    return new Response(stream);
   } catch (err) {
     report('story', err);
     throw createServerError(err);

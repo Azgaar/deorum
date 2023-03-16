@@ -1,11 +1,11 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
-  import IconButton from '../../IconButton.svelte';
+  import IconButton from '$lib/components/editor/IconButton.svelte';
 
   import { page } from '$app/stores';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-  import { createBasicPrompt } from '$lib/utils/characters';
-  import { request } from '$lib/utils/requests';
+  import { stream } from '$lib/utils/requests';
+  import { createBasicPrompt } from '$lib/utils/story';
   import { toastError, toastSuccess } from '$lib/stores';
   import { report } from '$lib/utils/log';
   import { Role } from '$lib/config';
@@ -16,7 +16,7 @@
 
   let isLoading = false;
   let showPrompt = false;
-  let customPrompt = '';
+  let prompt = '';
 
   const togglePrompt = () => {
     if (showPrompt) {
@@ -24,7 +24,7 @@
       return;
     }
 
-    if (!customPrompt) customPrompt = createBasicPrompt(character, tags);
+    if (!prompt) prompt = createBasicPrompt(character, tags);
     showPrompt = true;
   };
 
@@ -38,14 +38,19 @@
   const generateBio = async () => {
     try {
       isLoading = true;
-      const prompt = showPrompt && customPrompt ? customPrompt : createBasicPrompt(character, tags);
-      const { story } = await request<{ story: string }>('/api/stories', 'POST', { prompt });
-      character.bio = story;
+
+      if (!showPrompt) prompt = createBasicPrompt(character, tags);
+      const onData = (dataChunk: string) => {
+        character.bio += dataChunk;
+      };
+      character.bio = '';
+      await stream('/api/stories', { prompt }, onData);
     } catch (err) {
       report('story generator', err);
       toastError(err);
     } finally {
       isLoading = false;
+      character.bio = character.bio.trim();
     }
   };
 </script>
@@ -71,8 +76,8 @@
   </div>
 
   <div class="textareas">
-    {#if showPrompt}<textarea bind:value={customPrompt} />{/if}
-    <textarea bind:value={character.bio} />
+    {#if showPrompt}<textarea bind:value={prompt} />{/if}
+    <textarea bind:value={character.bio} disabled={isLoading} />
   </div>
 </div>
 

@@ -38,7 +38,7 @@
       key: 'common.navigation.donate',
       to: 'https://www.patreon.com/azgaar'
     };
-    const admin = { id: 'admin', key: 'common.navigation.admin', to: '/admin' };
+    const admin = { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits' };
 
     if (role === Role.ADMIN) return [gallery, myCharacters, donate, admin, logout];
     if (role === Role.USER) return [gallery, myCharacters, donate, logout];

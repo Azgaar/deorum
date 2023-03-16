@@ -2,7 +2,12 @@ import { authorize } from '$lib/api/auth';
 import { locales } from '$lib/locales/translations';
 import { Role } from '$lib/config';
 
+import type { Config } from '@sveltejs/adapter-vercel';
 import type { IUser } from '$lib/types/api.types';
+
+export const config: Config = {
+  runtime: 'nodejs18.x'
+};
 
 const getLocale = (request: Request, user: IUser | null) => {
   if (user?.profile?.lang) return user.profile.lang;

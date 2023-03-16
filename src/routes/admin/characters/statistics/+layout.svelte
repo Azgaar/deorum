@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
   import Header from '$lib/components/header/Header.svelte';
 
+  // TODO: add links to header
   const links = [
     { id: 'races', key: 'admin.statistics.races', to: './races' },
     { id: 'genders', key: 'admin.statistics.genders', to: './genders' },
@@ -10,7 +11,7 @@
   ];
 </script>
 
-<Header {links} />
+<Header />
 
 <main>
   <slot />

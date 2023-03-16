@@ -1,7 +1,7 @@
 <script lang="ts">
   import Label from '../label/Label.svelte';
 
-  export let chips: IChip[];
+  export let chips: IChip[] = [];
   export let type: string;
 
   interface IChip {

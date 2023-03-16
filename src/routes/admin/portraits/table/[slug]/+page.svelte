@@ -91,7 +91,7 @@
           />
         </Cell>
         <Cell style="text-transform: capitalize;">
-          {$t(`admin.originals.${item['@expand'].original.name}`)}
+          {$t(`admin.originals.${item['@expand'].original?.name}`)}
         </Cell>
         <Cell><Chips chips={item['@expand'].tags} type="tags" /></Cell>
         <Cell><Chips chips={item['@expand'].styles} type="styles" /></Cell>
