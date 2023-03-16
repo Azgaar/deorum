@@ -32,6 +32,39 @@ export const sendFormData = async <T>(
   return body;
 };
 
+// stream requests only
+export const stream = async (
+  url: string,
+  data: Record<string, unknown>,
+  onData: (dataChunk: string) => void
+) => {
+  const options: RequestInit = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(data)
+  };
+
+  const res = await fetch(url, options);
+  if (!res.ok) throw new Error((await res.json()).message || res.statusText);
+
+  const body = res.body;
+  if (!body) return null;
+
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+
+  const read = async () => {
+    const { value, done } = await reader.read();
+    if (done) return;
+    const chunkValue = decoder.decode(value);
+    onData(chunkValue);
+    read();
+  };
+  await read();
+
+  return true;
+};
+
 export function preloadImage(src: string) {
   if (browser) {
     const nextImage = new Image();

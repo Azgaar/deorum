@@ -1,10 +1,8 @@
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-import { sections } from '$lib/data/sections';
 import { t } from '$lib/locales/translations';
 import type { ICharacter } from '$lib/types/api.types';
 import type { IGalleryItem } from '$lib/types/gallery.types';
 import { report } from './log';
-import { capitalize } from './string';
 
 export const deriveCharacterLabel = (character: ICharacter): string => {
   const { name, gender, age } = character;
@@ -62,48 +60,6 @@ export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
   const background = expand.background?.name || '';
 
   return { id, image, name, race, gender, archetype, background, age, weight, height, bio, likes };
-};
-
-const getTags = (character: ICharacter, tags: Map<string, { name: string }>): string[] => {
-  if (!character.tags.length) return [];
-  const tagNames = character.tags.map((tag) => tags.get(tag)?.name);
-  return tagNames.filter((tagName) => tagName) as string[];
-};
-
-const selectSections = (): string[] => {
-  return sections.filter((section) => Math.random() < section.chance).map(({ name }) => name);
-};
-
-export const createBasicPrompt = (character: ICharacter, tags: Map<string, { name: string }>) => {
-  const { name, gender, age } = character;
-  const { race, archetype, background } = character['@expand'];
-
-  const d = {
-    gender,
-    race: race ? race.name : '',
-    age: age ? `${age} years old` : null,
-    name: name ? `Name: ${name}` : null,
-    archetype: archetype ? `Nature (behaviour pattern): ${archetype.name}` : null,
-    background: background ? `Background (origin): ${background.name}` : null
-  };
-  const tagList = getTags(character, tags);
-  const sectionList = selectSections();
-
-  const intro = 'Literatural biography of a fantasy character';
-  const specie = `${d.gender} ${d.race}`.trim();
-  const part1 = [specie, d.age].filter((v) => v).join(', ');
-  const part2 = [d.name, d.archetype, d.background].filter((v) => v).join('. ');
-  const tag = tagList.length ? `Tags: ${tagList.join(', ')}` : '';
-  const section = sectionList.length ? `Contains sections: ${sectionList.join(', ')}` : '';
-  const outro1 = 'Top quality text. Skip paragraph titles';
-  const outro2 = `Detailed well written fruty description of ${d.race} in Fantasy style.`;
-
-  const prompt = [intro, part1, part2, tag, section, outro1, outro2]
-    .filter((v) => v)
-    .map((part) => capitalize(part))
-    .join('. ');
-
-  return prompt;
 };
 
 export const derivePrimaryImagePath = (character: ICharacter, thump: number | boolean = false) => {
