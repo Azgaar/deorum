@@ -5,7 +5,7 @@
   import type { ILink } from '$lib/types/components.types';
 
   export let link: ILink;
-  const { id, key, to, reload, prefetch = true, variable } = link;
+  const { id, key, to, reload = false, prefetch = true, variable } = link;
 
   $: isActive = $page.route.id?.includes(id);
   $: label = $t(key, { variable } as any);

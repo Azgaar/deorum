@@ -9,7 +9,6 @@
   $: currentId = $page.data.current.id;
   $: nextId = $page.data.next.id;
 
-  // TODO: add links to header
   $: links = [
     { id: 'tags', key: 'common.navigation.tags', to: `/match/tags/${currentId}` },
     { id: 'next', key: 'common.navigation.next', to: `./${nextId}`, prefetch: true }
@@ -35,7 +34,7 @@
 
 <div class="root">
   {#key nextId}
-    <Header />
+    <Header {links} />
   {/key}
 
   <main>
