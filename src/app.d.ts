@@ -32,3 +32,9 @@ declare namespace svelteHTML {
     'on:clickOutside'?: (e: CustomEvent) => void;
   }
 }
+
+interface Navigator {
+  connection?: {
+    effectiveType: string;
+  };
+}

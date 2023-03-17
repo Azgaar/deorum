@@ -1,12 +1,17 @@
-<script lang="ts" context="module">
+<script lang="ts">
   import { inject } from '@vercel/analytics';
   import { dev } from '$app/environment';
+  import { page } from '$app/stores';
   import { navigating } from '$app/stores';
+  import { webVitals } from '$lib/scripts/vitals';
 
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
   import Spinner from '$lib/components/spinner/Spinner.svelte';
 
-  inject({ mode: dev ? 'development' : 'production' });
+  if (!dev) {
+    inject({ mode: 'production' });
+    webVitals({ page: $page.route.id || '' });
+  }
 </script>
 
 <svelte:head>
