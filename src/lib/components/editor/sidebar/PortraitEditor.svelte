@@ -46,7 +46,7 @@
   export let openEditCharacterDialog: TOpenEditCharacterDialog;
   export let openSelectCharacterDialog: TOpenSelectCharacterDialog;
 
-  export let handleClearSelection: () => void;
+  export let handleClearSelection: VoidFunction;
   export let isUploading: boolean;
   export let selectedImages: number;
   export let image: string;

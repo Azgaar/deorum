@@ -8,6 +8,7 @@
   export let isLoading: boolean = false;
 
   let visible = false;
+  const toggle = () => (visible = !visible);
 </script>
 
 <Textfield
@@ -20,7 +21,7 @@
   input$autocomplete="password"
   input$pattern={'.{8,}'}
 >
-  <div class="visibility" on:click={() => (visible = !visible)}>
+  <div class="visibility" on:click={toggle} on:keydown={toggle}>
     {#if visible}
       <EyeClosed />
     {:else}

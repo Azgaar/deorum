@@ -3,7 +3,7 @@
 
   export let chip: IChip | undefined;
   export let type: string;
-  export let handleRemove: () => void;
+  export let handleRemove: VoidFunction;
 
   interface IChip {
     image: string;
@@ -12,50 +12,54 @@
 </script>
 
 <span class="chip">
-  <span on:click={handleRemove} class="action">✕</span>
+  <button on:click={handleRemove} class="action">✕</button>
   <Label label={chip} {type} />
 </span>
 
 <style lang="scss">
-  span.chip {
+  .chip {
     position: relative;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    display: flex;
+    align-items: center;
 
     padding: 0.1em 0.5em 0.1em 0.2em;
     background: rgba($secondary, 0.5);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
-    span.action {
+    &:hover {
+      background: rgba($secondary, 0.6);
+
+      .action {
+        opacity: 1;
+        &:hover {
+          background-color: rgba($secondary, 0.6);
+        }
+      }
+    }
+
+    &:active {
+      background: rgba($secondary, 0.7);
+    }
+
+    .action {
       position: absolute;
-      padding: 0em 0.2em;
-      margin: 1px 0 0 -1px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+
+      width: 16px;
+      height: 16px;
+      color: $text;
+      cursor: pointer;
+
+      transition: all 0.2s ease-in-out;
       opacity: 0;
-      border-radius: 16px;
       background-color: rgba($secondary, 0.7);
     }
-  }
-
-  span.chip:hover {
-    background: rgba($secondary, 0.6);
-
-    span.action {
-      opacity: 1;
-    }
-
-    span.action:hover {
-      background-color: rgba($secondary, 0.6);
-    }
-  }
-
-  span.chip:active {
-    background: rgba($secondary, 0.7);
-  }
-
-  span.action {
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
   }
 </style>

@@ -20,12 +20,17 @@
 </script>
 
 <Wrapper>
-  <div on:click={handleSort} style="transform: rotate({ANGLES[order]}deg)">{ICON}</div>
+  <button type="button" on:click={handleSort} style="transform: rotate({ANGLES[order]}deg)"
+    >{ICON}</button
+  >
   <Tooltip>{$t(`admin.sorting.${order}`)}</Tooltip>
 </Wrapper>
 
 <style lang="scss">
-  div {
+  button {
+    border: none;
+    background: none;
+    color: $text;
     height: 20px;
     transition: transform 0.2s ease-in-out;
     transform-origin: center;

@@ -63,6 +63,7 @@
         use:clickOutside
         on:clickOutside={exportOptions.close}
         on:click={exportOptions.close}
+        on:keydown={exportOptions.close}
       >
         <button on:click={exportChar(item, 'portrait')}
           >{$t('common.details.export.portrait')}</button

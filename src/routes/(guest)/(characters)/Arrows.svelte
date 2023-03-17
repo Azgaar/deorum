@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let next: () => void;
-  export let prev: () => void;
+  export let next: VoidFunction;
+  export let prev: VoidFunction;
 </script>
 
 <div class="arrows">

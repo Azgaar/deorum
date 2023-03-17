@@ -3,8 +3,8 @@
 
   import { snackbar } from '$lib/stores';
 
-  let message: typeof $snackbar['message'];
-  let status: typeof $snackbar['status'];
+  let message: (typeof $snackbar)['message'];
+  let status: (typeof $snackbar)['status'];
 
   const clearMessage = () => {
     snackbar.set({ message: null, status: 'success' });
@@ -26,6 +26,7 @@
     in:fly={{ y: 200, duration: 500 }}
     out:fade={{ duration: 300 }}
     on:click={clearMessage}
+    on:keydown={clearMessage}
   >
     {message}
   </div>

@@ -27,13 +27,14 @@
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
       {#each allColors as color (color)}
-        <div
+        <button
+          type="button"
           class:selected={current.includes(color)}
           on:click={handleSelect(color)}
           style="background-color: {color};"
         >
           <span class="checkmark" />
-        </div>
+        </button>
       {/each}
     </div>
 
@@ -58,7 +59,7 @@
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     grid-gap: 3px;
 
-    div {
+    button {
       aspect-ratio: 1;
       transition: all 0.2s ease-in-out;
       border: 1px solid transparent;
@@ -87,17 +88,17 @@
         color: $text;
         font-size: 1.2rem;
       }
-    }
 
-    div:hover {
-      filter: brightness(0.9);
-    }
+      &:hover {
+        filter: brightness(0.9);
+      }
 
-    div.selected {
-      border-color: $text;
+      &.selected {
+        border-color: $text;
 
-      .checkmark {
-        opacity: 1;
+        .checkmark {
+          opacity: 1;
+        }
       }
     }
   }

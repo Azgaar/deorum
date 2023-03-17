@@ -10,7 +10,7 @@
   import PasswordInput from '../password/PasswordInput.svelte';
   import { log, report } from '$lib/utils/log';
 
-  export let onCancel: (() => void) | null = null;
+  export let onCancel: VoidFunction | null = null;
   export let onSuccess = () => {};
 
   let email = '';

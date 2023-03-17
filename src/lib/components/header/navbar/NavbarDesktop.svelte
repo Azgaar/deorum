@@ -9,9 +9,7 @@
 <nav>
   <ul>
     {#each links as link (getKey(link))}
-      <li>
-        <Link {link} />
-      </li>
+      <li><Link {link} /></li>
     {/each}
   </ul>
 </nav>

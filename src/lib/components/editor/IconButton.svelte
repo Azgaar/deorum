@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let onClick: () => void;
+  export let onClick: VoidFunction;
   export let disabled = false;
 </script>
 

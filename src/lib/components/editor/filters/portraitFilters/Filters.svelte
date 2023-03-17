@@ -79,7 +79,7 @@
             {/each}
           </div>
         {/if}
-        <span class="edit" on:click={() => (showOriginalsDialog = true)}>⚙️</span>
+        <button type="button" class="edit" on:click={() => (showOriginalsDialog = true)}>⚙️</button>
       </div>
 
       <div class="item" class:inactive={!filters.colors.length}>
@@ -95,7 +95,7 @@
             {/each}
           </div>
         {/if}
-        <span class="edit" on:click={() => (showColorsDialog = true)}>⚙️</span>
+        <button type="button" class="edit" on:click={() => (showColorsDialog = true)}>⚙️</button>
       </div>
 
       <div class="item" class:inactive={!filters.tags.length}>
@@ -114,7 +114,9 @@
             {/each}
           </div>
         {/if}
-        <span class="edit" on:click={handleListEdit('tags', tagsMap, filters.tags)}>⚙️</span>
+        <button type="button" class="edit" on:click={handleListEdit('tags', tagsMap, filters.tags)}
+          >⚙️</button
+        >
       </div>
 
       <div class="item" class:inactive={!filters.styles.length}>
@@ -133,7 +135,11 @@
             {/each}
           </div>
         {/if}
-        <span class="edit" on:click={handleListEdit('styles', stylesMap, filters.styles)}>⚙️</span>
+        <button
+          type="button"
+          class="edit"
+          on:click={handleListEdit('styles', stylesMap, filters.styles)}>⚙️</button
+        >
       </div>
 
       <div class="item" class:inactive={filters.hasCharacters === null}>
@@ -176,7 +182,8 @@
       align-items: center;
       gap: 0.5rem;
 
-      span {
+      span,
+      button {
         transition: all 0.2s ease-in-out;
       }
 
@@ -209,6 +216,8 @@
     }
 
     .edit {
+      background: none;
+      border: none;
       cursor: pointer;
     }
   }

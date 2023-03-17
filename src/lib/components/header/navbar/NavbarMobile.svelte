@@ -10,14 +10,12 @@
 </script>
 
 <nav>
-  <div class="backdrop" class:collapsed on:click={toggleMenu} />
+  <div class="backdrop" class:collapsed on:click={toggleMenu} on:keydown={toggleMenu} />
   <button class="menu" on:click={toggleMenu}>☰</button>
-  <aside class:collapsed on:click={toggleMenu}>
+  <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>
     <ul>
       {#each links as link (`${link.key}-${link.variable}`)}
-        <li>
-          <Link {link} />
-        </li>
+        <li><Link {link} /></li>
       {/each}
     </ul>
     <Book />

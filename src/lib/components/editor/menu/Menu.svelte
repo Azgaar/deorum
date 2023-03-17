@@ -13,7 +13,7 @@
   import { logout } from '$lib/api/auth';
   import { browser } from '$app/environment';
 
-  export let openFilters: () => void;
+  export let openFilters: VoidFunction;
 
   let signin = false;
   let signup = false;

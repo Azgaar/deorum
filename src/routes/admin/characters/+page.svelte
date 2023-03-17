@@ -51,7 +51,7 @@
     }
   };
 
-  const handleCheck = (id: string) => (event: CustomEvent<HTMLElement>) => {
+  const handleCheck = (id: string) => (event: CustomEvent<HTMLElement> | KeyboardEvent) => {
     event.stopPropagation();
     selected = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id];
   };
@@ -144,7 +144,11 @@
   <section class="gallery">
     <div class="grid">
       {#each characters as item (item.id)}
-        <div class="imageContainer" on:click={handleClick(item.id)}>
+        <div
+          class="imageContainer"
+          on:click={handleClick(item.id)}
+          on:keydown={handleCheck(item.id)}
+        >
           {#if item.portraits.length}
             <img
               loading="lazy"

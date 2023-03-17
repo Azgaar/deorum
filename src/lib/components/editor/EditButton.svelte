@@ -4,7 +4,7 @@
   export let label: string = 'common.controls.select';
   export let isLower: boolean = true;
   export let icon: string = '⚙️';
-  export let onClick: () => void;
+  export let onClick: VoidFunction;
 
   let text = $t(label);
   if (isLower) text = text.toLowerCase();

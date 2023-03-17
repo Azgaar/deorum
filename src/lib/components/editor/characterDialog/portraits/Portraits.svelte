@@ -43,9 +43,8 @@
       <Portrait {id} {actions} />
     {/each}
   </div>
-  <div class="add" on:click={() => (isSelectDialogOpen = true)}>
-    <span>+</span>
-  </div>
+
+  <button class="add" type="button" on:click={() => (isSelectDialogOpen = true)}>+</button>
 </div>
 
 <PortraitsDialog bind:open={isSelectDialogOpen} bind:ids />
@@ -63,8 +62,9 @@
     }
 
     .add {
-      width: 40px;
-      height: 40px;
+      border: 0;
+      width: 50px;
+      height: 50px;
       border-radius: 4px;
       color: rgba($text, 0.6);
       background-color: rgba($secondary, 0.6);

@@ -3,7 +3,7 @@
 
   import { t } from '$lib/locales/translations';
 
-  export let onClick: () => void;
+  export let onClick: VoidFunction;
 </script>
 
 <div class="loadMore">

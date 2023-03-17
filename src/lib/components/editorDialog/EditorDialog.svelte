@@ -26,7 +26,7 @@
     return new Map(filtered);
   };
 
-  const handleChange = (event: MouseEvent) => {
+  const handleChange = (event: MouseEvent | KeyboardEvent) => {
     event.stopPropagation();
     const element = event.target as HTMLElement;
     if (element.classList.contains('content')) return;
@@ -57,7 +57,7 @@
   </div>
 
   <div>
-    <div class="content" on:click={handleChange}>
+    <div class="content" on:click={handleChange} on:keydown={handleChange}>
       {#each entries || [] as [entryId, { image, name }] (entryId)}
         <div class="entry" class:found={found.has(entryId)}>
           <Checkbox group={current} value={entryId} ripple={false} />

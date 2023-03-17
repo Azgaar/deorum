@@ -31,7 +31,7 @@ export const changeableKeys = [
   'tags',
   'characters'
 ] as const;
-export type TChangeableKey = typeof changeableKeys[number];
+export type TChangeableKey = (typeof changeableKeys)[number];
 
 export interface IUploadedPortrait extends IPortrait {
   file: File;

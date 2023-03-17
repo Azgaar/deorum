@@ -38,7 +38,7 @@
             {/each}
           </div>
         {/if}
-        <span class="edit" on:click={() => {}}>⚙️</span>
+        <button type="button" class="edit" on:click={() => {}}>⚙️</button>
       </div>
 
       <Actions>

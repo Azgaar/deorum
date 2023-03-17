@@ -13,7 +13,7 @@
   export let archetypes: Map<string, { name: string }>;
   export let backgrounds: Map<string, { name: string }>;
 
-  export let handleClearSelection: () => void;
+  export let handleClearSelection: VoidFunction;
   export let selectedImages: number;
   export let image: string;
   export let handleEdit = () => {};

@@ -45,13 +45,17 @@
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
       {#each found as [entryId, { image, name }] (entryId)}
-        <div class:selected={original.includes(entryId)}>
-          <img on:click={handleSelect(entryId)} src={image} alt={name} />
+        <button
+          type="button"
+          class:selected={original.includes(entryId)}
+          on:click={handleSelect(entryId)}
+        >
+          <img src={image} alt={name} />
           <Wrapper>
             <span class="checkmark" />
             <Tooltip>{$t(`admin.originals.${name}`)}</Tooltip>
           </Wrapper>
-        </div>
+        </button>
       {/each}
     </div>
 
@@ -79,8 +83,10 @@
       grid-gap: 3px;
       padding: 0;
 
-      div {
+      button {
         position: relative;
+        padding: 0;
+        border: none;
         cursor: pointer;
 
         img {

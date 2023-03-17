@@ -8,8 +8,8 @@
   import { toastError } from '$lib/stores';
   import { log, report } from '$lib/utils/log';
 
-  export let onCancel: (() => void) | null = null;
-  export let onSuccess: () => void;
+  export let onCancel: VoidFunction | null = null;
+  export let onSuccess: VoidFunction;
 
   let email = '';
   let password = '';
