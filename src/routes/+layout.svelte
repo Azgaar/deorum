@@ -1,8 +1,12 @@
 <script lang="ts" context="module">
+  import { inject } from '@vercel/analytics';
+  import { dev } from '$app/environment';
   import { navigating } from '$app/stores';
 
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
   import Spinner from '$lib/components/spinner/Spinner.svelte';
+
+  inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <svelte:head>
