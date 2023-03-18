@@ -4,7 +4,7 @@ import { OPENAI_API_KEY } from '$env/static/private';
 
 const endpoint = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
-const temperature = 1.2;
+const temperature = 1;
 
 export async function openAIStream(prompt: string) {
   const encoder = new TextEncoder();
