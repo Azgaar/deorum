@@ -5,7 +5,7 @@
   import { t } from '$lib/locales/translations';
   import { invalidate } from '$app/navigation';
   import { page } from '$app/stores';
-  import { likes, toastError } from '$lib/stores';
+  import { toastError } from '$lib/stores';
   import { request } from '$lib/utils/requests';
   import Heart from '$lib/components/icons/Heart.svelte';
 
@@ -13,33 +13,33 @@
   import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
 
   export let item: IGalleryItem;
+  $: console.log({ page: $page.data, likes: item.likes });
 
   const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
   const carousel = getContext<Carousel>('carousel');
 
+  $: userId = ($page.data.userId || '') as string;
+  $: likesOff = item.likes.filter((likerId) => likerId !== userId);
+  $: likesOn = [...likesOff, userId];
+  $: isLiked = Boolean(userId && item.likes.includes(userId));
+
   const handleLikeClick = async () => {
-    if (!$page.data.email) {
+    if (!userId) {
       auth.request(() => {
-        if (!$likes[item.id]) handleLikeClick();
+        if (!isLiked) handleLikeClick();
       });
       return;
     }
 
-    const wasLiked = $likes[item.id];
-
-    // optimistic update
-    item.likes = wasLiked ? item.likes - 1 : item.likes + 1;
-    likes.toggle(item.id);
+    const wasLiked = isLiked;
+    item.likes = wasLiked ? likesOff : likesOn; // optimistic update
 
     try {
       await request(`/api/characters/${item.id}/like`, wasLiked ? 'DELETE' : 'POST');
       carousel.update(item);
       invalidate('userData');
     } catch (error) {
-      // revert optimistic update
-      item.likes = wasLiked ? item.likes + 1 : item.likes - 1;
-      likes.toggle(item.id);
-
+      item.likes = wasLiked ? likesOn : likesOff; // revert optimistic update
       toastError(error);
     }
   };
@@ -48,8 +48,8 @@
 <button class="likeButton" on:click={handleLikeClick}>
   <Wrapper>
     <div>
-      <span>{item.likes}</span>
-      <Heart fill={$likes[item.id] ? 'currentColor' : 'none'} width={20} />
+      <span>{item.likes.length}</span>
+      <Heart fill={isLiked ? 'currentColor' : 'none'} width={20} />
     </div>
     <Tooltip>{$t('common.gallery.addToMyCharacters')}</Tooltip>
   </Wrapper>

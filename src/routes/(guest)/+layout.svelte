@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { likes } from '$lib/stores';
   import { Role } from '$lib/config';
 
   import Header from '$lib/components/header/Header.svelte';
@@ -51,7 +50,7 @@
     role: $page.data.role,
     currentId: $page.data.currentId,
     routeId: $page.route.id,
-    likesCount: likes.count($likes)
+    likesCount: $page.data.liked?.length || 0
   });
 </script>
 

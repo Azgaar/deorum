@@ -12,5 +12,5 @@ export interface IGalleryItem {
   weight: number;
   height: number;
   bio: string;
-  likes: number;
+  likes: string[];
 }

@@ -96,7 +96,7 @@ export interface ICharacter extends IRecord {
     tags?: ITag[];
   };
 
-  likes: number;
+  likes: string[];
 }
 
 export interface IRace extends IRecord {
@@ -126,6 +126,7 @@ export interface IBackground extends IRecord {
 }
 
 export interface IUser {
+  id: string;
   email: string;
   verified: boolean;
   lastResetSentAt: string;

@@ -7,6 +7,7 @@ import { updateCache } from '$lib/cache/cacheInstance';
 import { authorize } from '$lib/api/auth';
 
 import type { RequestHandler } from '../$types';
+import type { ICharacter } from '$lib/types/api.types';
 
 export const POST: RequestHandler = async ({ params, request }) => {
   try {
@@ -19,10 +20,11 @@ export const POST: RequestHandler = async ({ params, request }) => {
     const liked = [...oldLiked, id];
     await client.records.update('profiles', user.profile.id, { liked });
 
-    const oldCharacter = await admin.records.getOne('characters', id);
-    const likes = oldCharacter.likes + 1;
+    const oldCharacter = (await admin.records.getOne('characters', id)) as unknown as ICharacter;
+    const oldLikes = oldCharacter.likes.filter((userId) => userId !== user.id);
+    const likes = [...oldLikes, user.id];
     await admin.records.update('characters', id, { likes });
-    updateCache('characters', id, { likes });
+    updateCache('characters', id, { likes: oldLikes });
 
     log('characters', `Like character ${id}`);
     return json({ id });
@@ -42,8 +44,8 @@ export const DELETE: RequestHandler = async ({ params, request }) => {
     const liked = user.profile.liked.filter((characterId) => characterId !== id);
     await client.records.update('profiles', user.profile.id, { liked });
 
-    const oldCharacter = await admin.records.getOne('characters', id);
-    const likes = Math.max(oldCharacter.likes - 1, 0);
+    const oldCharacter = (await admin.records.getOne('characters', id)) as unknown as ICharacter;
+    const likes = oldCharacter.likes.filter((userId) => userId !== user.id);
     await admin.records.update('characters', id, { likes });
     updateCache('characters', id, { likes });
 

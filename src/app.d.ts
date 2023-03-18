@@ -2,6 +2,8 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
 
+import { type Role } from '$lib/config';
+
 // See https://kit.svelte.dev/docs/types#app
 
 declare namespace App {
@@ -10,6 +12,11 @@ declare namespace App {
     params?: {
       slug: string;
     };
+    lang: string;
+    userId: string | null;
+    email: string | null;
+    role: Role;
+    liked: string[];
   }
   // interface Error {}
   // interface Platform {}
