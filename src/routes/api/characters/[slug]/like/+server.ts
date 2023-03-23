@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
     const oldLikes = oldCharacter.likes.filter((userId) => userId !== user.id);
     const likes = [...oldLikes, user.id];
     await admin.records.update('characters', id, { likes });
-    updateCache('characters', id, { likes: oldLikes });
+    updateCache('characters', id, { likes });
 
     log('characters', `Like character ${id}`);
     return json({ id });

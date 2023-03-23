@@ -13,7 +13,7 @@
   import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
 
   export let item: IGalleryItem;
-  $: console.log({ page: $page.data, likes: item.likes });
+  console.log(item, $page.data.userId);
 
   const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
   const carousel = getContext<Carousel>('carousel');
@@ -37,7 +37,7 @@
     try {
       await request(`/api/characters/${item.id}/like`, wasLiked ? 'DELETE' : 'POST');
       carousel.update(item);
-      invalidate('userData');
+      invalidate('app:userData');
     } catch (error) {
       item.likes = wasLiked ? likesOn : likesOff; // revert optimistic update
       toastError(error);
