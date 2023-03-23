@@ -13,7 +13,6 @@
   import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
 
   export let item: IGalleryItem;
-  console.log(item, $page.data.userId);
 
   const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
   const carousel = getContext<Carousel>('carousel');
@@ -51,7 +50,7 @@
       <span>{item.likes.length}</span>
       <Heart fill={isLiked ? 'currentColor' : 'none'} width={20} />
     </div>
-    <Tooltip>{$t('common.gallery.addToMyCharacters')}</Tooltip>
+    <Tooltip>{$t('common.gallery.favorite')}</Tooltip>
   </Wrapper>
 </button>
 

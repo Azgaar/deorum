@@ -23,7 +23,7 @@
 
     {#if isCentral}
       <div class="actions" transition:fade>
-        <div class="addToMyCharacters">
+        <div class="favorite">
           <LikeButton {item} />
         </div>
 
@@ -103,7 +103,7 @@
           }
         }
 
-        .addToMyCharacters {
+        .favorite {
           border-radius: 20px;
           width: 58px;
           height: 28px;

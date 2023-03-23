@@ -38,9 +38,10 @@
   "navigation": {
     "gallery": "Gallery",
     "match": "Match",
+    "tags": "Tags",
     "admin": "Admin",
     "next": "Next",
-    "myCharacters": "My Characters ({{variable}})",
+    "favorites": "Favorites ({{variable}})",
     "donate": "Donate"
   },
   "success": {
@@ -197,6 +198,6 @@
   },
   "gallery": {
     "showDetails": "Show details",
-    "addToMyCharacters": "Add to My Characters"
+    "favorite": "Add to Favorites"
   }
 }

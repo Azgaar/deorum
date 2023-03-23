@@ -38,9 +38,10 @@
   "navigation": {
     "gallery": "Галерея",
     "match": "Совпадения",
+    "tags": "Теги",
     "admin": "Админ",
     "next": "Следующий",
-    "myCharacters": "Мои персонажи ({{variable}})",
+    "favorites": "Избранное ({{variable}})",
     "donate": "Поддержать проект"
   },
   "success": {
@@ -197,6 +198,6 @@
   },
   "gallery": {
     "showDetails": "Показать детали",
-    "addToMyCharacters": "Добавить в Мои персонажи"
+    "favorite": "Добавить в Избранное"
   }
 }

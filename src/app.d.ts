@@ -31,6 +31,7 @@ declare const APP_VERSION: string;
 declare module 'webp-converter';
 
 declare namespace svelteHTML {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface HTMLAttributes<T> {
     'on:swipeRight'?: (e: CustomEvent) => void;
     'on:swipeLeft'?: (e: CustomEvent) => void;

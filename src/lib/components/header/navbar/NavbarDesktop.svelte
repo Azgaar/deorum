@@ -1,14 +1,15 @@
 <script lang="ts">
+  import { page } from '$app/stores';
+  import { galleryNextId } from '$lib/stores';
   import Link from '../Link.svelte';
-  import type { ILink } from '$lib/types/components.types';
+  import { getLinks, getLinkKey } from './navlinks';
 
-  export let links: ILink[];
-  const getKey = (link: ILink) => Object.values(link).join('-');
+  $: links = getLinks($page, $galleryNextId);
 </script>
 
 <nav>
   <ul>
-    {#each links as link (getKey(link))}
+    {#each links as link (getLinkKey(link))}
       <li><Link {link} /></li>
     {/each}
   </ul>

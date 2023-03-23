@@ -3,19 +3,18 @@
   import { fade } from 'svelte/transition';
   import { preloadData } from '$app/navigation';
   import { t } from '$lib/locales/translations';
+  import { galleryNextId } from '$lib/stores';
   import { preloadImage, request } from '$lib/utils/requests';
   import { report } from '$lib/utils/log';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import type { IGalleryItem } from '$lib/types/gallery.types';
 
-  let randomCharacterId = '';
-
   // preload gallery data and images
   onMount(async () => {
     try {
       const galleryItems = await request<IGalleryItem[]>(`/api/gallery/preload`);
-      randomCharacterId = galleryItems[2].id; // middle item
-      preloadData(`/gallery/${randomCharacterId}`);
+      $galleryNextId = galleryItems[2].id; // middle item
+      preloadData(`/gallery/${galleryItems[2].id}`);
 
       galleryItems.forEach((item) => {
         preloadImage(`${PORTRAITS_IMAGE_PATH}/${item.image}`);
@@ -38,7 +37,7 @@
     </div>
 
     <div class="controls">
-      <a href="/gallery/{randomCharacterId}">{$t('common.landing.openGallery')}</a>
+      <a href={`/gallery/${$galleryNextId}`}>{$t('common.landing.openGallery')}</a>
     </div>
   </div>
 </main>

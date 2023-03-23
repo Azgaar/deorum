@@ -8,8 +8,9 @@ import { COOKIE_NAME, Role } from '$lib/config';
 import { report } from '$lib/utils/log';
 
 const protectedPaths = [
-  { path: 'admin', role: Role.ADMIN },
-  { path: 'match', role: Role.USER }
+  { path: 'admin', roles: [Role.ADMIN] },
+  { path: 'favorites', roles: [Role.USER, Role.ADMIN] },
+  { path: 'match', roles: [Role.USER, Role.ADMIN] }
 ];
 
 const getPageLanguage = (cookies: Cookies) => {
@@ -43,10 +44,10 @@ const protectRoutes: import('@sveltejs/kit').Handle = async ({ event, resolve })
   const protectedPath = protectedPaths.find(({ path }) => target.includes(path));
   if (protectedPath) {
     const { user } = await authorize(event.request);
-    if (!user) return abortRequest(target, protectedPath.role);
+    if (!user) return abortRequest(target, protectedPath.roles[0]);
 
     const role: Role = user?.profile?.role || Role.GUEST;
-    if (role !== protectedPath.role) return abortRequest(target, protectedPath.role);
+    if (!protectedPath.roles.includes(role)) return abortRequest(target, protectedPath.roles[0]);
   }
 
   return resolve(event);

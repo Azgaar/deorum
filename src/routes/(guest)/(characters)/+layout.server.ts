@@ -21,12 +21,10 @@ export const load: import('./$types').LayoutServerLoad = async ({ params, fetch 
   const validCharacters = allCharacters.filter(verifyCharacter);
   if (!validCharacters.length) throw error(503, 'No valid characters found');
 
+  const randomId = validCharacters[getRandomIndex(validCharacters.length)].id;
   const currentIndex =
     Boolean(params.slug) && validCharacters.findIndex(({ id }) => id === params.slug);
-  if (currentIndex === false || currentIndex === -1) {
-    const randomId = validCharacters[getRandomIndex(validCharacters.length)].id;
-    throw redirect(307, `/gallery/${randomId}`);
-  }
+  if (currentIndex === false || currentIndex === -1) throw redirect(307, `/gallery/${randomId}`);
 
   const current = validCharacters[currentIndex];
   const before = sliceElements(validCharacters, currentIndex - SELECT_BEFORE, currentIndex);
@@ -35,5 +33,5 @@ export const load: import('./$types').LayoutServerLoad = async ({ params, fetch 
 
   log('characters', `Loading character ${current.name} ${params.slug}`);
 
-  return { items, currentId: current.id };
+  return { items, currentId: current.id, randomId };
 };

@@ -1,35 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
-
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
-
-  $: nextId = $page.data.next.id;
-
-  onMount(() => {
-    const keys = ['Enter', 'Space', 'ArrowRight', 'ArrowDown'];
-
-    const goToNext = (event: KeyboardEvent) => {
-      if (keys.includes(event.code)) {
-        event.preventDefault();
-        goto(`./${nextId}`);
-      }
-    };
-
-    document.addEventListener('keydown', goToNext);
-
-    return () => {
-      document.removeEventListener('keydown', goToNext);
-    };
-  });
 </script>
 
 <div class="root">
-  {#key nextId}
-    <Header />
-  {/key}
+  <Header />
 
   <main>
     <slot />

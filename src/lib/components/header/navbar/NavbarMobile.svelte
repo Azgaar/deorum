@@ -1,12 +1,13 @@
 <script lang="ts">
+  import { page } from '$app/stores';
+  import { galleryNextId } from '$lib/stores';
   import Book from '../Book.svelte';
   import Link from '../Link.svelte';
-  import type { ILink } from '$lib/types/components.types';
-
-  export let links: ILink[];
+  import { getLinks, getLinkKey } from './navlinks';
 
   let collapsed = true;
   const toggleMenu = () => (collapsed = !collapsed);
+  $: links = getLinks($page, $galleryNextId);
 </script>
 
 <nav>
@@ -14,7 +15,7 @@
   <button class="menu" on:click={toggleMenu}>☰</button>
   <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>
     <ul>
-      {#each links as link (`${link.key}-${link.variable}`)}
+      {#each links as link (getLinkKey(link))}
         <li><Link {link} /></li>
       {/each}
     </ul>

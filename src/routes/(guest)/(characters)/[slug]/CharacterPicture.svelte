@@ -11,7 +11,7 @@
   <Picture src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" />
 
   <div class="actions">
-    <div class="addToMyCharacters">
+    <div class="favorite">
       <LikeButton {item} />
     </div>
   </div>
@@ -45,7 +45,7 @@
         }
       }
 
-      .addToMyCharacters {
+      .favorite {
         border-radius: 20px;
         width: 58px;
         height: 28px;
