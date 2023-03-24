@@ -203,7 +203,7 @@
     try {
       isLoading = true;
       await handleDelete();
-      log('editor', 'Portrait deleted', current);
+      log('editor', `Portraits deleted: ${selectedImages}`, current);
       toastSuccess($t('admin.success.deleted'));
     } catch (err) {
       report('editor', err, current);
@@ -336,14 +336,14 @@
 
     <div class="deletionBlock">
       <BasicButton onClick={initiateDeletion}>
-        {$t(isDeleteInitiated ? 'common.controls.cancel' : 'common.controls.delete')}
+        {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
       </BasicButton>
 
       <BasicButton
         onClick={triggerDeletion}
         style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
       >
-        {$t('common.controls.confirm')}
+        {$t('common.controls.confirmDeletion', { variable: selectedImages })}
       </BasicButton>
     </div>
   </main>

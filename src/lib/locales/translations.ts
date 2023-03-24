@@ -1,8 +1,10 @@
 import i18n from 'sveltekit-i18n';
+import type { Config } from 'sveltekit-i18n';
+import type { Parser } from '@sveltekit-i18n/parser-default';
 
 export const locales = ['en', 'ru'];
 
-const config: import('sveltekit-i18n').Config = {
+const config: Config = {
   fallbackLocale: 'en',
   loaders: [
     { locale: 'en', key: 'common', loader: async () => (await import('./en/common.json')).default },
@@ -22,4 +24,6 @@ const config: import('sveltekit-i18n').Config = {
   ]
 };
 
-export const { t, locale, loading, loadTranslations } = new i18n(config);
+export const { t, locale, loading, loadTranslations } = new i18n<
+  Parser.Params<{ variable?: string | number | null }>
+>(config);

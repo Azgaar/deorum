@@ -8,7 +8,7 @@
   const { id, key, to, reload = false, prefetch = true, variable } = link;
 
   $: isActive = $page.route.id?.includes(id);
-  $: label = $t(key, { variable } as any);
+  $: label = $t(key, { variable });
 </script>
 
 <a

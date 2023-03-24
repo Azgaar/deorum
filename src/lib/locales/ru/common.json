@@ -3,6 +3,7 @@
     "save": "Сохранить",
     "cancel": "Отменить",
     "delete": "Удалить",
+    "confirmDeletion": "Удалить ({{variable}})",
     "add": "Добавить",
     "create": "Создать",
     "edit": "Изменить",

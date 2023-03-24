@@ -10,7 +10,7 @@
     const searchParams = new URLSearchParams(window.location.search);
     const unauthorized = searchParams.get('unauthorized');
     const role = searchParams.get('role');
-    if (unauthorized) toastError($t('common.errors.unauthorized', { variable: role } as any));
+    if (unauthorized) toastError($t('common.errors.unauthorized', { variable: role }));
   });
 
   const onSuccess = () => {
