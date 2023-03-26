@@ -2,7 +2,9 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import Picture from '$lib/components/picture/Picture.svelte';
   import LikeButton from '$lib/components/like/LikeButton.svelte';
+  import EditCharacterButton from './EditCharacterButton.svelte';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import DownloadButton from './DownloadButton.svelte';
 
   export let item: IGalleryItem;
 </script>
@@ -11,8 +13,13 @@
   <Picture src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt="Character portrait" />
 
   <div class="actions">
-    <div class="favorite">
+    <div class="pane top">
       <LikeButton {item} />
+    </div>
+
+    <div class="pane bottom">
+      <EditCharacterButton bind:item />
+      <DownloadButton {item} />
     </div>
   </div>
 </div>
@@ -30,27 +37,23 @@
       height: 100%;
       top: 0;
 
-      * {
+      div.pane {
         position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $text;
 
-        transition: background-color 0.3s ease-in-out;
-        background: color.adjust($on-surface, $alpha: -0.6);
-
-        &:hover {
-          background: color.adjust($on-surface, $alpha: -0.1);
-        }
-      }
-
-      .favorite {
         border-radius: 20px;
-        width: 58px;
-        height: 28px;
-        top: 0.5rem;
-        right: 0.5rem;
+        background: color.adjust($on-surface, $alpha: -0.6);
+        display: flex;
+        gap: 4px;
+
+        &.top {
+          top: 0.5rem;
+          right: 0.5rem;
+        }
+
+        &.bottom {
+          bottom: 0.5rem;
+          right: 0.5rem;
+        }
       }
     }
   }

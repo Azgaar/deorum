@@ -17,7 +17,8 @@
     "confirm": "Confirm",
     "yes": "yes",
     "no": "no",
-    "random": "random"
+    "random": "random",
+    "download": "Download"
   },
   "values": {
     "undefined": "undefined",

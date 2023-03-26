@@ -11,6 +11,7 @@
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
+  import ActionButton from '../buttons/ActionButton.svelte';
 
   export let item: IGalleryItem;
 
@@ -44,28 +45,24 @@
   };
 </script>
 
-<button class="likeButton" on:click={handleLikeClick}>
+<ActionButton onClick={handleLikeClick}>
   <Wrapper>
-    <div>
+    <div class="likeButton">
       <span>{item.likes.length}</span>
       <Heart fill={isLiked ? 'currentColor' : 'none'} width={20} />
     </div>
     <Tooltip>{$t('common.gallery.favorite')}</Tooltip>
   </Wrapper>
-</button>
+</ActionButton>
 
 <style lang="scss">
-  .likeButton {
-    outline: none;
-    border: none;
-    background: none;
-    color: $text;
-    cursor: pointer;
+  div.likeButton {
+    padding: 3px 6px;
+    min-width: 36px;
 
-    div {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-    }
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1px;
   }
 </style>

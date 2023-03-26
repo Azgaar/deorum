@@ -1,7 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte';
 
-  import ActionsPane from './ActionsPane.svelte';
   import CharacterDetails from './CharacterDetails.svelte';
   import CharacterPicture from './CharacterPicture.svelte';
   import type { Carousel } from '../carousel';
@@ -27,8 +26,6 @@
         {/key}
       </div>
     </section>
-
-    <ActionsPane bind:item={$item} />
   </article>
 </div>
 
@@ -43,9 +40,9 @@
     font-size: 14px;
     color: #dee7ea;
 
-    padding: 16px 32px;
+    padding-top: 16px;
     @media ($mobile) {
-      padding: 0;
+      padding-top: 0;
     }
 
     article {
