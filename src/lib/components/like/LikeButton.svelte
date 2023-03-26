@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
   import Tooltip, { Wrapper } from '@smui/tooltip';
+  import { getContext } from 'svelte';
 
-  import { t } from '$lib/locales/translations';
   import { invalidate } from '$app/navigation';
   import { page } from '$app/stores';
+  import ActionButton from '$lib/components/actions/ActionButton.svelte';
+  import Heart from '$lib/components/icons/Heart.svelte';
+  import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import { request } from '$lib/utils/requests';
-  import Heart from '$lib/components/icons/Heart.svelte';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
-  import ActionButton from '../buttons/ActionButton.svelte';
 
   export let item: IGalleryItem;
 

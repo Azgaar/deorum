@@ -7,7 +7,7 @@
   $: links = getLinks($page, $galleryNextId);
 </script>
 
-<nav>
+<nav class="noprint">
   <ul>
     {#each links as link (getLinkKey(link))}
       <li><Link {link} /></li>

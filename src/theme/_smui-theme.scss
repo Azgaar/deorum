@@ -27,3 +27,15 @@ a {
 svg {
   outline: none;
 }
+
+body.noprint {
+  .noprint {
+    display: none;
+  }
+}
+
+@media print {
+  .noprint {
+    display: none;
+  }
+}

@@ -10,7 +10,7 @@
   $: links = getLinks($page, $galleryNextId);
 </script>
 
-<nav>
+<nav class="noprint">
   <div class="backdrop" class:collapsed on:click={toggleMenu} on:keydown={toggleMenu} />
   <button class="menu" on:click={toggleMenu}>☰</button>
   <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>

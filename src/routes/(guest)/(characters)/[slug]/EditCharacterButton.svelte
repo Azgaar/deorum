@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ActionButton from '$lib/components/buttons/ActionButton.svelte';
+  import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import Pencil from '$lib/components/icons/Pencil.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';

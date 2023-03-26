@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ActionButton from '$lib/components/buttons/ActionButton.svelte';
+  import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import ArrowDown from '$lib/components/icons/ArrowDown.svelte';
   import Braces from '$lib/components/icons/Braces.svelte';
   import Card from '$lib/components/icons/Card.svelte';
@@ -9,6 +9,7 @@
   import { t } from '$lib/locales/translations';
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import Tooltip, { Wrapper } from '@smui/tooltip';
+  import { fly } from 'svelte/transition';
   import { exportChar } from './export';
 
   export let item: IGalleryItem;
@@ -18,15 +19,15 @@
   const close = () => (show = false);
 </script>
 
-<ActionButton onClick={open}>
-  <Wrapper>
-    <ArrowDown width={28} />
-    <Tooltip>{$t('common.controls.download')}</Tooltip>
-  </Wrapper>
-</ActionButton>
-
 {#if show}
-  <div class="options" use:clickOutside on:clickOutside={close} on:click={close} on:keydown={close}>
+  <div
+    transition:fly={{ x: 0, y: 40, duration: 200 }}
+    class="options"
+    use:clickOutside
+    on:clickOutside={close}
+    on:click={close}
+    on:keydown={close}
+  >
     <ActionButton onClick={exportChar(item, 'portrait')}>
       <Wrapper>
         <User width={28} />
@@ -57,6 +58,13 @@
     </ActionButton>
   </div>
 {/if}
+
+<ActionButton onClick={open} isActive={show}>
+  <Wrapper>
+    <ArrowDown width={28} rotate={show} />
+    <Tooltip>{$t('common.controls.download')}</Tooltip>
+  </Wrapper>
+</ActionButton>
 
 <style lang="scss">
   @use 'sass:color';

@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
   import Tooltip, { Wrapper } from '@smui/tooltip';
 
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import Actions from '$lib/components/actions/Actions.svelte';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import LikeButton from '$lib/components/like/LikeButton.svelte';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import ShowDetailsButton from './ShowDetailsButton.svelte';
 
   export let item: IGalleryItem;
   export let isCentral: boolean;
@@ -22,18 +23,10 @@
     <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.name} draggable="false" />
 
     {#if isCentral}
-      <div class="actions" transition:fade>
-        <div class="favorite">
-          <LikeButton {item} />
-        </div>
-
-        <a class="showDetails" data-sveltekit-preload-data="hover" href={`/${item.id}`}>
-          <Wrapper>
-            <ArrowRight />
-            <Tooltip>{$t('common.gallery.showDetails')}</Tooltip>
-          </Wrapper>
-        </a>
-      </div>
+      <Actions>
+        <LikeButton {item} slot="top" />
+        <ShowDetailsButton slot="bottom" href={`/${item.id}`} />
+      </Actions>
     {/if}
   </div>
 
@@ -80,45 +73,6 @@
       img {
         width: 100%;
         aspect-ratio: 1/1;
-      }
-
-      div.actions {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-
-        * {
-          position: absolute;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: $text;
-
-          transition: background-color 0.3s ease-in-out;
-          background: color.adjust($on-surface, $alpha: -0.6);
-
-          &:hover {
-            background: color.adjust($on-surface, $alpha: -0.1);
-          }
-        }
-
-        .favorite {
-          border-radius: 20px;
-          width: 58px;
-          height: 28px;
-          top: 0.5rem;
-          right: 0.5rem;
-        }
-
-        .showDetails {
-          padding: 0.5rem;
-          bottom: 0.5rem;
-          right: 0.5rem;
-          border-radius: 50%;
-          width: 20px;
-          height: 20px;
-        }
       }
     }
 

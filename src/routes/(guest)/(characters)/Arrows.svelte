@@ -3,7 +3,7 @@
   export let prev: VoidFunction;
 </script>
 
-<div class="arrows">
+<div class="arrows noprint">
   <button aria-label="previous" on:click={prev}>
     <svg viewBox="0 0 5 20">
       <path d="M5 0 L0 10 L5 20 Z" />
