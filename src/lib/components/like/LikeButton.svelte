@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Tooltip, { Wrapper } from '@smui/tooltip';
   import { getContext } from 'svelte';
 
   import { invalidate } from '$app/navigation';
@@ -45,14 +44,11 @@
   };
 </script>
 
-<ActionButton onClick={handleLikeClick}>
-  <Wrapper>
-    <div class="likeButton">
-      <span>{item.likes.length}</span>
-      <Heart fill={isLiked ? 'currentColor' : 'none'} width={20} />
-    </div>
-    <Tooltip>{$t('common.gallery.favorite')}</Tooltip>
-  </Wrapper>
+<ActionButton onClick={handleLikeClick} title={$t('common.gallery.favorite')}>
+  <div class="likeButton">
+    <span>{item.likes.length}</span>
+    <Heart fill={isLiked ? 'currentColor' : 'none'} width={20} />
+  </div>
 </ActionButton>
 
 <style lang="scss">

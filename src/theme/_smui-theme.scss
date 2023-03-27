@@ -1,5 +1,7 @@
 @use 'src/theme/variables.scss' as *;
 
+@use 'sass:color';
+
 @use '@material/theme/index' as mui with (
   $primary: $primary,
   $secondary: $secondary,
@@ -26,6 +28,34 @@ a {
 
 svg {
   outline: none;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 0.3em 0.5em;
+  max-width: 300px;
+  border-radius: 0.3em;
+  background-color: #1e1e1eaa;
+  font-size: 0.8em;
+
+  visibility: hidden;
+  opacity: 0;
+  animation: 1s fadeIn ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+  50% {
+    visibility: visible;
+    opacity: 0;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
 body.noprint {

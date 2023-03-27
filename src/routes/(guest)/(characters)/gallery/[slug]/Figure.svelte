@@ -1,10 +1,8 @@
 <script lang="ts">
-  import Tooltip, { Wrapper } from '@smui/tooltip';
-
+  import { tooltip } from '$lib/scripts/tooltip';
   import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import Actions from '$lib/components/actions/Actions.svelte';
-  import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import LikeButton from '$lib/components/like/LikeButton.svelte';
 
   import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -33,26 +31,23 @@
   <figcaption>
     <h1>{item.name}</h1>
     <section>
-      <div>
-        <Wrapper>
+      {#if isCentral}
+        <section>
+          <div title={`${$t('common.character.race')}: ${race}`} use:tooltip>{race}</div>
+          <div title={`${$t('common.character.archetype')}: ${archetype}`} use:tooltip>
+            {archetype}
+          </div>
+          <div title={`${$t('common.character.background')}: ${background}`} use:tooltip>
+            {background}
+          </div>
+        </section>
+      {:else}
+        <section>
           <div>{race}</div>
-          <Tooltip>{$t('common.character.race')}: {race}</Tooltip>
-        </Wrapper>
-      </div>
-
-      <div>
-        <Wrapper>
           <div>{archetype}</div>
-          <Tooltip>{$t('common.character.archetype')}: {archetype}</Tooltip>
-        </Wrapper>
-      </div>
-
-      <div>
-        <Wrapper>
           <div>{background}</div>
-          <Tooltip>{$t('common.character.background')}: {background}</Tooltip>
-        </Wrapper>
-      </div>
+        </section>
+      {/if}
     </section>
   </figcaption>
 </figure>
@@ -98,11 +93,9 @@
           border-radius: 1em;
           background-color: color.adjust($on-surface, $alpha: -0.1);
 
-          > div {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-          }
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
       }
     }

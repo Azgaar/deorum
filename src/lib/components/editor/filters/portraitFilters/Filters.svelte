@@ -1,8 +1,7 @@
 <script lang="ts">
   import Dialog, { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
-  import Tooltip, { Wrapper } from '@smui/tooltip';
-
+  import { tooltip } from '$lib/scripts/tooltip';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import { t } from '$lib/locales/translations';
   import QualityFilter from './QualityFilter.svelte';
@@ -72,10 +71,12 @@
         {#if filters.original.length}
           <div class="selected rounded">
             {#each filters.original as originalId (originalId)}
-              <Wrapper>
-                <img alt={originalId} src={originalsMap.get(originalId)?.image} />
-                <Tooltip>{$t(`admin.originals.${originalsMap.get(originalId)?.name}`)}</Tooltip>
-              </Wrapper>
+              <img
+                alt={originalId}
+                src={originalsMap.get(originalId)?.image}
+                use:tooltip
+                title={$t(`admin.originals.${originalsMap.get(originalId)?.name}`)}
+              />
             {/each}
           </div>
         {/if}
@@ -88,10 +89,11 @@
         {#if filters.colors.length}
           <div class="selected rounded">
             {#each filters.colors as color (color)}
-              <Wrapper>
-                <div style="background-color: {color};" />
-                <Tooltip>{$t(`admin.colors.${color}`)}</Tooltip>
-              </Wrapper>
+              <div
+                style="background-color: {color}"
+                use:tooltip
+                title={$t(`admin.colors.${color}`)}
+              />
             {/each}
           </div>
         {/if}
@@ -104,13 +106,12 @@
         {#if filters.tags.length}
           <div class="selected">
             {#each filters.tags as tagId (tagId)}
-              <Wrapper>
-                <img
-                  src={tagsMap.get(tagId)?.image}
-                  alt={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
-                />
-                <Tooltip>{$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}</Tooltip>
-              </Wrapper>
+              <img
+                src={tagsMap.get(tagId)?.image}
+                alt={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
+                use:tooltip
+                title={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
+              />
             {/each}
           </div>
         {/if}
@@ -125,13 +126,12 @@
         {#if filters.styles.length}
           <div class="selected">
             {#each filters.styles as styleId (styleId)}
-              <Wrapper>
-                <img
-                  src={stylesMap.get(styleId)?.image}
-                  alt={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
-                />
-                <Tooltip>{$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}</Tooltip>
-              </Wrapper>
+              <img
+                src={stylesMap.get(styleId)?.image}
+                alt={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
+                use:tooltip
+                title={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
+              />
             {/each}
           </div>
         {/if}

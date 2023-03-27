@@ -1,15 +1,18 @@
 <script lang="ts">
+  import { tooltip } from '$lib/scripts/tooltip';
+
   export let onClick: VoidFunction | null = null;
   export let href: string | null = null;
   export let isActive = false;
+  export let title = '';
 </script>
 
 {#if onClick}
-  <button on:click={onClick} class:isActive>
+  <button on:click={onClick} class:isActive use:tooltip {title}>
     <slot />
   </button>
 {:else if href}
-  <a data-sveltekit-preload-data="hover" {href} class:isActive>
+  <a data-sveltekit-preload-data="hover" {href} class:isActive use:tooltip {title}>
     <slot />
   </a>
 {/if}

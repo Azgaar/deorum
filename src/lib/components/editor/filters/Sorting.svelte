@@ -1,8 +1,7 @@
 <script lang="ts">
-  import Tooltip, { Wrapper } from '@smui/tooltip';
-
   import type { ISorting } from '$lib/types/filters.types';
   import { t } from '$lib/locales/translations';
+  import { tooltip } from '$lib/scripts/tooltip';
 
   export let key: string;
   export let sorting: ISorting;
@@ -19,12 +18,15 @@
   };
 </script>
 
-<Wrapper>
-  <button type="button" on:click={handleSort} style="transform: rotate({ANGLES[order]}deg)"
-    >{ICON}</button
-  >
-  <Tooltip>{$t(`admin.sorting.${order}`)}</Tooltip>
-</Wrapper>
+<button
+  type="button"
+  on:click={handleSort}
+  use:tooltip
+  title={$t(`admin.sorting.${order}`)}
+  style="transform: rotate({ANGLES[order]}deg)"
+>
+  {ICON}
+</button>
 
 <style lang="scss">
   button {

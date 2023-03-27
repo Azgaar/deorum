@@ -8,7 +8,6 @@
   import { clickOutside } from '$lib/events/clickOutside';
   import { t } from '$lib/locales/translations';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import Tooltip, { Wrapper } from '@smui/tooltip';
   import { fly } from 'svelte/transition';
   import { exportChar } from './export';
 
@@ -28,42 +27,32 @@
     on:click={close}
     on:keydown={close}
   >
-    <ActionButton onClick={exportChar(item, 'portrait')}>
-      <Wrapper>
-        <User width={28} />
-        <Tooltip>{$t('common.details.export.portrait')}</Tooltip>
-      </Wrapper>
+    <ActionButton
+      onClick={exportChar(item, 'portrait')}
+      title={$t('common.details.export.portrait')}
+    >
+      <User width={28} />
     </ActionButton>
 
-    <ActionButton onClick={exportChar(item, 'cardImage')}>
-      <Wrapper>
-        <Card width={28} />
-        <Tooltip>{$t('common.details.export.cardImage')}</Tooltip>
-      </Wrapper>
+    <ActionButton
+      onClick={exportChar(item, 'cardImage')}
+      title={$t('common.details.export.cardImage')}
+    >
+      <Card width={28} />
     </ActionButton>
 
-    <ActionButton onClick={exportChar(item, 'text')}>
-      <Wrapper>
-        <Text width={28} />
-        <Tooltip>{$t('common.details.export.text')}</Tooltip>
-      </Wrapper>
+    <ActionButton onClick={exportChar(item, 'text')} title={$t('common.details.export.text')}>
+      <Text width={28} />
     </ActionButton>
 
-    <ActionButton onClick={exportChar(item, 'json')}>
-      <Wrapper>
-        <!-- svelte-ignore missing-declaration -->
-        <Braces width={28} />
-        <Tooltip>{$t('common.details.export.json')}</Tooltip>
-      </Wrapper>
+    <ActionButton onClick={exportChar(item, 'json')} title={$t('common.details.export.json')}>
+      <Braces width={28} />
     </ActionButton>
   </div>
 {/if}
 
-<ActionButton onClick={open} isActive={show}>
-  <Wrapper>
-    <ArrowDown width={28} rotate={show} />
-    <Tooltip>{$t('common.controls.download')}</Tooltip>
-  </Wrapper>
+<ActionButton onClick={open} isActive={show} title={$t('common.controls.download')}>
+  <ArrowDown width={28} rotate={show} />
 </ActionButton>
 
 <style lang="scss">

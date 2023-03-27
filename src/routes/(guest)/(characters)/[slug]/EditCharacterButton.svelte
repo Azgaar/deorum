@@ -3,13 +3,13 @@
   import Pencil from '$lib/components/icons/Pencil.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
+  import { getLocalCopy } from '$lib/utils/characters';
+  import EditorDialog from './EditorDialog.svelte';
+  import { request } from '$lib/utils/requests';
+
   import type { IArchetype, IBackground, ICharacter, IRace, ITag } from '$lib/types/api.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import { getLocalCopy } from '$lib/utils/characters';
-  import { request } from '$lib/utils/requests';
-  import Tooltip, { Wrapper } from '@smui/tooltip';
   import type { IEditorData } from './editor';
-  import EditorDialog from './EditorDialog.svelte';
 
   export let item: IGalleryItem;
   let editor = { open: false } as IEditorData;
@@ -43,11 +43,8 @@
   };
 </script>
 
-<ActionButton onClick={handleEditClick}>
-  <Wrapper>
-    <Pencil width={28} />
-    <Tooltip>{$t('common.controls.edit')}</Tooltip>
-  </Wrapper>
+<ActionButton onClick={handleEditClick} title={$t('common.controls.edit')}>
+  <Pencil width={28} />
 </ActionButton>
 
 {#if editor.open}<EditorDialog bind:item {...editor} bind:open={editor.open} />{/if}

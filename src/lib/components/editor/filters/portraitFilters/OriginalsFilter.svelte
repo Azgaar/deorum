@@ -1,8 +1,7 @@
 <script lang="ts">
-  import Tooltip, { Wrapper } from '@smui/tooltip';
   import Dialog, { Actions } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
-
+  import { tooltip } from '$lib/scripts/tooltip';
   import { t } from '$lib/locales/translations';
 
   export let open: boolean;
@@ -51,10 +50,7 @@
           on:click={handleSelect(entryId)}
         >
           <img src={image} alt={name} />
-          <Wrapper>
-            <span class="checkmark" />
-            <Tooltip>{$t(`admin.originals.${name}`)}</Tooltip>
-          </Wrapper>
+          <span class="checkmark" use:tooltip title={$t(`admin.originals.${name}`)} />
         </button>
       {/each}
     </div>

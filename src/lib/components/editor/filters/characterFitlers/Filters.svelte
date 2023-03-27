@@ -1,8 +1,7 @@
 <script lang="ts">
   import Dialog, { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
-  import Tooltip, { Wrapper } from '@smui/tooltip';
-
+  import { tooltip } from '$lib/scripts/tooltip';
   import { t } from '$lib/locales/translations';
   import Sorting from '../Sorting.svelte';
 
@@ -31,10 +30,12 @@
         {#if filters.races.length}
           <div class="selected">
             {#each filters.races as raceId (raceId)}
-              <Wrapper>
-                <img alt={raceId} src={racesMap.get(raceId)?.image} />
-                <Tooltip>{$t(`admin.originals.${racesMap.get(raceId)?.name}`)}</Tooltip>
-              </Wrapper>
+              <img
+                alt={raceId}
+                src={racesMap.get(raceId)?.image}
+                use:tooltip
+                title={$t(`admin.originals.${racesMap.get(raceId)?.name}`)}
+              />
             {/each}
           </div>
         {/if}
