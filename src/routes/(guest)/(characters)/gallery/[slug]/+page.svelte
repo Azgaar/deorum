@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import Figure from './Figure.svelte';
-  import type { Carousel } from '../../carousel';
+  import Card from '$lib/components/characters/Card.svelte';
+  import type { Carousel } from '$lib/components/characters/carousel';
 
   const carousel = getContext<Carousel>('carousel');
   const items = carousel.carousel;
@@ -16,7 +16,7 @@
   <section class="carousel">
     {#each $items as item (item.id)}
       <div class="item" on:click={handleClick(item.id)} on:keydown={handleClick(item.id)}>
-        <Figure {item} isCentral={item.id === carousel.currentId} />
+        <Card {item} actionable={item.id === carousel.currentId} />
       </div>
     {/each}
   </section>

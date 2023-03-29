@@ -1,18 +1,19 @@
 export function tooltip(element: HTMLElement): { destroy(): void } {
+  const root = document.querySelector('.root');
   let div: HTMLDivElement;
   let title = '';
   let limit = [0, 0];
 
   function mouseenter(event: MouseEvent): void {
     title = element.getAttribute('title') || '';
-    // NOTE: remove the `title` attribute, to prevent showing the default browser tooltip
     element.removeAttribute('title');
 
     div = document.createElement('div');
     div.textContent = title;
+    div.role = 'tooltip';
     div.className = 'tooltip';
     mouseMove(event);
-    document.body.appendChild(div);
+    root?.appendChild(div);
 
     const { width, height } = div.getBoundingClientRect();
     const { innerWidth, innerHeight } = window;
@@ -25,8 +26,7 @@ export function tooltip(element: HTMLElement): { destroy(): void } {
   }
 
   function mouseLeave(): void {
-    document.body.removeChild(div);
-    // NOTE: restore the `title` attribute
+    root?.removeChild(div);
     element.setAttribute('title', title);
   }
 

@@ -1,25 +1,24 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
   import Dialog, { Title } from '@smui/dialog';
+  import { getContext } from 'svelte';
 
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
-  import NumberInput from '$lib/components/inputs/NumberInput.svelte';
-  import Select from '$lib/components/inputs/Select.svelte';
-  import TextInput from '$lib/components/inputs/TextInput.svelte';
-  import Picture from '$lib/components/picture/Picture.svelte';
-  import { t } from '$lib/locales/translations';
-  import { getCharacterImage, getGalleryItemData, saveLocally } from '$lib/utils/characters';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import type { Carousel } from '$lib/components/characters/carousel';
   import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
   import { createOptions } from '$lib/components/editor/characterDialog/options';
   import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
   import { getRange } from '$lib/components/editor/characterDialog/range';
   import IconButton from '$lib/components/editor/IconButton.svelte';
-  import { loadSimilarPortraits } from './loadSimilarPortraits';
-
-  import type { Carousel } from '../carousel';
+  import NumberInput from '$lib/components/inputs/NumberInput.svelte';
+  import Select from '$lib/components/inputs/Select.svelte';
+  import TextInput from '$lib/components/inputs/TextInput.svelte';
+  import Picture from '$lib/components/picture/Picture.svelte';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { t } from '$lib/locales/translations';
   import type { ICharacter, IRace } from '$lib/types/api.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import { getCharacterImage, getGalleryItemData, saveLocally } from '$lib/utils/characters';
+  import { loadSimilarPortraits } from './loadSimilarPortraits';
 
   export let open: boolean;
   export let item: IGalleryItem;

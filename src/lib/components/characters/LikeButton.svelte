@@ -7,15 +7,12 @@
   import Heart from '$lib/components/icons/Heart.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
-  import { request } from '$lib/utils/requests';
-
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import type { Carousel } from '../../../routes/(guest)/(characters)/carousel';
+  import { controller, request } from '$lib/utils/requests';
 
   export let item: IGalleryItem;
 
   const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
-  const carousel = getContext<Carousel>('carousel');
 
   $: userId = ($page.data.userId || '') as string;
   $: likesOff = item.likes.filter((likerId) => likerId !== userId);
@@ -30,16 +27,15 @@
       return;
     }
 
-    const wasLiked = isLiked;
-    item.likes = wasLiked ? likesOff : likesOn; // optimistic update
+    item.likes = isLiked ? likesOff : likesOn; // optimistic update
+    controller?.abort(); // cancel previous request if any
 
     try {
-      await request(`/api/characters/${item.id}/like`, wasLiked ? 'DELETE' : 'POST');
-      carousel.update(item);
-      invalidate('app:userData');
+      await request(`/api/characters/${item.id}/like`, isLiked ? 'DELETE' : 'POST');
     } catch (error) {
-      item.likes = wasLiked ? likesOn : likesOff; // revert optimistic update
-      toastError(error);
+      if ((error as Error).name !== 'AbortError') toastError(error);
+    } finally {
+      invalidate('app:userData');
     }
   };
 </script>

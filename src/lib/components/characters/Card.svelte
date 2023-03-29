@@ -1,26 +1,31 @@
 <script lang="ts">
-  import { tooltip } from '$lib/scripts/tooltip';
-  import { t } from '$lib/locales/translations';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import Actions from '$lib/components/actions/Actions.svelte';
-  import LikeButton from '$lib/components/like/LikeButton.svelte';
-
+  import LikeButton from '$lib/components/characters/LikeButton.svelte';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { t } from '$lib/locales/translations';
+  import { tooltip } from '$lib/scripts/tooltip';
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import ShowDetailsButton from './ShowDetailsButton.svelte';
 
   export let item: IGalleryItem;
-  export let isCentral: boolean;
+  export let actionable: boolean;
 
   $: race = $t(`common.races.${item.race}`, { default: item.race });
   $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
   $: background = $t(`common.backgrounds.${item.background}`, { default: item.background });
+
+  $: features = [
+    { value: race, title: `${$t('common.character.race')}: ${race}` },
+    { value: archetype, title: `${$t('common.character.archetype')}: ${archetype}` },
+    { value: background, title: `${$t('common.character.background')}: ${background}` }
+  ];
 </script>
 
 <figure>
   <div class="imageContainer">
     <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.name} draggable="false" />
 
-    {#if isCentral}
+    {#if actionable}
       <Actions>
         <LikeButton {item} slot="top" />
         <ShowDetailsButton slot="bottom" href={`/${item.id}`} />
@@ -31,23 +36,13 @@
   <figcaption>
     <h1>{item.name}</h1>
     <section>
-      {#if isCentral}
-        <section>
-          <div title={`${$t('common.character.race')}: ${race}`} use:tooltip>{race}</div>
-          <div title={`${$t('common.character.archetype')}: ${archetype}`} use:tooltip>
-            {archetype}
-          </div>
-          <div title={`${$t('common.character.background')}: ${background}`} use:tooltip>
-            {background}
-          </div>
-        </section>
-      {:else}
-        <section>
-          <div>{race}</div>
-          <div>{archetype}</div>
-          <div>{background}</div>
-        </section>
-      {/if}
+      {#each features as { value, title } (value)}
+        {#if actionable}
+          <div {title} use:tooltip>{value}</div>
+        {:else}
+          <div>{value}</div>
+        {/if}
+      {/each}
     </section>
   </figcaption>
 </figure>
@@ -72,14 +67,14 @@
     }
 
     figcaption {
-      overflow: hidden;
-      display: grid;
-      grid-template-rows: 3fr 2fr;
+      display: flex;
+      flex-direction: column;
       place-items: center;
+      overflow: hidden;
 
       h1 {
         font-size: 1.4em;
-        margin: 0;
+        margin: 10px;
         text-shadow: 0px 0px 1rem black;
       }
 
@@ -92,10 +87,7 @@
           padding: 0.4em 1em;
           border-radius: 1em;
           background-color: color.adjust($on-surface, $alpha: -0.1);
-
           white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
         }
       }
     }

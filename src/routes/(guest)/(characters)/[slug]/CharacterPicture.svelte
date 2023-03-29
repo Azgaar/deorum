@@ -2,7 +2,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import Actions from '$lib/components/actions/Actions.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
-  import LikeButton from '$lib/components/like/LikeButton.svelte';
+  import LikeButton from '$lib/components/characters/LikeButton.svelte';
   import EditCharacterButton from './EditCharacterButton.svelte';
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import DownloadButton from './DownloadButton.svelte';

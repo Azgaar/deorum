@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
-  import { fade } from 'svelte/transition';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/stores';
+  import { Carousel } from '$lib/components/characters/carousel';
   import { swipe } from '$lib/events/swipe';
   import { allowHotkeys } from '$lib/utils/hotkeys';
-
-  import Arrows from './Arrows.svelte';
-  import { Carousel } from './carousel';
+  import { setContext } from 'svelte';
+  import { fade } from 'svelte/transition';
   import type { LayoutData } from './$types';
+  import Arrows from './Arrows.svelte';
 
   export let data: LayoutData;
 

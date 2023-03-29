@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fade } from 'svelte/transition';
   import Header from '$lib/components/header/Header.svelte';
   import Footer from '$lib/components/footer/Footer.svelte';
 </script>
@@ -6,7 +7,7 @@
 <div class="root">
   <Header />
 
-  <main>
+  <main transition:fade>
     <slot />
   </main>
 
@@ -33,8 +34,7 @@
 
   main {
     height: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    overflow-y: auto;
   }
 </style>

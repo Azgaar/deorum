@@ -6,13 +6,16 @@ const defaultHeaders = {
   accept: 'application/json'
 };
 
+export let controller: AbortController | null = null;
+
 // json requests only
 export const request = async <T>(
   url: string,
   method: HttpMethod = 'GET',
   data?: Record<string, unknown>
 ): Promise<T> => {
-  const options: RequestInit = { method, headers: defaultHeaders };
+  controller = new AbortController();
+  const options: RequestInit = { method, headers: defaultHeaders, signal: controller.signal };
   if (data) options.body = JSON.stringify(data);
   const res = await fetch(url, options);
   const body = await res.json();

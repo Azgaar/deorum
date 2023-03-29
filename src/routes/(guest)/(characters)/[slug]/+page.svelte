@@ -1,9 +1,8 @@
 <script lang="ts">
+  import type { Carousel } from '$lib/components/characters/carousel';
   import { getContext } from 'svelte';
-
   import CharacterDetails from './CharacterDetails.svelte';
   import CharacterPicture from './CharacterPicture.svelte';
-  import type { Carousel } from '../carousel';
 
   const { currentItem: item } = getContext<Carousel>('carousel');
 
