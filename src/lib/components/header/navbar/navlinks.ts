@@ -35,7 +35,7 @@ const linkGenerators: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   ],
   'default': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: getgalleryNextId(data), reload: true },
-    { id: `favorites`, key: 'common.navigation.favorites', variable: data.likesCount, to: '/favorites', roles: [Role.USER, Role.ADMIN] },
+    { id: `myCharacters`, key: 'common.navigation.myCharacters', variable: data.likesCount, to: '/myCharacters', roles: [Role.USER, Role.ADMIN] },
     { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar' },
     { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits', roles: [Role.ADMIN] }
   ],

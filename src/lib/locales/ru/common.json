@@ -43,7 +43,7 @@
     "tags": "Теги",
     "admin": "Админ",
     "next": "Следующий",
-    "favorites": "Избранное ({{variable}})",
+    "myCharacters": "Избранное ({{variable}})",
     "donate": "Поддержать проект"
   },
   "success": {
@@ -201,5 +201,9 @@
   "gallery": {
     "showDetails": "Показать детали",
     "favorite": "Добавить в Избранное"
+  },
+  "myCharacters": {
+    "liked": "Избранные персонажи",
+    "custom": "Созданные персонажи"
   }
 }

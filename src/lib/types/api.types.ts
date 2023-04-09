@@ -3,6 +3,7 @@ import type { Role } from '$lib/config';
 export type TCollection =
   | 'portraits'
   | 'characters'
+  | 'custom'
   | 'originals'
   | 'tags'
   | 'styles'
@@ -96,8 +97,11 @@ export interface ICharacter extends IRecord {
     tags?: ITag[];
   };
 
-  likes: string[];
+  likes?: string[];
+  creator?: string; // user id, for custom characters only
 }
+
+// custom (created/edited) character
 
 export interface IRace extends IRecord {
   name: string;
@@ -136,5 +140,6 @@ export interface IUser {
     role: Role;
     lang: string;
     liked: string[];
+    custom: string[];
   };
 }

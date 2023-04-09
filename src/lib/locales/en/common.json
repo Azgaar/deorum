@@ -43,7 +43,7 @@
     "tags": "Tags",
     "admin": "Admin",
     "next": "Next",
-    "favorites": "Favorites ({{variable}})",
+    "myCharacters": "My characters ({{variable}})",
     "donate": "Donate"
   },
   "success": {
@@ -200,6 +200,10 @@
   },
   "gallery": {
     "showDetails": "Show details",
-    "favorite": "Add to Favorites"
+    "favorite": "Add to My characters"
+  },
+  "myCharacters": {
+    "liked": "Liked characters",
+    "custom": "Custom characters"
   }
 }

@@ -150,7 +150,7 @@
       </BasicButton>
 
       <BasicButton type="submit" variant="text">
-        {$t('common.controls.apply')}
+        {$t('common.controls.save')}
       </BasicButton>
     </div>
   </form>

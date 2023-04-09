@@ -13,6 +13,7 @@ declare global {
       email: string | null;
       role: Role;
       liked: string[];
+      custom: string[];
     }
     // interface Error {}
     // interface Platform {}
