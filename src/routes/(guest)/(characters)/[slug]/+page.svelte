@@ -1,81 +1,9 @@
 <script lang="ts">
   import type { Carousel } from '$lib/components/characters/carousel';
+  import CharacterDetails from '$lib/components/characters/details/CharacterDetails.svelte';
   import { getContext } from 'svelte';
-  import CharacterDetails from './CharacterDetails.svelte';
-  import CharacterPicture from './CharacterPicture.svelte';
 
   const { currentItem: item } = getContext<Carousel>('carousel');
-
-  const getBioHtml = (bio: string) => `<p style="margin-block-start: 0">
-    ${bio.replace(/\n([ \t]*\n)+/g, '</p><p>').replace('\n', '<br />')}
-  </p>`;
 </script>
 
-<div class="wrapper">
-  <article id="characterCard">
-    <section class="content">
-      <div class="left-column">
-        <CharacterPicture item={$item} />
-        <CharacterDetails item={$item} />
-      </div>
-
-      <div class="right-column">
-        {#key $item.bio}
-          {@html getBioHtml($item.bio)}
-        {/key}
-      </div>
-    </section>
-  </article>
-</div>
-
-<style lang="scss">
-  @use 'sass:color';
-
-  div.wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 14px;
-    color: #dee7ea;
-
-    padding-top: 16px;
-    @media ($mobile) {
-      padding-top: 0;
-    }
-
-    article {
-      max-width: 1050px;
-      height: max-content;
-      background-color: #170904d9;
-
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-
-      section.content {
-        display: grid;
-        justify-items: center;
-        grid-gap: 16px;
-        grid-template-columns: 320px 1fr;
-
-        @media ($mobile) {
-          grid-template-columns: minmax(200px, 380px);
-          grid-template-rows: auto 1fr;
-        }
-
-        .left-column {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .right-column {
-          line-height: 1.2;
-        }
-      }
-    }
-  }
-</style>
+<CharacterDetails item={$item} />

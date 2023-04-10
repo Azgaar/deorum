@@ -5,10 +5,13 @@
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import RemoveButton from './RemoveButton.svelte';
   import ShowDetailsButton from './ShowDetailsButton.svelte';
 
   export let item: IGalleryItem;
   export let actionable: boolean;
+
+  console.log(item.name);
 
   $: race = $t(`common.races.${item.race}`, { default: item.race });
   $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
@@ -27,7 +30,14 @@
 
     {#if actionable}
       <Actions>
-        <LikeButton {item} slot="top" />
+        <div slot="top">
+          {#if item.creator}
+            <RemoveButton {item} />
+          {:else}
+            <LikeButton {item} />
+          {/if}
+        </div>
+
         <ShowDetailsButton slot="bottom" href={`/${item.id}`} />
       </Actions>
     {/if}

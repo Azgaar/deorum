@@ -97,8 +97,9 @@ export interface ICharacter extends IRecord {
     tags?: ITag[];
   };
 
-  likes?: string[];
+  likes?: string[]; // ids of users who liked, for precreated characters only
   creator?: string; // user id, for custom characters only
+  source?: string; // character id, for custom characters only
 }
 
 // custom (created/edited) character

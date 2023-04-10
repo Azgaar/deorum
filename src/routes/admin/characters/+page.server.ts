@@ -12,10 +12,10 @@ import type {
   ITag
 } from '$lib/types/api.types';
 import type { PageServerLoad } from './$types';
+import { charactersConfig } from '$lib/config';
 
 export const ssr = true;
 
-const EXPAND = 'race,archetype,background,portraits';
 const DEFAULT_FILTER = '';
 const DEFAULT_SORT = '-created';
 
@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       pageSize: String(pageSize),
       filter: url.searchParams.get('filter') || DEFAULT_FILTER,
       sort: url.searchParams.get('sort') || DEFAULT_SORT,
-      expand: EXPAND
+      expand: charactersConfig.expand
     });
 
     const [charactersList, tags, races, archetypes, backgrounds] = await Promise.all([

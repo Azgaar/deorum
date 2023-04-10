@@ -25,7 +25,8 @@ export const DELETE: RequestHandler = async ({ params }) => {
   try {
     const id = params.slug;
     const character = await admin.records.delete('characters', id);
-    invalidateCache('characters', 'portraits');
+    invalidateCache('characters');
+    invalidateCache('portraits');
     log('characters', `Character ${id} is deleted`);
     return json(character);
   } catch (err) {

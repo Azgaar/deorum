@@ -9,8 +9,8 @@ export const load: PageServerLoad = async ({ parent, fetch }) => {
   const parentData = await parent();
 
   const [liked, custom] = await Promise.all([
-    getCharacters<ICharacter>('characters', parentData.liked),
-    getCharacters<ICharacter>('custom', parentData.custom)
+    getLikedCharacters(parentData.liked),
+    getCustomCharacters(parentData.userId)
   ]);
 
   log(
@@ -20,18 +20,25 @@ export const load: PageServerLoad = async ({ parent, fetch }) => {
 
   return { myCharacters: { liked, custom } };
 
-  async function getCharacters<T extends ICharacter>(
-    collection: 'characters' | 'custom',
-    ids: string[]
-  ) {
+  async function getLikedCharacters(ids: string[]) {
     if (!ids.length) return [];
 
     const filter = ids.map((id) => `id="${id}"`).join('||');
-    const url = `/api/${collection}?filter=(${filter})&expand=${charactersConfig.expand}`;
-    const characters = await toJson<T[]>(fetch(url));
+    const url = `/api/characters?filter=(${filter})&expand=${charactersConfig.expand}`;
+    const characters = await toJson<ICharacter[]>(fetch(url));
     const items = characters
       .map(getGalleryItemData)
       .sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+
+    return items;
+  }
+
+  async function getCustomCharacters(userId: string | null) {
+    if (!userId) return [];
+
+    const url = `/api/custom?filter=(creator="${userId}")&sort=updated&expand=${charactersConfig.expand}`;
+    const characters = await toJson<ICharacter[]>(fetch(url));
+    const items = characters.map(getGalleryItemData);
 
     return items;
   }

@@ -21,6 +21,8 @@ export const POST: RequestHandler = async ({ params, request }) => {
     await client.records.update('profiles', user.profile.id, { liked });
 
     const oldCharacter = (await admin.records.getOne('characters', id)) as unknown as ICharacter;
+    if (!oldCharacter.likes) throw createServerError(`Custom character ${id} cannot be liked`);
+
     const oldLikes = oldCharacter.likes.filter((userId) => userId !== user.id);
     const likes = [...oldLikes, user.id];
     await admin.records.update('characters', id, { likes });
@@ -45,6 +47,8 @@ export const DELETE: RequestHandler = async ({ params, request }) => {
     await client.records.update('profiles', user.profile.id, { liked });
 
     const oldCharacter = (await admin.records.getOne('characters', id)) as unknown as ICharacter;
+    if (!oldCharacter.likes) throw createServerError(`Custom character ${id} cannot be unliked`);
+
     const likes = oldCharacter.likes.filter((userId) => userId !== user.id);
     await admin.records.update('characters', id, { likes });
     updateCache('characters', id, { likes });

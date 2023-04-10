@@ -1,9 +1,7 @@
 <script lang="ts">
   import Dialog, { Title } from '@smui/dialog';
-  import { getContext } from 'svelte';
 
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
-  import type { Carousel } from '$lib/components/characters/carousel';
   import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
   import { createOptions } from '$lib/components/editor/characterDialog/options';
   import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
@@ -16,12 +14,13 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import type { ICharacter, IRace } from '$lib/types/api.types';
-  import type { IGalleryItem } from '$lib/types/gallery.types';
-  import { getCharacterImage, getGalleryItemData, saveLocally } from '$lib/utils/characters';
+  import { getCharacterImage } from '$lib/utils/characters';
   import { loadSimilarPortraits } from './loadSimilarPortraits';
+  import { goto } from '$app/navigation';
+  import { request } from '$lib/utils/requests';
+  import { page } from '$app/stores';
 
   export let open: boolean;
-  export let item: IGalleryItem;
   export let character: ICharacter;
 
   export let races: Map<string, IRace>;
@@ -33,7 +32,6 @@
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
-  const carousel = getContext<Carousel>('carousel');
 
   const handleRandomizePortraitHover = async () => {
     const portraits = await loadSimilarPortraits(character);
@@ -43,9 +41,43 @@
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
 
-    saveLocally(character);
-    item = getGalleryItemData(character);
-    carousel.update(item);
+    const isCustom = Boolean(character.creator);
+    if (isCustom) {
+      // update custom character
+    } else {
+      const {
+        id,
+        name,
+        age,
+        gender,
+        race,
+        archetype,
+        background,
+        portraits,
+        weight,
+        height,
+        bio,
+        tags
+      } = character;
+
+      const data = {
+        name,
+        age,
+        gender,
+        race,
+        archetype,
+        background,
+        portraits,
+        weight,
+        height,
+        bio,
+        tags,
+        creator: $page.data.userId,
+        source: id
+      };
+      await request<ICharacter>('/api/custom', 'POST', data);
+      goto('./myCharacters');
+    }
 
     open = false;
   };

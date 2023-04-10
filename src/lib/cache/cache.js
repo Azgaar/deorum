@@ -130,10 +130,10 @@ export default class Cache {
       return Object.keys(_cache);
     };
 
-    this.invalidate = function (collection) {
+    this.invalidate = function (collection, args = []) {
       var count = 0;
       for (var key in _cache) {
-        if (key.startsWith(collection)) {
+        if (key.startsWith(collection) && args.every((arg) => key.includes(arg))) {
           this.del(key);
           count++;
         }

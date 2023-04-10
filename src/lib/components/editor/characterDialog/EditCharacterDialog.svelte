@@ -22,6 +22,7 @@
 
   import type { ICharacter, IRace } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
+  import { charactersConfig } from '$lib/config';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -51,9 +52,8 @@
       isLoading = true;
       const { id, name, age, gender, race, archetype, background, height, weight, bio, tags } =
         current;
-      const expand = 'race,archetype,background,portraits';
       const responseCharacter = await request<ICharacter>(
-        `/api/characters?expand=${expand}`,
+        `/api/characters?expand=${charactersConfig.expand}`,
         id ? 'PATCH' : 'PUT',
         {
           id,

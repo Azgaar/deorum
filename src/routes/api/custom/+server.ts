@@ -1,11 +1,12 @@
 import { json, error } from '@sveltejs/kit';
 
 import { log, report } from '$lib/utils/log';
-import { getCachedList, getCachedPage } from '$lib/cache/cacheInstance';
+import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
 import { createServerError } from '$lib/utils/errors';
 
 import type { ICharacter } from '$lib/types/api.types';
 import type { RequestHandler } from '../characters/$types';
+import admin from '$lib/api/admin';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -27,6 +28,20 @@ export const GET: RequestHandler = async ({ url }) => {
     const allCustomCharacters = await getCachedList<ICharacter>('custom', filter, sort, expand);
     log('custom', `Loading all custom characters`);
     return json(allCustomCharacters);
+  } catch (err) {
+    report('custom', err);
+    throw createServerError(err);
+  }
+};
+
+export const POST: RequestHandler = async ({ request }) => {
+  try {
+    const data = await request.json();
+    const customCharacter = await admin.records.create('custom', data);
+    invalidateCache('custom', data.creator);
+
+    log('custom', `Create custom character ${customCharacter.id}`, data);
+    return json(customCharacter);
   } catch (err) {
     report('custom', err);
     throw createServerError(err);

@@ -12,7 +12,7 @@
   import { deriveCharacterLabel } from '$lib/utils/characters';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
   import { request, sendFormData } from '$lib/utils/requests';
   import { convertImageUrl, isConvertableFormat } from '$lib/utils/images';
   import { getChanges } from '$lib/utils/portraits';
@@ -71,9 +71,8 @@
 
     try {
       characters = [];
-      const expand = 'race,archetype,background,portraits';
       const promises = characterIds.map((id) =>
-        request<ICharacter>(`/api/characters/${id}?expand=${expand}`)
+        request<ICharacter>(`/api/characters/${id}?expand=${charactersConfig.expand}`)
       );
       characters = await Promise.all(promises);
     } catch (error) {

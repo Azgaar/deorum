@@ -7,7 +7,7 @@
   import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
 
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
   import { request } from '$lib/utils/requests';
   import { toastError } from '$lib/stores';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
@@ -63,7 +63,7 @@
         pageSize: String(pageSize),
         filter: parseFilters(filters),
         sort: parseSorting(sorting),
-        expand: 'race,archetype,background,portraits'
+        expand: charactersConfig.expand
       });
 
       const charactersList = await request<IListResult<ICharacter>>(

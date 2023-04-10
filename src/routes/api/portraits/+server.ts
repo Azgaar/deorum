@@ -76,7 +76,8 @@ export const PATCH: RequestHandler = async ({ request }) => {
     );
     const result = await Promise.all(promises);
 
-    invalidateCache('portraits', 'characters');
+    invalidateCache('portraits');
+    invalidateCache('characters');
     log('editor', `Update ${pluralize('portrait', ids.length)} ${ids.join(', ')}`, changes);
     return json(result);
   } catch (err) {
@@ -91,7 +92,8 @@ export const DELETE: RequestHandler = async ({ request }) => {
     if (!ids || !ids.length) throw error(400, 'No ids provided for deletion');
 
     const result = await Promise.all(ids.map((id) => admin.records.delete('portraits', id)));
-    invalidateCache('portraits', 'characters');
+    invalidateCache('portraits');
+    invalidateCache('characters');
     log('portraits', `Delete ${pluralize('portrait', ids.length)} ${ids.join(', ')}`);
     return json(result);
   } catch (err) {

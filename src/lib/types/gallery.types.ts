@@ -13,4 +13,5 @@ export interface IGalleryItem {
   height: number;
   bio: string;
   likes: string[];
+  creator?: string;
 }

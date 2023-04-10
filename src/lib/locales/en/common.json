@@ -204,6 +204,7 @@
   },
   "myCharacters": {
     "liked": "Liked characters",
-    "custom": "Custom characters"
+    "custom": "Custom characters",
+    "remove": "Remove custom character"
   }
 }

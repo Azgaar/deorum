@@ -52,14 +52,39 @@ export const getCharacterImage = (character: ICharacter) => {
 // IGalleryItem is a minimal representation of a ICharacter
 // used to reduce data amount sent from server to the client
 export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
-  const { id, name, gender, age, height, weight, bio, '@expand': expand, likes = [] } = character;
+  const {
+    id,
+    name,
+    gender,
+    age,
+    height,
+    weight,
+    bio,
+    '@expand': expand,
+    likes = [],
+    creator
+  } = character;
   const image = getCharacterImage(character);
 
   const race = expand.race?.name || '';
   const archetype = expand.archetype?.name || '';
   const background = expand.background?.name || '';
 
-  return { id, image, name, race, gender, archetype, background, age, weight, height, bio, likes };
+  return {
+    id,
+    image,
+    name,
+    race,
+    gender,
+    archetype,
+    background,
+    age,
+    weight,
+    height,
+    bio,
+    likes,
+    creator
+  };
 };
 
 export const derivePrimaryImagePath = (character: ICharacter, thump: number | boolean = false) => {
@@ -73,15 +98,4 @@ export const getGenderIcon = (gender: string) => {
   if (gender === 'male') return '♂️';
   if (gender === 'female') return '♀️';
   return '';
-};
-
-export const saveLocally = (character: ICharacter) => {
-  const data = JSON.stringify(character);
-  localStorage.setItem(`deorum-character-${character.id}`, data);
-};
-
-export const getLocalCopy = (id: string) => {
-  const data = localStorage.getItem(`deorum-character-${id}`);
-  if (!data) return null;
-  return JSON.parse(data) as ICharacter;
 };

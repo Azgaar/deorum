@@ -1,10 +1,8 @@
 import { get, writable, type Subscriber, type Writable } from 'svelte/store';
 
-import { browser } from '$app/environment';
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
 import { toastError } from '$lib/stores';
 import { sliceElements } from '$lib/utils/array';
-import { getGalleryItemData, getLocalCopy } from '$lib/utils/characters';
 import { report } from '$lib/utils/log';
 import { preloadImage, request } from '$lib/utils/requests';
 import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -23,7 +21,7 @@ export class Carousel {
   currentItem: Writable<IGalleryItem>;
 
   constructor(items: IGalleryItem[], currentId: string) {
-    this.items = this.replaceWithLocalCopy(items);
+    this.items = items;
     this.currentId = currentId;
     this.isLoadingMore = false;
 
@@ -53,17 +51,6 @@ export class Carousel {
     });
   }
 
-  // replace items with edited characters from local storage
-  private replaceWithLocalCopy(items: IGalleryItem[]) {
-    if (!browser) return items;
-
-    return items.map((item) => {
-      const localCopy = getLocalCopy(item.id);
-      if (localCopy) return getGalleryItemData(localCopy);
-      return item;
-    });
-  }
-
   // load more items from the server
   private async loadMore(right: boolean) {
     if (this.isLoadingMore) return;
@@ -75,11 +62,10 @@ export class Carousel {
       const moreItems = await request<IGalleryItem[]>(
         `/api/gallery/more?edgeId=${edgeId}&right=${right}`
       );
-      const newItems = this.replaceWithLocalCopy(moreItems);
 
-      this.items = right ? [...this.items, ...newItems] : [...newItems, ...this.items];
+      this.items = right ? [...this.items, ...moreItems] : [...moreItems, ...this.items];
       this.updateCarousel(this.items, this.currentId);
-      this.preloadImages(newItems);
+      this.preloadImages(moreItems);
     } catch (error) {
       report('gallery', error, { right });
       toastError(error);

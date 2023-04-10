@@ -1,31 +1,29 @@
 <script lang="ts">
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import Pencil from '$lib/components/icons/Pencil.svelte';
+  import { charactersConfig } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
-  import { getLocalCopy } from '$lib/utils/characters';
-  import EditorDialog from './EditorDialog.svelte';
-  import { request } from '$lib/utils/requests';
-
   import type { IArchetype, IBackground, ICharacter, IRace, ITag } from '$lib/types/api.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import type { IEditorData } from './editor';
+  import { request } from '$lib/utils/requests';
+  import EditorDialog from '../editor/EditorDialog.svelte';
 
   export let item: IGalleryItem;
-  let editor = { open: false } as IEditorData;
+  let editor = { open: false } as {
+    open: boolean;
+    character: ICharacter;
+    races: Map<string, IRace>;
+    archetypes: Map<string, { name: string }>;
+    backgrounds: Map<string, { name: string }>;
+    tags: Map<string, { name: string; image: string }>;
+  };
 
   const handleEditClick = async () => {
     try {
-      const expand = 'race,archetype,background,portraits';
-
-      const characterLocalCopy = getLocalCopy(item.id);
-      const characterPromise = characterLocalCopy
-        ? Promise.resolve(characterLocalCopy)
-        : request<ICharacter>(`/api/characters/${item.id}?expand=${expand}`);
-
       const [character, racesArray, archetypesArray, backgroundsArray, tagsArray] =
         await Promise.all([
-          characterPromise,
+          request<ICharacter>(`/api/characters/${item.id}?expand=${charactersConfig.expand}`),
           request<IRace[]>('/api/races'),
           request<IArchetype[]>('/api/archetypes'),
           request<IBackground[]>('/api/backgrounds'),
@@ -47,4 +45,4 @@
   <Pencil width={28} />
 </ActionButton>
 
-{#if editor.open}<EditorDialog bind:item {...editor} bind:open={editor.open} />{/if}
+{#if editor.open}<EditorDialog {...editor} bind:open={editor.open} />{/if}

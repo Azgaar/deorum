@@ -14,6 +14,7 @@
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
   import type { ICharacter, IRace, IListResult } from '$lib/types/api.types';
+  import { charactersConfig } from '$lib/config';
 
   export let open: boolean;
   export let currentIds: string[];
@@ -43,8 +44,7 @@
       isLoading = true;
       const pageSize = 100;
       const filter = race ? `race="${race}"` : '';
-      const expand = 'race,archetype,background,portraits';
-      const url = `/api/characters?page=${page}&pageSize=${pageSize}&filter=${filter}&expand=${expand}`;
+      const url = `/api/characters?page=${page}&pageSize=${pageSize}&filter=${filter}&expand=${charactersConfig.expand}`;
       const charactersList = await request<IListResult<ICharacter>>(url);
 
       hasMore = charactersList.totalPages > page;
