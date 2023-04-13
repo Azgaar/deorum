@@ -34,6 +34,8 @@ declare global {
       'on:swipeUp'?: (e: CustomEvent) => void;
       'on:swipeDown'?: (e: CustomEvent) => void;
       'on:clickOutside'?: (e: CustomEvent) => void;
+      'on:dialogOpen'?: (e: CustomEvent) => void;
+      'on:dialogClose'?: (e: CustomEvent) => void;
     }
   }
 

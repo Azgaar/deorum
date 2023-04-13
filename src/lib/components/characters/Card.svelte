@@ -11,8 +11,6 @@
   export let item: IGalleryItem;
   export let actionable: boolean;
 
-  console.log(item.name);
-
   $: race = $t(`common.races.${item.race}`, { default: item.race });
   $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
   $: background = $t(`common.backgrounds.${item.background}`, { default: item.background });

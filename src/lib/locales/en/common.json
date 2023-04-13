@@ -20,6 +20,14 @@
     "random": "random",
     "download": "Download"
   },
+  "dialog": {
+    "confirmation": {
+      "title": "Confirmation",
+      "body": "Are you sure you want to proceed?",
+      "confirm": "yes",
+      "cancel": "no"
+    }
+  },
   "values": {
     "undefined": "undefined",
     "all": "all"
