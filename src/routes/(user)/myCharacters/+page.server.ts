@@ -5,13 +5,15 @@ import { log } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ parent, fetch }) => {
+export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
   const parentData = await parent();
 
   const [liked, custom] = await Promise.all([
     getLikedCharacters(parentData.liked),
     getCustomCharacters(parentData.userId)
   ]);
+
+  depends('app:myCharacters');
 
   log(
     'myCharacters',

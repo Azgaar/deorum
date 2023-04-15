@@ -20,6 +20,14 @@
     "random": "случайно",
     "download": "Скачать"
   },
+  "dialog": {
+    "confirmation": {
+      "title": "Подтверждение",
+      "body": "Вы уверены, что хотите продолжить?",
+      "confirm": "да",
+      "cancel": "нет"
+    }
+  },
   "values": {
     "undefined": "не указан",
     "all": "все"
