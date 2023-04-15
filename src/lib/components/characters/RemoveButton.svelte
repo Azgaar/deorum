@@ -26,6 +26,6 @@
   };
 </script>
 
-<ActionButton onClick={handleClick} title={$t('common.myCharacters.remove')}>
+<ActionButton onClick={handleClick} title={$t('common.myCharacters.custom.remove')}>
   <Trash width={26} />
 </ActionButton>
