@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { invalidate } from '$app/navigation';
+  import { goto, invalidate } from '$app/navigation';
+  import { page } from '$app/stores';
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import { confirmationDialog } from '$lib/components/dialog/dialog';
   import Trash from '$lib/components/icons/Trash.svelte';
@@ -17,7 +18,10 @@
       try {
         showLoadingOverlay();
         await request(`/api/custom/${item.id}`, 'DELETE');
-        await invalidate(KEYS.MY_CHARACTERS);
+
+        const isDetailsPage = Boolean($page.params.slug);
+        if (isDetailsPage) goto('/myCharacters');
+        else await invalidate(KEYS.MY_CHARACTERS);
       } catch (error) {
         report('character editor', error);
         toastError(error);

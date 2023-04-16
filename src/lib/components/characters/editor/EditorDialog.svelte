@@ -1,24 +1,25 @@
 <script lang="ts">
-  import Dialog, { Title } from '@smui/dialog';
-
+  import { goto, invalidate } from '$app/navigation';
+  import { page } from '$app/stores';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
+  import IconButton from '$lib/components/editor/IconButton.svelte';
   import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
   import { createOptions } from '$lib/components/editor/characterDialog/options';
   import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
   import { getRange } from '$lib/components/editor/characterDialog/range';
-  import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { t } from '$lib/locales/translations';
+  import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
   import type { ICharacter, IRace } from '$lib/types/api.types';
   import { getCharacterImage } from '$lib/utils/characters';
-  import { loadSimilarPortraits } from './loadSimilarPortraits';
-  import { goto } from '$app/navigation';
+  import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
-  import { page } from '$app/stores';
+  import Dialog, { Title } from '@smui/dialog';
+  import { loadSimilarPortraits } from './loadSimilarPortraits';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -39,51 +40,47 @@
   };
 
   const handleSubmit = async (event: SubmitEvent) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      showLoadingOverlay();
 
-    const isCustom = Boolean(character.creator);
-    if (isCustom) {
-      // update custom character
-    } else {
-      const {
-        id,
-        name,
-        age,
-        gender,
-        race,
-        archetype,
-        background,
-        portraits,
-        weight,
-        height,
-        bio,
-        tags
-      } = character;
-
-      const data = {
-        name,
-        age,
-        gender,
-        race,
-        archetype,
-        background,
-        portraits,
-        weight,
-        height,
-        bio,
-        tags,
-        creator: $page.data.userId,
-        source: id
+      const isCustom = Boolean(character.creator);
+      const patchData = {
+        name: character.name.trim(),
+        age: character.age,
+        gender: character.gender,
+        race: character.race,
+        archetype: character.archetype,
+        background: character.background,
+        portraits: character.portraits,
+        weight: character.weight,
+        height: character.height,
+        bio: character.bio.trim(),
+        tags: character.tags
       };
-      await request<ICharacter>('/api/custom', 'POST', data);
-      goto('./myCharacters');
+
+      if (isCustom) {
+        // update custom character
+        await request<ICharacter>(`/api/custom/${character.id}`, 'PATCH', patchData);
+        invalidate(KEYS.CUSTOM_CHARACTER);
+      } else {
+        // create custom character
+        const createData = {
+          ...patchData,
+          creator: $page.data.userId,
+          source: character.id
+        };
+        await request<ICharacter>('/api/custom', 'POST', createData);
+        goto('./myCharacters');
+      }
+
+      open = false;
+    } catch (error) {
+      report('edit character', error, character);
+      toastError(error);
+    } finally {
+      hideLoadingOverlay();
     }
-
-    open = false;
-  };
-
-  const handleCancel = () => {
-    open = false;
   };
 </script>
 
@@ -177,7 +174,7 @@
     </div>
 
     <div class="actions">
-      <BasicButton variant="text" onClick={handleCancel}>
+      <BasicButton variant="text" onClick={() => (open = false)}>
         {$t('common.controls.cancel')}
       </BasicButton>
 

@@ -1,12 +1,14 @@
 export function tooltip(element: HTMLElement) {
-  let root: HTMLDivElement;
-  let div: HTMLDivElement;
+  let root: HTMLDivElement | null;
+  let div: HTMLDivElement | null;
 
   const title = element.getAttribute('title') || '';
   let limit = [0, 0];
 
   function mouseenter(event: MouseEvent): void {
-    root = document.querySelector('.root') as HTMLDivElement;
+    root = document.querySelector('.root');
+    if (!root) return;
+
     element.removeAttribute('title');
 
     div = document.createElement('div');
@@ -28,7 +30,11 @@ export function tooltip(element: HTMLElement) {
   }
 
   function mouseLeave(): void {
-    div && root.removeChild(div);
+    if (div && root) {
+      root.removeChild(div);
+      root = null;
+      div = null;
+    }
     element.setAttribute('title', title);
   }
 

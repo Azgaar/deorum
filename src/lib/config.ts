@@ -45,5 +45,6 @@ export const charactersConfig = {
 
 export enum KEYS {
   USER_DATA = 'app:userData',
-  MY_CHARACTERS = 'app:myCharacters'
+  MY_CHARACTERS = 'app:myCharacters',
+  CUSTOM_CHARACTER = 'app:customCharacter'
 }

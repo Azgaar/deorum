@@ -6,6 +6,7 @@
   import { toastError } from '$lib/stores';
   import type { IArchetype, IBackground, ICharacter, IRace, ITag } from '$lib/types/api.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import EditorDialog from '../editor/EditorDialog.svelte';
 
@@ -21,9 +22,10 @@
 
   const handleEditClick = async () => {
     try {
+      const characterPath = item.creator ? 'custom' : 'characters';
       const [character, racesArray, archetypesArray, backgroundsArray, tagsArray] =
         await Promise.all([
-          request<ICharacter>(`/api/characters/${item.id}?expand=${charactersConfig.expand}`),
+          request<ICharacter>(`/api/${characterPath}/${item.id}?expand=${charactersConfig.expand}`),
           request<IRace[]>('/api/races'),
           request<IArchetype[]>('/api/archetypes'),
           request<IBackground[]>('/api/backgrounds'),
@@ -36,6 +38,7 @@
       const tags = new Map(tagsArray.map(({ id, image, name }) => [id, { image, name }]));
       editor = { open: true, character, races, archetypes, backgrounds, tags };
     } catch (error) {
+      report('edit character', error, item);
       toastError(error);
     }
   };

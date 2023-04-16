@@ -10,6 +10,7 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import { controller, request } from '$lib/utils/requests';
   import { KEYS } from '$lib/config';
+  import { report } from '$lib/utils/log';
 
   export let item: IGalleryItem;
 
@@ -34,7 +35,10 @@
     try {
       await request(`/api/characters/${item.id}/like`, isLiked ? 'DELETE' : 'POST');
     } catch (error) {
-      if ((error as Error).name !== 'AbortError') toastError(error);
+      if ((error as Error).name !== 'AbortError') {
+        report('character like', error, { item, isLiked });
+        toastError(error);
+      }
     } finally {
       invalidate(KEYS.USER_DATA);
     }

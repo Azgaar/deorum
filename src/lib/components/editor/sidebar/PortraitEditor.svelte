@@ -76,6 +76,7 @@
       );
       characters = await Promise.all(promises);
     } catch (error) {
+      report('portrait editor', error, characterIds);
       toastError(error);
       characters = [];
     }
