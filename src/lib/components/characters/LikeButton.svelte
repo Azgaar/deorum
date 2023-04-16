@@ -9,6 +9,7 @@
   import { toastError } from '$lib/stores';
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import { controller, request } from '$lib/utils/requests';
+  import { KEYS } from '$lib/config';
 
   export let item: IGalleryItem;
 
@@ -35,7 +36,7 @@
     } catch (error) {
       if ((error as Error).name !== 'AbortError') toastError(error);
     } finally {
-      invalidate('app:userData');
+      invalidate(KEYS.USER_DATA);
     }
   };
 </script>

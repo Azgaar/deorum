@@ -1,13 +1,11 @@
 import { authorize } from '$lib/api/auth';
 import { locales } from '$lib/locales/translations';
-import { Role } from '$lib/config';
+import { KEYS, Role } from '$lib/config';
 
 import type { Config } from '@sveltejs/adapter-vercel';
 import type { IUser } from '$lib/types/api.types';
 
-export const config: Config = {
-  runtime: 'nodejs18.x'
-};
+export const config: Config = { runtime: 'nodejs18.x' };
 
 const getLocale = (request: Request, user: IUser | null) => {
   if (user?.profile?.lang) return user.profile.lang;
@@ -29,7 +27,7 @@ export const load: import('./$types').LayoutServerLoad = async ({ request, depen
   const liked = user?.profile.liked || [];
   const custom = user?.profile.custom || [];
 
-  depends('app:userData');
+  depends(KEYS.USER_DATA);
 
   return { lang, userId, email, role, liked, custom };
 };

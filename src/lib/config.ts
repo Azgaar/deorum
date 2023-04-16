@@ -42,3 +42,8 @@ export const charactersConfig = {
   expand: 'race,archetype,background,portraits',
   batch: 15
 };
+
+export enum KEYS {
+  USER_DATA = 'app:userData',
+  MY_CHARACTERS = 'app:myCharacters'
+}

@@ -1,4 +1,4 @@
-import { charactersConfig } from '$lib/config';
+import { KEYS, charactersConfig } from '$lib/config';
 import type { ICharacter } from '$lib/types/api.types';
 import { getGalleryItemData } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
     getCustomCharacters(parentData.userId)
   ]);
 
-  depends('app:myCharacters');
+  depends(KEYS.MY_CHARACTERS);
 
   log(
     'myCharacters',

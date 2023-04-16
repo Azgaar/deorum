@@ -6,22 +6,24 @@
   import type { PageData } from './$types';
 
   export let data: PageData;
+  $: custom = data.myCharacters.custom;
+  $: liked = data.myCharacters.liked;
 </script>
 
 <div class="wrapper">
   <section>
     <header>
-      <h2>{$t('common.myCharacters.custom.title')}</h2>
+      <h2>{$t('common.myCharacters.custom.title')} ({custom.length})</h2>
       <BasicButton onClick={() => goto('/create')}>
         {$t('common.myCharacters.custom.create')}
       </BasicButton>
     </header>
 
-    {#if data.myCharacters.custom.length === 0}
+    {#if custom.length === 0}
       <p>{$t('common.myCharacters.custom.empty')}</p>
     {:else}
       <div class="grid">
-        {#each data.myCharacters.custom as item (item.id)}
+        {#each custom as item (item.id)}
           <Card {item} actionable />
         {/each}
       </div>
@@ -30,19 +32,19 @@
 
   <section>
     <header>
-      <h2>{$t('common.myCharacters.liked.title')}</h2>
+      <h2>{$t('common.myCharacters.liked.title')} ({liked.length})</h2>
       <a href="/gallery" data-sveltekit-preload-data={'hover'}>
         {$t('common.myCharacters.liked.goToGallery')}
       </a>
     </header>
 
-    {#if data.myCharacters.liked.length === 0}
+    {#if liked.length === 0}
       <p>
         {$t('common.myCharacters.liked.empty')}
       </p>
     {:else}
       <div class="grid">
-        {#each data.myCharacters.liked as item (item.id)}
+        {#each liked as item (item.id)}
           <Card {item} actionable />
         {/each}
       </div>
@@ -64,7 +66,9 @@
       margin-bottom: 8px;
 
       h2 {
-        text-shadow: 0px 0px 1rem black;
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-shadow: 0px 0px 6px black;
         margin: 0;
       }
 

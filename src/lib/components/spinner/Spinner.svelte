@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="loader" />
+  <div class="spinner" />
 </div>
 
 <style lang="scss">
@@ -8,7 +8,7 @@
     color: $primary;
   }
 
-  .loader {
+  .spinner {
     border: 0.05em currentcolor solid;
     border-radius: 50%;
     position: relative;
