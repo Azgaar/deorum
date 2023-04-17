@@ -29,6 +29,7 @@
   export let backgrounds: Map<string, { name: string }>;
   export let tags: Map<string, { name: string; image: string }>;
 
+  $: mode = character.id ? 'edit' : 'create';
   $: range = getRange(character.gender, character.race, races);
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
@@ -92,22 +93,24 @@
   scrimClickAction=""
 >
   <Title>
-    {$t('common.details.editor.title')}
+    {$t(mode === 'create' ? 'common.details.editor.create' : 'common.details.editor.edit')}
   </Title>
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
       <div class="columns">
         <div class="column">
-          <div class="portrait">
-            <Picture
-              src={`${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`}
-              alt="Character portrait"
-            />
-            <div on:mouseover|once={handleRandomizePortraitHover} on:focus={() => {}}>
-              <IconButton onClick={randomize.portrait}>🎲</IconButton>
+          {#if mode === 'edit'}
+            <div class="portrait">
+              <Picture
+                src={`${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`}
+                alt="Character portrait"
+              />
+              <div on:mouseover|once={handleRandomizePortraitHover} on:focus={() => {}}>
+                <IconButton onClick={randomize.portrait}>🎲</IconButton>
+              </div>
             </div>
-          </div>
+          {/if}
         </div>
 
         <div class="column">
@@ -190,6 +193,7 @@
 
   form.body {
     padding: 0 1.5rem;
+    font-size: 14px;
 
     div.content {
       display: flex;

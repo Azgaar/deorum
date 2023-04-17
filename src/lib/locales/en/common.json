@@ -51,7 +51,7 @@
     "tags": "Tags",
     "admin": "Admin",
     "next": "Next",
-    "myCharacters": "My characters ({{variable}})",
+    "myCharacters": "My Characters",
     "donate": "Donate"
   },
   "success": {
@@ -203,7 +203,8 @@
       "json": "JSON file"
     },
     "editor": {
-      "title": "Edit character"
+      "edit": "Edit character",
+      "create": "Create character"
     }
   },
   "gallery": {
