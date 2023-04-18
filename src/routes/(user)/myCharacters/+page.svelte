@@ -49,9 +49,9 @@
   <section>
     <header>
       <h2>{$t('common.myCharacters.custom.title')} ({custom.length})</h2>
-      <BasicButton onClick={handleCreate}>
+      <button on:click={handleCreate}>
         {$t('common.myCharacters.custom.create')}
-      </BasicButton>
+      </button>
     </header>
 
     {#if custom.length === 0}
@@ -109,11 +109,22 @@
         margin: 0;
       }
 
+      button,
       a {
-        color: $text;
+        background: none;
+        border: none;
         text-transform: uppercase;
+        text-decoration: underline;
         font-size: 0.8rem;
         text-shadow: 0px 0px 1rem black;
+        cursor: pointer;
+
+        color: $text;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+          color: #999999;
+        }
       }
     }
 

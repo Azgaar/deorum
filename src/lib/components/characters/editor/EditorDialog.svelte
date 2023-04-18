@@ -19,7 +19,6 @@
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import Dialog, { Title } from '@smui/dialog';
-  import { loadSimilarPortraits } from './loadSimilarPortraits';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -34,11 +33,6 @@
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
-
-  const handleRandomizePortraitHover = async () => {
-    const portraits = await loadSimilarPortraits(character);
-    character = { ...character, '@expand': { ...character['@expand'], portraits } };
-  };
 
   const handleSubmit = async (event: SubmitEvent) => {
     try {
@@ -106,8 +100,11 @@
                 src={`${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`}
                 alt="Character portrait"
               />
-              <div on:mouseover|once={handleRandomizePortraitHover} on:focus={() => {}}>
-                <IconButton onClick={randomize.portrait}>🎲</IconButton>
+              <div on:mouseover|once={randomize.loadMorePortraits} on:focus={() => {}}>
+                <IconButton
+                  onClick={randomize.portrait}
+                  title={$t('common.details.editor.randomize.portrait')}>🎲</IconButton
+                >
               </div>
             </div>
           {/if}
@@ -118,7 +115,10 @@
             <div>{$t('common.character.name')}:</div>
             <div>
               <TextInput bind:value={character.name} />
-              <IconButton onClick={randomize.name}>🎲</IconButton>
+              <IconButton
+                onClick={randomize.name}
+                title={$t('common.details.editor.randomize.name')}>🎲</IconButton
+              >
             </div>
           </div>
 
@@ -127,7 +127,9 @@
             <div>
               <NumberInput bind:value={character.age} />
               <span class="extent">{range?.age}</span>
-              <IconButton onClick={randomize.age}>🎲</IconButton>
+              <IconButton onClick={randomize.age} title={$t('common.details.editor.randomize.age')}
+                >🎲</IconButton
+              >
             </div>
           </div>
 
@@ -136,7 +138,10 @@
             <div>
               <NumberInput bind:value={character.height} />
               <span class="extent">{range?.height}</span>
-              <IconButton onClick={randomize.height}>🎲</IconButton>
+              <IconButton
+                onClick={randomize.height}
+                title={$t('common.details.editor.randomize.height')}>🎲</IconButton
+              >
             </div>
           </div>
 
@@ -145,7 +150,10 @@
             <div>
               <NumberInput bind:value={character.weight} />
               <span class="extent">{range?.weight}</span>
-              <IconButton onClick={randomize.weight}>🎲</IconButton>
+              <IconButton
+                onClick={randomize.weight}
+                title={$t('common.details.editor.randomize.weight')}>🎲</IconButton
+              >
             </div>
           </div>
 
