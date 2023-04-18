@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import CharacterBio from './CharacterBio.svelte';
   import CharacterData from './CharacterData.svelte';
   import CharacterPicture from './CharacterPicture.svelte';
 
@@ -19,9 +20,7 @@
       </div>
 
       <div class="right-column">
-        {#key item.bio}
-          {@html getBioHtml(item.bio)}
-        {/key}
+        <CharacterBio {item} />
       </div>
     </section>
   </article>

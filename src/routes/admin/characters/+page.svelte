@@ -3,7 +3,7 @@
 
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
-  import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
+  import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
 
@@ -200,7 +200,7 @@
 </main>
 
 {#if editCharacterDialogData.open}
-  <EditCharacterDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
+  <AdminEditorDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
 {/if}
 
 <EditorDialog {...editorDialogData} />

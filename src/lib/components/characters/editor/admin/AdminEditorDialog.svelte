@@ -1,28 +1,25 @@
 <script lang="ts">
-  import Dialog, { Title } from '@smui/dialog';
-
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
+  import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
+  import { charactersConfig } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
-  import { report } from '$lib/utils/log';
-  import { request } from '$lib/utils/requests';
-  import { makePOJO } from '$lib/utils/object';
-
-  import IconButton from '../IconButton.svelte';
-  import BiographyEditor from './biography/BiographyEditor.svelte';
-  import Portraits from './portraits/Portraits.svelte';
-  import TagsEditor from './tags/TagsEditor.svelte';
-  import { createOptions } from './options';
-  import { getRange } from './range';
-  import { createRandomizer } from './randomize';
-
   import type { ICharacter, IRace } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
-  import { charactersConfig } from '$lib/config';
+  import { report } from '$lib/utils/log';
+  import { makePOJO } from '$lib/utils/object';
+  import { request } from '$lib/utils/requests';
+  import Dialog, { Title } from '@smui/dialog';
+  import BiographyEditor from '../BiographyEditor.svelte';
+  import { createOptions } from '../options';
+  import { createRandomizer } from '../randomize';
+  import { getRange } from '../range';
+  import Portraits from './portraits/Portraits.svelte';
+  import TagsEditor from './tags/TagsEditor.svelte';
 
   export let open: boolean;
   export let character: ICharacter;

@@ -206,11 +206,14 @@
       "edit": "Edit character",
       "create": "Create character",
       "randomize": {
-        "portrait": "Randomize portrait",
         "name": "Randomize name",
         "age": "Randomize age",
         "height": "Randomize height",
         "weight": "Randomize weight"
+      },
+      "portrait": {
+        "upload": "Upload portrait",
+        "randomize": "Randomize portrait"
       },
       "bio": {
         "copy": "Copy biography",

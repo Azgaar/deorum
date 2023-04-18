@@ -2,23 +2,22 @@
   import { goto, invalidate } from '$app/navigation';
   import { page } from '$app/stores';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
+  import { createOptions } from '$lib/components/characters/editor/options';
+  import { createRandomizer } from '$lib/components/characters/editor/randomize';
+  import { getRange } from '$lib/components/characters/editor/range';
   import IconButton from '$lib/components/editor/IconButton.svelte';
-  import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
-  import { createOptions } from '$lib/components/editor/characterDialog/options';
-  import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
-  import { getRange } from '$lib/components/editor/characterDialog/range';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
-  import Picture from '$lib/components/picture/Picture.svelte';
-  import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { KEYS } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
   import type { ICharacter, IRace } from '$lib/types/api.types';
-  import { getCharacterImage } from '$lib/utils/characters';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import Dialog, { Title } from '@smui/dialog';
+  import BiographyEditor from './BiographyEditor.svelte';
+  import PortraitEditor from './PortraitEditor.svelte';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -66,7 +65,7 @@
           source: character.id
         };
         await request<ICharacter>('/api/custom', 'POST', createData);
-        goto('./myCharacters');
+        invalidate(KEYS.MY_CHARACTERS);
       }
 
       open = false;
@@ -94,20 +93,7 @@
     <div class="content">
       <div class="columns">
         <div class="column">
-          {#if mode === 'edit'}
-            <div class="portrait">
-              <Picture
-                src={`${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`}
-                alt="Character portrait"
-              />
-              <div on:mouseover|once={randomize.loadMorePortraits} on:focus={() => {}}>
-                <IconButton
-                  onClick={randomize.portrait}
-                  title={$t('common.details.editor.randomize.portrait')}>🎲</IconButton
-                >
-              </div>
-            </div>
-          {/if}
+          <PortraitEditor bind:character />
         </div>
 
         <div class="column">
@@ -217,16 +203,6 @@
           display: flex;
           flex-direction: column;
           gap: 6px;
-
-          div.portrait {
-            position: relative;
-
-            div {
-              position: absolute;
-              bottom: 8px;
-              right: 8px;
-            }
-          }
 
           div.element {
             display: grid;

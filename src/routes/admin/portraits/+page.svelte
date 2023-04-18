@@ -4,8 +4,8 @@
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
-  import EditCharacterDialog from '$lib/components/editor/characterDialog/EditCharacterDialog.svelte';
-  import SelectCharacterDialog from '$lib/components/editor/characterDialog/SelectCharacterDialog.svelte';
+  import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
+  import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
   import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
@@ -415,7 +415,7 @@
 </main>
 
 {#if editCharacterDialogData.open}
-  <EditCharacterDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
+  <AdminEditorDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
 {/if}
 
 <EditorDialog {...editorDialogData} />

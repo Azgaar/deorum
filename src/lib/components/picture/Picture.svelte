@@ -29,7 +29,9 @@
   </svg>
 
   {#key src}
-    <img {src} {alt} {loading} draggable="false" on:load={onLoad} on:error={onLoad} />
+    {#if src}
+      <img {src} {alt} {loading} draggable="false" on:load={onLoad} on:error={onLoad} />
+    {/if}
   {/key}
 
   {#if isLoading}
@@ -46,7 +48,8 @@
     user-select: none;
 
     svg.placeholder {
-      fill: $background;
+      fill: $secondary;
+      border-radius: 4px;
     }
 
     img {

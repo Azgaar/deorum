@@ -5,7 +5,6 @@ import { getRandomNumber } from '$lib/utils/probability';
 import { blankRace } from '$lib/data/races';
 
 import type { ICharacter, IRace, TGender } from '$lib/types/api.types';
-import { loadSimilarPortraits } from '$lib/components/characters/editor/loadSimilarPortraits';
 
 export const createRandomizer = (
   character: ICharacter,
@@ -41,27 +40,6 @@ export const createRandomizer = (
       const mean = deviateByGenre(character.gender, race.weightMean, race.weightGenderDeviation);
       const weight = getRandomNumber({ mean, deviation: race.weightDeviation });
       setItem({ ...character, weight });
-    },
-
-    portrait: () => {
-      const portraits = character['@expand'].portraits;
-      if (!portraits) return;
-
-      const [first, ...rest] = portraits;
-      const newPortraits = [...rest, first];
-
-      const newCharacter = {
-        ...character,
-        portraits: newPortraits.map(({ id }) => id),
-        '@expand': { ...character['@expand'], portraits: newPortraits }
-      };
-      setItem(newCharacter);
-    },
-
-    loadMorePortraits: async () => {
-      const portraits = await loadSimilarPortraits(character);
-      const newCharacter = { ...character, '@expand': { ...character['@expand'], portraits } };
-      setItem(newCharacter);
     }
   };
 
