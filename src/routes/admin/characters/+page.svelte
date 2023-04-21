@@ -13,7 +13,7 @@
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
 
-  import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
+  import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
 
   export let data: import('./$types').PageData;
@@ -66,7 +66,7 @@
         expand: charactersConfig.expand
       });
 
-      const charactersList = await request<IListResult<ICharacter>>(
+      const charactersList = await request<IList<ICharacter>>(
         `/api/characters?${params.toString()}`
       );
 

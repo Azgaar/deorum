@@ -11,7 +11,7 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
-  import type { IListResult, IOriginal, IPortrait } from '$lib/types/api.types';
+  import type { IList, IOriginal, IPortrait } from '$lib/types/api.types';
 
   export let open: boolean;
   export let ids: string[];
@@ -36,7 +36,7 @@
     try {
       isLoading = true;
       const filter = original ? `original="${original}"` : '';
-      const portraitsList = await request<IListResult<IPortrait>>(
+      const portraitsList = await request<IList<IPortrait>>(
         `/api/portraits?page=${page}&pageSize=100&filter=${filter}`
       );
 
