@@ -9,7 +9,6 @@ type TNavlinksData = {
   galleryNextId: string | null;
   randomId?: string;
   nextId?: string;
-  likesCount: string;
 };
 
 // prettier-ignore
@@ -34,8 +33,8 @@ const linkGenerators: {[key: string]: (data: TNavlinksData) => ILink[]} = {
     { id: 'next', key: 'common.navigation.next', to: `./${data.nextId}` }
   ],
   'default': (data) => [
-    { id: 'gallery', key: 'common.navigation.gallery', to: getgalleryNextId(data), reload: true },
-    { id: `myCharacters`, key: 'common.navigation.myCharacters', variable: data.likesCount, to: '/myCharacters', roles: [Role.USER, Role.ADMIN] },
+    { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
+    { id: `myCharacters`, key: 'common.navigation.myCharacters', to: '/myCharacters', roles: [Role.USER, Role.ADMIN] },
     { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar' },
     { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits', roles: [Role.ADMIN] }
   ],
@@ -47,7 +46,7 @@ const commonLinks = [
   { id: 'logout', key: 'common.auth.logout', to: '/logout', roles: [Role.USER, Role.ADMIN] }
 ];
 
-function getgalleryNextId({ routeId, currentId, galleryNextId, randomId }: TNavlinksData) {
+function getGalleryNextId({ routeId, currentId, galleryNextId, randomId }: TNavlinksData) {
   if (routeId === '/(guest)/(characters)/[slug]') return `/gallery/${currentId}`;
   if (galleryNextId) return `/gallery/${galleryNextId}`;
   if (randomId) return `/gallery/${randomId}`;
@@ -67,9 +66,8 @@ export const getLinks = (
   const routeId = page.route.id;
   if (!routeId) return [];
 
-  const { role, currentId, randomId, nextId, liked } = page.data;
-  const likesCount = String(liked?.length || 0);
-  const linksData = { routeId, role, currentId, randomId, nextId, likesCount, galleryNextId };
+  const { role, currentId, randomId, nextId } = page.data;
+  const linksData = { routeId, role, currentId, randomId, nextId, galleryNextId };
 
   const routeLinks = match(routeId)(linksData);
   const combinedLinks = [...routeLinks, ...commonLinks];

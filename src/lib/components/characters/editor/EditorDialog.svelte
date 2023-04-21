@@ -2,24 +2,22 @@
   import { goto, invalidate } from '$app/navigation';
   import { page } from '$app/stores';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
+  import { createOptions } from '$lib/components/characters/editor/options';
+  import { createRandomizer } from '$lib/components/characters/editor/randomize';
+  import { getRange } from '$lib/components/characters/editor/range';
   import IconButton from '$lib/components/editor/IconButton.svelte';
-  import BiographyEditor from '$lib/components/editor/characterDialog/biography/BiographyEditor.svelte';
-  import { createOptions } from '$lib/components/editor/characterDialog/options';
-  import { createRandomizer } from '$lib/components/editor/characterDialog/randomize';
-  import { getRange } from '$lib/components/editor/characterDialog/range';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
-  import Picture from '$lib/components/picture/Picture.svelte';
-  import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { KEYS } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
   import type { ICharacter, IRace } from '$lib/types/api.types';
-  import { getCharacterImage } from '$lib/utils/characters';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import Dialog, { Title } from '@smui/dialog';
-  import { loadSimilarPortraits } from './loadSimilarPortraits';
+  import BiographyEditor from './BiographyEditor.svelte';
+  import PortraitEditor from './PortraitEditor.svelte';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -29,15 +27,11 @@
   export let backgrounds: Map<string, { name: string }>;
   export let tags: Map<string, { name: string; image: string }>;
 
+  $: mode = character.id ? 'edit' : 'create';
   $: range = getRange(character.gender, character.race, races);
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
-
-  const handleRandomizePortraitHover = async () => {
-    const portraits = await loadSimilarPortraits(character);
-    character = { ...character, '@expand': { ...character['@expand'], portraits } };
-  };
 
   const handleSubmit = async (event: SubmitEvent) => {
     try {
@@ -71,7 +65,7 @@
           source: character.id
         };
         await request<ICharacter>('/api/custom', 'POST', createData);
-        goto('./myCharacters');
+        invalidate(KEYS.MY_CHARACTERS);
       }
 
       open = false;
@@ -92,22 +86,14 @@
   scrimClickAction=""
 >
   <Title>
-    {$t('common.details.editor.title')}
+    {$t(mode === 'create' ? 'common.details.editor.create' : 'common.details.editor.edit')}
   </Title>
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
       <div class="columns">
         <div class="column">
-          <div class="portrait">
-            <Picture
-              src={`${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`}
-              alt="Character portrait"
-            />
-            <div on:mouseover|once={handleRandomizePortraitHover} on:focus={() => {}}>
-              <IconButton onClick={randomize.portrait}>🎲</IconButton>
-            </div>
-          </div>
+          <PortraitEditor bind:character />
         </div>
 
         <div class="column">
@@ -115,7 +101,10 @@
             <div>{$t('common.character.name')}:</div>
             <div>
               <TextInput bind:value={character.name} />
-              <IconButton onClick={randomize.name}>🎲</IconButton>
+              <IconButton
+                onClick={randomize.name}
+                title={$t('common.details.editor.randomize.name')}>🎲</IconButton
+              >
             </div>
           </div>
 
@@ -124,7 +113,9 @@
             <div>
               <NumberInput bind:value={character.age} />
               <span class="extent">{range?.age}</span>
-              <IconButton onClick={randomize.age}>🎲</IconButton>
+              <IconButton onClick={randomize.age} title={$t('common.details.editor.randomize.age')}
+                >🎲</IconButton
+              >
             </div>
           </div>
 
@@ -133,7 +124,10 @@
             <div>
               <NumberInput bind:value={character.height} />
               <span class="extent">{range?.height}</span>
-              <IconButton onClick={randomize.height}>🎲</IconButton>
+              <IconButton
+                onClick={randomize.height}
+                title={$t('common.details.editor.randomize.height')}>🎲</IconButton
+              >
             </div>
           </div>
 
@@ -142,7 +136,10 @@
             <div>
               <NumberInput bind:value={character.weight} />
               <span class="extent">{range?.weight}</span>
-              <IconButton onClick={randomize.weight}>🎲</IconButton>
+              <IconButton
+                onClick={randomize.weight}
+                title={$t('common.details.editor.randomize.weight')}>🎲</IconButton
+              >
             </div>
           </div>
 
@@ -190,6 +187,7 @@
 
   form.body {
     padding: 0 1.5rem;
+    font-size: 14px;
 
     div.content {
       display: flex;
@@ -205,16 +203,6 @@
           display: flex;
           flex-direction: column;
           gap: 6px;
-
-          div.portrait {
-            position: relative;
-
-            div {
-              position: absolute;
-              bottom: 8px;
-              right: 8px;
-            }
-          }
 
           div.element {
             display: grid;

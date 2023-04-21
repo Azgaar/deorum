@@ -1,7 +1,7 @@
 import { getElement, getFullList, getPage } from '$lib/api/getData';
 import { makePOJO } from '$lib/utils/object';
 
-import type { IListResult, TCollection } from '$lib/types/api.types';
+import type { IList, TCollection } from '$lib/types/api.types';
 
 import Cache from './cache';
 
@@ -36,13 +36,13 @@ export const getCachedPage = async <T>(
   filter = '',
   sort = '',
   expand = ''
-): Promise<IListResult<T>> => {
+): Promise<IList<T>> => {
   const key = [collection, page, pageSize, filter, sort, expand, '$page'].join('-');
 
   const cached = cache.get(key);
   if (cached) return new Promise((resolve) => resolve(cached));
 
-  const list = (await getPage(collection, page, pageSize, filter, sort, expand)) as IListResult<T>;
+  const list = (await getPage(collection, page, pageSize, filter, sort, expand)) as IList<T>;
   const serialized = makePOJO(list);
 
   cache.put(key, serialized, EXPIRATION);

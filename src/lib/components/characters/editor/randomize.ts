@@ -40,18 +40,6 @@ export const createRandomizer = (
       const mean = deviateByGenre(character.gender, race.weightMean, race.weightGenderDeviation);
       const weight = getRandomNumber({ mean, deviation: race.weightDeviation });
       setItem({ ...character, weight });
-    },
-
-    portrait: () => {
-      const portraits = character['@expand'].portraits;
-      if (!portraits) return;
-
-      const [first, ...rest] = portraits;
-      const newCharacter = {
-        ...character,
-        '@expand': { ...character['@expand'], portraits: [...rest, first] }
-      };
-      setItem(newCharacter);
     }
   };
 

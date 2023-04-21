@@ -1,11 +1,20 @@
 <script lang="ts">
+  import { tooltip } from '$lib/scripts/tooltip';
+
   export let onClick: VoidFunction;
   export let disabled = false;
+  export let title = '';
 </script>
 
-<button type="button" {disabled} on:click={onClick}>
-  <slot />
-</button>
+{#if title}
+  <button type="button" {disabled} on:click={onClick} {title} use:tooltip>
+    <slot />
+  </button>
+{:else}
+  <button type="button" {disabled} on:click={onClick}>
+    <slot />
+  </button>
+{/if}
 
 <style lang="scss">
   button {

@@ -37,7 +37,7 @@ export const convertableMimeTypes = convertableImageFormats.map((type) => `image
 export const defaultFileName = 'deorum';
 
 export const charactersConfig = {
-  filter: '(inactive=false)',
+  filter: '',
   sort: 'id',
   expand: 'race,archetype,background,portraits',
   batch: 15

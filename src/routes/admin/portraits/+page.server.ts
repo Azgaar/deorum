@@ -7,7 +7,7 @@ import type {
   IBackground,
   IArchetype,
   IColor,
-  IListResult,
+  IList,
   IOriginal,
   IPortrait,
   IRace,
@@ -18,7 +18,7 @@ import type { PageServerLoad } from './$types';
 
 export const ssr = true;
 
-const DEFAULT_FILTER = 'active=true';
+const DEFAULT_FILTER = '';
 const DEFAULT_SORT = '-created';
 
 const pageSize = 100;
@@ -46,7 +46,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
     const [portraitsList, originals, tags, styles, colors, races, archetypes, backgrounds] =
       await Promise.all([
-        toJson<IListResult<IPortrait>>(fetch(`/api/portraits?${searchParams}`)),
+        toJson<IList<IPortrait>>(fetch(`/api/portraits?${searchParams}`)),
         toJson<IOriginal[]>(fetch('/api/originals')),
         toJson<ITag[]>(fetch('/api/tags')),
         toJson<IStyle[]>(fetch('/api/styles')),

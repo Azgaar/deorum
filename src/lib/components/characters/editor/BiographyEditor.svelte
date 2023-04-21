@@ -59,7 +59,7 @@
   <div class="label">
     <label for="bio">{$t('common.character.bio')}:</label>
     <div>
-      <IconButton onClick={copyBio}>📋</IconButton>
+      <IconButton onClick={copyBio} title={$t('common.details.editor.bio.copy')}>📋</IconButton>
 
       {#if $page.data.role === Role.ADMIN}
         {#if isLoading}
@@ -67,10 +67,14 @@
             <CircularSpinner size={16} />
           </IconButton>
         {:else}
-          <IconButton onClick={generateBio}>🎲</IconButton>
+          <IconButton onClick={generateBio} title={$t('common.details.editor.bio.generate')}
+            >🎲</IconButton
+          >
         {/if}
 
-        <IconButton onClick={togglePrompt}>⚙️</IconButton>
+        <IconButton onClick={togglePrompt} title={$t('common.details.editor.bio.configurePrompt')}
+          >⚙️</IconButton
+        >
       {/if}
     </div>
   </div>

@@ -45,6 +45,7 @@ export const verifyCharacter = (char: ICharacter) => {
 export const getCharacterImage = (character: ICharacter) => {
   const { '@expand': expand } = character;
   const portraits = expand.portraits || [];
+  if (!portraits.length) return '';
   const mainPortrait = portraits[0];
   return `${mainPortrait.id}/${mainPortrait.image}`;
 };

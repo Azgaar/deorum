@@ -3,14 +3,7 @@ import { report } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
 
 import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-import type {
-  IArchetype,
-  IBackground,
-  ICharacter,
-  IListResult,
-  IRace,
-  ITag
-} from '$lib/types/api.types';
+import type { IArchetype, IBackground, ICharacter, IList, IRace, ITag } from '$lib/types/api.types';
 import type { PageServerLoad } from './$types';
 import { charactersConfig } from '$lib/config';
 
@@ -43,7 +36,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     });
 
     const [charactersList, tags, races, archetypes, backgrounds] = await Promise.all([
-      toJson<IListResult<ICharacter>>(fetch(`/api/characters?${params}`)),
+      toJson<IList<ICharacter>>(fetch(`/api/characters?${params}`)),
       toJson<ITag[]>(fetch('/api/tags')),
       toJson<IRace[]>(fetch('/api/races')),
       toJson<IArchetype[]>(fetch('/api/archetypes')),

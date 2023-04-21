@@ -1,12 +1,14 @@
 import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
 import { request } from '$lib/utils/requests';
-import type { ICharacter, IListResult, IPortrait } from '$lib/types/api.types';
+import type { ICharacter, IPortrait } from '$lib/types/api.types';
+import type { TSimilarityCriteria } from '$lib/types/portraits.types';
 
 export async function loadSimilarPortraits(character: ICharacter) {
+  const similarPortraits = await fetchSimilar(character);
+
   const currentPortraits = character['@expand'].portraits || [];
   const currentPortraitIds = currentPortraits.map(({ id }) => id);
-  const similarPortraits = await fetchSimilar(character);
   const newPortraits = similarPortraits.filter(({ id }) => !currentPortraitIds.includes(id));
   const mergedPortraits = [...currentPortraits, ...newPortraits];
   return mergedPortraits;
@@ -14,15 +16,15 @@ export async function loadSimilarPortraits(character: ICharacter) {
 
 async function fetchSimilar(character: ICharacter) {
   try {
-    const mainPortrait = character['@expand']?.portraits?.[0];
-    if (!mainPortrait) return [];
-
-    const filter = `original="${mainPortrait.original}"`;
-    const portraitsList = await request<IListResult<IPortrait>>(
-      `/api/portraits?page=1&pageSize=100&filter=${filter}&sort=-quality`
-    );
-
-    return portraitsList.items;
+    const data: TSimilarityCriteria = {
+      original: character['@expand']?.portraits?.[0].original,
+      gender: character.gender,
+      race: character.race,
+      archetype: character.archetype,
+      background: character.background
+    };
+    const similarPortraits = await request<IPortrait[]>('/api/portraits/similar', 'POST', data);
+    return similarPortraits;
   } catch (error) {
     report('character editor', error);
     toastError(error as string);

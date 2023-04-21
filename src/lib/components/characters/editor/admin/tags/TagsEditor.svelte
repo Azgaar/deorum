@@ -1,11 +1,9 @@
 <script lang="ts">
+  import IconButton from '$lib/components/editor/IconButton.svelte';
+  import Chip from '$lib/components/editor/chips/Chip.svelte';
   import { t } from '$lib/locales/translations';
-  import { isSameArray } from '$lib/utils/array';
-
-  import Chip from '../../chips/Chip.svelte';
-  import IconButton from '../../IconButton.svelte';
-
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
+  import { isSameArray } from '$lib/utils/array';
 
   export let tags: string[] = [];
   export let tagsMap: Map<string, { name: string; image: string }>;

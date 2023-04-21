@@ -51,7 +51,7 @@
     "tags": "Tags",
     "admin": "Admin",
     "next": "Next",
-    "myCharacters": "My characters ({{variable}})",
+    "myCharacters": "My Characters",
     "donate": "Donate"
   },
   "success": {
@@ -203,7 +203,24 @@
       "json": "JSON file"
     },
     "editor": {
-      "title": "Edit character"
+      "edit": "Edit character",
+      "create": "Create character",
+      "randomize": {
+        "name": "Randomize name",
+        "age": "Randomize age",
+        "height": "Randomize height",
+        "weight": "Randomize weight"
+      },
+      "portrait": {
+        "drop": "Drop image here",
+        "upload": "Upload portrait",
+        "randomize": "Randomize portrait"
+      },
+      "bio": {
+        "copy": "Copy biography",
+        "generate": "Generate biography",
+        "configurePrompt": "Configure generation prompt"
+      }
     }
   },
   "gallery": {
@@ -219,7 +236,7 @@
     "custom": {
       "title": "Custom characters",
       "empty": "You haven't created any custom characters yet.",
-      "create": "Create",
+      "create": "Create character",
       "remove": "Remove custom character"
     }
   }

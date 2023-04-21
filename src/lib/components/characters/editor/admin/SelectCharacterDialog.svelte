@@ -13,7 +13,7 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
-  import type { ICharacter, IRace, IListResult } from '$lib/types/api.types';
+  import type { ICharacter, IRace, IList } from '$lib/types/api.types';
   import { charactersConfig } from '$lib/config';
 
   export let open: boolean;
@@ -45,7 +45,7 @@
       const pageSize = 100;
       const filter = race ? `race="${race}"` : '';
       const url = `/api/characters?page=${page}&pageSize=${pageSize}&filter=${filter}&expand=${charactersConfig.expand}`;
-      const charactersList = await request<IListResult<ICharacter>>(url);
+      const charactersList = await request<IList<ICharacter>>(url);
 
       hasMore = charactersList.totalPages > page;
       characters = [...currentCharacters, ...charactersList.items];

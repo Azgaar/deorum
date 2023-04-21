@@ -13,7 +13,7 @@ export type TCollection =
   | 'archetypes'
   | 'backgrounds';
 
-export interface IListResult<T> {
+export interface IList<T> {
   page: number;
   perPage: number;
   totalItems: number;
@@ -46,7 +46,10 @@ export interface IPortrait extends IRecord {
     original?: IOriginal;
     tags?: ITag[];
     styles?: IStyle[];
+    characters?: ICharacter[];
   };
+
+  user?: string; // uploaded userId
 }
 
 export interface IOriginal extends IRecord {
