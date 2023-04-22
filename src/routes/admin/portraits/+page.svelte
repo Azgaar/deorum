@@ -425,6 +425,7 @@
 
 <input
   on:change={enterUploadMode}
+  id="uploadFilesInput"
   style="display: none;"
   type="file"
   accept="image/webp, image/jpg, image/jpeg, image/png"

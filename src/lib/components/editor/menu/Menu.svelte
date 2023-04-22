@@ -67,7 +67,7 @@
       <Label>{$t('admin.menu.statistics')}</Label>
     </Button>
 
-    <Button variant="raised" on:click={() => document.getElementById('filesInput')?.click()}>
+    <Button variant="raised" on:click={() => document.getElementById('uploadFilesInput')?.click()}>
       <Label>{$t('admin.menu.upload')}</Label>
     </Button>
 
