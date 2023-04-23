@@ -8,7 +8,7 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
-  import EditorDialog from '../editor/EditorDialog.svelte';
+  import CharacterEditorDialog from '../editor/CharacterEditorDialog.svelte';
 
   export let item: IGalleryItem;
   let editor = { open: false } as {
@@ -48,4 +48,4 @@
   <Pencil width={28} />
 </ActionButton>
 
-{#if editor.open}<EditorDialog {...editor} bind:open={editor.open} />{/if}
+{#if editor.open}<CharacterEditorDialog {...editor} bind:open={editor.open} />{/if}

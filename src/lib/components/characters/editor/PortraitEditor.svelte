@@ -4,7 +4,6 @@
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getCharacterImage } from '$lib/utils/characters';
-  import { loadSimilarPortraits } from './loadSimilarPortraits';
   import { convertImageFile } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
   import { toastError } from '$lib/stores';
@@ -58,33 +57,21 @@
     }
   }
 
-  function randomizePortrait() {
+  function nextPortrait() {
     const portraits = character['@expand'].portraits;
     if (portraits?.length) {
       const [first, ...rest] = portraits;
-      const newPortraits = [...rest, first];
 
       character = {
         ...character,
-        portraits: newPortraits.map(({ id }) => id),
-        '@expand': { ...character['@expand'], portraits: newPortraits }
+        portraits: [first.id],
+        '@expand': { ...character['@expand'], portraits: [...rest, first] }
       };
     }
   }
-
-  async function preloadMorePortraits() {
-    const portraits = await loadSimilarPortraits(character);
-    character = { ...character, '@expand': { ...character['@expand'], portraits } };
-  }
 </script>
 
-<div
-  class="portrait"
-  on:drop={handleDrop}
-  on:dragover={handleDragover}
-  on:mouseover|once={preloadMorePortraits}
-  on:focus={() => {}}
->
+<div class="portrait" on:drop={handleDrop} on:dragover={handleDragover} on:focus={() => {}}>
   <svg class="placeholder" width="100%" viewBox="0 0 512 512">
     <rect width="512" height="512" />
   </svg>
@@ -105,7 +92,7 @@
       <input type="file" accept="image/*" bind:this={uploadInput} on:change={handleUpload} />📁
     </IconButton>
 
-    <IconButton onClick={randomizePortrait} title={$t('common.details.editor.portrait.randomize')}>
+    <IconButton onClick={nextPortrait} title={$t('common.details.editor.portrait.randomize')}>
       🎲
     </IconButton>
   </div>

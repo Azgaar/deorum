@@ -12,33 +12,84 @@
   import { KEYS } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
-  import type { ICharacter, IRace } from '$lib/types/api.types';
+  import type {
+    IArchetype,
+    IBackground,
+    ICharacter,
+    IPortrait,
+    IRace,
+    ITag,
+    TGender
+  } from '$lib/types/api.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import Dialog, { Title } from '@smui/dialog';
   import BiographyEditor from './BiographyEditor.svelte';
   import PortraitEditor from './PortraitEditor.svelte';
+  import { fetchSimilar } from './loadSimilarPortraits';
 
   export let open: boolean;
   export let character: ICharacter;
 
   export let races: Map<string, IRace>;
-  export let archetypes: Map<string, { name: string }>;
-  export let backgrounds: Map<string, { name: string }>;
-  export let tags: Map<string, { name: string; image: string }>;
+  export let archetypes: Map<string, IArchetype>;
+  export let backgrounds: Map<string, IBackground>;
+  export let tags: Map<string, ITag>;
 
-  $: mode = character.id ? 'edit' : 'create';
   $: range = getRange(character.gender, character.race, races);
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
+
+  let portraitsPreloaded = false;
+  async function preloadPortraitsPool() {
+    if (portraitsPreloaded) return;
+    const similarPortraits = await fetchSimilar(character);
+    let portraits: IPortrait[] = [];
+
+    const currentPortrait = character['@expand'].portraits?.[0];
+    if (currentPortrait) {
+      const newPortraits = similarPortraits.filter(({ id }) => id !== currentPortrait.id);
+      portraits = [currentPortrait, ...newPortraits];
+    } else {
+      portraits = similarPortraits;
+    }
+
+    character = { ...character, '@expand': { ...character['@expand'], portraits } };
+    portraitsPreloaded = true;
+  }
+
+  const handleGenderChange = (value: string) => {
+    character.gender = value as TGender;
+    portraitsPreloaded = false;
+  };
+
+  const handleRaceChange = (value: string) => {
+    character.race = value;
+    const race = races.get(value);
+    if (race) character['@expand'].race = race;
+    portraitsPreloaded = false;
+  };
+
+  const handleArchetypeChange = (value: string) => {
+    character.archetype = value;
+    const archetype = archetypes.get(value);
+    if (archetype) character['@expand'].archetype = archetype;
+    portraitsPreloaded = false;
+  };
+
+  const handleBackgroundChange = (value: string) => {
+    character.background = value;
+    const background = backgrounds.get(value);
+    if (background) character['@expand'].background = background;
+    portraitsPreloaded = false;
+  };
 
   const handleSubmit = async (event: SubmitEvent) => {
     try {
       event.preventDefault();
       showLoadingOverlay();
 
-      const isCustom = Boolean(character.creator);
       const patchData = {
         name: character.name.trim(),
         age: character.age,
@@ -53,19 +104,18 @@
         tags: character.tags
       };
 
-      if (isCustom) {
-        // update custom character
+      const isCreated = Boolean(character.creator);
+      if (isCreated) {
         await request<ICharacter>(`/api/custom/${character.id}`, 'PATCH', patchData);
-        invalidate(KEYS.CUSTOM_CHARACTER);
+        await invalidate(KEYS.CUSTOM_CHARACTER);
       } else {
-        // create custom character
         const createData = {
           ...patchData,
           creator: $page.data.userId,
           source: character.id
         };
         await request<ICharacter>('/api/custom', 'POST', createData);
-        invalidate(KEYS.MY_CHARACTERS);
+        await invalidate(KEYS.MY_CHARACTERS);
       }
 
       open = false;
@@ -74,6 +124,7 @@
       toastError(error);
     } finally {
       hideLoadingOverlay();
+      if (!$page.route.id?.includes('myCharacters')) goto('/myCharacters');
     }
   };
 </script>
@@ -86,13 +137,13 @@
   scrimClickAction=""
 >
   <Title>
-    {$t(mode === 'create' ? 'common.details.editor.create' : 'common.details.editor.edit')}
+    {$t(character.id ? 'common.details.editor.edit' : 'common.details.editor.create')}
   </Title>
 
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
       <div class="columns">
-        <div class="column">
+        <div class="column" on:mouseover={preloadPortraitsPool} on:focus={preloadPortraitsPool}>
           <PortraitEditor bind:character />
         </div>
 
@@ -145,22 +196,34 @@
 
           <div class="element">
             <div>{$t('common.character.gender')}:</div>
-            <Select bind:value={character.gender} options={options.gender} />
+            <Select
+              value={character.gender}
+              options={options.gender}
+              onChange={handleGenderChange}
+            />
           </div>
 
           <div class="element">
             <div>{$t('common.character.race')}:</div>
-            <Select bind:value={character.race} options={options.race} />
+            <Select value={character.race} options={options.race} onChange={handleRaceChange} />
           </div>
 
           <div class="element">
             <div>{$t('common.character.archetype')}:</div>
-            <Select bind:value={character.archetype} options={options.archetype} />
+            <Select
+              value={character.archetype}
+              options={options.archetype}
+              onChange={handleArchetypeChange}
+            />
           </div>
 
           <div class="element">
             <div>{$t('common.character.background')}:</div>
-            <Select bind:value={character.background} options={options.background} />
+            <Select
+              value={character.background}
+              options={options.background}
+              onChange={handleBackgroundChange}
+            />
           </div>
         </div>
       </div>

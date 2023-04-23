@@ -27,17 +27,21 @@ export const POST: RequestHandler = async ({ request }) => {
   }
 };
 
-function scorePortraits(allPortraits: IPortrait[], data: TSimilarityCriteria, size: number) {
+function scorePortraits(
+  allPortraits: IPortrait[],
+  { original, gender, race, archetype, background }: TSimilarityCriteria,
+  size: number
+) {
   const scored: [number, IPortrait][] = allPortraits.map((portrait) => {
-    let score = portrait.quality;
-    if (data.original && portrait.original === data.original) score += 10;
+    let score = portrait.quality + Math.floor(Math.random() * 5); // quality + random factor 0-5
+    if (original && portrait.original === original) score += 10;
 
     const character = portrait['@expand'].characters?.[0];
     if (character) {
-      if (data.gender && data.gender === character.gender) score += 10;
-      if (data.race && data.race === character.race) score += 10;
-      if (data.archetype && data.archetype === character.archetype) score += 5;
-      if (data.background && data.background === character.background) score += 5;
+      if (gender && gender !== 'non-binary' && gender === character.gender) score += 20;
+      if (race && race === character.race) score += 20;
+      if (archetype && archetype === character.archetype) score += 5;
+      if (background && background === character.background) score += 5;
     }
 
     return [score, portrait];

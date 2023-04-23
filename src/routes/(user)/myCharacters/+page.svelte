@@ -1,7 +1,6 @@
 <script lang="ts">
-  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Card from '$lib/components/characters/Card.svelte';
-  import EditorDialog from '$lib/components/characters/editor/EditorDialog.svelte';
+  import CharacterEditorDialog from '$lib/components/characters/editor/CharacterEditorDialog.svelte';
   import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
@@ -31,6 +30,7 @@
         request<IBackground[]>('/api/backgrounds'),
         request<ITag[]>('/api/tags')
       ]);
+
       const races = new Map(racesArray.map((race) => [race.id, race]));
       const archetypes = new Map(archetypesArray.map(({ id, name }) => [id, { name }]));
       const backgrounds = new Map(backgroundsArray.map(({ id, name }) => [id, { name }]));
@@ -87,7 +87,7 @@
   </section>
 </div>
 
-{#if editor.open}<EditorDialog {...editor} bind:open={editor.open} />{/if}
+{#if editor.open}<CharacterEditorDialog {...editor} bind:open={editor.open} />{/if}
 
 <style lang="scss">
   div.wrapper {
