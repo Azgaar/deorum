@@ -39,7 +39,7 @@ const abortRequest = (sourceUrl: string, role: Role) => {
 
 const protectRoutes: import('@sveltejs/kit').Handle = async ({ event, resolve }) => {
   const url = event.request.url;
-  const target = new URL(url).pathname;
+  const target = new URL(url).pathname.replace('/__data.json', '');
 
   const protectedPath = protectedPaths.find(({ path }) => target.includes(path));
   if (protectedPath) {

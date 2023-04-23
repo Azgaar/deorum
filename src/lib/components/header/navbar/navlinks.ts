@@ -34,8 +34,9 @@ const linkGenerators: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   ],
   'default': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
-    { id: `myCharacters`, key: 'common.navigation.myCharacters', to: '/myCharacters', roles: [Role.USER, Role.ADMIN] },
-    { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar' },
+    { id: `myCharacters`, key: 'common.navigation.myCharacters', to: '/myCharacters' },
+    { id: 'match', key: 'common.navigation.match', to: '/match', roles: [Role.ADMIN] },
+    { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar', roles: [Role.GUEST, Role.USER] },
     { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits', roles: [Role.ADMIN] }
   ],
 };

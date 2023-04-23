@@ -1,6 +1,6 @@
 {
   "name": "deorum",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Procedural fantasy pantheon generator",
   "private": true,
   "scripts": {

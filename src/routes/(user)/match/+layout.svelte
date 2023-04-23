@@ -47,11 +47,6 @@
     background-size: cover;
     background-position: center;
 
-    @media (max-width: 599px) {
-      background-image: none;
-      background-color: $secondary;
-    }
-
     display: flex;
     flex-direction: column;
   }

@@ -36,11 +36,15 @@
     font-size: 14px;
     color: #dee7ea;
 
-    padding: 16px 64px;
+    padding: 32px 64px;
 
     @media ($mobile) {
       height: 100%;
       padding: 0;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 64px;
     }
 
     article {
