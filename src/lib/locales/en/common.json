@@ -30,7 +30,8 @@
   },
   "values": {
     "undefined": "undefined",
-    "all": "all"
+    "all": "all",
+    "unnamed": "Unnamed"
   },
   "info": {
     "version": "v",

@@ -1,30 +1,52 @@
 <script lang="ts">
   import Actions from '$lib/components/actions/Actions.svelte';
   import LikeButton from '$lib/components/characters/LikeButton.svelte';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import RemoveButton from './RemoveButton.svelte';
   import ShowDetailsButton from './ShowDetailsButton.svelte';
+  import CharacterPicture from './details/CharacterPicture.svelte';
 
   export let item: IGalleryItem;
   export let actionable: boolean;
 
-  $: race = $t(`common.races.${item.race}`, { default: item.race });
-  $: archetype = $t(`common.archetypes.${item.archetype}`, { default: item.archetype });
-  $: background = $t(`common.backgrounds.${item.background}`, { default: item.background });
+  function getFeatures({ race, archetype, background }: IGalleryItem) {
+    const undefinedLabel: string = $t('common.values.undefined');
 
-  $: features = [
-    { value: race, title: `${$t('common.character.race')}: ${race}` },
-    { value: archetype, title: `${$t('common.character.archetype')}: ${archetype}` },
-    { value: background, title: `${$t('common.character.background')}: ${background}` }
-  ];
+    const features: { value: string; title: string }[] = [];
+    if (race) {
+      const raceLabel: string = $t(`common.races.${race}`, { default: race || undefinedLabel });
+      features.push({ value: raceLabel, title: `${$t('common.character.race')}: ${raceLabel}` });
+    }
+
+    if (archetype) {
+      const archetypeLabel: string = $t(`common.archetypes.${archetype}`, {
+        default: archetype || undefinedLabel
+      });
+      features.push({
+        value: archetypeLabel,
+        title: `${$t('common.character.archetype')}: ${archetypeLabel}`
+      });
+    }
+
+    if (background) {
+      const backgroundLabel: string = $t(`common.backgrounds.${background}`, {
+        default: background || undefinedLabel
+      });
+      features.push({
+        value: backgroundLabel,
+        title: `${$t('common.character.background')}: ${backgroundLabel}`
+      });
+    }
+
+    return features;
+  }
 </script>
 
 <figure>
   <div class="imageContainer">
-    <img src={`${PORTRAITS_IMAGE_PATH}/${item.image}`} alt={item.name} draggable="false" />
+    <CharacterPicture {item} />
 
     {#if actionable}
       <Actions>
@@ -45,9 +67,9 @@
   </div>
 
   <figcaption>
-    <h1>{item.name}</h1>
+    <h1>{item.name || $t('common.values.unnamed')}</h1>
     <section>
-      {#each features as { value, title } (value)}
+      {#each getFeatures(item) as { value, title }}
         {#if actionable}
           <div {title} use:tooltip>{value}</div>
         {:else}
@@ -70,11 +92,6 @@
     div.imageContainer {
       overflow: hidden;
       position: relative;
-
-      img {
-        width: 100%;
-        aspect-ratio: 1/1;
-      }
     }
 
     figcaption {

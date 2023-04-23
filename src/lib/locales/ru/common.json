@@ -30,7 +30,8 @@
   },
   "values": {
     "undefined": "не указан",
-    "all": "все"
+    "all": "все",
+    "unnamed": "Безымянный"
   },
   "info": {
     "version": "в. ",

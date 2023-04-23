@@ -44,6 +44,8 @@
   let portraitsPreloaded = false;
   async function preloadPortraitsPool() {
     if (portraitsPreloaded) return;
+    portraitsPreloaded = true;
+
     const similarPortraits = await fetchSimilar(character);
     let portraits: IPortrait[] = [];
 
@@ -56,7 +58,6 @@
     }
 
     character = { ...character, '@expand': { ...character['@expand'], portraits } };
-    portraitsPreloaded = true;
   }
 
   const handleGenderChange = (value: string) => {
@@ -259,8 +260,11 @@
 
       div.columns {
         display: grid;
-        grid-template-columns: 4fr 5fr;
         gap: 16px;
+
+        @media ($desktop) {
+          grid-template-columns: 4fr 5fr;
+        }
 
         div.column {
           display: flex;

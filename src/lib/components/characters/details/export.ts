@@ -17,6 +17,8 @@ export const exportChar = (item: IGalleryItem, type: keyof typeof exportVariants
 };
 
 function exportPortrait(item: IGalleryItem) {
+  if (!item.image) throw new Error('No image found for character');
+
   fetch(`${PORTRAITS_IMAGE_PATH}/${item.image}`)
     .then((response) => response.blob())
     .then((blob) => {

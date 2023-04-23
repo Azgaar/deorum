@@ -10,7 +10,7 @@
   $: links = getLinks($page, $galleryNextId);
 </script>
 
-<nav class="noprint">
+<nav class="noprint mobile">
   <div class="backdrop" class:collapsed on:click={toggleMenu} on:keydown={toggleMenu} />
   <button class="menu" on:click={toggleMenu}>☰</button>
   <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>
@@ -79,7 +79,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 18px;
 
         li {
           white-space: nowrap;

@@ -2,7 +2,7 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import CharacterBio from './CharacterBio.svelte';
   import CharacterData from './CharacterData.svelte';
-  import CharacterPicture from './CharacterPicture.svelte';
+  import CharacterPortrait from './CharacterPortrait.svelte';
 
   export let item: IGalleryItem;
 
@@ -15,7 +15,7 @@
   <article id="characterCard">
     <section class="content">
       <div class="left-column">
-        <CharacterPicture {item} />
+        <CharacterPortrait {item} />
         <CharacterData {item} />
       </div>
 
@@ -32,14 +32,15 @@
   div.wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
 
     font-size: 14px;
     color: #dee7ea;
 
-    padding-top: 16px;
+    padding: 16px 64px;
+
     @media ($mobile) {
-      padding-top: 0;
+      height: 100%;
+      padding: 0;
     }
 
     article {
@@ -59,7 +60,7 @@
         grid-template-columns: 320px 1fr;
 
         @media ($mobile) {
-          grid-template-columns: minmax(200px, 380px);
+          grid-template-columns: 1fr;
           grid-template-rows: auto 1fr;
         }
 

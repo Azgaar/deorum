@@ -27,12 +27,14 @@
     on:click={close}
     on:keydown={close}
   >
-    <ActionButton
-      onClick={exportChar(item, 'portrait')}
-      title={$t('common.details.export.portrait')}
-    >
-      <User width={28} />
-    </ActionButton>
+    {#if item.image}
+      <ActionButton
+        onClick={exportChar(item, 'portrait')}
+        title={$t('common.details.export.portrait')}
+      >
+        <User width={28} />
+      </ActionButton>
+    {/if}
 
     <ActionButton
       onClick={exportChar(item, 'cardImage')}

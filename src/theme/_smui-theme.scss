@@ -70,3 +70,10 @@ body.noprint {
     display: none;
   }
 }
+
+*[slot='desktop'],
+.desktop {
+  @media ($mobile) {
+    display: none !important;
+  }
+}

@@ -1,13 +1,10 @@
 <script lang="ts">
-  import MediaQuery from '$lib/components/mediaQuery/MediaQuery.svelte';
+  import View from '$lib/components/mediaQuery/View.svelte';
   import NavbarMobile from './NavbarMobile.svelte';
   import NavbarDesktop from './NavbarDesktop.svelte';
 </script>
 
-<MediaQuery query="(max-width: 599px)" let:matches>
-  {#if matches}
-    <NavbarMobile />
-  {:else}
-    <NavbarDesktop />
-  {/if}
-</MediaQuery>
+<View>
+  <NavbarDesktop slot="desktop" />
+  <NavbarMobile slot="mobile" />
+</View>

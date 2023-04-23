@@ -104,7 +104,15 @@
     div.textareas {
       display: flex;
       gap: 8px;
-      height: 300px;
+
+      @media ($desktop) {
+        height: 300px;
+      }
+
+      @media ($mobile) {
+        flex-direction: column;
+        height: 200px;
+      }
 
       textArea {
         padding: 8px;
