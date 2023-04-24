@@ -29,8 +29,10 @@
     color: $text;
     cursor: pointer;
     border-radius: 20px;
+    text-decoration: none;
 
     display: flex;
+    align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease-in-out;
 

@@ -42,6 +42,7 @@ svg {
   visibility: hidden;
   opacity: 0;
   animation: 1s fadeIn ease-in-out forwards;
+  animation-delay: 300ms;
 }
 
 @keyframes fadeIn {

@@ -3,6 +3,8 @@ export function tooltip(element: HTMLElement) {
   let div: HTMLDivElement | null;
 
   const title = element.getAttribute('title') || '';
+  if (!title) return;
+
   let limit = [0, 0];
 
   function mouseenter(event: MouseEvent): void {

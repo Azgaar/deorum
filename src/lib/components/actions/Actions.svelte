@@ -35,7 +35,7 @@
       }
 
       &.bottom {
-        bottom: 0.5rem;
+        bottom: 0.65rem;
         right: 0.5rem;
       }
     }

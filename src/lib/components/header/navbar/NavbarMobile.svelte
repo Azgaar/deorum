@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { galleryNextId } from '$lib/stores';
+  import { fade } from 'svelte/transition';
   import Book from '../Book.svelte';
   import Link from '../Link.svelte';
   import { getLinks, getLinkKey } from './navlinks';
@@ -10,7 +11,7 @@
   $: links = getLinks($page, $galleryNextId);
 </script>
 
-<nav class="noprint mobile">
+<nav class="noprint mobile" in:fade>
   <div class="backdrop" class:collapsed on:click={toggleMenu} on:keydown={toggleMenu} />
   <button class="menu" on:click={toggleMenu}>☰</button>
   <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>

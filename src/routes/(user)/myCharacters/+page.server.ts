@@ -30,7 +30,7 @@ export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
     const characters = await toJson<ICharacter[]>(fetch(url));
     const items = characters
       .map(getGalleryItemData)
-      .sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+      .sort((a, b) => ids.indexOf(b.id) - ids.indexOf(a.id));
 
     return items;
   }
