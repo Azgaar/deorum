@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import { t } from '$lib/locales/translations';
@@ -12,10 +11,8 @@
   const storageKey = 'deorum-showDetails-used-times';
 
   onMount(() => {
-    if (browser) {
-      const clickedBefore = Number(localStorage.getItem(storageKey));
-      showText = clickedBefore < 5;
-    }
+    const clickedBefore = Number(localStorage.getItem(storageKey));
+    showText = clickedBefore < 5;
   });
 
   const handleTextClick = () => {

@@ -94,7 +94,7 @@
     align-items: center;
     text-align: center;
 
-    @media (max-width: 599px) {
+    @media ($mobile) {
       height: auto;
     }
 

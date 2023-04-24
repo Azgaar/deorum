@@ -55,7 +55,7 @@
     </header>
 
     {#if custom.length === 0}
-      <p>{$t('common.myCharacters.custom.empty')}</p>
+      <p class="empty">{$t('common.myCharacters.custom.empty')}</p>
     {:else}
       <div class="grid">
         {#each custom as item (item.id)}
@@ -74,9 +74,7 @@
     </header>
 
     {#if liked.length === 0}
-      <p>
-        {$t('common.myCharacters.liked.empty')}
-      </p>
+      <p class="empty">{$t('common.myCharacters.liked.empty')}</p>
     {:else}
       <div class="grid">
         {#each liked as item (item.id)}
@@ -126,6 +124,10 @@
           color: #999999;
         }
       }
+    }
+
+    .empty {
+      font-size: 0.9rem;
     }
 
     .grid {

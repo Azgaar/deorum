@@ -1,7 +1,10 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
+  import { browser } from '$app/environment';
   import Card from '$lib/components/characters/Card.svelte';
   import type { Carousel } from '$lib/components/characters/carousel';
+  import { t } from '$lib/locales/translations';
+  import { toastInfo } from '$lib/stores';
+  import { getContext, onMount } from 'svelte';
 
   const carousel = getContext<Carousel>('carousel');
   const items = carousel.carousel;
@@ -10,6 +13,17 @@
     if (id === carousel.currentId) return;
     carousel.move(id > carousel.currentId);
   };
+
+  onMount(() => {
+    const storageKey = 'deorum-galleryTooltip-showed-times';
+    const shownTimes = Number(localStorage.getItem(storageKey));
+    if (shownTimes > 20) return;
+
+    const isMobile = window.matchMedia('(max-width: 599px)').matches;
+    toastInfo(isMobile ? $t('common.gallery.mobileHint') : $t('common.gallery.desktopHint'));
+
+    localStorage.setItem(storageKey, String(shownTimes + 1));
+  });
 </script>
 
 <div class="wrapper">
@@ -43,7 +57,7 @@
       --third-item-scale: 0.5;
       --image-zoom: 1.4;
 
-      @media screen and (max-width: 599px) {
+      @media ($mobile) {
         max-width: 320px;
       }
 

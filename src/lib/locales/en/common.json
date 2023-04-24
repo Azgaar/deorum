@@ -226,17 +226,19 @@
   },
   "gallery": {
     "showDetails": "Show details",
-    "favorite": "Add to My characters"
+    "favorite": "Add to My characters",
+    "mobileHint": "Swipe left or right to rotate the carousel",
+    "desktopHint": "Use the arrows to rotate the carousel"
   },
   "myCharacters": {
     "liked": {
       "title": "Liked characters",
-      "empty": "You haven't liked any characters yet.",
+      "empty": "You haven't liked any characters yet. Use the heart icon at the right side of the character card to add it to your favorites.",
       "goToGallery": "Open Gallery"
     },
     "custom": {
       "title": "Custom characters",
-      "empty": "You haven't created any custom characters yet.",
+      "empty": "You haven't created any custom characters yet. Use the button at the right side to create one from scratch or edit any existing character.",
       "create": "Create character",
       "remove": "Remove custom character"
     }

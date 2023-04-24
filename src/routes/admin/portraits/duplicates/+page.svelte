@@ -83,7 +83,7 @@
           grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         }
 
-        @media (max-width: 599px) {
+        @media ($mobile) {
           grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
         }
 
@@ -113,7 +113,7 @@
       display: flex;
       justify-content: center;
 
-      @media (max-width: 599px) {
+      @media ($mobile) {
         display: flex;
         justify-content: center;
         padding: 1rem 2rem;

@@ -24,7 +24,7 @@
     background-clip: text;
     -webkit-background-clip: text;
 
-    @media screen and (max-width: 599px) {
+    @media screen and ($mobile) {
       transform: scale(0.8);
     }
   }

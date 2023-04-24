@@ -18,3 +18,7 @@ export const toastError = (error: unknown) => {
 export const toastSuccess = (message: string) => {
   snackbar.set({ message, status: 'success' });
 };
+
+export const toastInfo = (message: string) => {
+  snackbar.set({ message, status: 'info' });
+};
