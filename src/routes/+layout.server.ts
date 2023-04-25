@@ -25,9 +25,8 @@ export const load: import('./$types').LayoutServerLoad = async ({ request, depen
   const email = user?.email || null;
   const role = user?.profile.role || Role.GUEST;
   const liked = user?.profile.liked || [];
-  const custom = user?.profile.custom || [];
 
   depends(KEYS.USER_DATA);
 
-  return { lang, userId, email, role, liked, custom };
+  return { lang, userId, email, role, liked };
 };

@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
 import admin from '$lib/api/admin';
 import { createServerError } from '$lib/utils/errors';
@@ -14,7 +14,7 @@ export const POST: RequestHandler = async ({ params, request }) => {
     const id = params.slug;
 
     const { client, user } = await authorize(request);
-    if (!user) throw createServerError('Unauthorized');
+    if (!user) throw error(401, 'Unauthorized');
 
     const oldLiked = user.profile.liked.filter((characterId) => characterId !== id);
     const liked = [...oldLiked, id];
@@ -41,7 +41,7 @@ export const DELETE: RequestHandler = async ({ params, request }) => {
     const id = params.slug;
 
     const { client, user } = await authorize(request);
-    if (!user) throw createServerError('Unauthorized');
+    if (!user) throw error(401, 'Unauthorized');
 
     const liked = user.profile.liked.filter((characterId) => characterId !== id);
     await client.records.update('profiles', user.profile.id, { liked });

@@ -144,6 +144,7 @@ export interface IUser {
     role: Role;
     lang: string;
     liked: string[];
-    custom: string[];
+
+    portraitUploadsLeft: number;
   };
 }

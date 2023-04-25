@@ -227,8 +227,8 @@
   "gallery": {
     "showDetails": "Show details",
     "favorite": "Add to My characters",
-    "mobileHint": "Swipe left or right to rotate the carousel",
-    "desktopHint": "Use the arrows to rotate the carousel"
+    "mobileHint": "Swipe left or right to rotate the gallery",
+    "desktopHint": "Use the arrows to rotate the gallery"
   },
   "myCharacters": {
     "liked": {

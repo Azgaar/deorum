@@ -17,9 +17,9 @@
     open: boolean;
     character: ICharacter;
     races: Map<string, IRace>;
-    archetypes: Map<string, { name: string }>;
-    backgrounds: Map<string, { name: string }>;
-    tags: Map<string, { name: string; image: string }>;
+    archetypes: Map<string, IArchetype>;
+    backgrounds: Map<string, IBackground>;
+    tags: Map<string, ITag>;
   };
 
   const handleCreate = async () => {
@@ -32,9 +32,9 @@
       ]);
 
       const races = new Map(racesArray.map((race) => [race.id, race]));
-      const archetypes = new Map(archetypesArray.map(({ id, name }) => [id, { name }]));
-      const backgrounds = new Map(backgroundsArray.map(({ id, name }) => [id, { name }]));
-      const tags = new Map(tagsArray.map(({ id, image, name }) => [id, { image, name }]));
+      const archetypes = new Map(archetypesArray.map((archetype) => [archetype.id, archetype]));
+      const backgrounds = new Map(backgroundsArray.map((back) => [back.id, back]));
+      const tags = new Map(tagsArray.map((tag) => [tag.id, tag]));
 
       const character = blankCharacter;
       editor = { open: true, character, races, archetypes, backgrounds, tags };

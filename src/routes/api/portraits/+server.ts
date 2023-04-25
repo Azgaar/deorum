@@ -9,6 +9,7 @@ import admin from '$lib/api/admin';
 
 import type { IPortrait } from '$lib/types/api.types';
 import type { IChange } from '$lib/types/editor.types';
+import { authorize } from '$lib/api/auth';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -38,8 +39,20 @@ export const GET: RequestHandler = async ({ url }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    const { client, user } = await authorize(request);
+    if (!user) throw error(401, 'Unauthorized');
+
+    const uploadsLeft = user.profile.portraitUploadsLeft;
+    console.log(user, uploadsLeft);
+    if (!uploadsLeft || uploadsLeft <= 0)
+      throw error(403, 'No portrait uploads left. Please check your plan');
+
     const formData = await request.formData();
     const result = await admin.records.create('portraits', formData, { $autoCancel: false });
+
+    const portraitUploadsLeft = uploadsLeft - 1 || 0;
+    await client.records.update('profiles', user.profile.id, { portraitUploadsLeft });
+
     invalidateCache('portraits');
     log('portraits', 'Upload portrait', formData);
     return json(result);
