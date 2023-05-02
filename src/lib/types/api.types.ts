@@ -141,10 +141,10 @@ export interface IUser {
   lastVerificationSentAt: string;
 
   profile: IRecord & {
+    name: string;
     role: Role;
     lang: string;
     liked: string[];
-
-    portraitUploadsLeft: number;
+    coins: number;
   };
 }

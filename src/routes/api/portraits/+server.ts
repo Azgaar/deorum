@@ -43,7 +43,6 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!user) throw error(401, 'Unauthorized');
 
     const uploadsLeft = user.profile.portraitUploadsLeft;
-    console.log(user, uploadsLeft);
     if (!uploadsLeft || uploadsLeft <= 0)
       throw error(403, 'No portrait uploads left. Please check your plan');
 

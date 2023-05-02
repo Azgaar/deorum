@@ -1,11 +1,18 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
   import Navbar from './navbar/Navbar.svelte';
+  import UserMenu from './userMenu/UserMenu.svelte';
 </script>
 
 <header>
   <TextLogo size={42} />
-  <Navbar />
+
+  {#if $page.data.userId}
+    <UserMenu />
+  {:else}
+    <Navbar />
+  {/if}
 </header>
 
 <style lang="scss">

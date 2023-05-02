@@ -4,24 +4,32 @@ import { URL, COOKIE_NAME, Role } from '$lib/config';
 import { makePOJO } from '$lib/utils/object';
 
 import type { IUser } from '$lib/types/api.types';
+import { REGISTRATION_BONUS } from '$lib/config/coins';
 
 export const isSignedIn = (instance: PocketBase): boolean => Boolean(instance.authStore.model?.id);
 
 export const signup = async ({
   email,
   password,
-  lang
+  lang,
+  name
 }: {
   email: string;
   password: string;
   lang: string;
+  name: string;
 }) => {
   const client = new PocketBase(URL);
   const user = await client.users.create({ email, password, passwordConfirm: password });
   await client.users.authViaEmail(email, password);
 
   if (user.profile) {
-    await client.records.update('profiles', user.profile.id, { lang, role: Role.USER });
+    await client.records.update('profiles', user.profile.id, {
+      lang,
+      name,
+      role: Role.USER,
+      coins: REGISTRATION_BONUS
+    });
     document.cookie = client.authStore.exportToCookie({ httpOnly: false });
   }
 };

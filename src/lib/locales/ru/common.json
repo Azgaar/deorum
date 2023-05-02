@@ -44,6 +44,7 @@
     "signupTitle": "Создать аккаунт",
     "logout": "Выйти",
     "email": "Email",
+    "name": "Имя",
     "password": "Пароль (мин 8 символов)"
   },
   "navigation": {

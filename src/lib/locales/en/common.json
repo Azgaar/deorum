@@ -44,6 +44,7 @@
     "signupTitle": "Create a new account",
     "logout": "Log out",
     "email": "Email",
+    "name": "Name",
     "password": "Password (8 chars min)"
   },
   "navigation": {

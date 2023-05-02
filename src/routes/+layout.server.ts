@@ -22,11 +22,13 @@ export const load: import('./$types').LayoutServerLoad = async ({ request, depen
 
   const lang = getLocale(request, user);
   const userId = user?.id || null;
-  const email = user?.email || null;
+  const name = user?.profile.name || '';
+  const email = user?.email || '';
   const role = user?.profile.role || Role.GUEST;
   const liked = user?.profile.liked || [];
+  const coins = user?.profile.coins || 0;
 
   depends(KEYS.USER_DATA);
 
-  return { lang, userId, email, role, liked };
+  return { lang, userId, name, email, role, liked, coins };
 };

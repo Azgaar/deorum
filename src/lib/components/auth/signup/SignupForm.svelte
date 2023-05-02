@@ -13,6 +13,7 @@
   export let onCancel: VoidFunction | null = null;
   export let onSuccess = () => {};
 
+  let name = '';
   let email = '';
   let password = '';
 
@@ -23,7 +24,8 @@
 
     try {
       isLoading = true;
-      await signup({ email, password, lang: $page.data.lang });
+      const lang = $page.data.lang;
+      await signup({ email, password, name, lang });
       onSuccess();
       log('auth', `Signup successful: ${email}`);
     } catch (error) {
@@ -39,6 +41,15 @@
   <div class="title">{$t('common.auth.signupTitle')}</div>
 
   <div class="body">
+    <Textfield
+      required
+      type="text"
+      minlength="2"
+      bind:value={name}
+      disabled={isLoading}
+      label={$t('common.auth.name')}
+    />
+
     <Textfield
       required
       type="email"
@@ -80,7 +91,7 @@
     }
 
     div.body {
-      width: min(300px, 90vw);
+      width: min(300px, 70vw);
       padding: 1rem 2rem;
       display: flex;
       flex-direction: column;

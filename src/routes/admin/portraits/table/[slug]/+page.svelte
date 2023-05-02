@@ -2,7 +2,6 @@
   import Checkbox from '@smui/checkbox';
   import DataTable, { Head, Body, Row, Cell, Label, Pagination } from '@smui/data-table';
   import IconButton from '@smui/icon-button';
-
   import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/chips/NameChips.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';

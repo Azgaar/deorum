@@ -2,7 +2,6 @@
   import { page } from '$app/stores';
   import { galleryNextId } from '$lib/stores';
   import { fade } from 'svelte/transition';
-  import Book from '../Book.svelte';
   import Link from '../Link.svelte';
   import { getLinks, getLinkKey } from './navlinks';
 
@@ -20,7 +19,6 @@
         <li><Link {link} /></li>
       {/each}
     </ul>
-    <Book />
   </aside>
 </nav>
 

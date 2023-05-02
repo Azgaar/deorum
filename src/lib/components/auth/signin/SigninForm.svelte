@@ -78,7 +78,7 @@
     }
 
     div.body {
-      width: min(300px, 90vw);
+      width: min(300px, 70vw);
       padding: 1rem 2rem;
       display: flex;
       flex-direction: column;
