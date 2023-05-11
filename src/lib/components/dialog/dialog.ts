@@ -1,3 +1,5 @@
+import { t } from '$lib/locales/translations';
+
 export type TOptions = {
   title: string;
   body: string;
@@ -7,7 +9,7 @@ export type TOptions = {
   onCancel?: () => void;
 };
 
-const dialog = {
+export const dialog = {
   open: (detail: TOptions) => {
     window.dispatchEvent(new CustomEvent('dialogOpen', { detail }));
   },
@@ -19,10 +21,10 @@ const dialog = {
 export const confirmationDialog = {
   open: ({ onConfirm, onCancel }: Pick<TOptions, 'onConfirm' | 'onCancel'>) => {
     dialog.open({
-      title: 'common.dialog.confirmation.title',
-      body: 'common.dialog.confirmation.body',
-      confirmButton: 'common.dialog.confirmation.confirm',
-      cancelButton: 'common.dialog.confirmation.cancel',
+      title: t.get('common.dialog.confirmation.title'),
+      body: t.get('common.dialog.confirmation.body'),
+      confirmButton: t.get('common.dialog.confirmation.confirm'),
+      cancelButton: t.get('common.dialog.confirmation.cancel'),
       onConfirm,
       onCancel
     });

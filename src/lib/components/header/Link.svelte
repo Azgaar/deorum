@@ -33,11 +33,11 @@
     padding: 8px 24px;
   }
 
-  a:hover {
-    background: color.adjust($text, $alpha: -0.85);
+  a.active {
+    background: color.adjust($text, $alpha: -0.97);
   }
 
-  a.active {
-    background: color.adjust($text, $alpha: -0.95);
+  a:hover {
+    background: color.adjust($text, $alpha: -0.85);
   }
 </style>

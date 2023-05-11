@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import { galleryNextId } from '$lib/stores';
   import Link from '../Link.svelte';
-  import { getLinks, getLinkKey } from './navlinks';
+  import { getLinks, getLinkKey } from '../navlinks';
 
   $: links = getLinks($page, $galleryNextId);
 </script>

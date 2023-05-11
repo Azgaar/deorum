@@ -1,8 +1,16 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { t } from '$lib/locales/translations';
+  import { tooltip } from '$lib/scripts/tooltip';
 </script>
 
-<div class="coins">{$page.data.coins}</div>
+<div
+  class="coins"
+  title={$t('common.userMenu.coinsLeft', { variable: $page.data.coins })}
+  use:tooltip
+>
+  {$page.data.coins}
+</div>
 
 <style lang="scss">
   @use 'sass:color';

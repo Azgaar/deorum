@@ -1,6 +1,5 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  import { t } from '$lib/locales/translations';
   import type { TOptions } from './dialog';
 
   let isOpen = false;
@@ -68,26 +67,26 @@
         out:fly={{ y: 0, duration: 300 }}
       >
         <div class="dialog-header">
-          <h2>{$t(title)}</h2>
+          <h2>{@html title}</h2>
 
           <button class="close-button" on:click={handleCancel}>
             <span>&times;</span>
           </button>
         </div>
 
-        <div class="dialog-body">{$t(body)}</div>
+        <div class="dialog-body">{@html body}</div>
 
         {#if confirmButton || cancelButton}
           <div class="dialog-footer">
             {#if cancelButton}
               <button class="action-button" on:click={handleCancel}>
-                {$t(cancelButton)}
+                {cancelButton}
               </button>
             {/if}
 
             {#if confirmButton}
               <button class="action-button" on:click={handleConfirm}>
-                {$t(confirmButton)}
+                {confirmButton}
               </button>
             {/if}
           </div>

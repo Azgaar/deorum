@@ -3,7 +3,7 @@
   import { galleryNextId } from '$lib/stores';
   import { fade } from 'svelte/transition';
   import Link from '../Link.svelte';
-  import { getLinks, getLinkKey } from './navlinks';
+  import { getLinks, getLinkKey } from '../navlinks';
 
   let collapsed = true;
   const toggleMenu = () => (collapsed = !collapsed);
