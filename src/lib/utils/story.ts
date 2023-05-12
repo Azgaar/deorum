@@ -18,6 +18,8 @@ const selectSections = (): string[] => {
     .map(({ name }) => name);
 };
 
+export const SYSTEM_PROMPT = `I want you to act as a novelist. You will come up with creative and captivating story that can engage readers for long periods of time. The aim is to write a fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes.`;
+
 export const createBasicPrompt = (character: ICharacter, tags: Map<string, { name: string }>) => {
   const { name, gender, age } = character;
   const { race, archetype, background } = character['@expand'];
@@ -34,14 +36,14 @@ export const createBasicPrompt = (character: ICharacter, tags: Map<string, { nam
   const tagList = getTags(character, tags);
   const sections = selectSections().join(', ');
 
-  const intro = 'Write a fictional biography of a living fantasy character';
+  const intro = 'Write a biography of a living fantasy character';
   const specie = `${d.gender} ${d.race}`.trim();
   const part1 = [specie, d.age].filter((v) => v).join(', ');
   const part2 = [d.name, d.archetype, d.background].filter((v) => v).join('. ');
   const tag = tagList.length ? `Tags: ${tagList.join(', ')}` : '';
-  const section = `Example sections: ${sections}, and other sections you may want to add`;
-  const outro1 = 'Top quality text in present tense, no typos, best grammar, no cliches';
-  const outro2 = `Detailed well-written fruity description of a ${d.race} character. Remove section titles`;
+  const section = `Example sections: ${sections}, and other sections. Remove section titles`;
+  const outro1 = 'Top-quality text in present tense, no typos, no cliches';
+  const outro2 = `Detailed fruity description of a ${d.race} character.`;
 
   const prompt = [intro, part1, part2, tag, section, outro1, outro2]
     .filter((v) => v)

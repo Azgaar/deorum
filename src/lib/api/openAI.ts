@@ -1,6 +1,6 @@
 import { createParser, type ParsedEvent, type ReconnectInterval } from 'eventsource-parser';
-
 import { OPENAI_API_KEY } from '$env/static/private';
+import { SYSTEM_PROMPT } from '$lib/utils/story';
 
 const endpoint = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
@@ -19,7 +19,10 @@ export async function openAIStream(prompt: string) {
     body: JSON.stringify({
       model,
       temperature,
-      messages: [{ role: 'user', content: prompt }],
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: prompt }
+      ],
       stream: true
     })
   });
