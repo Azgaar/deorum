@@ -27,7 +27,7 @@
     align-items: center;
 
     padding: 0.1em 0.5em 0.1em 0.2em;
-    background: rgba($secondary, 0.5);
+    background: rgba($secondary, 0.6);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 

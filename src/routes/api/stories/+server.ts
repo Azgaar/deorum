@@ -14,7 +14,7 @@ export const config: import('@sveltejs/adapter-vercel').Config = {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
-    const { prompt } = await request.json();
+    const { prompt, model } = await request.json();
     if (!prompt) throw new Error('No prompt provided');
 
     const { user } = await authorize(request);
@@ -23,8 +23,8 @@ export const POST: RequestHandler = async ({ request }) => {
     const role = user?.profile?.role;
     if (role !== Role.ADMIN) throw error(401, 'Unauthorized, admin access required');
 
-    const stream = await openAIStream(prompt);
-    log('story', 'Generating story', { prompt });
+    const stream = await openAIStream(prompt, model);
+    log('story', 'Generating story', { model, prompt });
     return new Response(stream);
   } catch (err) {
     report('story', err);

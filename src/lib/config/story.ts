@@ -1,3 +1,10 @@
+export const models = [
+  { key: 'gpt-4', label: 'GPT-4', description: 'common.models.description.gpt-4' },
+  { key: 'gpt-3.5-turbo', label: 'GPT-3.5', description: 'common.models.description.gpt-3.5-turbo' }
+];
+
+export const SYSTEM_PROMPT = `I want you to act as a novelist. You will come up with creative and captivating story that can engage readers for long periods of time. The aim is to write a fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes.`;
+
 export const sections = [
   { name: 'family origin', chance: 0.5, excludes: ['unusual family origin'] },
   { name: 'unusual family origin', chance: 0.4, excludes: ['family origin'] },

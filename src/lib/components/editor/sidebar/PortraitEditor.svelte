@@ -452,7 +452,7 @@
         div.loadingPlaceholder {
           height: 21px;
           padding: 1px 4px;
-          background: rgba($secondary, 0.5);
+          background: rgba($secondary, 0.6);
           border-radius: 16px;
 
           display: flex;

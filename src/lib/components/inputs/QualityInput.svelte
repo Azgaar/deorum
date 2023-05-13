@@ -27,7 +27,7 @@
       width: 100%;
       cursor: pointer;
       color: $text;
-      background-color: rgba($secondary, 0.5);
+      background-color: rgba($secondary, 0.6);
       border: none;
       transition: all 0.2s ease-in-out;
 

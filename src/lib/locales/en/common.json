@@ -254,5 +254,11 @@
       "create": "Create character",
       "remove": "Remove custom character"
     }
+  },
+  "models": {
+    "description": {
+      "gpt-4": "creative, slow, expensive",
+      "gpt-3.5-turbo": "repetitive, fast, cheap"
+    }
   }
 }

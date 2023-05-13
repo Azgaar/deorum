@@ -1,15 +1,16 @@
 <script lang="ts">
-  import { t } from '$lib/locales/translations';
-  import IconButton from '$lib/components/editor/IconButton.svelte';
-
   import { page } from '$app/stores';
+  import IconButton from '$lib/components/editor/IconButton.svelte';
+  import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
+  import { Role } from '$lib/config';
+  import { models } from '$lib/config/story';
+  import { t } from '$lib/locales/translations';
+  import { toastError, toastSuccess } from '$lib/stores';
+  import type { ICharacter } from '$lib/types/api.types';
+  import { report } from '$lib/utils/log';
   import { stream } from '$lib/utils/requests';
   import { createBasicPrompt } from '$lib/utils/story';
-  import { toastError, toastSuccess } from '$lib/stores';
-  import { report } from '$lib/utils/log';
-  import { Role } from '$lib/config';
-  import type { ICharacter } from '$lib/types/api.types';
 
   export let character: ICharacter;
   export let tags: Map<string, { name: string; image: string }>;
@@ -17,6 +18,7 @@
   let isLoading = false;
   let showPrompt = false;
   let prompt = '';
+  let model = models[0].key;
 
   const togglePrompt = () => {
     if (showPrompt) {
@@ -44,7 +46,7 @@
         character.bio += dataChunk;
       };
       character.bio = '';
-      await stream('/api/stories', { prompt }, onData);
+      await stream('/api/stories', { prompt, model }, onData);
     } catch (err) {
       report('story generator', err);
       toastError(err);
@@ -80,8 +82,24 @@
   </div>
 
   <div class="textareas">
-    {#if showPrompt}<textarea bind:value={prompt} />{/if}
-    <textarea bind:value={character.bio} disabled={isLoading} />
+    {#if showPrompt}
+      <div>
+        <textarea bind:value={prompt} />
+        <div class="modelSelect">
+          <Select
+            bind:value={model}
+            options={models.map(({ key, label, description }) => [
+              key,
+              `${label} (${$t(description)})`
+            ])}
+          />
+        </div>
+      </div>
+    {/if}
+
+    <div>
+      <textarea bind:value={character.bio} disabled={isLoading} />
+    </div>
   </div>
 </div>
 
@@ -114,19 +132,32 @@
         height: 200px;
       }
 
-      textArea {
-        padding: 8px;
-        background-color: $secondary;
-        border: none;
-        border-radius: 4px;
-        outline: none;
+      div {
         flex: 1;
-        resize: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
 
-        // reader mode
-        font-size: 14px;
-        color: #dee7ea;
-        line-height: 1.3;
+        textArea {
+          flex: 1;
+          padding: 8px 8px 24px;
+          background-color: rgba($secondary, 0.6);
+          border: none;
+          border-radius: 4px;
+          outline: none;
+          resize: none;
+
+          // reader mode
+          font-size: 14px;
+          color: #dee7ea;
+          line-height: 1.3;
+        }
+
+        .modelSelect {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+        }
       }
     }
   }

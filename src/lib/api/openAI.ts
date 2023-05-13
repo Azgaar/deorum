@@ -1,12 +1,11 @@
 import { createParser, type ParsedEvent, type ReconnectInterval } from 'eventsource-parser';
 import { OPENAI_API_KEY } from '$env/static/private';
-import { SYSTEM_PROMPT } from '$lib/utils/story';
+import { SYSTEM_PROMPT } from '$lib/config/story';
 
 const endpoint = 'https://api.openai.com/v1/chat/completions';
-const model = 'gpt-3.5-turbo';
 const temperature = 1;
 
-export async function openAIStream(prompt: string) {
+export async function openAIStream(prompt: string, model: string) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 

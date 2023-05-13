@@ -26,8 +26,9 @@
     text-indent: 6px;
     width: 100%;
     font-size: 14px;
+    padding-right: 4px;
 
     color: $text;
-    background-color: rgba($secondary, 0.5);
+    background-color: rgba($secondary, 0.6);
   }
 </style>

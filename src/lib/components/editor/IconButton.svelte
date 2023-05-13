@@ -22,7 +22,7 @@
     color: $text;
     cursor: pointer;
 
-    background: rgba($secondary, 0.5);
+    background: rgba($secondary, 0.6);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 

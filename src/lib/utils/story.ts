@@ -1,4 +1,4 @@
-import { sections } from '$lib/data/sections';
+import { sections } from '$lib/config/story';
 import type { ICharacter } from '$lib/types/api.types';
 import { capitalize } from './string';
 
@@ -17,8 +17,6 @@ const selectSections = (): string[] => {
     })
     .map(({ name }) => name);
 };
-
-export const SYSTEM_PROMPT = `I want you to act as a novelist. You will come up with creative and captivating story that can engage readers for long periods of time. The aim is to write a fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes.`;
 
 export const createBasicPrompt = (character: ICharacter, tags: Map<string, { name: string }>) => {
   const { name, gender, age } = character;
