@@ -10,6 +10,7 @@ import admin from '$lib/api/admin';
 import type { IPortrait } from '$lib/types/api.types';
 import type { IChange } from '$lib/types/editor.types';
 import { authorize } from '$lib/api/auth';
+import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -42,15 +43,14 @@ export const POST: RequestHandler = async ({ request }) => {
     const { client, user } = await authorize(request);
     if (!user) throw error(401, 'Unauthorized');
 
-    const uploadsLeft = user.profile.portraitUploadsLeft;
-    if (!uploadsLeft || uploadsLeft <= 0)
-      throw error(403, 'No portrait uploads left. Please check your plan');
+    const coinsLeft = user.profile.coins;
+    if (!coinsLeft || coinsLeft < UPLOAD_PORTRAIT_PRICE) throw error(403, 'Not enought coins');
 
     const formData = await request.formData();
     const result = await admin.records.create('portraits', formData, { $autoCancel: false });
 
-    const portraitUploadsLeft = uploadsLeft - 1 || 0;
-    await client.records.update('profiles', user.profile.id, { portraitUploadsLeft });
+    const coins = coinsLeft - UPLOAD_PORTRAIT_PRICE;
+    await client.records.update('profiles', user.profile.id, { coins });
 
     invalidateCache('portraits');
     log('portraits', 'Upload portrait', formData);

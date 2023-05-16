@@ -122,7 +122,7 @@
     "angel": "angel",
     "spirit": "spirit",
     "jinn": "jinn",
-    "skeleton": "skeleton",
+    "undead": "undead",
     "siren": "siren",
     "gargoyle": "gargoyle",
     "golem": "golem",
@@ -158,7 +158,8 @@
     "chosen one": "chosen one",
     "rebel": "rebel",
     "wanderer": "wanderer",
-    "mentor": "mentor"
+    "mentor": "mentor",
+    "minion": "minion"
   },
   "backgrounds": {
     "knight": "knight",
@@ -168,7 +169,7 @@
     "berserker": "berserker",
     "sailor": "sailor",
     "pirate": "pirate",
-    "city watch": "city watch",
+    "watchman": "watchman",
     "investigator": "investigator",
     "bounty hunter": "bounty hunter",
     "spy": "spy",
@@ -200,7 +201,21 @@
     "soothsayer": "soothsayer",
     "surgeon": "surgeon",
     "necromancer": "necromancer",
-    "paladin": "paladin"
+    "paladin": "paladin",
+    "slave": "slave",
+    "concubine": "concubine",
+    "cook": "cook",
+    "prisoner": "prisoner",
+    "beggar": "beggar",
+    "mason": "mason",
+    "miller": "miller",
+    "farmer": "farmer",
+    "caravaneer": "caravaneer",
+    "slaver": "slaver",
+    "witch": "witch",
+    "shaman": "shaman",
+    "ranger": "ranger",
+    "eunuch": "eunuch"
   },
   "details": {
     "edit": {

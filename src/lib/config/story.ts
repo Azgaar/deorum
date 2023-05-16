@@ -3,7 +3,7 @@ export const models = [
   { key: 'gpt-3.5-turbo', label: 'GPT-3.5', description: 'common.models.description.gpt-3.5-turbo' }
 ];
 
-export const SYSTEM_PROMPT = `I want you to act as a novelist. You will come up with creative and captivating story that can engage readers for long periods of time. The aim is to write a fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes.`;
+export const SYSTEM_PROMPT = `I want you to act as a novelist. Your aim is to write a creative fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes. Avoid cliches and typos. Write in present tense.`;
 
 export const sections = [
   { name: 'family origin', chance: 0.5, excludes: ['unusual family origin'] },

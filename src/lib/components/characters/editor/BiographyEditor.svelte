@@ -42,17 +42,21 @@
       isLoading = true;
 
       if (!showPrompt) prompt = createBasicPrompt(character, tags);
+
+      character.bio = '';
       const onData = (dataChunk: string) => {
         character.bio += dataChunk;
       };
-      character.bio = '';
-      await stream('/api/stories', { prompt, model }, onData);
+      const onComplete = () => {
+        character.bio = character.bio.trim();
+        isLoading = false;
+      };
+
+      await stream('/api/stories', { prompt, model }, onData, onComplete);
     } catch (err) {
+      isLoading = false;
       report('story generator', err);
       toastError(err);
-    } finally {
-      isLoading = false;
-      character.bio = character.bio.trim();
     }
   };
 </script>

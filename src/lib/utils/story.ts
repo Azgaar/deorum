@@ -39,11 +39,10 @@ export const createBasicPrompt = (character: ICharacter, tags: Map<string, { nam
   const part1 = [specie, d.age].filter((v) => v).join(', ');
   const part2 = [d.name, d.archetype, d.background].filter((v) => v).join('. ');
   const tag = tagList.length ? `Tags: ${tagList.join(', ')}` : '';
-  const section = `Example sections: ${sections}, and other sections. Remove section titles`;
-  const outro1 = 'Top-quality text in present tense, no typos, no cliches';
-  const outro2 = `Detailed fruity description of a ${d.race} character.`;
+  const section = `Sections: ${sections}. Remove section titles, and other sections on your choice`;
+  const outro = `Detailed description of a ${d.race} character.`;
 
-  const prompt = [intro, part1, part2, tag, section, outro1, outro2]
+  const prompt = [intro, part1, part2, tag, section, outro]
     .filter((v) => v)
     .map((part) => capitalize(part))
     .join('. ');

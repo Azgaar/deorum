@@ -39,7 +39,8 @@ export const sendFormData = async <T>(
 export const stream = async (
   url: string,
   data: Record<string, unknown>,
-  onData: (dataChunk: string) => void
+  onData: (dataChunk: string) => void,
+  onComplete: () => void
 ) => {
   const options: RequestInit = {
     method: 'POST',
@@ -58,7 +59,11 @@ export const stream = async (
 
   const read = async () => {
     const { value, done } = await reader.read();
-    if (done) return;
+    if (done) {
+      onComplete();
+      return;
+    }
+
     const chunkValue = decoder.decode(value);
     onData(chunkValue);
     read();
