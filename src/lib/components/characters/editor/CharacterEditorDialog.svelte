@@ -117,6 +117,7 @@
         };
         await request<ICharacter>('/api/custom', 'POST', createData);
         await invalidate(KEYS.MY_CHARACTERS);
+        invalidate(KEYS.USER_DATA);
       }
 
       open = false;

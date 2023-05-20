@@ -7,6 +7,8 @@ import { createServerError } from '$lib/utils/errors';
 import type { ICharacter } from '$lib/types/api.types';
 import type { RequestHandler } from '../characters/$types';
 import admin from '$lib/api/admin';
+import { authorize } from '$lib/api/auth';
+import { CREATE_CHARACTER_PRICE } from '$lib/config/coins';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -36,10 +38,19 @@ export const GET: RequestHandler = async ({ url }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    const { client, user } = await authorize(request);
+    if (!user) throw error(401, 'Unauthorized');
+
+    const coinsLeft = user.profile.coins;
+    if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) throw error(403, 'Not enought coins');
+
     const data = await request.json();
     const customCharacter = await admin.records.create('custom', data);
-    invalidateCache('custom', data.creator);
 
+    const coins = coinsLeft - CREATE_CHARACTER_PRICE;
+    await client.records.update('profiles', user.profile.id, { coins });
+
+    invalidateCache('custom', data.creator);
     log('custom', `Create custom character ${customCharacter.id}`, data);
     return json(customCharacter);
   } catch (err) {
