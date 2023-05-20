@@ -2,13 +2,14 @@
   import { t } from '$lib/locales/translations';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getCharacterImage } from '$lib/utils/characters';
   import { convertImageFile } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
   import { toastError } from '$lib/stores';
   import { sendFormData } from '$lib/utils/requests';
   import { page } from '$app/stores';
+  import { invalidate } from '$app/navigation';
 
   export let character: ICharacter;
 
@@ -45,6 +46,7 @@
       formData.set('user', usedId);
       formData.set('image', convertedImage);
       const portrait = await sendFormData<IPortrait>('/api/portraits', formData, 'POST');
+      invalidate(KEYS.USER_DATA);
 
       character = {
         ...character,

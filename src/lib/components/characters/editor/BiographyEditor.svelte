@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { page } from '$app/stores';
+  import { invalidate } from '$app/navigation';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-  import { Role } from '$lib/config';
+  import { KEYS } from '$lib/config';
   import { models } from '$lib/config/story';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
@@ -40,19 +40,20 @@
   const generateBio = async () => {
     try {
       isLoading = true;
-
+      character.bio = '';
       if (!showPrompt) prompt = createBasicPrompt(character, tags);
 
-      character.bio = '';
       const onData = (dataChunk: string) => {
         character.bio += dataChunk;
       };
+
       const onComplete = () => {
         character.bio = character.bio.trim();
         isLoading = false;
       };
 
       await stream('/api/stories', { prompt, model }, onData, onComplete);
+      invalidate(KEYS.USER_DATA);
     } catch (err) {
       isLoading = false;
       report('story generator', err);
@@ -67,21 +68,19 @@
     <div>
       <IconButton onClick={copyBio} title={$t('common.details.editor.bio.copy')}>📋</IconButton>
 
-      {#if $page.data.role === Role.ADMIN}
-        {#if isLoading}
-          <IconButton disabled onClick={generateBio}>
-            <CircularSpinner size={16} />
-          </IconButton>
-        {:else}
-          <IconButton onClick={generateBio} title={$t('common.details.editor.bio.generate')}
-            >🎲</IconButton
-          >
-        {/if}
-
-        <IconButton onClick={togglePrompt} title={$t('common.details.editor.bio.configurePrompt')}
-          >⚙️</IconButton
+      {#if isLoading}
+        <IconButton disabled onClick={generateBio}>
+          <CircularSpinner size={16} />
+        </IconButton>
+      {:else}
+        <IconButton onClick={generateBio} title={$t('common.details.editor.bio.generate')}
+          >🎲</IconButton
         >
       {/if}
+
+      <IconButton onClick={togglePrompt} title={$t('common.details.editor.bio.configurePrompt')}
+        >⚙️</IconButton
+      >
     </div>
   </div>
 
