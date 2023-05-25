@@ -10,6 +10,8 @@
   import { sendFormData } from '$lib/utils/requests';
   import { page } from '$app/stores';
   import { invalidate } from '$app/navigation';
+  import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
+  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
 
   export let character: ICharacter;
 
@@ -38,12 +40,13 @@
 
   async function uploadPortrait(file: File) {
     try {
-      const usedId = $page.data.userId;
-      if (!usedId) throw new Error('User not logged in');
+      const { userId, coins } = $page.data;
+      if (!userId) throw new Error('User not logged in');
+      if (!coins || coins < UPLOAD_PORTRAIT_PRICE) return getCoinsDialog(coins);
 
       const formData = new FormData();
       const convertedImage = await convertImageFile(file);
-      formData.set('user', usedId);
+      formData.set('user', userId);
       formData.set('image', convertedImage);
       const portrait = await sendFormData<IPortrait>('/api/portraits', formData, 'POST');
       invalidate(KEYS.USER_DATA);
@@ -89,7 +92,7 @@
   <div class="controls">
     <IconButton
       onClick={() => uploadInput.click()}
-      title={$t('common.details.editor.portrait.upload')}
+      title={$t('common.details.editor.portrait.upload', { variable: UPLOAD_PORTRAIT_PRICE })}
     >
       <input type="file" accept="image/*" bind:this={uploadInput} on:change={handleUpload} />📁
     </IconButton>

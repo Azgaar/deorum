@@ -1,9 +1,12 @@
 <script lang="ts">
   import { invalidate } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { KEYS } from '$lib/config';
+  import { CREATE_CHARACTER_PRICE, GENERATE_BIO_PRICE } from '$lib/config/coins';
   import { models } from '$lib/config/story';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
@@ -38,6 +41,9 @@
   };
 
   const generateBio = async () => {
+    const coinsLeft = $page.data.coins;
+    if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return getCoinsDialog(coinsLeft);
+
     try {
       isLoading = true;
       character.bio = '';
@@ -68,19 +74,21 @@
     <div>
       <IconButton onClick={copyBio} title={$t('common.details.editor.bio.copy')}>📋</IconButton>
 
-      {#if isLoading}
-        <IconButton disabled onClick={generateBio}>
-          <CircularSpinner size={16} />
-        </IconButton>
-      {:else}
-        <IconButton onClick={generateBio} title={$t('common.details.editor.bio.generate')}
-          >🎲</IconButton
-        >
-      {/if}
-
       <IconButton onClick={togglePrompt} title={$t('common.details.editor.bio.configurePrompt')}
         >⚙️</IconButton
       >
+
+      {#if isLoading}
+        <IconButton disabled>
+          <CircularSpinner size={16} />
+        </IconButton>
+      {:else}
+        <IconButton
+          onClick={generateBio}
+          title={$t('common.details.editor.bio.generate', { variable: GENERATE_BIO_PRICE })}
+          >🎲</IconButton
+        >
+      {/if}
     </div>
   </div>
 

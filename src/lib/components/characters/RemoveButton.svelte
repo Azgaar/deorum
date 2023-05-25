@@ -2,7 +2,7 @@
   import { goto, invalidate } from '$app/navigation';
   import { page } from '$app/stores';
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
-  import { confirmationDialog } from '$lib/components/dialog/dialog';
+  import { confirmationDialog } from '$lib/components/dialog/dialogs';
   import Trash from '$lib/components/icons/Trash.svelte';
   import { KEYS } from '$lib/config';
   import { t } from '$lib/locales/translations';

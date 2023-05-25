@@ -1,7 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { dialog } from '$lib/components/dialog/dialog';
-  import { PATREON_COIN_PRICE_USD, REGISTRATION_BONUS } from '$lib/config/coins';
+  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
   import { t } from '$lib/locales/translations';
   import { galleryNextId } from '$lib/stores';
   import Link from '../Link.svelte';
@@ -11,21 +10,6 @@
   const toggleMenu = () => (isOpen = !isOpen);
 
   $: links = getLinks($page, $galleryNextId);
-
-  const openGetCoinsDialog = () => {
-    dialog.open({
-      title: $t('common.userMenu.getCoins'),
-      body: `
-        <p>${$t('common.userMenu.description.1', { variable: REGISTRATION_BONUS })}</p>
-        <p>${$t('common.userMenu.description.2')}</p>
-        <p>${$t('common.userMenu.description.3', { variable: PATREON_COIN_PRICE_USD })}</p>
-        <p>${$t('common.userMenu.description.4')}</p>
-      `,
-      confirmButton: $t('common.userMenu.openPatreon'),
-      onConfirm: () => window.open('https://www.patreon.com/azgaar', '_blank'),
-      cancelButton: $t('common.controls.close')
-    });
-  };
 </script>
 
 <aside class:isOpen on:click={toggleMenu} on:keydown={toggleMenu}>
@@ -33,7 +17,9 @@
     <hr />
 
     <section>
-      <button on:click={openGetCoinsDialog}>{$t('common.userMenu.getCoins')}</button>
+      <button on:click={() => getCoinsDialog($page.data.coins)}
+        >{$t('common.coins.getCoins')}</button
+      >
     </section>
 
     <hr />

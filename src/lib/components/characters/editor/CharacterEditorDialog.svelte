@@ -5,11 +5,13 @@
   import { createOptions } from '$lib/components/characters/editor/options';
   import { createRandomizer } from '$lib/components/characters/editor/randomize';
   import { getRange } from '$lib/components/characters/editor/range';
+  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import { KEYS } from '$lib/config';
+  import { CREATE_CHARACTER_PRICE } from '$lib/config/coins';
   import { t } from '$lib/locales/translations';
   import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
   import type {
@@ -87,8 +89,15 @@
   };
 
   const handleSubmit = async (event: SubmitEvent) => {
+    event.preventDefault();
+    const isUpdating = Boolean(character.creator);
+
+    if (!isUpdating) {
+      const coinsLeft = $page.data.coins;
+      if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return getCoinsDialog(coinsLeft);
+    }
+
     try {
-      event.preventDefault();
       showLoadingOverlay();
 
       const patchData = {
@@ -105,16 +114,11 @@
         tags: character.tags
       };
 
-      const isCreated = Boolean(character.creator);
-      if (isCreated) {
+      if (isUpdating) {
         await request<ICharacter>(`/api/custom/${character.id}`, 'PATCH', patchData);
         await invalidate(KEYS.CUSTOM_CHARACTER);
       } else {
-        const createData = {
-          ...patchData,
-          creator: $page.data.userId,
-          source: character.id
-        };
+        const createData = { ...patchData, creator: $page.data.userId, source: character.id };
         await request<ICharacter>('/api/custom', 'POST', createData);
         await invalidate(KEYS.MY_CHARACTERS);
         invalidate(KEYS.USER_DATA);

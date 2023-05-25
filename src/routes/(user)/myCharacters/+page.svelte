@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import Card from '$lib/components/characters/Card.svelte';
   import CharacterEditorDialog from '$lib/components/characters/editor/CharacterEditorDialog.svelte';
+  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { CREATE_CHARACTER_PRICE, GENERATE_BIO_PRICE } from '$lib/config/coins';
   import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
@@ -23,6 +26,9 @@
   };
 
   const handleCreate = async () => {
+    const coinsLeft = $page.data.coins;
+    if (!coinsLeft || coinsLeft < GENERATE_BIO_PRICE) return getCoinsDialog(coinsLeft);
+
     try {
       const [racesArray, archetypesArray, backgroundsArray, tagsArray] = await Promise.all([
         request<IRace[]>('/api/races'),

@@ -9,11 +9,7 @@
   }
 </script>
 
-<div
-  class="coins"
-  title={$t('common.userMenu.coinsLeft', { variable: $page.data.coins })}
-  use:tooltip
->
+<div class="coins" title={$t('common.coins.coinsLeft', { variable: $page.data.coins })} use:tooltip>
   {formatCoints($page.data.coins)}
 </div>
 

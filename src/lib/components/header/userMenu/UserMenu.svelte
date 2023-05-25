@@ -16,7 +16,7 @@
 <div class="userMenu">
   <div class="userDetails" class:isOpen>
     <div>{$page.data.name}</div>
-    <div>{$t('common.userMenu.coinsLeft', { variable: $page.data.coins })}</div>
+    <div>{$t('common.coins.coinsLeft', { variable: $page.data.coins })}</div>
   </div>
 
   <button class="userMenuButton" on:click={() => (isOpen = !isOpen)}>

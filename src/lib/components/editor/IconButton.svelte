@@ -1,7 +1,8 @@
 <script lang="ts">
   import { tooltip } from '$lib/scripts/tooltip';
+  import { noop } from 'svelte/internal';
 
-  export let onClick: VoidFunction;
+  export let onClick = noop;
   export let disabled = false;
   export let title = '';
 </script>

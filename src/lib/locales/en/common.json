@@ -47,15 +47,14 @@
     "name": "Name",
     "password": "Password (8 chars min)"
   },
-  "userMenu": {
+  "coins": {
     "coinsLeft": "{{variable}} coins left",
     "getCoins": "Get coins",
     "openPatreon": "Open Patreon",
     "description": {
-      "1": "Coins are a virtual currency used to access certain actions within the app. By default, every user gets {{variable}} coins for free, which can be used to create characters, upload images and generate biographies with the help of GPT-4.",
-      "2": "Some actions in our app require us to pay for services, such as image hosting or text generation. We want to ensure that we can provide the best possible experience to all users, and by using coins to limit access to certain actions we ensure that the app is sustainable.",
-      "3": "As direct payments are not yet available, we've come up with a temporary solution to thank our supporters on Patreon. To claim your coins, send a direct message to <i>Azgaar</i> from your Patreon page. For every </b>${{variable}}</b> pledged, you will receive one coin as a token of appreciation for your support.",
-      "4": "Thank you for supporting the project! We hope you enjoy creating amazing fantasy characters and exploring endless possibilities with our AI-powered tool."
+      "1": "Coins are a virtual currency used to access certain actions within the app. By default, every user gets {{variable}} coins for free, which can be used to create characters, upload images, and generate biographies with the help of GPT.",
+      "2": "As direct payments are not yet available, we've come up with a temporary solution to thank our supporters on Patreon. To claim your coins, send a direct message to <i>Azgaar</i> from your Patreon page. For every </b>${{variable}}</b> pledged, you will receive one coin as a token of appreciation for your support.",
+      "3": "Thank you for supporting the project! We hope you enjoy creating amazing fantasy characters and exploring endless possibilities with our AI-powered tool. We want to ensure that we can provide the best possible experience to all users, and by using coins to limit access to certain actions we ensure that the app is sustainable."
     }
   },
   "navigation": {
@@ -241,12 +240,12 @@
       },
       "portrait": {
         "drop": "Drop image here",
-        "upload": "Upload portrait",
+        "upload": "Upload portrait. Price: {{ variable }} coin",
         "randomize": "Randomize portrait"
       },
       "bio": {
         "copy": "Copy biography",
-        "generate": "Generate biography",
+        "generate": "Generate biography. Price: {{ variable }} coins",
         "configurePrompt": "Configure generation prompt"
       }
     }
