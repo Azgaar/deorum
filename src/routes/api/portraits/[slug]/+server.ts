@@ -35,3 +35,18 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
     throw createServerError(err);
   }
 };
+
+export const DELETE: RequestHandler = async ({ params }) => {
+  try {
+    const id = params.slug as string;
+    const portrait = await admin.records.delete('portraits', id);
+    invalidateCache('portraits');
+    invalidateCache('characters');
+
+    log('portraits', `Uploaded portrait ${id} is deleted`);
+    return json(portrait);
+  } catch (err) {
+    report('portraits', err);
+    throw createServerError(err);
+  }
+};

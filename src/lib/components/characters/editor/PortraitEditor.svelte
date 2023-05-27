@@ -12,6 +12,8 @@
   import { invalidate } from '$app/navigation';
   import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
   import { getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { fetchSimilar } from './loadSimilarPortraits';
+  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
   export let character: ICharacter;
 
@@ -20,6 +22,7 @@
     : '';
 
   let uploadInput: HTMLInputElement;
+  let isLoading = false;
 
   function handleUpload() {
     if (!uploadInput.files) return;
@@ -38,31 +41,57 @@
     event.preventDefault();
   }
 
+  let isPortraitPoolLoadInitiated = false;
+  async function loadPortraitsPool() {
+    isPortraitPoolLoadInitiated = true;
+    isLoading = true;
+
+    const similarPortraits = await fetchSimilar(character);
+    let portraits: IPortrait[] = [];
+
+    const currentPortrait = character['@expand'].portraits?.[0];
+    if (currentPortrait) {
+      const newPortraits = similarPortraits.filter(({ id }) => id !== currentPortrait.id);
+      portraits = [currentPortrait, ...newPortraits];
+    } else {
+      portraits = similarPortraits;
+    }
+
+    character = { ...character, '@expand': { ...character['@expand'], portraits } };
+    isLoading = false;
+  }
+
   async function uploadPortrait(file: File) {
     try {
       const { userId, coins } = $page.data;
       if (!userId) throw new Error('User not logged in');
       if (!coins || coins < UPLOAD_PORTRAIT_PRICE) return getCoinsDialog(coins);
 
+      isLoading = true;
       const formData = new FormData();
       const convertedImage = await convertImageFile(file);
       formData.set('user', userId);
       formData.set('image', convertedImage);
       const portrait = await sendFormData<IPortrait>('/api/portraits', formData, 'POST');
-      invalidate(KEYS.USER_DATA);
+      await invalidate(KEYS.USER_DATA);
 
+      const portraits = character['@expand'].portraits || [];
       character = {
         ...character,
         portraits: [portrait.id],
-        '@expand': { ...character['@expand'], portraits: [portrait] }
+        '@expand': { ...character['@expand'], portraits: [portrait, ...portraits] }
       };
     } catch (err) {
       report('upload portrait', err, file);
       toastError(err);
+    } finally {
+      isLoading = false;
     }
   }
 
-  function nextPortrait() {
+  async function nextPortrait() {
+    if (!isPortraitPoolLoadInitiated) await loadPortraitsPool();
+
     const portraits = character['@expand'].portraits;
     if (portraits?.length) {
       const [first, ...rest] = portraits;
@@ -76,7 +105,7 @@
   }
 </script>
 
-<div class="portrait" on:drop={handleDrop} on:dragover={handleDragover} on:focus={() => {}}>
+<div class="portrait" on:drop={handleDrop} on:dragover={handleDragover}>
   <svg class="placeholder" width="100%" viewBox="0 0 512 512">
     <rect width="512" height="512" />
   </svg>
@@ -97,9 +126,15 @@
       <input type="file" accept="image/*" bind:this={uploadInput} on:change={handleUpload} />📁
     </IconButton>
 
-    <IconButton onClick={nextPortrait} title={$t('common.details.editor.portrait.randomize')}>
-      🎲
-    </IconButton>
+    {#if isLoading}
+      <IconButton disabled>
+        <CircularSpinner size={16} />
+      </IconButton>
+    {:else}
+      <IconButton onClick={nextPortrait} title={$t('common.details.editor.portrait.randomize')}>
+        🎲
+      </IconButton>
+    {/if}
   </div>
 </div>
 

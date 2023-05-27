@@ -53,7 +53,7 @@ export const POST: RequestHandler = async ({ request }) => {
     await client.records.update('profiles', user.profile.id, { coins });
 
     invalidateCache('portraits');
-    log('portraits', 'Upload portrait', formData);
+    log('portraits', 'Upload portrait');
     return json(result);
   } catch (err) {
     report('portraits', err);

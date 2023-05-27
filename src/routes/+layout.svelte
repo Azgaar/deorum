@@ -1,6 +1,7 @@
 <script lang="ts">
   import { dev } from '$app/environment';
   import { page } from '$app/stores';
+  import SigninContext from '$lib/components/auth/signin/SigninContext.svelte';
   import Dialog from '$lib/components/dialog/Dialog.svelte';
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
   import LoadingOverlay from '$lib/components/spinner/LoadingOverlay.svelte';
@@ -17,7 +18,9 @@
   <title>Deorum: fantasy characters creator by Azgaar</title>
 </svelte:head>
 
-<slot />
+<SigninContext>
+  <slot />
+</SigninContext>
 
 <Dialog />
 

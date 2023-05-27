@@ -15,7 +15,7 @@ export function normalizeError(err: unknown): string {
 }
 
 function normalizeErrorCode(err: unknown): number {
-  if (err instanceof ClientResponseError) return err.data.code;
+  if (err instanceof ClientResponseError) return err.data.code || 500;
   if (isHttpError(err)) return err.status;
   return 500;
 }

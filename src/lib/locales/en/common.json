@@ -271,6 +271,10 @@
       "empty": "You haven't created any custom characters yet. Use the button at the right side to create one from scratch or edit any existing character.",
       "create": "Create character",
       "remove": "Remove custom character"
+    },
+    "uploaded": {
+      "title": "Uploaded portraits",
+      "remove": "Remove portrait"
     }
   },
   "models": {

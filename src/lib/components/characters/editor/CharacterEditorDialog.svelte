@@ -18,7 +18,6 @@
     IArchetype,
     IBackground,
     ICharacter,
-    IPortrait,
     IRace,
     ITag,
     TGender
@@ -28,7 +27,6 @@
   import Dialog, { Title } from '@smui/dialog';
   import BiographyEditor from './BiographyEditor.svelte';
   import PortraitEditor from './PortraitEditor.svelte';
-  import { fetchSimilar } from './loadSimilarPortraits';
 
   export let open: boolean;
   export let character: ICharacter;
@@ -42,25 +40,6 @@
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
-
-  let portraitsPreloaded = false;
-  async function preloadPortraitsPool() {
-    if (portraitsPreloaded) return;
-    portraitsPreloaded = true;
-
-    const similarPortraits = await fetchSimilar(character);
-    let portraits: IPortrait[] = [];
-
-    const currentPortrait = character['@expand'].portraits?.[0];
-    if (currentPortrait) {
-      const newPortraits = similarPortraits.filter(({ id }) => id !== currentPortrait.id);
-      portraits = [currentPortrait, ...newPortraits];
-    } else {
-      portraits = similarPortraits;
-    }
-
-    character = { ...character, '@expand': { ...character['@expand'], portraits } };
-  }
 
   const handleGenderChange = (value: string) => {
     character.gender = value as TGender;
@@ -149,7 +128,7 @@
   <form class="body" on:submit={handleSubmit}>
     <div class="content">
       <div class="columns">
-        <div class="column" on:mouseover={preloadPortraitsPool} on:focus={preloadPortraitsPool}>
+        <div class="column">
           <PortraitEditor bind:character />
         </div>
 
