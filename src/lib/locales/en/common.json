@@ -65,7 +65,7 @@
     "tags": "Tags",
     "admin": "Admin",
     "next": "Next",
-    "myCharacters": "My Characters",
+    "library": "Library",
     "donate": "Donate",
     "terms": "Terms of Use",
     "discord": "Discord Server"
@@ -260,7 +260,7 @@
     "mobileHint": "Swipe left or right to rotate the gallery",
     "desktopHint": "Use the arrows to rotate the gallery"
   },
-  "myCharacters": {
+  "library": {
     "liked": {
       "title": "Liked characters",
       "empty": "You haven't liked any characters yet. Use the heart icon at the right side of the character card to add it to your favorites.",

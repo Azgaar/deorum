@@ -20,8 +20,8 @@
         await request(`/api/custom/${item.id}`, 'DELETE');
 
         const isDetailsPage = Boolean($page.params.slug);
-        if (isDetailsPage) goto('/myCharacters');
-        else await invalidate(KEYS.MY_CHARACTERS);
+        if (isDetailsPage) goto('/library');
+        else await invalidate(KEYS.LIBRARY);
       } catch (error) {
         report('character editor', error);
         toastError(error);
@@ -34,6 +34,6 @@
   };
 </script>
 
-<ActionButton onClick={handleClick} title={$t('common.myCharacters.custom.remove')}>
+<ActionButton onClick={handleClick} title={$t('common.library.custom.remove')}>
   <Trash width={26} />
 </ActionButton>

@@ -9,7 +9,7 @@ import { report } from '$lib/utils/log';
 
 const protectedPaths = [
   { path: 'admin', roles: [Role.ADMIN] },
-  { path: 'myCharacters', roles: [Role.USER, Role.ADMIN] },
+  { path: 'library', roles: [Role.USER, Role.ADMIN] },
   { path: 'match', roles: [Role.USER, Role.ADMIN] }
 ];
 

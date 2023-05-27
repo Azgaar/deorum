@@ -18,6 +18,6 @@ export const load: PageServerLoad = async ({ parent, params, fetch, depends }) =
 
   depends(KEYS.CUSTOM_CHARACTER);
 
-  log('myCharacters', `Loading custom character ${item.id} of user ${parentData.userId}`);
+  log('library', `Loading custom character ${item.id} of user ${parentData.userId}`);
   return { item };
 };

@@ -34,7 +34,7 @@ const linkGenerators: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   ],
   'default': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
-    { id: `myCharacters`, key: 'common.navigation.myCharacters', to: '/myCharacters' },
+    { id: `library`, key: 'common.navigation.library', to: '/library' },
     { id: 'match', key: 'common.navigation.match', to: '/match', roles: [Role.ADMIN] },
     { id: 'terms', key: 'common.navigation.terms', to: '/terms' },
     { id: 'discord', key: 'common.navigation.discord', to: 'https://discordapp.com/invite/X7E84HU' },

@@ -120,7 +120,7 @@
       } else {
         const createData = { ...patchData, creator: $page.data.userId, source: character.id };
         await request<ICharacter>('/api/custom', 'POST', createData);
-        await invalidate(KEYS.MY_CHARACTERS);
+        await invalidate(KEYS.LIBRARY);
         invalidate(KEYS.USER_DATA);
       }
 
@@ -130,7 +130,7 @@
       toastError(error);
     } finally {
       hideLoadingOverlay();
-      if (!$page.route.id?.includes('myCharacters')) goto('/myCharacters');
+      if (!$page.route.id?.includes('library')) goto('/library');
     }
   };
 </script>

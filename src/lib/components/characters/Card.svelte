@@ -58,10 +58,7 @@
           {/if}
         </div>
 
-        <ShowDetailsButton
-          slot="bottom"
-          href={`${item.creator ? '/myCharacters' : ''}/${item.id}`}
-        />
+        <ShowDetailsButton slot="bottom" href={`${item.creator ? '/library' : ''}/${item.id}`} />
       </Actions>
     {/if}
   </div>

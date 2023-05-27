@@ -13,8 +13,8 @@
   import type { PageData } from './$types';
 
   export let data: PageData;
-  $: custom = data.myCharacters.custom;
-  $: liked = data.myCharacters.liked;
+  $: custom = data.library.custom;
+  $: liked = data.library.liked;
 
   let editor = { open: false } as {
     open: boolean;
@@ -54,14 +54,14 @@
 <div class="wrapper">
   <section>
     <header>
-      <h2>{$t('common.myCharacters.custom.title')} ({custom.length})</h2>
+      <h2>{$t('common.library.custom.title')} ({custom.length})</h2>
       <button on:click={handleCreate}>
-        {$t('common.myCharacters.custom.create')}
+        {$t('common.library.custom.create')}
       </button>
     </header>
 
     {#if custom.length === 0}
-      <p class="empty">{$t('common.myCharacters.custom.empty')}</p>
+      <p class="empty">{$t('common.library.custom.empty')}</p>
     {:else}
       <div class="grid">
         {#each custom as item (item.id)}
@@ -73,14 +73,14 @@
 
   <section>
     <header>
-      <h2>{$t('common.myCharacters.liked.title')} ({liked.length})</h2>
+      <h2>{$t('common.library.liked.title')} ({liked.length})</h2>
       <a href="/gallery" data-sveltekit-preload-data={'hover'}>
-        {$t('common.myCharacters.liked.goToGallery')}
+        {$t('common.library.liked.goToGallery')}
       </a>
     </header>
 
     {#if liked.length === 0}
-      <p class="empty">{$t('common.myCharacters.liked.empty')}</p>
+      <p class="empty">{$t('common.library.liked.empty')}</p>
     {:else}
       <div class="grid">
         {#each liked as item (item.id)}

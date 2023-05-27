@@ -13,14 +13,14 @@ export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
     getCustomCharacters(parentData.userId)
   ]);
 
-  depends(KEYS.MY_CHARACTERS);
+  depends(KEYS.LIBRARY);
 
   log(
-    'myCharacters',
+    'library',
     `Loading ${liked.length} liked and ${custom.length} custom characters of user ${parentData.userId}`
   );
 
-  return { myCharacters: { liked, custom } };
+  return { library: { liked, custom } };
 
   async function getLikedCharacters(ids: string[]) {
     if (!ids.length) return [];
