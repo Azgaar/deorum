@@ -14,35 +14,29 @@
 
   export let item: IGalleryItem;
 
-  const auth: { request: (callback: VoidFunction) => void } = getContext('auth');
+  const auth: { require: (callback: VoidFunction) => void } = getContext('auth');
 
   $: userId = ($page.data.userId || '') as string;
   $: likesOff = item.likes.filter((likerId) => likerId !== userId);
   $: likesOn = [...likesOff, userId];
   $: isLiked = Boolean(userId && item.likes.includes(userId));
 
-  const handleLikeClick = async () => {
-    if (!userId) {
-      auth.request(() => {
-        if (!isLiked) handleLikeClick();
-      });
-      return;
-    }
+  const handleLikeClick = () =>
+    auth.require(async () => {
+      item.likes = isLiked ? likesOff : likesOn; // optimistic update
+      controller?.abort(); // cancel previous request if any
 
-    item.likes = isLiked ? likesOff : likesOn; // optimistic update
-    controller?.abort(); // cancel previous request if any
-
-    try {
-      await request(`/api/characters/${item.id}/like`, isLiked ? 'DELETE' : 'POST');
-    } catch (error) {
-      if ((error as Error).name !== 'AbortError') {
-        report('character like', error, { item, isLiked });
-        toastError(error);
+      try {
+        await request(`/api/characters/${item.id}/like`, isLiked ? 'DELETE' : 'POST');
+      } catch (error) {
+        if ((error as Error).name !== 'AbortError') {
+          report('character like', error, { item, isLiked });
+          toastError(error);
+        }
+      } finally {
+        invalidate(KEYS.USER_DATA);
       }
-    } finally {
-      invalidate(KEYS.USER_DATA);
-    }
-  };
+    });
 </script>
 
 <ActionButton onClick={handleLikeClick} title={$t('common.gallery.favorite')}>

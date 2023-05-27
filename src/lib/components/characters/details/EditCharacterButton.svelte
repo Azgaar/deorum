@@ -8,6 +8,7 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
+  import { getContext } from 'svelte';
   import CharacterEditorDialog from '../editor/CharacterEditorDialog.svelte';
 
   export let item: IGalleryItem;
@@ -20,28 +21,33 @@
     tags: Map<string, { name: string; image: string }>;
   };
 
-  const handleEditClick = async () => {
-    try {
-      const characterPath = item.creator ? 'custom' : 'characters';
-      const [character, racesArray, archetypesArray, backgroundsArray, tagsArray] =
-        await Promise.all([
-          request<ICharacter>(`/api/${characterPath}/${item.id}?expand=${charactersConfig.expand}`),
-          request<IRace[]>('/api/races'),
-          request<IArchetype[]>('/api/archetypes'),
-          request<IBackground[]>('/api/backgrounds'),
-          request<ITag[]>('/api/tags')
-        ]);
+  const auth: { require: (callback: VoidFunction) => void } = getContext('auth');
 
-      const races = new Map(racesArray.map((race) => [race.id, race]));
-      const archetypes = new Map(archetypesArray.map(({ id, name }) => [id, { name }]));
-      const backgrounds = new Map(backgroundsArray.map(({ id, name }) => [id, { name }]));
-      const tags = new Map(tagsArray.map(({ id, image, name }) => [id, { image, name }]));
-      editor = { open: true, character, races, archetypes, backgrounds, tags };
-    } catch (error) {
-      report('edit character', error, item);
-      toastError(error);
-    }
-  };
+  const handleEditClick = () =>
+    auth.require(async () => {
+      try {
+        const characterPath = item.creator ? 'custom' : 'characters';
+        const [character, racesArray, archetypesArray, backgroundsArray, tagsArray] =
+          await Promise.all([
+            request<ICharacter>(
+              `/api/${characterPath}/${item.id}?expand=${charactersConfig.expand}`
+            ),
+            request<IRace[]>('/api/races'),
+            request<IArchetype[]>('/api/archetypes'),
+            request<IBackground[]>('/api/backgrounds'),
+            request<ITag[]>('/api/tags')
+          ]);
+
+        const races = new Map(racesArray.map((race) => [race.id, race]));
+        const archetypes = new Map(archetypesArray.map(({ id, name }) => [id, { name }]));
+        const backgrounds = new Map(backgroundsArray.map(({ id, name }) => [id, { name }]));
+        const tags = new Map(tagsArray.map(({ id, image, name }) => [id, { image, name }]));
+        editor = { open: true, character, races, archetypes, backgrounds, tags };
+      } catch (error) {
+        report('edit character', error, item);
+        toastError(error);
+      }
+    });
 </script>
 
 <ActionButton onClick={handleEditClick} title={$t('common.controls.edit')}>
