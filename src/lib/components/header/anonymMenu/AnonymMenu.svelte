@@ -10,9 +10,11 @@
   $: links = getLinks($page, $galleryNextId);
 </script>
 
-<nav class="noprint mobile" in:fade>
+<nav class="noprint" in:fade>
   <div class="backdrop" class:collapsed on:click={toggleMenu} on:keydown={toggleMenu} />
+
   <button class="menu" on:click={toggleMenu}>☰</button>
+
   <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>
     <ul>
       {#each links as link (getLinkKey(link))}

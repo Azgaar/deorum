@@ -45,7 +45,9 @@
     "logout": "Log out",
     "email": "Email",
     "name": "Name",
-    "password": "Password (8 chars min)"
+    "password": "Password (8 chars min)",
+    "agreeToTerms": "By signing up, you agree to our",
+    "terms": "Terms of Use"
   },
   "coins": {
     "coinsLeft": "{{variable}} coins left",
@@ -64,7 +66,9 @@
     "admin": "Admin",
     "next": "Next",
     "myCharacters": "My Characters",
-    "donate": "Donate"
+    "donate": "Donate",
+    "terms": "Terms of Use",
+    "discord": "Discord Server"
   },
   "success": {
     "copied": "Copied to you clipboard"

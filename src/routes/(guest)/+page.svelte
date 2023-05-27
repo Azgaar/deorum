@@ -47,6 +47,8 @@
 
   main {
     grid-area: main;
+    overflow: hidden;
+
     $color-primary: #fdd8ae;
     $color-primary-dark: #bab45e;
 
@@ -57,16 +59,21 @@
     }
 
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    overflow-y: auto;
 
     .content {
+      max-height: 100%;
+      overflow: auto;
+
       padding: 24px;
       max-width: 1000px;
-      // backround gradient: ligher at top and darker at bottom
       background: linear-gradient(150deg, #160a05a4, #170904d9);
       border-radius: 8px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
 
       .title > h1 {
         margin: 8px;
@@ -84,7 +91,7 @@
         padding: 8px 16px;
 
         .title > h1 {
-          font-size: 1.4rem;
+          font-size: 1.5rem;
         }
       }
 
@@ -105,7 +112,7 @@
           p {
             margin: 0;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
           }
         }
       }
@@ -119,6 +126,11 @@
           text-decoration: none;
           margin: 24px;
           padding: 12px 24px;
+
+          @media ($mobile) {
+            margin: 12px;
+            padding: 6px 12px;
+          }
 
           border-radius: 4px;
           background-color: $color-primary;

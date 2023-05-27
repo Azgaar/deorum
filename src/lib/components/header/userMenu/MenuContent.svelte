@@ -17,9 +17,9 @@
     <hr />
 
     <section>
-      <button on:click={() => getCoinsDialog($page.data.coins)}
-        >{$t('common.coins.getCoins')}</button
-      >
+      <button on:click={() => getCoinsDialog($page.data.coins)}>
+        {$t('common.coins.getCoins')}
+      </button>
     </section>
 
     <hr />
@@ -109,6 +109,7 @@
         flex-direction: column;
         align-items: center;
         gap: 8px;
+        text-align: center;
       }
     }
   }

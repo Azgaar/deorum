@@ -60,6 +60,13 @@
     />
 
     <PasswordInput bind:password {isLoading} />
+
+    <div class="terms">
+      {$t('common.auth.agreeToTerms')}{' '}
+      <a data-sveltekit-preload-data="hover" href="/terms" target="_blank">
+        {$t('common.auth.terms')}</a
+      >
+    </div>
   </div>
 
   <div class="actions">
@@ -96,6 +103,12 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+
+      div.terms {
+        color: color.adjust($text, $alpha: -0.5);
+        font-size: 14px;
+        padding-top: 0.5rem;
+      }
     }
 
     div.actions {
