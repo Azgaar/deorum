@@ -142,6 +142,10 @@
   }
 
   form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
     ul.list {
       max-height: min(560px, 80vh);
       overflow: auto;

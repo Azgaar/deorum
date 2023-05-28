@@ -1,20 +1,22 @@
 <script lang="ts">
-  import Dialog from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
-  import Checkbox from '@smui/checkbox';
-
-  import { t } from '$lib/locales/translations';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { report } from '$lib/utils/log';
-  import { request } from '$lib/utils/requests';
-  import { toastError } from '$lib/stores';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
+  import Checkbox from '$lib/components/inputs/Checkbox.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { t } from '$lib/locales/translations';
+  import { toastError } from '$lib/stores';
   import type { IList, IOriginal, IPortrait } from '$lib/types/api.types';
+  import { report } from '$lib/utils/log';
+  import { request } from '$lib/utils/requests';
 
-  export let open: boolean;
+  export let isOpen: boolean;
   export let ids: string[];
+  export let onSubmit: (newIds: string[]) => void;
 
   let page = 1;
   let hasMore = false;
@@ -24,7 +26,7 @@
   let original = '';
   let originalOptions: string[][] = [];
 
-  $: onOpen(open);
+  $: onOpen(isOpen);
 
   const onOpen = async (open: boolean) => {
     if (!open) return;
@@ -77,125 +79,112 @@
     loadPortraits();
   };
 
-  const handleSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
-    open = false;
+  const handleCancel = () => {
+    isOpen = false;
+  };
+
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const current = Array.from(formData.keys());
+
+    onSubmit(current);
+    handleCancel();
   };
 </script>
 
-<Dialog
-  bind:open
-  style="max-width: 100%;"
-  aria-labelledby="portraits-dialog"
-  aria-describedby="portraits-dialog"
->
-  <section class="title">
-    <div>{$t('common.controls.select')} {$t('admin.statistics.portraits').toLowerCase()}</div>
-    <Select value={original} options={originalOptions} onChange={handleOriginalChange} />
-  </section>
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <DialogHeader>
+    <div class="title">
+      <div>{$t('common.controls.select')} {$t('admin.statistics.portraits').toLowerCase()}</div>
+      <Select value={original} options={originalOptions} onChange={handleOriginalChange} />
+    </div>
+  </DialogHeader>
 
-  <form class="body" on:submit={handleSubmit}>
-    <div class="content">
-      <div>
+  <form on:submit={handleSubmit}>
+    <DialogBody>
+      <div class="content">
         {#each portraits as { id, image } (id)}
-          <div>
-            <img src={`${PORTRAITS_IMAGE_PATH}/${id}/${image}?thumb=100x100`} alt={id} />
-            <div class="checkbox" aria-checked={ids.includes(id)}>
-              <Checkbox bind:group={ids} value={id} />
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label>
+            <img src={`${PORTRAITS_IMAGE_PATH}/${id}/${image}`} alt={id} />
+            <div class="checkbox">
+              <Checkbox name={id} checked={ids.includes(id)} />
             </div>
-          </div>
+          </label>
         {/each}
       </div>
-    </div>
+    </DialogBody>
 
-    <div class="actions">
+    <DialogFooter>
       {#if isLoading}
         <CircularSpinner size={20} />
       {/if}
 
       {#if hasMore}
-        <Button type="button" style="color: white" disabled={isLoading} on:click={loadMore}>
-          <Label>{$t('admin.editor.loadMore')}</Label>
-        </Button>
+        <DialogAction handleClick={loadMore} disabled={isLoading}>
+          {$t('admin.editor.loadMore')}
+        </DialogAction>
       {/if}
 
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.close')}</Label>
-      </Button>
-    </div>
+      <DialogAction handleClick={handleCancel}>
+        {$t('common.controls.cancel')}
+      </DialogAction>
+
+      <DialogAction type="submit">
+        {$t('common.controls.apply')}
+      </DialogAction>
+    </DialogFooter>
   </form>
 </Dialog>
 
 <style lang="scss">
-  :global(.mdc-dialog .mdc-dialog__surface) {
-    max-width: 100%;
-  }
-
-  section.title {
-    padding: 1rem 1.5rem;
-    font-size: large;
+  .title {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
     align-items: center;
   }
 
-  form.body {
-    padding: 0 1.5rem;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
     div.content {
-      width: min(500px, 90vw);
-      height: min(560px, 90vh);
+      height: min(580px, 75vh);
       overflow-y: auto;
 
-      div {
-        height: min-content;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        grid-gap: 3px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 3px;
 
-        div {
-          position: relative;
-          display: flex;
-          align-items: flex-end;
-          justify-content: flex-end;
+      @media ($mobile) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 2px;
+      }
 
-          img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            transition: filter 0.3s ease-in-out;
-          }
+      label {
+        position: relative;
+        cursor: pointer;
 
-          div.checkbox {
-            position: absolute;
-          }
+        .checkbox {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
 
-          div.checkbox[aria-checked='false'] {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            transition-delay: 0.2s;
-          }
+        img {
+          width: 100%;
+          aspect-ratio: 1;
+
+          transition: filter 0.2s ease-in-out;
+          filter: brightness(0.9);
 
           &:hover {
-            img {
-              filter: brightness(0.9);
-            }
-
-            div.checkbox {
-              visibility: visible;
-              opacity: 1;
-            }
+            filter: brightness(0.95);
           }
         }
       }
-    }
-
-    div.actions {
-      padding: 12px 0;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 8px;
     }
   }
 </style>

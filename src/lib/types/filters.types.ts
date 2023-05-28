@@ -7,12 +7,6 @@ export interface IPortraitFilters {
   hasCharacters: boolean | null;
 }
 
-export interface ICharacterFilters {
-  races: string[];
-  archetypes: number[];
-  backgrounds: string[];
-}
-
 export interface ISorting {
   key: string;
   order: 'asc' | 'desc' | 'no';

@@ -20,9 +20,7 @@
 
   const getImageSrcs = (current: ICharacter) => {
     const portraits = current?.['@expand']?.portraits || [];
-    const images = portraits.map(
-      ({ id, image }) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}?thumb=100x100`
-    );
+    const images = portraits.map(({ id, image }) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}`);
     return images;
   };
 </script>

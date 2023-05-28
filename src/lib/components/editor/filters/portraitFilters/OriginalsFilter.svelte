@@ -99,18 +99,15 @@
     gap: 1rem;
 
     div.content {
-      padding: 0;
       height: min(580px, 75vh);
       overflow-y: auto;
 
       display: grid;
-      grid-template-columns: repeat(auto-fill, 80px);
-      grid-auto-rows: 80px;
+      grid-template-columns: repeat(6, 1fr);
       grid-gap: 3px;
 
       @media ($mobile) {
-        grid-template-columns: repeat(auto-fill, 58px);
-        grid-auto-rows: 58px;
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 2px;
       }
 

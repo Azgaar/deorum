@@ -40,7 +40,7 @@
 
     try {
       const portrait = await request<IPortrait>(`/api/portraits/${id}`);
-      img.src = `${PORTRAITS_IMAGE_PATH}/${id}/${portrait.image}?thumb=100x100`;
+      img.src = `${PORTRAITS_IMAGE_PATH}/${id}/${portrait.image}`;
       img.onload = handleLoad;
       img.onerror = handleError;
     } catch (error) {

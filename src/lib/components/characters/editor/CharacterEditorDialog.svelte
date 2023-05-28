@@ -233,6 +233,10 @@
   form {
     font-size: 14px;
 
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
     div.columns {
       display: grid;
       gap: 16px;

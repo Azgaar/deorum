@@ -10,6 +10,7 @@
     margin-right: -16px;
 
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     gap: 10px;
   }

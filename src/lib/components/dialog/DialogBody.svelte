@@ -6,7 +6,7 @@
   .dialog-body {
     font-size: 14px;
     color: $text;
-    line-height: 1.5;
+    line-height: 1;
 
     display: flex;
     flex-direction: column;

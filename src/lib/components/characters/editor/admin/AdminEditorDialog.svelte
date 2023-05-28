@@ -1,5 +1,10 @@
 <script lang="ts">
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
@@ -13,7 +18,6 @@
   import { report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
   import { request } from '$lib/utils/requests';
-  import Dialog, { Title } from '@smui/dialog';
   import BiographyEditor from '../BiographyEditor.svelte';
   import { createOptions } from '../options';
   import { createRandomizer } from '../randomize';
@@ -21,7 +25,7 @@
   import Portraits from './portraits/Portraits.svelte';
   import TagsEditor from './tags/TagsEditor.svelte';
 
-  export let open: boolean;
+  export let isOpen: boolean;
   export let character: ICharacter;
   export let onSubmit: (character: ICharacter) => void;
   export let onDelete: (characterId: string) => void;
@@ -69,7 +73,7 @@
       );
 
       onSubmit(responseCharacter);
-      open = false;
+      isOpen = false;
     } catch (error) {
       report('character editor', error);
       toastError(error);
@@ -79,14 +83,14 @@
   };
 
   const handleCancel = () => {
-    open = false;
+    isOpen = false;
   };
 
   const handleDelete = async () => {
     try {
       await request<ICharacter>(`/api/characters/${current.id}`, 'DELETE');
       onDelete(current.id);
-      open = false;
+      isOpen = false;
     } catch (error) {
       report('character editor', error);
       toastError(error);
@@ -94,121 +98,121 @@
   };
 </script>
 
-<Dialog
-  bind:open
-  class="dialog"
-  aria-labelledby="character-editor"
-  aria-describedby="character-editor"
-  scrimClickAction=""
->
-  <Title>
+<Dialog {isOpen}>
+  <DialogHeader>
     {$t(current.id ? 'common.controls.edit' : 'common.controls.create')}
-    {$t('admin.editor.character')}</Title
-  >
+    {$t('admin.editor.character')}
+  </DialogHeader>
 
-  <form class="body" on:submit={handleSubmit}>
-    <div class="content">
-      <Portraits bind:ids={portraitIds} />
+  <form on:submit={handleSubmit}>
+    <DialogBody>
+      <div class="content">
+        <Portraits bind:ids={portraitIds} />
 
-      <div class="columns">
-        <div class="column">
-          <div class="element">
-            <div>{$t('common.character.gender')}:</div>
-            <Select bind:value={current.gender} options={options.gender} />
+        <div class="columns">
+          <div class="column">
+            <div class="element">
+              <div>{$t('common.character.gender')}:</div>
+              <Select bind:value={current.gender} options={options.gender} />
+            </div>
+
+            <div class="element">
+              <div>{$t('common.character.race')}:</div>
+              <Select bind:value={current.race} options={options.race} />
+            </div>
+
+            <div class="element">
+              <div>{$t('common.character.archetype')}:</div>
+              <Select bind:value={current.archetype} options={options.archetype} />
+            </div>
+
+            <div class="element">
+              <div>{$t('common.character.background')}:</div>
+              <Select bind:value={current.background} options={options.background} />
+            </div>
           </div>
 
-          <div class="element">
-            <div>{$t('common.character.race')}:</div>
-            <Select bind:value={current.race} options={options.race} />
-          </div>
+          <div class="column">
+            <div class="element">
+              <div>{$t('common.character.name')}:</div>
+              <div>
+                <TextInput bind:value={current.name} />
+                <IconButton onClick={randomize.name}>🎲</IconButton>
+              </div>
+            </div>
 
-          <div class="element">
-            <div>{$t('common.character.archetype')}:</div>
-            <Select bind:value={current.archetype} options={options.archetype} />
-          </div>
+            <div class="element">
+              <div>{$t('common.character.age')}:</div>
+              <div>
+                <NumberInput bind:value={current.age} />
+                <span class="extent">{range?.age}</span>
+                <IconButton onClick={randomize.age}>🎲</IconButton>
+              </div>
+            </div>
 
-          <div class="element">
-            <div>{$t('common.character.background')}:</div>
-            <Select bind:value={current.background} options={options.background} />
+            <div class="element">
+              <div>{$t('common.character.height')}:</div>
+              <div>
+                <NumberInput bind:value={current.height} />
+                <span class="extent">{range?.height}</span>
+                <IconButton onClick={randomize.height}>🎲</IconButton>
+              </div>
+            </div>
+
+            <div class="element">
+              <div>{$t('common.character.weight')}:</div>
+              <div>
+                <NumberInput bind:value={current.weight} />
+                <span class="extent">{range?.weight}</span>
+                <IconButton onClick={randomize.weight}>🎲</IconButton>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="column">
-          <div class="element">
-            <div>{$t('common.character.name')}:</div>
-            <div>
-              <TextInput bind:value={current.name} />
-              <IconButton onClick={randomize.name}>🎲</IconButton>
-            </div>
-          </div>
+        <TagsEditor bind:tags={current.tags} tagsMap={tags} {openEditorDialog} />
 
-          <div class="element">
-            <div>{$t('common.character.age')}:</div>
-            <div>
-              <NumberInput bind:value={current.age} />
-              <span class="extent">{range?.age}</span>
-              <IconButton onClick={randomize.age}>🎲</IconButton>
-            </div>
-          </div>
+        {#key current.id}
+          <BiographyEditor bind:character={current} {tags} />
+        {/key}
+      </div>
+    </DialogBody>
 
-          <div class="element">
-            <div>{$t('common.character.height')}:</div>
-            <div>
-              <NumberInput bind:value={current.height} />
-              <span class="extent">{range?.height}</span>
-              <IconButton onClick={randomize.height}>🎲</IconButton>
-            </div>
-          </div>
+    <DialogFooter>
+      <div class="actionPane">
+        <div>
+          {#if current.id}
+            <DialogAction disabled={isLoading} handleClick={handleDelete}>
+              {$t('common.controls.delete')}
+            </DialogAction>
+          {/if}
+        </div>
 
-          <div class="element">
-            <div>{$t('common.character.weight')}:</div>
-            <div>
-              <NumberInput bind:value={current.weight} />
-              <span class="extent">{range?.weight}</span>
-              <IconButton onClick={randomize.weight}>🎲</IconButton>
-            </div>
-          </div>
+        <div>
+          {#if isLoading}
+            <CircularSpinner size={20} />
+          {/if}
+
+          <DialogAction disabled={isLoading} handleClick={handleCancel}>
+            {$t('common.controls.cancel')}
+          </DialogAction>
+
+          <DialogAction type="submit">
+            {$t('common.controls.apply')}
+          </DialogAction>
         </div>
       </div>
-
-      <TagsEditor bind:tags={current.tags} tagsMap={tags} {openEditorDialog} />
-
-      {#key current.id}
-        <BiographyEditor bind:character={current} {tags} />
-      {/key}
-    </div>
-
-    <div class="actions">
-      <div>
-        {#if current.id}
-          <BasicButton disabled={isLoading} variant="text" onClick={handleDelete}>
-            {$t('common.controls.delete')}
-          </BasicButton>
-        {/if}
-      </div>
-
-      <div>
-        {#if isLoading}
-          <CircularSpinner size={20} />
-        {/if}
-
-        <BasicButton disabled={isLoading} variant="text" onClick={handleCancel}>
-          {$t('common.controls.cancel')}
-        </BasicButton>
-
-        <BasicButton type="submit" variant="text">
-          {$t('common.controls.apply')}
-        </BasicButton>
-      </div>
-    </div>
+    </DialogFooter>
   </form>
 </Dialog>
 
 <style lang="scss">
   @use 'sass:color';
 
-  form.body {
-    padding: 0 1.5rem;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
     div.content {
       display: flex;
@@ -246,15 +250,20 @@
       }
     }
 
-    div.actions {
-      padding: 12px 0;
+    div.actionPane {
+      width: 100%;
+
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
-      gap: 8px;
+      align-items: center;
+      gap: 1rem;
 
       div {
         display: flex;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem;
       }
     }
   }

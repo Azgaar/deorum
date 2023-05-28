@@ -414,7 +414,7 @@
 </main>
 
 {#if editCharacterDialogData.open}
-  <AdminEditorDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
+  <AdminEditorDialog {...editCharacterDialogData} bind:isOpen={editCharacterDialogData.open} />
 {/if}
 
 <GenericDialog {...genericDialogData} />

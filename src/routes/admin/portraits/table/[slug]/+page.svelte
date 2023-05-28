@@ -86,7 +86,7 @@
             width="64px"
             height="64px"
             alt={item.original}
-            src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}?thumb=100x100`}
+            src={`${PORTRAITS_IMAGE_PATH}/${item.id}/${item.image}`}
           />
         </Cell>
         <Cell style="text-transform: capitalize;">

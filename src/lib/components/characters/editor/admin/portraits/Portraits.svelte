@@ -47,7 +47,11 @@
   <button class="add" type="button" on:click={() => (isSelectDialogOpen = true)}>+</button>
 </div>
 
-<PortraitsDialog bind:open={isSelectDialogOpen} bind:ids />
+<PortraitsDialog
+  bind:isOpen={isSelectDialogOpen}
+  {ids}
+  onSubmit={(newIds) => (ids = [...ids, ...newIds])}
+/>
 
 <style lang="scss">
   div.portraits {
