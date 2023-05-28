@@ -1,15 +1,17 @@
 <script lang="ts">
-  import Dialog, { Actions } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
-
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import { t } from '$lib/locales/translations';
 
-  export let open: boolean;
+  export let isOpen: boolean;
   export let entries: [string, { image: string; name: string }][];
   export let selected: string;
   export let onSubmit: (newOrigin: string) => void;
 
-  $: search = '';
+  let search = '';
   $: found = handleSearch(search);
 
   const handleSearch = (search: string) => {
@@ -20,56 +22,63 @@
     return new Map(filtered);
   };
 
+  const handleCancel = () => {
+    isOpen = false;
+    search = '';
+  };
+
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
 
     const value = new FormData(event.target as HTMLFormElement).get('original');
     if (value && typeof value === 'string') {
       onSubmit(value);
-      open = false;
+      isOpen = false;
       search = '';
     }
   };
-
-  const handleCancel = () => {
-    open = false;
-    search = '';
-  };
 </script>
 
-<Dialog bind:open aria-labelledby="editor-dialog" aria-describedby="editor-dialog">
-  <div class="title">
-    <span>{$t('common.controls.select')} {$t('admin.editor.original').toLowerCase()}</span>
-    <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
-  </div>
-
-  <form class="body" on:submit={handleSubmit}>
-    <div class="content">
-      {#each entries || [] as [entryId, { image, name }] (entryId)}
-        <div class:found={found.has(entryId)}>
-          <input
-            type="radio"
-            name="original"
-            id={entryId}
-            value={entryId}
-            checked={selected === entryId}
-          />
-          <label for={entryId}>
-            <img src={image} alt={name} />
-            {$t(`admin.originals.${name}`)}
-          </label>
-        </div>
-      {/each}
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <DialogHeader>
+    <div class="title">
+      <span>{$t('common.controls.select')} {$t('admin.editor.original').toLowerCase()}</span>
+      <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
     </div>
+  </DialogHeader>
 
-    <Actions>
-      <Button style="color: white" on:click={handleCancel}>
-        <Label>{$t('common.controls.cancel')}</Label>
-      </Button>
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.apply')}</Label>
-      </Button>
-    </Actions>
+  <form on:submit={handleSubmit}>
+    <DialogBody>
+      <div class="content">
+        {#each entries || [] as [entryId, { image, name }] (entryId)}
+          <div class:found={found.has(entryId)}>
+            <input
+              type="radio"
+              name="original"
+              id={entryId}
+              value={entryId}
+              checked={selected === entryId}
+              hidden
+            />
+
+            <label for={entryId}>
+              <img src={image} alt={name} />
+              {$t(`admin.originals.${name}`)}
+            </label>
+          </div>
+        {/each}
+      </div>
+    </DialogBody>
+
+    <DialogFooter>
+      <DialogAction handleClick={handleCancel}>
+        {$t('common.controls.cancel')}
+      </DialogAction>
+
+      <DialogAction type="submit">
+        {$t('common.controls.apply')}
+      </DialogAction>
+    </DialogFooter>
   </form>
 </Dialog>
 
@@ -78,17 +87,10 @@
 
   div.title {
     display: flex;
-    height: 40px;
-    font-size: large;
-    padding: 0 16px;
     align-items: center;
     justify-content: space-between;
 
-    span {
-      padding-left: 10px;
-    }
-
-    input {
+    input[type='search'] {
       outline: none;
       height: 26px;
       border: none;
@@ -104,15 +106,10 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px 8px;
-    padding: 0 1rem 0 1.6rem;
     max-height: 80vh;
     overflow: auto;
 
     > div {
-      input[type='radio'] {
-        display: none;
-      }
-
       label {
         display: flex;
         align-items: center;

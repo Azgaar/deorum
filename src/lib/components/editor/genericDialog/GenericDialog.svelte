@@ -14,6 +14,9 @@
   export let selected: string[];
   export let onSubmit: (newSelected: string[]) => void;
 
+  let search = '';
+  $: found = handleSearch(search, key);
+
   const handleSearch = (search: string, key: string) => {
     if (!search) return new Map();
 
@@ -21,9 +24,6 @@
     const filtered = entries?.filter(([, { name }]) => regex.test($t(`admin.${key}.${name}`)));
     return new Map(filtered);
   };
-
-  let search = '';
-  $: found = handleSearch(search, key);
 
   const handleCancel = () => {
     isOpen = false;

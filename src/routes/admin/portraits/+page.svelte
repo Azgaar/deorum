@@ -131,7 +131,7 @@
   };
 
   let originalsDialogData = {
-    open: false,
+    isOpen: false,
     entries: [] as [string, { image: string; name: string }][],
     selected: '',
     onSubmit: (_: string) => {}
@@ -139,7 +139,7 @@
 
   const openOriginalsDialog: TOpenOriginalsDialog = (selected, onSubmit) => {
     const entries = Array.from(originals.entries());
-    originalsDialogData = { open: true, entries, selected, onSubmit };
+    originalsDialogData = { isOpen: true, entries, selected, onSubmit };
   };
 
   let editCharacterDialogData = {
