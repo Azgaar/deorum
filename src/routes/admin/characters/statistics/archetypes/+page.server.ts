@@ -3,8 +3,6 @@ import { toJson } from '$lib/utils/requests';
 import type { IStatistics } from '$lib/types/statistics.types';
 import type { IArchetype, ICharacter } from '$lib/types/api.types';
 
-export const csr = false;
-
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [characters, archetypes] = await Promise.all([
     toJson<ICharacter[]>(fetch('/api/characters')),

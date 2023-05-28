@@ -3,8 +3,6 @@ import { toJson } from '$lib/utils/requests';
 import type { IPortrait, IStyle } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
-export const csr = false;
-
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, styles] = await Promise.all([
     toJson<IPortrait[]>(fetch('/api/portraits')),

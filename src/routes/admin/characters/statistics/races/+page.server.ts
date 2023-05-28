@@ -3,8 +3,6 @@ import { toJson } from '$lib/utils/requests';
 import type { ICharacter, IRace } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
-export const csr = false;
-
 const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/40';
 
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {

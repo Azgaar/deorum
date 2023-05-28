@@ -1,22 +1,21 @@
 <script lang="ts">
-  import Checkbox from '@smui/checkbox';
-
-  import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
-  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
-  import Menu from '$lib/components/editor/menu/Menu.svelte';
+  import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
+  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
+  import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
-
   import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
-  import { request } from '$lib/utils/requests';
   import { toastError } from '$lib/stores';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
-  import { report } from '$lib/utils/log';
-
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
+  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { report } from '$lib/utils/log';
+  import { request } from '$lib/utils/requests';
+  import Checkbox from '@smui/checkbox';
+  import type { PageData } from './$types';
+  import Grid from '../Grid.svelte';
 
-  export let data: import('./$types').PageData;
+  export let data: PageData;
 
   // incoming data: immutable, turn arrays into maps
   const races = new Map(data.races.map((race) => [race.id, race]));
@@ -140,64 +139,58 @@
   };
 </script>
 
-<main>
-  <section class="gallery">
-    <div class="grid">
-      {#each characters as item (item.id)}
-        <div
-          class="imageContainer"
-          on:click={handleClick(item.id)}
-          on:keydown={handleCheck(item.id)}
-        >
-          {#if item.portraits.length}
-            <img
-              loading="lazy"
-              alt={item.id}
-              src={getMainImage(item)}
-              class:selected={selected.includes(item.id)}
-            />
-          {/if}
+<section class="gallery">
+  <Grid>
+    {#each characters as item (item.id)}
+      <div class="imageContainer" on:click={handleClick(item.id)} on:keydown={handleCheck(item.id)}>
+        {#if item.portraits.length}
+          <img
+            loading="lazy"
+            alt={item.id}
+            src={getMainImage(item)}
+            class:selected={selected.includes(item.id)}
+          />
+        {/if}
 
-          <div class="checkbox" class:hidden={!selected.includes(item.id)}>
-            <Checkbox
-              on:click={handleCheck(item.id)}
-              checked={selected.includes(item.id)}
-              touch
-              ripple={false}
-            />
-          </div>
+        <div class="checkbox" class:hidden={!selected.includes(item.id)}>
+          <Checkbox
+            on:click={handleCheck(item.id)}
+            checked={selected.includes(item.id)}
+            touch
+            ripple={false}
+          />
         </div>
-      {/each}
-    </div>
-
-    {#if characters.length === 0}
-      <div>No characters found, try to change filter criteria</div>
-    {/if}
-
-    {#if hasMore}
-      <LoadMore onClick={handleLoadMore} />
-    {/if}
-  </section>
-
-  <aside class="pane">
-    {#if model}
-      <div class="paneHeader">
-        <CharacterEditor
-          {model}
-          {races}
-          {archetypes}
-          {backgrounds}
-          {handleClearSelection}
-          image={getMainImage(model)}
-          selectedImages={selected.length}
-          handleEdit={createEditHandler(model)}
-        />
       </div>
-    {:else}
-      <Menu openFilters={() => {}} />
-    {/if}
-  </aside>
-</main>
+    {/each}
+  </Grid>
+
+  {#if characters.length === 0}
+    <div>No characters found, try to change filter criteria</div>
+  {/if}
+
+  {#if hasMore}
+    <LoadMore onClick={handleLoadMore} />
+  {/if}
+</section>
+
+<aside class="pane">
+  {#if model}
+    <div class="paneHeader">
+      <CharacterEditor
+        {model}
+        {races}
+        {archetypes}
+        {backgrounds}
+        {handleClearSelection}
+        image={getMainImage(model)}
+        selectedImages={selected.length}
+        handleEdit={createEditHandler(model)}
+      />
+    </div>
+  {:else}
+    <AdminMenu openFilters={() => {}} />
+  {/if}
+</aside>
 
 {#if editCharacterDialogData.open}
   <AdminEditorDialog {...editCharacterDialogData} bind:isOpen={editCharacterDialogData.open} />
@@ -208,95 +201,59 @@
 <style lang="scss">
   @use 'sass:color';
 
-  $pane-width-min: 360px;
-  $pane-width-max: 460px;
+  section.gallery {
+    grid-area: gallery;
+    width: 100%;
+    overflow: auto;
 
-  main {
-    height: 100vh;
-    overflow: hidden;
-    user-select: none;
+    .imageContainer {
+      position: relative;
+      aspect-ratio: 1;
 
-    display: grid;
-    grid-template-columns: 3fr minmax($pane-width-min, 1fr);
-    grid-template-areas: 'gallery pane';
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: filter 0.2s ease-in-out;
 
-    section.gallery {
-      grid-area: gallery;
-      width: 100%;
-      overflow: auto;
-
-      div.grid {
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-
-        @media (max-width: 1199px) {
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        &.selected {
+          filter: brightness(0.8);
         }
+      }
 
-        @media (max-width: 899px) {
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      div.checkbox {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: all 0.3s ease-in-out;
+
+        &.hidden {
+          opacity: 0;
         }
+      }
 
-        @media ($mobile) {
-          grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-        }
-
-        .imageContainer {
-          position: relative;
-          aspect-ratio: 1;
-
-          img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: filter 0.2s ease-in-out;
-          }
-
-          img.selected {
-            filter: brightness(0.8);
-          }
-
-          div.checkbox {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            transition: all 0.3s ease-in-out;
-          }
-
-          div.checkbox.hidden {
-            opacity: 0;
-          }
-        }
-
-        .imageContainer:hover {
-          div.checkbox {
-            opacity: 1;
-          }
+      &:hover {
+        div.checkbox {
+          opacity: 1;
         }
       }
     }
+  }
 
-    :global(.imageContainer:hover div.mdc-checkbox__background) {
-      transition: all 0.3s ease-in-out;
-      border-color: color.adjust($text, $alpha: -0.1) !important;
-    }
+  aside.pane {
+    grid-area: pane;
+    background-image: url('/images/menu.webp');
+    background-size: 100% 100%;
+    overflow: hidden;
 
-    aside.pane {
-      grid-area: pane;
-      background-image: url('/images/menu.webp');
-      background-size: 100% 100%;
-      overflow: hidden;
+    display: flex;
+    justify-content: center;
 
+    @media ($mobile) {
       display: flex;
       justify-content: center;
-
-      @media ($mobile) {
-        display: flex;
-        justify-content: center;
-        padding: 1rem 2rem;
-        width: auto;
-      }
+      padding: 1rem 2rem;
+      width: auto;
     }
   }
 </style>

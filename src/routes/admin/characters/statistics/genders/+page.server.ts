@@ -4,8 +4,6 @@ import { toJson } from '$lib/utils/requests';
 import type { ICharacter } from '$lib/types/api.types';
 import type { IStatistics } from '$lib/types/statistics.types';
 
-export const csr = false;
-
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const characters = await toJson<ICharacter[]>(fetch('/api/characters'));
 

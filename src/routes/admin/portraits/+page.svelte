@@ -1,39 +1,38 @@
 <script lang="ts">
-  import Checkbox from '@smui/checkbox';
-
-  import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
-  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
-  import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
-  import Menu from '$lib/components/editor/menu/Menu.svelte';
-  import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
+  import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
   import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
-
+  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
+  import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
+  import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
+  import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { toastError } from '$lib/stores';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
-  import { report } from '$lib/utils/log';
-  import { request, sendFormData } from '$lib/utils/requests';
-  import { createFormData, getPatchData } from '$lib/utils/portraits';
-  import { convertImageFile } from '$lib/utils/images';
-
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type {
-    TEditorData,
     IUploadedPortrait,
     TDeleteHandler,
+    TEditorData,
+    TOpenEditCharacterDialog,
     TOpenEditorDialog,
     TOpenOriginalsDialog,
+    TOpenSelectCharacterDialog,
     TPatchHandler,
-    TPostHandler,
-    TOpenEditCharacterDialog,
-    TOpenSelectCharacterDialog
+    TPostHandler
   } from '$lib/types/editor.types';
   import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
+  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { convertImageFile } from '$lib/utils/images';
+  import { report } from '$lib/utils/log';
+  import { createFormData, getPatchData } from '$lib/utils/portraits';
+  import { request, sendFormData } from '$lib/utils/requests';
+  import Checkbox from '@smui/checkbox';
   import type { PageData } from './$types';
+  import Grid from '../Grid.svelte';
 
   export let data: PageData;
+  let { page, pageSize, hasMore, filters, sorting } = data; // incoming data: mutable
 
   // incoming data: immutable maps
   const originals = new Map(data.originals.map(({ id, image, name }) => [id, { image, name }]));
@@ -43,9 +42,6 @@
   const races = new Map(data.races.map((race) => [race.id, race]));
   const archetypes = new Map(data.archetypes.map(({ id, name }) => [id, { name }]));
   const backgrounds = new Map(data.backgrounds.map(({ id, name }) => [id, { name }]));
-
-  // incoming data: mutable
-  let { page, pageSize, hasMore, filters, sorting } = data;
 
   // reactive data
   let selected: string[] = [];
@@ -347,71 +343,74 @@
   };
 </script>
 
-<main>
-  <section class="gallery">
-    <div class="grid">
-      {#each [...uploaded, ...portraits] as item (item.id)}
-        <div
-          class="imageContainer"
-          on:click={handleClick(item.id)}
-          on:keydown={handleCheck(item.id)}
-        >
-          <img
-            loading="lazy"
-            alt={item.id}
-            src={getSource(item)}
-            class:selected={selected.includes(item.id)}
-          />
+<section class="gallery">
+  <Grid>
+    {#each [...uploaded, ...portraits] as item (item.id)}
+      <div class="imageContainer" on:click={handleClick(item.id)} on:keydown={handleCheck(item.id)}>
+        <img
+          loading="lazy"
+          alt={item.id}
+          src={getSource(item)}
+          class:selected={selected.includes(item.id)}
+        />
 
-          {#if !uploaded.length || selected.includes(item.id)}
-            <div class="checkbox" class:hidden={!selected.includes(item.id)}>
-              <Checkbox
-                on:click={handleCheck(item.id)}
-                checked={selected.includes(item.id)}
-                disabled={uploaded.length > 0}
-                touch
-                ripple={false}
-              />
-            </div>
-          {/if}
-        </div>
-      {/each}
-    </div>
+        {#if !uploaded.length || selected.includes(item.id)}
+          <div class="checkbox" class:hidden={!selected.includes(item.id)}>
+            <Checkbox
+              on:click={handleCheck(item.id)}
+              checked={selected.includes(item.id)}
+              disabled={uploaded.length > 0}
+              touch
+              ripple={false}
+            />
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </Grid>
 
-    {#if portraits.length === 0}
-      <div>No portraits found, try to change filter criteria</div>
-    {/if}
+  {#if portraits.length === 0}
+    <div>No portraits found, try to change filter criteria</div>
+  {/if}
 
-    {#if hasMore}
-      <LoadMore onClick={handleLoadMore} />
-    {/if}
-  </section>
+  {#if hasMore}
+    <LoadMore onClick={handleLoadMore} />
+  {/if}
+</section>
 
-  <aside class="pane">
-    {#if model}
-      <PortraitEditor
-        {model}
-        {originals}
-        {tags}
-        {styles}
-        {colors}
-        {openEditorDialog}
-        {openOriginalsDialog}
-        {openEditCharacterDialog}
-        {openSelectCharacterDialog}
-        {handleClearSelection}
-        isUploading={Boolean(uploaded.length)}
-        image={getSource(model)}
-        selectedImages={selected.length}
-        handlePatch={createPatchHandler()}
-        handlePost={createPostHandler()}
-        handleDelete={createDeleteHandler()}
-      />
-    {:else}
-      <Menu {openFilters} />
-    {/if}
-  </aside>
-</main>
+<aside class="pane">
+  {#if model}
+    <PortraitEditor
+      {model}
+      {originals}
+      {tags}
+      {styles}
+      {colors}
+      {openEditorDialog}
+      {openOriginalsDialog}
+      {openEditCharacterDialog}
+      {openSelectCharacterDialog}
+      {handleClearSelection}
+      isUploading={Boolean(uploaded.length)}
+      image={getSource(model)}
+      selectedImages={selected.length}
+      handlePatch={createPatchHandler()}
+      handlePost={createPostHandler()}
+      handleDelete={createDeleteHandler()}
+    />
+  {:else}
+    <AdminMenu {openFilters} />
+  {/if}
+
+  <input
+    on:change={enterUploadMode}
+    hidden
+    id="uploadFilesInput"
+    type="file"
+    accept="image/webp, image/jpg, image/jpeg, image/png"
+    multiple
+  />
+</aside>
 
 {#if editCharacterDialogData.open}
   <AdminEditorDialog {...editCharacterDialogData} bind:isOpen={editCharacterDialogData.open} />
@@ -423,107 +422,62 @@
 
 <Filters {...filtersData} />
 
-<input
-  on:change={enterUploadMode}
-  id="uploadFilesInput"
-  style="display: none;"
-  type="file"
-  accept="image/webp, image/jpg, image/jpeg, image/png"
-  multiple
-/>
-
 <style lang="scss">
   @use 'sass:color';
 
-  $pane-width-min: 360px;
-  $pane-width-max: 460px;
+  section.gallery {
+    grid-area: gallery;
+    width: 100%;
+    overflow: auto;
 
-  main {
-    height: 100vh;
-    overflow: hidden;
-    user-select: none;
+    .imageContainer {
+      position: relative;
+      aspect-ratio: 1;
 
-    display: grid;
-    grid-template-columns: 3fr minmax($pane-width-min, 1fr);
-    grid-template-areas: 'gallery pane';
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: filter 0.2s ease-in-out;
 
-    section.gallery {
-      grid-area: gallery;
-      width: 100%;
-      overflow: auto;
-
-      div.grid {
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-
-        @media (max-width: 1199px) {
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        &.selected {
+          filter: brightness(0.8);
         }
+      }
 
-        @media (max-width: 899px) {
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      div.checkbox {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: all 0.3s ease-in-out;
+
+        &.hidden {
+          opacity: 0;
         }
+      }
 
-        @media ($mobile) {
-          grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-        }
-
-        .imageContainer {
-          position: relative;
-          aspect-ratio: 1;
-
-          img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: filter 0.2s ease-in-out;
-          }
-
-          img.selected {
-            filter: brightness(0.8);
-          }
-
-          div.checkbox {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            transition: all 0.3s ease-in-out;
-          }
-
-          div.checkbox.hidden {
-            opacity: 0;
-          }
-        }
-
-        .imageContainer:hover {
-          div.checkbox {
-            opacity: 1;
-          }
+      &:hover {
+        div.checkbox {
+          opacity: 1;
         }
       }
     }
+  }
 
-    :global(.imageContainer:hover div.mdc-checkbox__background) {
-      transition: all 0.3s ease-in-out;
-      border-color: color.adjust($text, $alpha: -0.1) !important;
-    }
+  aside.pane {
+    grid-area: pane;
+    background-image: url('/images/menu.webp');
+    background-size: 100% 100%;
+    overflow: hidden;
 
-    aside.pane {
-      grid-area: pane;
-      background-image: url('/images/menu.webp');
-      background-size: 100% 100%;
-      overflow: hidden;
+    display: flex;
+    justify-content: center;
 
+    @media ($mobile) {
       display: flex;
       justify-content: center;
-
-      @media ($mobile) {
-        display: flex;
-        justify-content: center;
-        padding: 1rem 2rem;
-        width: auto;
-      }
+      padding: 1rem 2rem;
+      width: auto;
     }
   }
 </style>

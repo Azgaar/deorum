@@ -4,8 +4,6 @@ import { toJson } from '$lib/utils/requests';
 import type { IStatistics } from '$lib/types/statistics.types';
 import type { IColor, IOriginal, IPortrait, IQuality, IStyle, ITag } from '$lib/types/api.types';
 
-export const csr = false;
-
 interface IAggregatedData {
   [originId: string]: {
     portraits: number;
