@@ -51,11 +51,7 @@
       <div class="content">
         {#each found as [entryId, { image, name }] (entryId)}
           <!-- svelte-ignore a11y-label-has-associated-control -->
-          <label
-            class:selected={selected.includes(entryId)}
-            use:tooltip
-            title={$t(`admin.originals.${name}`)}
-          >
+          <label use:tooltip title={$t(`admin.originals.${name}`)}>
             <img src={image} alt={name} />
             <div class="checkbox">
               <Checkbox name={entryId} checked={selected.includes(entryId)} />
@@ -78,8 +74,6 @@
 </Dialog>
 
 <style lang="scss">
-  @use 'sass:color';
-
   .title {
     display: flex;
     align-items: center;
@@ -99,6 +93,10 @@
 
   form {
     width: min(500px, 80vw);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
     div.content {
       padding: 0;

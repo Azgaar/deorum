@@ -1,18 +1,20 @@
 <script lang="ts">
-  import Dialog, { Actions, Title } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
-  import { tooltip } from '$lib/scripts/tooltip';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import { t } from '$lib/locales/translations';
-  import QualityFilter from './QualityFilter.svelte';
+  import { tooltip } from '$lib/scripts/tooltip';
+  import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
+  import Sorting from '../Sorting.svelte';
+  import ColorsFilter from './ColorsFilter.svelte';
   import HasCharactersFilter from './HasCharactersFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
-  import ColorsFilter from './ColorsFilter.svelte';
-  import Sorting from '../Sorting.svelte';
+  import QualityFilter from './QualityFilter.svelte';
 
-  import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-
-  export let open: boolean;
+  export let isOpen: boolean;
   export let filters: IPortraitFilters;
   export let sorting: ISorting;
   export let onSubmit: (filters: IPortraitFilters, sorting: ISorting) => void;
@@ -48,114 +50,127 @@
       genericDialogData = { isOpen: true, key, entries, selected, onSubmit };
     };
 
+  const handleCancel = () => {
+    isOpen = false;
+  };
+
   const handleApply = (event: SubmitEvent) => {
     event.preventDefault();
     onSubmit(filters, sorting);
   };
 </script>
 
-<Dialog class="filters" bind:open aria-labelledby="filters" aria-describedby="filters">
-  <Title>{$t('admin.menu.filter')}</Title>
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <DialogHeader>
+    {$t('admin.menu.filter')}
+  </DialogHeader>
 
-  <form class="body" on:submit={handleApply}>
-    <div class="content">
-      <div class="item" class:inactive={!filters.quality.length}>
-        <Sorting key="quality" bind:sorting />
-        <span>{$t('admin.editor.quality')}:</span>
-        <QualityFilter bind:quality={filters.quality} />
+  <form on:submit={handleApply}>
+    <DialogBody>
+      <div class="content">
+        <div class="item" class:inactive={!filters.quality.length}>
+          <Sorting key="quality" bind:sorting />
+          <span>{$t('admin.editor.quality')}:</span>
+          <QualityFilter bind:quality={filters.quality} />
+        </div>
+
+        <div class="item" class:inactive={!filters.original.length}>
+          <Sorting key="original" bind:sorting />
+          <span>{$t('admin.editor.original')}:</span>
+          {#if filters.original.length}
+            <div class="selected rounded">
+              {#each filters.original as originalId (originalId)}
+                <img
+                  alt={originalId}
+                  src={originalsMap.get(originalId)?.image}
+                  use:tooltip
+                  title={$t(`admin.originals.${originalsMap.get(originalId)?.name}`)}
+                />
+              {/each}
+            </div>
+          {/if}
+          <button type="button" class="edit" on:click={() => (showOriginalsDialog = true)}
+            >⚙️</button
+          >
+        </div>
+
+        <div class="item" class:inactive={!filters.colors.length}>
+          <Sorting key="colors" bind:sorting />
+          <span>{$t('admin.editor.colors')}:</span>
+          {#if filters.colors.length}
+            <div class="selected rounded">
+              {#each filters.colors as color (color)}
+                <div
+                  style="background-color: {color}"
+                  use:tooltip
+                  title={$t(`admin.colors.${color}`)}
+                />
+              {/each}
+            </div>
+          {/if}
+          <button type="button" class="edit" on:click={() => (showColorsDialog = true)}>⚙️</button>
+        </div>
+
+        <div class="item" class:inactive={!filters.tags.length}>
+          <Sorting key="tags" bind:sorting />
+          <span>{$t('admin.editor.tags')}:</span>
+          {#if filters.tags.length}
+            <div class="selected">
+              {#each filters.tags as tagId (tagId)}
+                <img
+                  src={tagsMap.get(tagId)?.image}
+                  alt={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
+                  use:tooltip
+                  title={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
+                />
+              {/each}
+            </div>
+          {/if}
+          <button
+            type="button"
+            class="edit"
+            on:click={handleListEdit('tags', tagsMap, filters.tags)}>⚙️</button
+          >
+        </div>
+
+        <div class="item" class:inactive={!filters.styles.length}>
+          <Sorting key="styles" bind:sorting />
+          <span>{$t('admin.editor.styles')}:</span>
+          {#if filters.styles.length}
+            <div class="selected">
+              {#each filters.styles as styleId (styleId)}
+                <img
+                  src={stylesMap.get(styleId)?.image}
+                  alt={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
+                  use:tooltip
+                  title={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
+                />
+              {/each}
+            </div>
+          {/if}
+          <button
+            type="button"
+            class="edit"
+            on:click={handleListEdit('styles', stylesMap, filters.styles)}>⚙️</button
+          >
+        </div>
+
+        <div class="item" class:inactive={filters.hasCharacters === null}>
+          <span>{$t('admin.editor.hasCharacters')}:</span>
+          <HasCharactersFilter bind:hasCharacters={filters.hasCharacters} />
+        </div>
       </div>
+    </DialogBody>
 
-      <div class="item" class:inactive={!filters.original.length}>
-        <Sorting key="original" bind:sorting />
-        <span>{$t('admin.editor.original')}:</span>
-        {#if filters.original.length}
-          <div class="selected rounded">
-            {#each filters.original as originalId (originalId)}
-              <img
-                alt={originalId}
-                src={originalsMap.get(originalId)?.image}
-                use:tooltip
-                title={$t(`admin.originals.${originalsMap.get(originalId)?.name}`)}
-              />
-            {/each}
-          </div>
-        {/if}
-        <button type="button" class="edit" on:click={() => (showOriginalsDialog = true)}>⚙️</button>
-      </div>
+    <DialogFooter>
+      <DialogAction handleClick={handleCancel}>
+        {$t('common.controls.cancel')}
+      </DialogAction>
 
-      <div class="item" class:inactive={!filters.colors.length}>
-        <Sorting key="colors" bind:sorting />
-        <span>{$t('admin.editor.colors')}:</span>
-        {#if filters.colors.length}
-          <div class="selected rounded">
-            {#each filters.colors as color (color)}
-              <div
-                style="background-color: {color}"
-                use:tooltip
-                title={$t(`admin.colors.${color}`)}
-              />
-            {/each}
-          </div>
-        {/if}
-        <button type="button" class="edit" on:click={() => (showColorsDialog = true)}>⚙️</button>
-      </div>
-
-      <div class="item" class:inactive={!filters.tags.length}>
-        <Sorting key="tags" bind:sorting />
-        <span>{$t('admin.editor.tags')}:</span>
-        {#if filters.tags.length}
-          <div class="selected">
-            {#each filters.tags as tagId (tagId)}
-              <img
-                src={tagsMap.get(tagId)?.image}
-                alt={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
-                use:tooltip
-                title={$t(`admin.tags.${tagsMap.get(tagId)?.name}`)}
-              />
-            {/each}
-          </div>
-        {/if}
-        <button type="button" class="edit" on:click={handleListEdit('tags', tagsMap, filters.tags)}
-          >⚙️</button
-        >
-      </div>
-
-      <div class="item" class:inactive={!filters.styles.length}>
-        <Sorting key="styles" bind:sorting />
-        <span>{$t('admin.editor.styles')}:</span>
-        {#if filters.styles.length}
-          <div class="selected">
-            {#each filters.styles as styleId (styleId)}
-              <img
-                src={stylesMap.get(styleId)?.image}
-                alt={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
-                use:tooltip
-                title={$t(`admin.styles.${stylesMap.get(styleId)?.name}`)}
-              />
-            {/each}
-          </div>
-        {/if}
-        <button
-          type="button"
-          class="edit"
-          on:click={handleListEdit('styles', stylesMap, filters.styles)}>⚙️</button
-        >
-      </div>
-
-      <div class="item" class:inactive={filters.hasCharacters === null}>
-        <span>{$t('admin.editor.hasCharacters')}:</span>
-        <HasCharactersFilter bind:hasCharacters={filters.hasCharacters} />
-      </div>
-    </div>
-
-    <Actions>
-      <Button type="button" style="color: white" on:click={() => (open = false)}>
-        <Label>{$t('common.controls.cancel')}</Label>
-      </Button>
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.apply')}</Label>
-      </Button>
-    </Actions>
+      <DialogAction type="submit">
+        {$t('common.controls.apply')}
+      </DialogAction>
+    </DialogFooter>
   </form>
 </Dialog>
 
@@ -168,59 +183,70 @@
   }}
 />
 
-<ColorsFilter bind:open={showColorsDialog} bind:colors={filters.colors} />
+<ColorsFilter
+  bind:isOpen={showColorsDialog}
+  selected={filters.colors}
+  onSubmit={(newSelected) => {
+    filters.colors = newSelected;
+  }}
+/>
 <GenericDialog {...genericDialogData} />
 
 <style lang="scss">
-  div.content {
+  form {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0 2rem;
+    gap: 1rem;
 
-    .item {
+    div.content {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      flex-direction: column;
       gap: 0.5rem;
 
-      span,
-      button {
-        transition: all 0.2s ease-in-out;
-      }
-
-      &.inactive > span {
-        color: #aaa;
-      }
-
-      span:first-child {
-        flex: 1;
-      }
-
-      .selected {
+      .item {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 3px;
+        align-items: center;
+        gap: 0.5rem;
 
-        img,
-        div {
-          width: 20px;
-          height: 20px;
+        span,
+        button {
+          transition: all 0.2s ease-in-out;
+        }
+
+        &.inactive > span {
+          color: #aaa;
+        }
+
+        span:first-child {
+          flex: 1;
+        }
+
+        .selected {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 3px;
+
+          img,
+          div {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        .rounded {
+          img,
+          div {
+            border-radius: 50%;
+          }
         }
       }
 
-      .rounded {
-        img,
-        div {
-          border-radius: 50%;
-        }
+      .edit {
+        background: none;
+        border: none;
+        cursor: pointer;
       }
-    }
-
-    .edit {
-      background: none;
-      border: none;
-      cursor: pointer;
     }
   }
 </style>

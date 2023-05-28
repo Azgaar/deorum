@@ -1,103 +1,99 @@
 <script lang="ts">
-  import Dialog, { Actions, Title } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
-
-  import { t } from '$lib/locales/translations';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
+  import Checkbox from '$lib/components/inputs/Checkbox.svelte';
   import { colors as allColors } from '$lib/config';
+  import { t } from '$lib/locales/translations';
+  import { tooltip } from '$lib/scripts/tooltip';
 
-  export let open: boolean;
-  export let colors: string[];
+  export let isOpen: boolean;
+  export let selected: string[];
+  export let onSubmit: (newSelected: string[]) => void;
 
-  let current = [...colors];
-
-  const handleSelect = (color: string) => () => {
-    current = current.includes(color) ? current.filter((id) => id !== color) : [...current, color];
+  const handleCancel = () => {
+    isOpen = false;
   };
 
-  const handleSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
-    colors = [...current];
-    open = false;
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const current = Array.from(formData.keys());
+
+    onSubmit(current);
+    handleCancel();
   };
 </script>
 
-<Dialog bind:open aria-labelledby="colors-filter" aria-describedby="colors-filter">
-  <Title>{$t('common.controls.select')} {$t('admin.editor.colors').toLowerCase()}</Title>
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <DialogHeader>
+    {$t('common.controls.select')}
+    {$t('admin.editor.colors').toLowerCase()}
+  </DialogHeader>
 
-  <form class="body" on:submit={handleSubmit}>
-    <div class="content">
-      {#each allColors as color (color)}
-        <button
-          type="button"
-          class:selected={current.includes(color)}
-          on:click={handleSelect(color)}
-          style="background-color: {color};"
-        >
-          <span class="checkmark" />
-        </button>
-      {/each}
-    </div>
+  <form on:submit={handleSubmit}>
+    <DialogBody>
+      <div class="content">
+        {#each allColors as color (color)}
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label use:tooltip title={$t(`admin.colors.${color}`)}>
+            <div class="colorBox" style="background-color: {color}" />
+            <div class="checkbox">
+              <Checkbox name={color} checked={selected.includes(color)} />
+            </div>
+          </label>
+        {/each}
+      </div>
+    </DialogBody>
 
-    <Actions>
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.close')}</Label>
-      </Button>
-    </Actions>
-  </form>
-</Dialog>
+    <DialogFooter>
+      <DialogAction handleClick={handleCancel}>
+        {$t('common.controls.cancel')}
+      </DialogAction>
+
+      <DialogAction type="submit">
+        {$t('common.controls.apply')}
+      </DialogAction>
+    </DialogFooter>
+  </form></Dialog
+>
 
 <style lang="scss">
-  @use 'sass:color';
-
-  form.body {
-    padding: 0 1.5rem;
+  form {
     width: min(500px, 90vw);
-  }
 
-  div.content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    grid-gap: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-    button {
-      aspect-ratio: 1;
-      transition: all 0.2s ease-in-out;
-      border: 1px solid transparent;
-      cursor: pointer;
+    div.content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      grid-template-rows: 1fr 1fr;
+      grid-gap: 3px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      label {
+        position: relative;
+        cursor: pointer;
 
-      .checkmark {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        .colorBox {
+          width: 100%;
+          aspect-ratio: 1;
 
-        background-color: color.adjust($surface, $alpha: -0.4);
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
+          transition: filter 0.2s ease-in-out;
+          filter: brightness(1);
 
-        transition: all 0.2s ease-in-out;
-        opacity: 0;
-      }
+          &:hover {
+            filter: brightness(0.95);
+          }
+        }
 
-      .checkmark::after {
-        content: '✓';
-        color: $text;
-        font-size: 1.2rem;
-      }
-
-      &:hover {
-        filter: brightness(0.9);
-      }
-
-      &.selected {
-        border-color: $text;
-
-        .checkmark {
-          opacity: 1;
+        .checkbox {
+          position: absolute;
+          right: 0;
+          bottom: 0;
         }
       }
     }

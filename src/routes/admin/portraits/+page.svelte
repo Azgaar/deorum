@@ -216,7 +216,7 @@
   };
 
   let filtersData = {
-    open: false,
+    isOpen: false,
     filters,
     sorting,
     onSubmit: (_: IPortraitFilters, __: ISorting) => {},
@@ -228,7 +228,7 @@
   const openFilters = () => {
     const onSubmit = async (newFilter: IPortraitFilters, newSort: ISorting) => {
       try {
-        filtersData = { ...filtersData, open: false };
+        filtersData = { ...filtersData, isOpen: false };
 
         const filter = parseFilters(newFilter);
         const sort = parseSorting(newSort);
@@ -257,7 +257,7 @@
       }
     };
 
-    filtersData = { ...filtersData, open: true, filters, sorting, onSubmit };
+    filtersData = { ...filtersData, isOpen: true, filters, sorting, onSubmit };
   };
 
   const createPatchHandler = (): TPatchHandler => async (changes) => {
