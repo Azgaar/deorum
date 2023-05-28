@@ -197,7 +197,7 @@
   };
 
   let selectCharacterDialogData = {
-    open: false,
+    isOpen: false,
     currentIds: [] as string[],
     onSubmit: (_: ICharacter[]) => {},
     races
@@ -209,7 +209,7 @@
   ) => {
     selectCharacterDialogData = {
       ...selectCharacterDialogData,
-      open: true,
+      isOpen: true,
       currentIds: Array.from(currentIds),
       onSubmit
     };

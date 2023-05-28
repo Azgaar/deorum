@@ -1,22 +1,21 @@
 <script lang="ts">
-  import Dialog from '@smui/dialog';
-  import FormField from '@smui/form-field';
-  import Button, { Label } from '@smui/button';
-  import Checkbox from '@smui/checkbox';
-
-  import { t } from '$lib/locales/translations';
-  import { request } from '$lib/utils/requests';
-  import { report } from '$lib/utils/log';
-  import { toastError } from '$lib/stores';
-  import { deriveCharacterLabel, derivePrimaryImagePath } from '$lib/utils/characters';
-
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
+  import Checkbox from '$lib/components/inputs/Checkbox.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-
-  import type { ICharacter, IRace, IList } from '$lib/types/api.types';
   import { charactersConfig } from '$lib/config';
+  import { t } from '$lib/locales/translations';
+  import { toastError } from '$lib/stores';
+  import type { ICharacter, IList, IRace } from '$lib/types/api.types';
+  import { deriveCharacterLabel, derivePrimaryImagePath } from '$lib/utils/characters';
+  import { report } from '$lib/utils/log';
+  import { request } from '$lib/utils/requests';
 
-  export let open: boolean;
+  export let isOpen: boolean;
   export let currentIds: string[];
   export let onSubmit: (characters: ICharacter[]) => void;
   export let races: Map<string, IRace>;
@@ -32,9 +31,9 @@
   const options = Array.from(races).map(([id, { name }]) => [id, $t(`common.races.${name}`)]);
   const raceOptions = [all].concat(options);
 
-  $: onOpen(open);
+  $: onOpen(isOpen);
 
-  const onOpen = async (open: boolean) => {
+  const onOpen = (open: boolean) => {
     if (!open) return;
     loadCharacters([]);
   };
@@ -69,105 +68,110 @@
     loadCharacters(characters);
   };
 
-  const handleSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
+  const handleCancel = () => {
+    isOpen = false;
+  };
+
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const currentIds = Array.from(formData.keys());
 
     const selected = characters.filter(({ id }) => currentIds.includes(id));
     onSubmit(selected);
-    open = false;
+    handleCancel();
   };
 </script>
 
-<Dialog
-  bind:open
-  class="dialog"
-  aria-labelledby="select-character"
-  aria-describedby="select-character"
->
-  <section class="title">
-    <div>{$t('common.controls.select')} {$t('admin.editor.characters').toLowerCase()}</div>
-    <Select value={race} options={raceOptions} onChange={handleRaceChange} />
-  </section>
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <DialogHeader>
+    <div class="title">
+      <div>{$t('common.controls.select')} {$t('admin.editor.characters').toLowerCase()}</div>
+      <Select value={race} options={raceOptions} onChange={handleRaceChange} />
+    </div>
+  </DialogHeader>
 
-  <form class="body" on:submit={handleSubmit}>
-    <ul class="list">
-      {#each characters as character (character.id)}
-        <li class="lineItem">
-          <FormField>
-            <Checkbox bind:group={currentIds} value={character.id} />
-            <span slot="label" class="label">
-              <img src={derivePrimaryImagePath(character, 100)} alt={character.name} />
-              {deriveCharacterLabel(character)}
-            </span>
-          </FormField>
-        </li>
-      {/each}
-    </ul>
+  <form on:submit={handleSubmit}>
+    <DialogBody>
+      <ul class="list">
+        {#each characters as character (character.id)}
+          <li>
+            <!-- svelte-ignore a11y-label-has-associated-control -->
+            <label>
+              <Checkbox name={character.id} checked={currentIds.includes(character.id)} />
+              <span class="label">
+                <img src={derivePrimaryImagePath(character)} alt={character.name} />
+                {deriveCharacterLabel(character)}
+              </span>
+            </label>
+          </li>
+        {/each}
+      </ul>
+    </DialogBody>
 
-    <div class="actions">
+    <DialogFooter>
       {#if isLoading}
         <CircularSpinner size={20} />
       {/if}
 
       {#if hasMore}
-        <Button type="button" style="color: white" disabled={isLoading} on:click={loadMore}>
-          <Label>{$t('admin.editor.loadMore')}</Label>
-        </Button>
+        <DialogAction disabled={isLoading} handleClick={loadMore}>
+          {$t('admin.editor.loadMore')}
+        </DialogAction>
       {/if}
 
-      <Button type="button" style="color: white" on:click={() => (open = false)}>
-        <Label>{$t('common.controls.close')}</Label>
-      </Button>
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.apply')}</Label>
-      </Button>
-    </div>
+      <DialogAction handleClick={handleCancel}>
+        {$t('common.controls.close')}
+      </DialogAction>
+
+      <DialogAction type="submit">
+        {$t('common.controls.apply')}
+      </DialogAction>
+    </DialogFooter>
   </form>
 </Dialog>
 
 <style lang="scss">
   @use 'sass:color';
 
-  section.title {
-    padding: 1rem 1.5rem;
-    font-size: large;
+  .title {
     display: grid;
     grid-template-columns: 3fr 1fr;
     align-items: center;
   }
 
-  form.body {
-    padding: 0 1.5rem;
-
+  form {
     ul.list {
+      max-height: min(560px, 80vh);
+      overflow: auto;
       margin: 0;
       padding: 0;
-      height: min(560px, 90vh);
-      overflow-y: auto;
 
       display: flex;
       flex-direction: column;
       gap: 2px;
 
-      span.label {
-        display: grid;
-        grid-template-columns: 40px 1fr;
-        grid-gap: 8px;
-        align-items: center;
+      li {
+        list-style: none;
 
-        img {
-          width: 100%;
-          aspect-ratio: 1/1;
+        label {
+          display: flex;
+          align-items: center;
+
+          span.label {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            grid-gap: 8px;
+            align-items: center;
+
+            img {
+              width: 100%;
+              aspect-ratio: 1/1;
+            }
+          }
         }
       }
-    }
-
-    div.actions {
-      padding: 12px 0;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 8px;
     }
   }
 </style>

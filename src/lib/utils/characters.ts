@@ -88,9 +88,8 @@ export const getGalleryItemData = (character: ICharacter): IGalleryItem => {
   };
 };
 
-export const derivePrimaryImagePath = (character: ICharacter, thump: number | boolean = false) => {
+export const derivePrimaryImagePath = (character: ICharacter) => {
   const portrait = character['@expand']?.portraits?.[0];
   if (!portrait) return '';
-  const thumbnail = thump ? `?thumb=${thump}x${thump}` : '';
-  return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}?${thumbnail}`;
+  return `${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}`;
 };
