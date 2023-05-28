@@ -1,14 +1,19 @@
 <script lang="ts">
-  import Dialog, { Actions } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
   import { tooltip } from '$lib/scripts/tooltip';
   import { t } from '$lib/locales/translations';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import Checkbox from '$lib/components/inputs/Checkbox.svelte';
 
-  export let open: boolean;
-  export let original: string[];
-
+  export let isOpen: boolean;
   export let entries: [string, { image: string; name: string }][];
-  $: search = '';
+  export let selected: string[];
+  export let onSubmit: (newSelected: string[]) => void;
+
+  let search = '';
   $: found = handleSearch(search);
 
   const handleSearch = (search: string) => {
@@ -18,72 +23,108 @@
     return entries?.filter(([, { name }]) => regex.test($t(`admin.originals.${name}`)));
   };
 
-  const handleSelect = (originalId: string) => () => {
-    original = original.includes(originalId)
-      ? original.filter((id) => id !== originalId)
-      : [...original, originalId];
+  const handleCancel = () => {
+    isOpen = false;
+    search = '';
   };
 
-  const handleSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
-    open = false;
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const current = Array.from(formData.keys());
+
+    onSubmit(current);
+    handleCancel();
   };
 </script>
 
-<Dialog
-  bind:open
-  class="editorDialog"
-  aria-labelledby="originals-filter"
-  aria-describedby="originals-filter"
->
-  <div class="title">
-    <span>{$t('common.controls.select')} {$t(`admin.editor.originals`).toLowerCase()}</span>
-    <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
-  </div>
-
-  <form class="body" on:submit={handleSubmit}>
-    <div class="content">
-      {#each found as [entryId, { image, name }] (entryId)}
-        <button
-          type="button"
-          class:selected={original.includes(entryId)}
-          on:click={handleSelect(entryId)}
-        >
-          <img src={image} alt={name} />
-          <span class="checkmark" use:tooltip title={$t(`admin.originals.${name}`)} />
-        </button>
-      {/each}
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <DialogHeader>
+    <div class="title">
+      <span>{$t('common.controls.select')} {$t(`admin.editor.originals`).toLowerCase()}</span>
+      <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
     </div>
+  </DialogHeader>
 
-    <Actions>
-      <Button type="submit" style="color: white">
-        <Label>{$t('common.controls.close')}</Label>
-      </Button>
-    </Actions>
+  <form on:submit={handleSubmit}>
+    <DialogBody>
+      <div class="content">
+        {#each found as [entryId, { image, name }] (entryId)}
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label
+            class:selected={selected.includes(entryId)}
+            use:tooltip
+            title={$t(`admin.originals.${name}`)}
+          >
+            <img src={image} alt={name} />
+            <div class="checkbox">
+              <Checkbox name={entryId} checked={selected.includes(entryId)} />
+            </div>
+          </label>
+        {/each}
+      </div>
+    </DialogBody>
+
+    <DialogFooter>
+      <DialogAction handleClick={handleCancel}>
+        {$t('common.controls.cancel')}
+      </DialogAction>
+
+      <DialogAction type="submit">
+        {$t('common.controls.apply')}
+      </DialogAction>
+    </DialogFooter>
   </form>
 </Dialog>
 
 <style lang="scss">
   @use 'sass:color';
 
-  form.body {
-    padding: 0 1rem;
-    width: min(500px, 90vw);
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    input[type='search'] {
+      outline: none;
+      height: 26px;
+      border: none;
+      border-bottom: 1px solid black;
+      background: #26262b;
+      color: white;
+      border-radius: 2px;
+      text-indent: 4px;
+    }
+  }
+
+  form {
+    width: min(500px, 80vw);
 
     div.content {
-      height: min(580px, 90vh);
+      padding: 0;
+      height: min(580px, 75vh);
+      overflow-y: auto;
 
       display: grid;
       grid-template-columns: repeat(auto-fill, 80px);
       grid-auto-rows: 80px;
       grid-gap: 3px;
-      padding: 0;
 
-      button {
+      @media ($mobile) {
+        grid-template-columns: repeat(auto-fill, 58px);
+        grid-auto-rows: 58px;
+        grid-gap: 2px;
+      }
+
+      label {
         position: relative;
-        padding: 0;
-        border: none;
         cursor: pointer;
+
+        .checkbox {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
 
         img {
           width: 100%;
@@ -94,36 +135,6 @@
 
           &:hover {
             filter: brightness(0.95);
-          }
-        }
-
-        .checkmark {
-          position: absolute;
-          bottom: 2px;
-          right: 2px;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          background-color: color.adjust($surface, $alpha: -0.4);
-          border-radius: 50%;
-          width: 24px;
-          height: 24px;
-
-          transition: all 0.2s ease-in-out;
-          opacity: 0;
-
-          &::after {
-            content: '✓';
-            color: $text;
-            font-size: 1.2rem;
-          }
-        }
-
-        &.selected {
-          .checkmark {
-            opacity: 1;
           }
         }
       }

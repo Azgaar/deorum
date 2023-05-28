@@ -160,9 +160,12 @@
 </Dialog>
 
 <OriginalsFilter
-  bind:open={showOriginalsDialog}
-  bind:original={filters.original}
+  bind:isOpen={showOriginalsDialog}
+  selected={filters.original}
   entries={Array.from(originalsMap.entries())}
+  onSubmit={(newSelected) => {
+    filters.original = newSelected;
+  }}
 />
 
 <ColorsFilter bind:open={showColorsDialog} bind:colors={filters.colors} />
