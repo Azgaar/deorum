@@ -37,9 +37,9 @@ export const openGetCoinsDialog = (coinsLeft: number) => {
   dialog.open({
     title: t.get('common.coins.coinsLeft', { variable: coinsLeft }),
     body: `
-      <p>${t.get('common.coins.description.1', { variable: REGISTRATION_BONUS })}</p>
-      <p>${t.get('common.coins.description.2', { variable: PATREON_COIN_PRICE_USD })}</p>
-      <p>${t.get('common.coins.description.3')}</p>
+      <div>${t.get('common.coins.description.1', { variable: REGISTRATION_BONUS })}</div>
+      <div>${t.get('common.coins.description.2', { variable: PATREON_COIN_PRICE_USD })}</div>
+      <div>${t.get('common.coins.description.3')}</div>
     `,
     confirmButton: t.get('common.coins.openPatreon'),
     onConfirm: () => window.open('https://www.patreon.com/azgaar', '_blank'),

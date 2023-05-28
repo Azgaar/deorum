@@ -1,10 +1,14 @@
 <script lang="ts">
   import { goto, invalidate } from '$app/navigation';
   import { page } from '$app/stores';
-  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import { createOptions } from '$lib/components/characters/editor/options';
   import { createRandomizer } from '$lib/components/characters/editor/randomize';
   import { getRange } from '$lib/components/characters/editor/range';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
@@ -24,11 +28,10 @@
   } from '$lib/types/api.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
-  import Dialog, { Title } from '@smui/dialog';
   import BiographyEditor from './BiographyEditor.svelte';
   import PortraitEditor from './PortraitEditor.svelte';
 
-  export let open: boolean;
+  export let isOpen: boolean;
   export let character: ICharacter;
 
   export let races: Map<string, IRace>;
@@ -103,7 +106,7 @@
         invalidate(KEYS.USER_DATA);
       }
 
-      open = false;
+      isOpen = false;
     } catch (error) {
       report('edit character', error, character);
       toastError(error);
@@ -114,19 +117,13 @@
   };
 </script>
 
-<Dialog
-  bind:open
-  class="dialog"
-  aria-labelledby="character-editor"
-  aria-describedby="character-editor"
-  scrimClickAction=""
->
-  <Title>
+<Dialog {isOpen}>
+  <DialogHeader>
     {$t(character.id ? 'common.details.editor.edit' : 'common.details.editor.create')}
-  </Title>
+  </DialogHeader>
 
-  <form class="body" on:submit={handleSubmit}>
-    <div class="content">
+  <form on:submit={handleSubmit}>
+    <DialogBody>
       <div class="columns">
         <div class="column">
           <PortraitEditor bind:character />
@@ -216,71 +213,57 @@
       {#key character.id}
         <BiographyEditor bind:character {tags} />
       {/key}
-    </div>
+    </DialogBody>
 
-    <div class="actions">
-      <BasicButton variant="text" onClick={() => (open = false)}>
+    <DialogFooter>
+      <DialogAction handleClick={() => (isOpen = false)}>
         {$t('common.controls.cancel')}
-      </BasicButton>
+      </DialogAction>
 
-      <BasicButton type="submit" variant="text">
+      <DialogAction type="submit">
         {$t('common.controls.save')}
-      </BasicButton>
-    </div>
+      </DialogAction>
+    </DialogFooter>
   </form>
 </Dialog>
 
 <style lang="scss">
   @use 'sass:color';
 
-  form.body {
-    padding: 0 1.5rem;
+  form {
     font-size: 14px;
 
-    div.content {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    div.columns {
+      display: grid;
+      gap: 16px;
 
-      div.columns {
-        display: grid;
-        gap: 16px;
+      @media ($desktop) {
+        grid-template-columns: 4fr 5fr;
+      }
 
-        @media ($desktop) {
-          grid-template-columns: 4fr 5fr;
-        }
+      div.column {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
 
-        div.column {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
+        div.element {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          align-items: center;
+          gap: 4px;
 
-          div.element {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
+          div {
+            display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
+          }
 
-            div {
-              display: flex;
-              align-items: center;
-              gap: 2px;
-            }
-
-            span.extent {
-              font-size: small;
-              white-space: nowrap;
-            }
+          span.extent {
+            font-size: small;
+            white-space: nowrap;
           }
         }
       }
-    }
-
-    div.actions {
-      padding: 12px 0;
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
     }
   }
 </style>

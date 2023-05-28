@@ -144,7 +144,7 @@
   </section>
 </div>
 
-{#if editor.open}<CharacterEditorDialog {...editor} bind:open={editor.open} />{/if}
+{#if editor.open}<CharacterEditorDialog {...editor} bind:isOpen={editor.open} />{/if}
 
 <style lang="scss">
   div.wrapper {

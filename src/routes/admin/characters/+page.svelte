@@ -2,7 +2,7 @@
   import Checkbox from '@smui/checkbox';
 
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
-  import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
+  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import Menu from '$lib/components/editor/menu/Menu.svelte';
   import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
@@ -91,8 +91,8 @@
     return `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
   };
 
-  let editorDialogData = {
-    open: false,
+  let genericDialogData = {
+    isOpen: false,
     key: '',
     entries: [] as [string, { image: string; name: string }][],
     selected: [] as string[],
@@ -100,7 +100,7 @@
   };
 
   const openEditorDialog: TOpenEditorDialog = (key, entries, selected, onSubmit) => {
-    editorDialogData = { open: true, key, entries, selected, onSubmit };
+    genericDialogData = { isOpen: true, key, entries, selected, onSubmit };
   };
 
   let editCharacterDialogData = {
@@ -203,7 +203,7 @@
   <AdminEditorDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
 {/if}
 
-<EditorDialog {...editorDialogData} />
+<GenericDialog {...genericDialogData} />
 
 <style lang="scss">
   @use 'sass:color';

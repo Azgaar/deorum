@@ -54,4 +54,4 @@
   <Pencil width={28} />
 </ActionButton>
 
-{#if editor.open}<CharacterEditorDialog {...editor} bind:open={editor.open} />{/if}
+{#if editor.open}<CharacterEditorDialog {...editor} bind:isOpen={editor.open} />{/if}

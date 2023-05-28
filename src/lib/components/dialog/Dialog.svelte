@@ -36,6 +36,9 @@
     width: 100%;
     height: 100%;
 
+    color: $text;
+    border: none;
+
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 100;
 
@@ -45,9 +48,11 @@
 
     .dialog-container {
       padding: 20px 20px 14px;
+      box-sizing: border-box;
       max-width: min(600px, 80vw);
       min-width: 340px;
-      box-sizing: border-box;
+      max-height: calc(100% - 32px);
+      overflow-y: auto;
 
       background-color: $surface;
       border-radius: 5px;

@@ -2,7 +2,7 @@
   import Dialog, { Actions, Title } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
   import { tooltip } from '$lib/scripts/tooltip';
-  import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
+  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import { t } from '$lib/locales/translations';
   import QualityFilter from './QualityFilter.svelte';
   import HasCharactersFilter from './HasCharactersFilter.svelte';
@@ -24,8 +24,8 @@
   let showOriginalsDialog = false;
   let showColorsDialog = false;
 
-  let editorDialogData = {
-    open: false,
+  let genericDialogData = {
+    isOpen: false,
     key: '',
     entries: [] as [string, { image: string; name: string }][],
     selected: [] as string[],
@@ -45,7 +45,7 @@
         filters[key] = newSelected;
       };
 
-      editorDialogData = { open: true, key, entries, selected, onSubmit };
+      genericDialogData = { isOpen: true, key, entries, selected, onSubmit };
     };
 
   const handleApply = (event: SubmitEvent) => {
@@ -166,8 +166,7 @@
 />
 
 <ColorsFilter bind:open={showColorsDialog} bind:colors={filters.colors} />
-
-<EditorDialog {...editorDialogData} />
+<GenericDialog {...genericDialogData} />
 
 <style lang="scss">
   div.content {

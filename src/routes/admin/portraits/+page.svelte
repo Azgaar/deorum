@@ -2,7 +2,7 @@
   import Checkbox from '@smui/checkbox';
 
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
-  import EditorDialog from '$lib/components/editorDialog/EditorDialog.svelte';
+  import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
@@ -118,8 +118,8 @@
     uploaded = [];
   };
 
-  let editorDialogData = {
-    open: false,
+  let genericDialogData = {
+    isOpen: false,
     key: '',
     entries: [] as [string, { image: string; name: string }][],
     selected: [] as string[],
@@ -127,7 +127,7 @@
   };
 
   const openEditorDialog: TOpenEditorDialog = (key, entries, selected, onSubmit) => {
-    editorDialogData = { open: true, key, entries, selected, onSubmit };
+    genericDialogData = { isOpen: true, key, entries, selected, onSubmit };
   };
 
   let originalsDialogData = {
@@ -417,7 +417,7 @@
   <AdminEditorDialog {...editCharacterDialogData} bind:open={editCharacterDialogData.open} />
 {/if}
 
-<EditorDialog {...editorDialogData} />
+<GenericDialog {...genericDialogData} />
 <OriginalsDialog {...originalsDialogData} />
 <SelectCharacterDialog {...selectCharacterDialogData} />
 
