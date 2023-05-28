@@ -50,7 +50,9 @@
     "password": "Пароль",
     "passwordPlaceholder": "Введите ваш пароль",
     "agreeToTerms": "Регистрируясь, вы соглашаетесь с",
-    "terms": "условиями использования"
+    "terms": "условиями использования",
+    "haveAccount": "Уже есть аккаунт?",
+    "noAccount": "Нет аккаунта?"
   },
   "coins": {
     "coinsLeft": "Монет осталось: {{variable}}",

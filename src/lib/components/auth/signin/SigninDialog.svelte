@@ -18,5 +18,5 @@
 </script>
 
 <Dialog {isOpen} onClickOutside={handleCancel}>
-  <SigninForm onCancel={handleCancel} onSuccess={handleSuccess} />
+  <SigninForm onSuccess={handleSuccess} />
 </Dialog>

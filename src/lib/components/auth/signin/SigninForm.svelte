@@ -62,18 +62,27 @@
   </DialogBody>
 
   <DialogFooter>
-    {#if onCancel}
-      <DialogAction handleClick={onCancel} disabled={isLoading}>
-        {$t('common.controls.cancel')}
-      </DialogAction>
-    {/if}
+    <div class="noAccount">
+      {$t('common.auth.noAccount')}
+      <a data-sveltekit-preload-data="hover" href="/signup">
+        {$t('common.auth.signup')}
+      </a>
+    </div>
 
-    <DialogAction disabled={isLoading} type="submit">
-      {$t('common.auth.signin')}
-      {#if isLoading}
-        <CircularSpinner absolute />
+    <div>
+      {#if onCancel}
+        <DialogAction handleClick={onCancel} disabled={isLoading}>
+          {$t('common.controls.cancel')}
+        </DialogAction>
       {/if}
-    </DialogAction>
+
+      <DialogAction disabled={isLoading} type="submit">
+        {$t('common.auth.signin')}
+        {#if isLoading}
+          <CircularSpinner absolute />
+        {/if}
+      </DialogAction>
+    </div>
   </DialogFooter>
 </form>
 
@@ -85,5 +94,19 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    .noAccount {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+
+      position: absolute;
+      left: 0;
+      top: 5px;
+    }
+
+    a {
+      color: rgba(255, 255, 255, 0.8);
+    }
   }
 </style>

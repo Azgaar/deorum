@@ -76,24 +76,33 @@
     <div class="terms">
       {$t('common.auth.agreeToTerms')}{' '}
       <a data-sveltekit-preload-data="hover" href="/terms" target="_blank">
-        {$t('common.auth.terms')}</a
-      >
+        {$t('common.auth.terms')}
+      </a>
     </div>
   </DialogBody>
 
   <DialogFooter>
-    {#if onCancel}
-      <DialogAction handleClick={onCancel} disabled={isLoading}>
-        {$t('common.controls.cancel')}
-      </DialogAction>
-    {/if}
+    <div class="haveAccount">
+      {$t('common.auth.haveAccount')}
+      <a data-sveltekit-preload-data="hover" href="/signin">
+        {$t('common.auth.signin')}
+      </a>
+    </div>
 
-    <DialogAction disabled={isLoading} type="submit">
-      {$t('common.auth.signup')}
-      {#if isLoading}
-        <CircularSpinner absolute />
+    <div>
+      {#if onCancel}
+        <DialogAction handleClick={onCancel} disabled={isLoading}>
+          {$t('common.controls.cancel')}
+        </DialogAction>
       {/if}
-    </DialogAction>
+
+      <DialogAction disabled={isLoading} type="submit">
+        {$t('common.auth.signup')}
+        {#if isLoading}
+          <CircularSpinner absolute />
+        {/if}
+      </DialogAction>
+    </div>
   </DialogFooter>
 </form>
 
@@ -110,10 +119,20 @@
       font-size: 13px;
       font-weight: 300;
       color: rgba(255, 255, 255, 0.5);
+    }
 
-      a {
-        color: rgba(255, 255, 255, 0.8);
-      }
+    .haveAccount {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+
+      position: absolute;
+      left: 0;
+      top: 5px;
+    }
+
+    a {
+      color: rgba(255, 255, 255, 0.8);
     }
   }
 </style>

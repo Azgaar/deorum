@@ -50,7 +50,9 @@
     "password": "Password",
     "passwordPlaceholder": "Enter your password",
     "agreeToTerms": "By signing up, you agree to our",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?"
   },
   "coins": {
     "coinsLeft": "{{variable}} coins left",
