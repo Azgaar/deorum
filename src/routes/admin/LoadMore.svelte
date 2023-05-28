@@ -1,15 +1,14 @@
 <script lang="ts">
-  import Button, { Label } from '@smui/button';
-
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import { t } from '$lib/locales/translations';
 
   export let onClick: VoidFunction;
 </script>
 
 <div class="loadMore">
-  <Button variant="raised" on:click={onClick}>
-    <Label>{$t('admin.editor.loadMore')}</Label>
-  </Button>
+  <BasicButton {onClick}>
+    {$t('admin.editor.loadMore')}
+  </BasicButton>
 </div>
 
 <style lang="scss">

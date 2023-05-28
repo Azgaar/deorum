@@ -26,28 +26,31 @@
     font-size: 0.8em;
     opacity: 1;
     transition: all 0.2s ease-in-out;
-  }
 
-  button.primary {
-    background-color: $primary;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
-      0px 1px 5px 0px rgb(0 0 0 / 12%);
+    &.primary {
+      height: 36px;
+      font-size: 0.875rem;
+      letter-spacing: 0.09em;
+      background-color: $primary;
+      box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
+        0px 1px 5px 0px rgb(0 0 0 / 12%);
 
-    &:hover {
-      background-color: color.scale($primary, $lightness: 5%);
+      &:hover {
+        background-color: color.scale($primary, $lightness: 5%);
+      }
+
+      &:active {
+        background-color: color.adjust($primary, $lightness: -10%);
+      }
     }
 
-    &:active {
-      background-color: color.adjust($primary, $lightness: -10%);
-    }
-  }
+    &.text {
+      background-color: transparent;
+      border: none;
 
-  button.text {
-    background-color: transparent;
-    border: none;
-
-    &:hover {
-      color: $text;
+      &:hover {
+        color: $text;
+      }
     }
   }
 </style>

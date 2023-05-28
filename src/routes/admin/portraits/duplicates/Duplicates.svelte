@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Button, { Label } from '@smui/button';
-
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
@@ -23,9 +22,9 @@
     <Subtitle size={18}>{$t('admin.menu.duplicatesHint')}</Subtitle>
   </header>
 
-  <Button variant="raised" on:click={openDuplicates}>
-    <Label>{$t('admin.menu.openDuplicates')}</Label>
-  </Button>
+  <BasicButton onClick={openDuplicates}>
+    {$t('admin.menu.openDuplicates')}
+  </BasicButton>
 
   <main class="grid">
     {#each duplicates as { id, image } (id)}

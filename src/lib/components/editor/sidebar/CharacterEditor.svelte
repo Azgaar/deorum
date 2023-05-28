@@ -1,10 +1,8 @@
 <script lang="ts">
-  import MuiButton, { Label as MuiLabel } from '@smui/button';
-
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Label from '$lib/components/label/Label.svelte';
-  import { t } from '$lib/locales/translations';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-
+  import { t } from '$lib/locales/translations';
   import type { ICharacter, IRace } from '$lib/types/api.types';
 
   export let model: ICharacter;
@@ -92,13 +90,13 @@
   {/key}
 
   <footer>
-    <MuiButton variant="raised" on:click={handleClearSelection} style="width: 50%;">
-      <MuiLabel>{$t('common.controls.clear')}</MuiLabel>
-    </MuiButton>
+    <BasicButton onClick={handleClearSelection}>
+      {$t('common.controls.clear')}
+    </BasicButton>
 
-    <MuiButton variant="raised" on:click={handleEdit} style="width: 50%;">
-      <MuiLabel>{$t('common.controls.edit')}</MuiLabel>
-    </MuiButton>
+    <BasicButton onClick={handleEdit}>
+      {$t('common.controls.edit')}
+    </BasicButton>
   </footer>
 </section>
 
@@ -195,11 +193,11 @@
     }
 
     footer {
-      display: flex;
-      flex-grow: 1;
-      align-items: flex-end;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
-      justify-content: space-around;
+      flex: 1;
+      align-items: end;
     }
   }
 </style>

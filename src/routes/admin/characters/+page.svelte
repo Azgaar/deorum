@@ -3,7 +3,6 @@
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
-  import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
@@ -12,8 +11,9 @@
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import Checkbox from '@smui/checkbox';
-  import type { PageData } from './$types';
   import Grid from '../Grid.svelte';
+  import LoadMore from '../LoadMore.svelte';
+  import type { PageData } from './$types';
 
   export let data: PageData;
 

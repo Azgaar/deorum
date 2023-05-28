@@ -3,11 +3,10 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { logout } from '$lib/api/auth';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
-  import { VERSION } from '$lib/config/constants';
   import { t } from '$lib/locales/translations';
-  import Button, { Label } from '@smui/button';
 
   export let openFilters: VoidFunction;
 
@@ -29,41 +28,38 @@
   <main>
     <div class="hint">{$t('admin.menu.hint')}</div>
 
-    <Button variant="raised" on:click={openFilters}>
-      <Label>{$t('admin.menu.filter')}</Label>
-    </Button>
+    <BasicButton onClick={openFilters}>
+      {$t('admin.menu.filter')}
+    </BasicButton>
 
     {#if !isPortraitsPage}
-      <Button variant="raised" on:click={() => goto('./portraits')}>
+      <BasicButton onClick={() => goto('./portraits')}>
         {$t('admin.menu.portraits')}
-      </Button>
+      </BasicButton>
     {/if}
 
     {#if isPortraitsPage}
-      <Button variant="raised" on:click={() => goto('./characters')}>
+      <BasicButton onClick={() => goto('./characters')}>
         {$t('admin.menu.characters')}
-      </Button>
+      </BasicButton>
 
-      <Button
-        variant="raised"
-        on:click={() => document.getElementById('uploadFilesInput')?.click()}
-      >
-        <Label>{$t('admin.menu.upload')}</Label>
-      </Button>
+      <BasicButton onClick={() => document.getElementById('uploadFilesInput')?.click()}>
+        {$t('admin.menu.upload')}
+      </BasicButton>
 
-      <Button variant="raised" on:click={() => goto(`./${pageType}/duplicates`)}>
+      <BasicButton onClick={() => goto(`./${pageType}/duplicates`)}>
         {$t('admin.menu.duplicates')}
-      </Button>
+      </BasicButton>
     {/if}
 
-    <Button variant="raised" on:click={() => goto(`./${pageType}/statistics`)}>
-      <Label>{$t('admin.menu.statistics')}</Label>
-    </Button>
+    <BasicButton onClick={() => goto(`./${pageType}/statistics`)}>
+      {$t('admin.menu.statistics')}
+    </BasicButton>
 
     {#if $page.data.role}
-      <Button variant="raised" on:click={hadndleLogout}>
-        <Label>{$t('common.auth.logout')}</Label>
-      </Button>
+      <BasicButton onClick={hadndleLogout}>
+        {$t('common.auth.logout')}
+      </BasicButton>
     {/if}
   </main>
 </menu>

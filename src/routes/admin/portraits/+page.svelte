@@ -6,7 +6,6 @@
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
-  import LoadMore from '$lib/components/loadMore/LoadMore.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
@@ -28,8 +27,9 @@
   import { createFormData, getPatchData } from '$lib/utils/portraits';
   import { request, sendFormData } from '$lib/utils/requests';
   import Checkbox from '@smui/checkbox';
-  import type { PageData } from './$types';
   import Grid from '../Grid.svelte';
+  import LoadMore from '../LoadMore.svelte';
+  import type { PageData } from './$types';
 
   export let data: PageData;
   let { page, pageSize, hasMore, filters, sorting } = data; // incoming data: mutable

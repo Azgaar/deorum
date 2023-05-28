@@ -1,8 +1,7 @@
 <script lang="ts">
-  import DataTable, { Head, Body, Row, Cell, Label } from '@smui/data-table';
-
-  import { t } from '$lib/locales/translations';
   import Chips from '$lib/components/chips/StatsChips.svelte';
+  import { t } from '$lib/locales/translations';
+  import DataTable, { Body, Cell, Head, Label, Row } from '@smui/data-table';
 
   export let data: import('./$types').PageData;
 
@@ -24,8 +23,8 @@
   <Body style="white-space: normal;">
     {#each data.statistics as stats (stats.original.id)}
       <Row>
-        <Cell
-          ><img
+        <Cell>
+          <img
             loading="lazy"
             width="64px"
             height="64px"

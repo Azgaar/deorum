@@ -1,22 +1,19 @@
 <script lang="ts">
-  import MuiButton, { Label as MuiLabel } from '@smui/button';
-
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Chip from '$lib/components/editor/chips/Chip.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
-  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Label from '$lib/components/label/Label.svelte';
+  import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
   import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
   import { isSameArray } from '$lib/utils/array';
   import { deriveCharacterLabel } from '$lib/utils/characters';
+  import { convertImageUrl, isConvertableFormat } from '$lib/utils/images';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
-  import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
-  import { request, sendFormData } from '$lib/utils/requests';
-  import { convertImageUrl, isConvertableFormat } from '$lib/utils/images';
   import { getChanges } from '$lib/utils/portraits';
-
+  import { request, sendFormData } from '$lib/utils/requests';
   import EditButton from '../EditButton.svelte';
 
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
@@ -349,18 +346,13 @@
   </main>
 
   <footer>
-    <MuiButton variant="raised" on:click={handleCancel} style="width: 50%;">
-      <MuiLabel>{isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}</MuiLabel>
-    </MuiButton>
+    <BasicButton onClick={handleCancel}>
+      {isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}
+    </BasicButton>
 
-    <MuiButton
-      variant="raised"
-      on:click={handleChangesSave}
-      disabled={!isChanged || isLoading}
-      style="width: 50%;"
-    >
-      <MuiLabel>{$t('common.controls.save')}</MuiLabel>
-    </MuiButton>
+    <BasicButton onClick={handleChangesSave} disabled={!isChanged || isLoading}>
+      {$t('common.controls.edit')}
+    </BasicButton>
   </footer>
 </section>
 
@@ -473,11 +465,11 @@
     }
 
     footer {
-      display: flex;
-      flex-grow: 1;
-      align-items: flex-end;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
-      justify-content: space-around;
+      flex: 1;
+      align-items: end;
     }
   }
 </style>
