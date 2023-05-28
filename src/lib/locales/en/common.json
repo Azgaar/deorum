@@ -44,8 +44,11 @@
     "signupTitle": "Create a new account",
     "logout": "Log out",
     "email": "Email",
+    "emailPlaceholder": "Enter your email",
     "name": "Name",
-    "password": "Password (8 chars min)",
+    "namePlaceholder": "Enter your name",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
     "agreeToTerms": "By signing up, you agree to our",
     "terms": "Terms of Use"
   },

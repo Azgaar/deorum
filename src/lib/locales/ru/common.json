@@ -44,8 +44,11 @@
     "signupTitle": "Создать аккаунт",
     "logout": "Выйти",
     "email": "Email",
+    "emailPlaceholder": "Введите ваш email",
     "name": "Имя",
-    "password": "Пароль (мин 8 символов)",
+    "namePlaceholder": "Введите ваше имя",
+    "password": "Пароль",
+    "passwordPlaceholder": "Введите ваш пароль",
     "agreeToTerms": "Регистрируясь, вы соглашаетесь с",
     "terms": "условиями использования"
   },

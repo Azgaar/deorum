@@ -1,14 +1,13 @@
 <script lang="ts" context="module">
   import { t } from '$lib/locales/translations';
-  import { VERSION } from '$lib/constants';
+  import { VERSION } from '$lib/config/constants';
 
-  const appNameFull = 'Deorum: Fantasy Character Creator';
-  const author = 'Azgaar';
+  const appNameFull = 'Deorum: fantasy characters creator by Azgaar';
   const year = new Date().getFullYear();
 </script>
 
 <footer>
-  <span class="version">{appNameFull}. {author}, {year}. {$t('common.info.version')}{VERSION}</span>
+  <span class="version">{appNameFull}, {year}. {$t('common.info.version')}{VERSION}</span>
 </footer>
 
 <style lang="scss">

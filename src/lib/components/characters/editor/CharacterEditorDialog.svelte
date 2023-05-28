@@ -5,7 +5,7 @@
   import { createOptions } from '$lib/components/characters/editor/options';
   import { createRandomizer } from '$lib/components/characters/editor/randomize';
   import { getRange } from '$lib/components/characters/editor/range';
-  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
@@ -73,7 +73,7 @@
 
     if (!isUpdating) {
       const coinsLeft = $page.data.coins;
-      if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return getCoinsDialog(coinsLeft);
+      if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return openGetCoinsDialog(coinsLeft);
     }
 
     try {

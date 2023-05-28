@@ -5,7 +5,7 @@
   import Actions from '$lib/components/actions/Actions.svelte';
   import Card from '$lib/components/characters/Card.svelte';
   import CharacterEditorDialog from '$lib/components/characters/editor/CharacterEditorDialog.svelte';
-  import { confirmationDialog, getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { openGetCoinsDialog, requestConfirmation } from '$lib/components/dialog/provider';
   import Trash from '$lib/components/icons/Trash.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
   import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
@@ -34,7 +34,7 @@
 
   const handleCreate = async () => {
     const coinsLeft = $page.data.coins;
-    if (!coinsLeft || coinsLeft < GENERATE_BIO_PRICE) return getCoinsDialog(coinsLeft);
+    if (!coinsLeft || coinsLeft < GENERATE_BIO_PRICE) return openGetCoinsDialog(coinsLeft);
 
     try {
       const [racesArray, archetypesArray, backgroundsArray, tagsArray] = await Promise.all([
@@ -68,7 +68,7 @@
       }
     };
 
-    confirmationDialog.open({ onConfirm: removePortrait });
+    requestConfirmation({ onConfirm: removePortrait });
   };
 </script>
 

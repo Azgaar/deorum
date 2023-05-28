@@ -1,8 +1,7 @@
 <script lang="ts">
   import { dev } from '$app/environment';
-  import { page } from '$app/stores';
   import SigninContext from '$lib/components/auth/signin/SigninContext.svelte';
-  import Dialog from '$lib/components/dialog/Dialog.svelte';
+  import DialogProvider from '$lib/components/dialog/provider/DialogProvider.svelte';
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
   import LoadingOverlay from '$lib/components/spinner/LoadingOverlay.svelte';
   import { inject } from '@vercel/analytics';
@@ -20,7 +19,7 @@
   <slot />
 </SigninContext>
 
-<Dialog />
+<DialogProvider />
 
 <LoadingOverlay />
 

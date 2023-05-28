@@ -8,7 +8,7 @@
   import Subtitle from '$lib/components/logo/Subtitle.svelte';
   import SigninDialog from '$lib/components/auth/signin/SigninDialog.svelte';
   import SignupDialog from '$lib/components/auth/signup/SignupDialog.svelte';
-  import { VERSION } from '$lib/constants';
+  import { VERSION } from '$lib/config/constants';
 
   import { logout } from '$lib/api/auth';
   import { browser } from '$app/environment';
@@ -35,7 +35,7 @@
       <Button variant="raised" on:click={() => (signin = true)}>
         <Label>{$t('common.auth.signin')}</Label>
       </Button>
-      <SigninDialog bind:open={signin} />
+      <SigninDialog bind:isOpen={signin} />
 
       <Button variant="raised" on:click={() => (signup = true)}>
         <Label>{$t('common.auth.signup')}</Label>

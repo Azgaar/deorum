@@ -11,7 +11,7 @@
   import { page } from '$app/stores';
   import { invalidate } from '$app/navigation';
   import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
-  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import { fetchSimilar } from './loadSimilarPortraits';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
@@ -65,7 +65,7 @@
     try {
       const { userId, coins } = $page.data;
       if (!userId) throw new Error('User not logged in');
-      if (!coins || coins < UPLOAD_PORTRAIT_PRICE) return getCoinsDialog(coins);
+      if (!coins || coins < UPLOAD_PORTRAIT_PRICE) return openGetCoinsDialog(coins);
 
       isLoading = true;
       const formData = new FormData();

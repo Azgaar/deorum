@@ -1,22 +1,22 @@
 <script lang="ts">
-  import Dialog from '@smui/dialog';
   import { invalidateAll } from '$app/navigation';
+  import Dialog from '$lib/components/dialog/Dialog.svelte';
   import SigninForm from './SigninForm.svelte';
 
-  export let open: boolean;
+  export let isOpen: boolean;
   export let deferredAction: VoidFunction = () => {};
 
-  const onCancel = () => {
-    open = false;
+  const handleCancel = () => {
+    isOpen = false;
   };
 
-  const onSuccess = async () => {
-    open = false;
+  const handleSuccess = async () => {
+    isOpen = false;
     await invalidateAll();
     deferredAction();
   };
 </script>
 
-<Dialog bind:open aria-labelledby="signin-dialog" aria-describedby="signin-dialog">
-  <SigninForm {onCancel} {onSuccess} />
+<Dialog {isOpen} onClickOutside={handleCancel}>
+  <SigninForm onCancel={handleCancel} onSuccess={handleSuccess} />
 </Dialog>

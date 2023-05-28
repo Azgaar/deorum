@@ -1,13 +1,14 @@
 <script lang="ts">
-  import Textfield from '@smui/textfield';
   import { page } from '$app/stores';
-
+  import { signup } from '$lib/api/auth';
+  import Input from '$lib/components/auth/elements/Input.svelte';
+  import DialogAction from '$lib/components/dialog/DialogAction.svelte';
+  import DialogBody from '$lib/components/dialog/DialogBody.svelte';
+  import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
+  import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { t } from '$lib/locales/translations';
-  import { signup } from '$lib/api/auth';
   import { toastError } from '$lib/stores';
-
-  import PasswordInput from '../password/PasswordInput.svelte';
   import { log, report } from '$lib/utils/log';
 
   export let onCancel: VoidFunction | null = null;
@@ -38,28 +39,39 @@
 </script>
 
 <form on:submit={handleSubmit}>
-  <div class="title">{$t('common.auth.signupTitle')}</div>
+  <DialogHeader>
+    {$t('common.auth.signupTitle')}
+  </DialogHeader>
 
-  <div class="body">
-    <Textfield
-      required
+  <DialogBody>
+    <Input
       type="text"
-      minlength="2"
+      minlength={2}
       bind:value={name}
-      disabled={isLoading}
       label={$t('common.auth.name')}
+      placeholder={$t('common.auth.namePlaceholder')}
+      required
+      disabled={isLoading}
     />
 
-    <Textfield
-      required
+    <Input
       type="email"
       bind:value={email}
-      disabled={isLoading}
       label={$t('common.auth.email')}
-      input$autocomplete="email"
+      placeholder={$t('common.auth.emailPlaceholder')}
+      required
+      disabled={isLoading}
     />
 
-    <PasswordInput bind:password {isLoading} />
+    <Input
+      type="password"
+      minlength={8}
+      bind:value={password}
+      label={$t('common.auth.password')}
+      placeholder={$t('common.auth.passwordPlaceholder')}
+      required
+      disabled={isLoading}
+    />
 
     <div class="terms">
       {$t('common.auth.agreeToTerms')}{' '}
@@ -67,81 +79,40 @@
         {$t('common.auth.terms')}</a
       >
     </div>
-  </div>
+  </DialogBody>
 
-  <div class="actions">
+  <DialogFooter>
     {#if onCancel}
-      <button type="button" on:click={onCancel} disabled={isLoading}>
+      <DialogAction handleClick={onCancel} disabled={isLoading}>
         {$t('common.controls.cancel')}
-      </button>
+      </DialogAction>
     {/if}
 
-    <button type="submit" disabled={isLoading}>
+    <DialogAction disabled={isLoading} type="submit">
       {$t('common.auth.signup')}
       {#if isLoading}
         <CircularSpinner absolute />
       {/if}
-    </button>
-  </div>
+    </DialogAction>
+  </DialogFooter>
 </form>
 
 <style lang="scss">
-  @use 'sass:color';
-
   form {
-    padding: 16px 0px;
+    padding: 16px 16px 8px;
+    width: min(300px, 70vw);
 
-    div.title {
-      font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .terms {
+      font-size: 13px;
       font-weight: 300;
-      padding: 1rem 2rem;
-    }
+      color: rgba(255, 255, 255, 0.5);
 
-    div.body {
-      width: min(300px, 70vw);
-      padding: 1rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      div.terms {
-        color: color.adjust($text, $alpha: -0.5);
-        font-size: 14px;
-        padding-top: 0.5rem;
-      }
-    }
-
-    div.actions {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      gap: 4px;
-      padding: 0.5rem;
-
-      button {
-        font-size: 0.8rem;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-
-        padding: 8px 16px;
-        border-radius: 24px;
-        color: $text;
-        transition: background 0.2s ease-in-out;
-        background: none;
-        border: none;
-        cursor: pointer;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &:hover {
-          background: color.adjust($text, $alpha: -0.85);
-        }
-
-        &:active {
-          background: color.adjust($text, $alpha: -0.95);
-        }
+      a {
+        color: rgba(255, 255, 255, 0.8);
       }
     }
   }

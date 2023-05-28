@@ -8,4 +8,12 @@
   };
 </script>
 
-<SignupForm onSuccess={onClose} />
+<div class="form-wrapper">
+  <SignupForm onSuccess={onClose} />
+</div>
+
+<style lang="scss">
+  .form-wrapper {
+    padding: 20px 20px 14px;
+  }
+</style>

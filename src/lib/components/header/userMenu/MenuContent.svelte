@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import { t } from '$lib/locales/translations';
   import { galleryNextId } from '$lib/stores';
   import Link from '../Link.svelte';
@@ -17,7 +17,7 @@
     <hr />
 
     <section>
-      <button on:click={() => getCoinsDialog($page.data.coins)}>
+      <button on:click={() => openGetCoinsDialog($page.data.coins)}>
         {$t('common.coins.getCoins')}
       </button>
     </section>

@@ -24,4 +24,4 @@
 </script>
 
 <slot />
-<SigninDialog bind:open {deferredAction} />
+<SigninDialog bind:isOpen={open} {deferredAction} />

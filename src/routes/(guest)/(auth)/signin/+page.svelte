@@ -20,4 +20,12 @@
   };
 </script>
 
-<SigninForm {onSuccess} />
+<div class="form-wrapper">
+  <SigninForm {onSuccess} />
+</div>
+
+<style lang="scss">
+  .form-wrapper {
+    padding: 20px 20px 14px;
+  }
+</style>

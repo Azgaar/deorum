@@ -1,7 +1,7 @@
 <script lang="ts">
   import { invalidate } from '$app/navigation';
   import { page } from '$app/stores';
-  import { getCoinsDialog } from '$lib/components/dialog/dialogs';
+  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
@@ -42,7 +42,7 @@
 
   const generateBio = async () => {
     const coinsLeft = $page.data.coins;
-    if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return getCoinsDialog(coinsLeft);
+    if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return openGetCoinsDialog(coinsLeft);
 
     try {
       isLoading = true;
