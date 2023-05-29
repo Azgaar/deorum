@@ -1,26 +1,37 @@
 <script lang="ts">
   import Chips from '$lib/components/chips/StatsChips.svelte';
+  import Cell from '$lib/components/table/Cell.svelte';
+  import Row from '$lib/components/table/Row.svelte';
+  import Table from '$lib/components/table/Table.svelte';
   import { t } from '$lib/locales/translations';
-  import DataTable, { Body, Cell, Head, Label, Row } from '@smui/data-table';
 
   export let data: import('./$types').PageData;
 
   const translate = (type: string) => (key: string) => $t(`admin.${type}.${key}`);
 </script>
 
-<DataTable table$aria-label="statistics">
-  <Head>
-    <Row>
-      <Cell style="width: 64px"><Label>{$t('admin.editor.original')}</Label></Cell>
-      <Cell style="width: auto" />
-      <Cell style="width: 50%"><Label>{$t('admin.editor.tags')}</Label></Cell>
-      <Cell style="width: 20%"><Label>{$t('admin.editor.styles')}</Label></Cell>
-      <Cell style="width: 15%"><Label>{$t('admin.editor.colors')}</Label></Cell>
-      <Cell style="width: 20%"><Label>{$t('admin.editor.quality')}</Label></Cell>
-    </Row>
-  </Head>
+<Table ariaLabel="Portraits statistics">
+  <colgroup>
+    <col style="width: 64px" />
+    <col style="width: auto" />
+    <col style="width: 50%" />
+    <col style="width: 20%" />
+    <col style="width: 15%" />
+    <col style="width: 20%" />
+  </colgroup>
 
-  <Body style="white-space: normal;">
+  <thead>
+    <Row head>
+      <Cell>{$t('admin.editor.original')}</Cell>
+      <Cell />
+      <Cell>{$t('admin.editor.tags')}</Cell>
+      <Cell>{$t('admin.editor.styles')}</Cell>
+      <Cell>{$t('admin.editor.colors')}</Cell>
+      <Cell>{$t('admin.editor.quality')}</Cell>
+    </Row>
+  </thead>
+
+  <tbody>
     {#each data.statistics as stats (stats.original.id)}
       <Row>
         <Cell>
@@ -43,5 +54,5 @@
         <Cell><Chips chips={stats.quality} /></Cell>
       </Row>
     {/each}
-  </Body>
-</DataTable>
+  </tbody>
+</Table>

@@ -44,7 +44,7 @@
   }
 
   input:checked {
-    background-color: var(--checkbox-background-color, #2b2b2b);
+    background-color: var(--checkbox-background-color, $secondary);
     border-color: transparent;
 
     &::after {
