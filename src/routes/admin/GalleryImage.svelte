@@ -45,6 +45,8 @@
       &.hidden {
         opacity: 0;
       }
+
+      --checkbox-border-color: #ffffffe6;
     }
 
     &:hover {
