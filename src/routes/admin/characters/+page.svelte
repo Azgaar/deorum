@@ -8,9 +8,10 @@
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { debounce } from '$lib/utils/funtional';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
-  import Checkbox from '@smui/checkbox';
+  import GalleryImage from '../GalleryImage.svelte';
   import Grid from '../Grid.svelte';
   import LoadMore from '../LoadMore.svelte';
   import type { PageData } from './$types';
@@ -37,23 +38,34 @@
     return charactersMap.get(selected[0]);
   };
 
-  const handleClick = (id: string) => () => {
+  const handleClick = (e: Event) => {
+    const figure = (e.target as HTMLElement).closest('figure');
+    const id = figure?.dataset.id;
+    if (!id) return;
+
     if (selected.includes(id)) {
       selected = selected.filter((item) => item !== id);
       return;
     }
 
-    if (selected.length > 1) {
+    if ((e as KeyboardEvent).shiftKey || selected.length > 1) {
       selected = [...selected, id];
     } else {
       selected = [id];
     }
   };
 
-  const handleCheck = (id: string) => (event: CustomEvent<HTMLElement> | KeyboardEvent) => {
-    event.stopPropagation();
-    selected = selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id];
-  };
+  let isMouseDown = false;
+  const handleMousemove = debounce((e: Event) => {
+    if (!isMouseDown) return;
+
+    const figure = (e.target as HTMLElement).closest('figure');
+    const id = figure?.dataset.id;
+    if (!id) return;
+
+    if (selected.includes(id)) return;
+    selected = [...selected, id];
+  }, 5);
 
   const handleLoadMore = async () => {
     try {
@@ -139,28 +151,17 @@
   };
 </script>
 
-<section class="gallery">
+<section
+  class="gallery"
+  on:click={handleClick}
+  on:keydown={handleClick}
+  on:mousedown={() => (isMouseDown = true)}
+  on:mouseup={() => (isMouseDown = false)}
+  on:mousemove={handleMousemove}
+>
   <Grid>
     {#each characters as item (item.id)}
-      <div class="imageContainer" on:click={handleClick(item.id)} on:keydown={handleCheck(item.id)}>
-        {#if item.portraits.length}
-          <img
-            loading="lazy"
-            alt={item.id}
-            src={getMainImage(item)}
-            class:selected={selected.includes(item.id)}
-          />
-        {/if}
-
-        <div class="checkbox" class:hidden={!selected.includes(item.id)}>
-          <Checkbox
-            on:click={handleCheck(item.id)}
-            checked={selected.includes(item.id)}
-            touch
-            ripple={false}
-          />
-        </div>
-      </div>
+      <GalleryImage id={item.id} src={getMainImage(item)} isSelected={selected.includes(item.id)} />
     {/each}
   </Grid>
 
@@ -205,39 +206,6 @@
     grid-area: gallery;
     width: 100%;
     overflow: auto;
-
-    .imageContainer {
-      position: relative;
-      aspect-ratio: 1;
-
-      img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        transition: filter 0.2s ease-in-out;
-
-        &.selected {
-          filter: brightness(0.8);
-        }
-      }
-
-      div.checkbox {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transition: all 0.3s ease-in-out;
-
-        &.hidden {
-          opacity: 0;
-        }
-      }
-
-      &:hover {
-        div.checkbox {
-          opacity: 1;
-        }
-      }
-    }
   }
 
   aside.pane {

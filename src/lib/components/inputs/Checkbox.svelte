@@ -1,10 +1,11 @@
 <script lang="ts">
   export let checked: boolean = false;
+  export let onChange: (e: Event) => void = () => {};
   export let name: string = '';
   export let disabled: boolean = false;
 </script>
 
-<input type="checkbox" {checked} {name} {disabled} />
+<input type="checkbox" {checked} {name} {disabled} on:change={onChange} />
 
 <style lang="scss">
   input {

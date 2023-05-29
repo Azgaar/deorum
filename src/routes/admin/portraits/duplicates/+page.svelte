@@ -1,10 +1,12 @@
 <script lang="ts">
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import Grid from '../../Grid.svelte';
   import Duplicates from './Duplicates.svelte';
+  import type { PageData } from './$types';
 
-  export let data: import('./$types').PageData;
+  type TPortrait = PageData['portraitData'][number];
+  export let data: PageData;
 
-  type TPortrait = import('./$types').PageData['portraitData'][number];
   let { portraitData } = data;
   let duplicates: TPortrait[] = [];
   const sizeMap: { [key: number]: TPortrait[] } = {};
@@ -23,25 +25,17 @@
     else if (sameSizePortraits.length > 2) duplicates = [...duplicates, portrait];
   };
 
-  const openDuplicates = () => {
-    const duplicateIds = duplicates.map(({ id }) => `id="${id}"`).join(' || ');
-    window.open(`/admin/portraits?filter=${duplicateIds}`);
-  };
+  const getSrc = (id: string, image: string) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
 </script>
 
 <section class="gallery">
-  <div class="grid">
+  <Grid>
     {#each portraitData as { id, image } (id)}
-      <div class="imageContainer">
-        <img
-          loading="lazy"
-          alt={id}
-          src={`${PORTRAITS_IMAGE_PATH}/${id}/${image}`}
-          on:load={handleLoad({ id, image })}
-        />
-      </div>
+      <figure>
+        <img loading="lazy" alt={id} src={getSrc(id, image)} on:load={handleLoad({ id, image })} />
+      </figure>
     {/each}
-  </div>
+  </Grid>
 
   {#if portraitData.length === 0}
     <div>No portraits found</div>
@@ -58,32 +52,15 @@
     width: 100%;
     overflow: auto;
 
-    .grid {
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    figure {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 1;
 
-      @media (max-width: 1199px) {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      }
-
-      @media (max-width: 899px) {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      }
-
-      @media ($mobile) {
-        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-      }
-
-      .imageContainer {
-        position: relative;
-        aspect-ratio: 1;
-
-        img {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-        }
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
       }
     }
   }

@@ -102,43 +102,49 @@
     }
   }
 
-  div.content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px 8px;
-    max-height: 80vh;
-    overflow: auto;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-    > div {
-      label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        cursor: pointer;
+    div.content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px 8px;
+      max-height: 75vh;
+      overflow: auto;
 
-        img {
-          width: 40px;
-          height: 40px;
-        }
+      > div {
+        label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
 
-        span {
-          pointer-events: none;
-          user-select: none;
-          text-transform: capitalize;
+          img {
+            width: 40px;
+            height: 40px;
+          }
+
+          span {
+            pointer-events: none;
+            user-select: none;
+            text-transform: capitalize;
+          }
         }
       }
-    }
 
-    > div:has(input[type='radio']:checked) {
-      background-color: color.adjust($surface, $lightness: +15%);
-    }
+      > div:has(input[type='radio']:checked) {
+        background-color: color.adjust($surface, $lightness: +15%);
+      }
 
-    > div:hover {
-      background-color: color.adjust($surface, $lightness: +10%);
-    }
+      > div:hover {
+        background-color: color.adjust($surface, $lightness: +10%);
+      }
 
-    > div.found {
-      background-color: color.adjust($surface, $lightness: +5%);
+      > div.found {
+        background-color: color.adjust($surface, $lightness: +5%);
+      }
     }
   }
 </style>

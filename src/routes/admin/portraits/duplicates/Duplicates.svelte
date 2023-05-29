@@ -14,6 +14,8 @@
     const duplicateIds = duplicates.map(({ id }) => `id="${id}"`).join(' || ');
     window.open(`/admin/portraits?filter=${duplicateIds}`);
   };
+
+  const getSrc = (id: string, image: string) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
 </script>
 
 <section>
@@ -28,9 +30,9 @@
 
   <main class="grid">
     {#each duplicates as { id, image } (id)}
-      <div class="imageContainer">
-        <img loading="lazy" alt={id} src={`${PORTRAITS_IMAGE_PATH}/${id}/${image}`} />
-      </div>
+      <figure>
+        <img loading="lazy" alt={id} src={getSrc(id, image)} />
+      </figure>
     {/each}
   </main>
 </section>
@@ -46,15 +48,13 @@
     gap: 1em;
 
     .grid {
-      overflow: hidden;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-
-      height: 100%;
       overflow-y: auto;
 
-      .imageContainer {
+      figure {
         position: relative;
+        margin: 0;
         aspect-ratio: 1;
 
         img {

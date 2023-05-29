@@ -1,7 +1,7 @@
 <script lang="ts">
   export let variant: 'primary' | 'text' = 'primary';
   export let type: 'button' | 'submit' | 'reset' = 'button';
-  export let onClick = (event: MouseEvent) => {};
+  export let onClick = (_event: MouseEvent) => {};
   export let disabled = false;
   export let style = '';
 </script>
@@ -30,6 +30,7 @@
     &.primary {
       height: 36px;
       font-size: 0.875rem;
+      font-weight: 300;
       letter-spacing: 0.09em;
       background-color: $primary;
       box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
@@ -51,6 +52,12 @@
       &:hover {
         color: $text;
       }
+    }
+
+    &:disabled {
+      background-color: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.38);
+      pointer-events: none;
     }
   }
 </style>

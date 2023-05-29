@@ -161,6 +161,7 @@
   };
 
   const handleChangesSave = async () => {
+    console.log('handleChangesSave');
     if (!current.original) return toastError($t('admin.errors.selectOriginal'));
     if (!current.colors.length) return toastError($t('admin.errors.selectColor'));
     if (!current.styles.length) return toastError($t('admin.errors.selectStyle'));
@@ -331,27 +332,29 @@
       </div>
     {/if}
 
-    <div class="deletionBlock">
-      <BasicButton onClick={initiateDeletion}>
-        {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
-      </BasicButton>
+    {#if !isUploading}
+      <div class="deletionBlock">
+        <BasicButton onClick={initiateDeletion}>
+          {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
+        </BasicButton>
 
-      <BasicButton
-        onClick={triggerDeletion}
-        style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
-      >
-        {$t('common.controls.confirmDeletion', { variable: selectedImages })}
-      </BasicButton>
-    </div>
+        <BasicButton
+          onClick={triggerDeletion}
+          style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
+        >
+          {$t('common.controls.confirmDeletion', { variable: selectedImages })}
+        </BasicButton>
+      </div>
+    {/if}
   </main>
 
   <footer>
     <BasicButton onClick={handleCancel}>
-      {isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}
+      {isUploading || isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}
     </BasicButton>
 
     <BasicButton onClick={handleChangesSave} disabled={!isChanged || isLoading}>
-      {$t('common.controls.edit')}
+      {$t('common.controls.save')}
     </BasicButton>
   </footer>
 </section>

@@ -589,7 +589,7 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@smui/checkbox@^6.1.0", "@smui/checkbox@^6.1.4":
+"@smui/checkbox@^6.1.4":
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/@smui/checkbox/-/checkbox-6.1.4.tgz#4383a6f4f0730075273b196176d1fdba5ad44d2b"
   integrity sha512-yWARPjnOaQFVi4iQxUINDLAd0V78mtKhAEuc+F91cjpfDvSzaPWPD3dfynYN7g3yf7uW/bocHM1yUxqtmQ3+7Q==
