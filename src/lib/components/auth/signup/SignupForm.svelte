@@ -27,7 +27,7 @@
       isLoading = true;
       const lang = $page.data.lang;
       await signup({ email, password, name, lang });
-      onSuccess();
+      onSuccess?.();
       log('auth', `Signup successful: ${email}`);
     } catch (error) {
       report('auth', error);

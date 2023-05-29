@@ -16,9 +16,9 @@
     open: boolean;
     character: ICharacter;
     races: Map<string, IRace>;
-    archetypes: Map<string, { name: string }>;
-    backgrounds: Map<string, { name: string }>;
-    tags: Map<string, { name: string; image: string }>;
+    archetypes: Map<string, IArchetype>;
+    backgrounds: Map<string, IBackground>;
+    tags: Map<string, ITag>;
   };
 
   const auth: { require: (callback: VoidFunction) => void } = getContext('auth');
@@ -39,9 +39,11 @@
           ]);
 
         const races = new Map(racesArray.map((race) => [race.id, race]));
-        const archetypes = new Map(archetypesArray.map(({ id, name }) => [id, { name }]));
-        const backgrounds = new Map(backgroundsArray.map(({ id, name }) => [id, { name }]));
-        const tags = new Map(tagsArray.map(({ id, image, name }) => [id, { image, name }]));
+        const archetypes = new Map(archetypesArray.map((archetype) => [archetype.id, archetype]));
+        const backgrounds = new Map(
+          backgroundsArray.map((background) => [background.id, background])
+        );
+        const tags = new Map(tagsArray.map((tag) => [tag.id, tag]));
         editor = { open: true, character, races, archetypes, backgrounds, tags };
       } catch (error) {
         report('edit character', error, item);
@@ -54,4 +56,6 @@
   <Pencil width={28} />
 </ActionButton>
 
-{#if editor.open}<CharacterEditorDialog {...editor} bind:isOpen={editor.open} />{/if}
+{#if editor.open}
+  <CharacterEditorDialog {...editor} bind:isOpen={editor.open} />
+{/if}
