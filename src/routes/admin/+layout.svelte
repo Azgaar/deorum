@@ -20,9 +20,4 @@
       grid-template-areas: 'pane' 'gallery';
     }
   }
-
-  :global(.imageContainer:hover div.mdc-checkbox__background) {
-    transition: all 0.3s ease-in-out;
-    border-color: color.adjust($text, $alpha: -0.1) !important;
-  }
 </style>

@@ -5,6 +5,7 @@
   import Snackbar from '$lib/components/snackbar/Snackbar.svelte';
   import LoadingOverlay from '$lib/components/spinner/LoadingOverlay.svelte';
   import { inject } from '@vercel/analytics';
+  import '../theme/global.scss';
 
   if (!dev) {
     inject({ mode: 'production' });

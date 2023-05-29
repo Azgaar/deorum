@@ -8,8 +8,7 @@ const config = {
   }),
 
   kit: {
-    adapter: adapter(),
-    alias: { theme: 'src/theme/_smui-scss' }
+    adapter: adapter()
   },
 
   files: {
