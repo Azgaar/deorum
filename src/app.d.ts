@@ -18,6 +18,10 @@ declare global {
     // interface Platform {}
   }
 
+  interface VoidFunction {
+    (): void;
+  }
+
   interface HTMLImageElement extends HTMLElement {
     fetchPriority?: 'high' | 'low' | 'auto';
   }

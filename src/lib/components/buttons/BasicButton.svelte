@@ -1,7 +1,7 @@
 <script lang="ts">
   export let variant: 'primary' | 'text' = 'primary';
   export let type: 'button' | 'submit' | 'reset' = 'button';
-  export let onClick = (_event: MouseEvent) => {};
+  export let onClick: ((event: MouseEvent) => void) | undefined = undefined;
   export let disabled = false;
   export let style = '';
 </script>

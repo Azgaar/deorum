@@ -105,15 +105,6 @@ export default class Cache {
       return _size;
     };
 
-    this.memsize = function () {
-      var size = 0,
-        key;
-      for (key in _cache) {
-        size++;
-      }
-      return size;
-    };
-
     this.debug = function (bool) {
       _debug = bool;
     };

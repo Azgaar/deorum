@@ -127,12 +127,12 @@
     uploaded = [];
   };
 
-  let genericDialogData = {
-    isOpen: false,
-    key: '',
-    entries: [] as [string, { image: string; name: string }][],
-    selected: [] as string[],
-    onSubmit: (_: string[]) => {}
+  let genericDialogData: {
+    isOpen: boolean;
+    key: string;
+    entries: [string, { image: string; name: string }][];
+    selected: string[];
+    onSubmit: (values: string[]) => void;
   };
 
   const openEditorDialog: TOpenEditorDialog = (key, entries, selected, onSubmit) => {
@@ -422,7 +422,10 @@
   <AdminEditorDialog {...editCharacterDialogData} bind:isOpen={editCharacterDialogData.open} />
 {/if}
 
-<GenericDialog {...genericDialogData} />
+{#if genericDialogData}
+  <GenericDialog {...genericDialogData} />
+{/if}
+
 <OriginalsDialog {...originalsDialogData} />
 <SelectCharacterDialog {...selectCharacterDialogData} />
 

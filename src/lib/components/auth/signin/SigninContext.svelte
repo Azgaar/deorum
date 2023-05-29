@@ -4,7 +4,7 @@
   import { page } from '$app/stores';
 
   let open = false;
-  let deferredAction = () => {};
+  let deferredAction: VoidFunction;
 
   setContext('auth', {
     require: (action: VoidFunction) => {

@@ -3,8 +3,8 @@
 
   export let label: ILabel | undefined;
   export let type: string;
-  export let module: string = 'admin';
-  export let maxWidth: string = 'unset';
+  export let module = 'admin';
+  export let maxWidth = 'unset';
 
   interface ILabel {
     image?: string;

@@ -1,8 +1,8 @@
 <script lang="ts">
   export let value: number;
-  export let min: number = 0;
-  export let max: number = Infinity;
-  export let step: number = 1;
+  export let min = 0;
+  export let max = Infinity;
+  export let step = 1;
 </script>
 
 <input type="number" bind:value {min} {max} {step} />

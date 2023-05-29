@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let size: number = 24;
-  export let absolute: boolean = false;
+  export let size = 24;
+  export let absolute = false;
 </script>
 
 <div class="loader" class:absolute style="width: {size}px; height: {size}px" />

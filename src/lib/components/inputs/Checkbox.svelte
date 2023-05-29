@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let checked: boolean = false;
+  export let checked = false;
   export let onChange: ((e: Event) => void) | undefined = undefined;
-  export let name: string = '';
-  export let disabled: boolean = false;
+  export let name = '';
+  export let disabled = false;
 </script>
 
 <input type="checkbox" {checked} {name} {disabled} on:change={onChange} />

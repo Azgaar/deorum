@@ -1,9 +1,9 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
 
-  export let label: string = 'common.controls.select';
-  export let isLower: boolean = true;
-  export let icon: string = '⚙️';
+  export let label = 'common.controls.select';
+  export let isLower = true;
+  export let icon = '⚙️';
   export let onClick: VoidFunction;
 
   let text = $t(label);

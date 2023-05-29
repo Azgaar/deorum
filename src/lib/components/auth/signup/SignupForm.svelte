@@ -12,7 +12,7 @@
   import { log, report } from '$lib/utils/log';
 
   export let onCancel: VoidFunction | null = null;
-  export let onSuccess = () => {};
+  export let onSuccess: VoidFunction | null = null;
 
   let name = '';
   let email = '';

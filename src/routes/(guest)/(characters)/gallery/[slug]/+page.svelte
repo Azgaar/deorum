@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
   import Card from '$lib/components/characters/Card.svelte';
   import type { Carousel } from '$lib/components/characters/carousel';
   import { t } from '$lib/locales/translations';

@@ -4,7 +4,7 @@
   import SigninForm from './SigninForm.svelte';
 
   export let isOpen: boolean;
-  export let deferredAction: VoidFunction = () => {};
+  export let deferredAction: VoidFunction;
 
   const handleCancel = () => {
     isOpen = false;
