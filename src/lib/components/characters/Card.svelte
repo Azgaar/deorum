@@ -64,7 +64,7 @@
   </div>
 
   <figcaption>
-    <h1>{item.name || $t('common.values.unnamed')}</h1>
+    <h2>{item.name || $t('common.values.unnamed')}</h2>
     <section>
       {#each getFeatures(item) as { value, title }}
         {#if actionable}
@@ -97,7 +97,7 @@
       place-items: center;
       overflow: hidden;
 
-      h1 {
+      h2 {
         font-size: 1.4em;
         margin: 10px;
         text-shadow: 0px 0px 1rem black;

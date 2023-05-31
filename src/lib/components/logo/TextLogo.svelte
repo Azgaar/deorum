@@ -2,16 +2,12 @@
   export let size: number;
 </script>
 
-<a href="/">
-  <h1 style="font-size: {size}px" translate="no">Deorum</h1>
-</a>
+<a href="/" style="font-size: {size}px" translate="no">Deorum</a>
 
 <style lang="scss">
   a {
     text-decoration: none;
-  }
 
-  h1 {
     font-family: 'Times New Roman', serif;
     text-transform: uppercase;
     font-weight: 400;
