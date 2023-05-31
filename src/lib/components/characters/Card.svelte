@@ -4,6 +4,7 @@
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import { fade } from 'svelte/transition';
   import RemoveButton from './RemoveButton.svelte';
   import ShowDetailsButton from './ShowDetailsButton.svelte';
   import CharacterPicture from './details/CharacterPicture.svelte';
@@ -57,15 +58,16 @@
             <LikeButton {item} />
           {/if}
         </div>
-
-        <ShowDetailsButton slot="bottom" href={`${item.creator ? '/library' : ''}/${item.id}`} />
       </Actions>
     {/if}
   </div>
 
   <figcaption>
     <h2>{item.name || $t('common.values.unnamed')}</h2>
-    <section>
+
+    <div class="biography">{item.bio}</div>
+
+    <div class="features">
       {#each getFeatures(item) as { value, title }}
         {#if actionable}
           <div {title} use:tooltip>{value}</div>
@@ -73,7 +75,11 @@
           <div>{value}</div>
         {/if}
       {/each}
-    </section>
+    </div>
+
+    <div class="showDetails">
+      <ShowDetailsButton href={`${item.creator ? '/library' : ''}/${item.id}`} {actionable} />
+    </div>
   </figcaption>
 </figure>
 
@@ -96,14 +102,25 @@
       flex-direction: column;
       place-items: center;
       overflow: hidden;
+      gap: 8px;
 
       h2 {
         font-size: 1.4em;
-        margin: 10px;
+        margin: 4px 0 0;
         text-shadow: 0px 0px 1rem black;
       }
 
-      section {
+      div.biography {
+        font-size: 0.85em;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      div.features {
+        font-size: 0.85em;
         display: flex;
         gap: 0.5rem;
 
@@ -114,6 +131,12 @@
           background-color: color.adjust($on-surface, $alpha: -0.1);
           white-space: nowrap;
         }
+      }
+
+      div.showDetails {
+        font-size: 0.6rem;
+        align-self: flex-end;
+        margin-top: -2px;
       }
     }
   }

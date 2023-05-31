@@ -2,43 +2,32 @@
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import { t } from '$lib/locales/translations';
-  import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
   export let href: string;
-
-  let showText = false;
-  const storageKey = 'deorum-showDetails-used-times';
-
-  onMount(() => {
-    const clickedBefore = Number(localStorage.getItem(storageKey));
-    showText = clickedBefore < 5;
-  });
-
-  const handleTextClick = () => {
-    const usedBefore = Number(localStorage.getItem(storageKey));
-    localStorage.setItem(storageKey, String(usedBefore + 1));
-  };
+  export let actionable: boolean;
 </script>
 
-{#if showText}
-  <div on:click={handleTextClick} on:keydown={handleTextClick}>
-    <ActionButton {href}>
-      <span in:fly={{ x: 20, duration: 500 }}>
-        {$t('common.gallery.showDetails')}
-      </span>
-      <ArrowRight width={32} />
-    </ActionButton>
+<ActionButton {href}>
+  <div>
+    {#if actionable}
+      <div transition:fade>
+        <span>{$t('common.gallery.showDetails')}</span>
+        <ArrowRight width={20} />
+      </div>
+    {/if}
   </div>
-{:else}
-  <ActionButton {href} title={$t('common.gallery.showDetails')}>
-    <ArrowRight width={32} />
-  </ActionButton>
-{/if}
+</ActionButton>
 
 <style lang="scss">
-  span {
-    font-size: 0.8rem;
-    padding-left: 10px;
+  div {
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+
+    div {
+      padding: 0 4px 0 10px;
+      text-transform: uppercase;
+    }
   }
 </style>

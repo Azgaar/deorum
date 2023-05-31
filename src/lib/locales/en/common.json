@@ -260,8 +260,8 @@
     }
   },
   "gallery": {
-    "showDetails": "Show details",
-    "favorite": "Add to My characters",
+    "showDetails": "Show full card",
+    "favorite": "Add to the Library",
     "mobileHint": "Swipe left or right to rotate the gallery",
     "desktopHint": "Use the arrows to rotate the gallery"
   },
