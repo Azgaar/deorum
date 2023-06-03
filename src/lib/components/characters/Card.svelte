@@ -111,6 +111,7 @@
       }
 
       div.biography {
+        padding: 0 2px;
         font-size: 0.85em;
         overflow: hidden;
         display: -webkit-box;
@@ -120,6 +121,7 @@
       }
 
       div.features {
+        margin-top: 2px;
         font-size: 0.85em;
         display: flex;
         gap: 0.5rem;
