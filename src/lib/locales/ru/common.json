@@ -67,6 +67,7 @@
   },
   "navigation": {
     "gallery": "Галерея",
+    "backToGallery": "Назад в галерею",
     "match": "Совпадения",
     "tags": "Теги",
     "admin": "Админ",

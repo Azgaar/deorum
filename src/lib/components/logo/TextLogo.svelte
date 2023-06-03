@@ -2,7 +2,7 @@
   export let size: number;
 </script>
 
-<a href="/" style="font-size: {size}px" translate="no">Deorum</a>
+<a href="/" aria-label="Logo" style="font-size: {size}px" translate="no">Deorum</a>
 
 <style lang="scss">
   a {

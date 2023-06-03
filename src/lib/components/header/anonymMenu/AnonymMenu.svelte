@@ -7,10 +7,10 @@
 
   let collapsed = true;
   const toggleMenu = () => (collapsed = !collapsed);
-  $: links = getLinks($page, $galleryNextId);
+  $: links = getLinks('sidebar', $page, $galleryNextId);
 </script>
 
-<nav class="noprint" in:fade>
+<nav in:fade>
   <div class="backdrop" class:collapsed on:click={toggleMenu} on:keydown={toggleMenu} />
 
   <button class="menu" on:click={toggleMenu}>☰</button>

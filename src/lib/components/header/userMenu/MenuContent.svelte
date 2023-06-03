@@ -9,20 +9,23 @@
   export let isOpen: boolean;
   const toggleMenu = () => (isOpen = !isOpen);
 
-  $: links = getLinks($page, $galleryNextId);
+  $: links = getLinks('sidebar', $page, $galleryNextId);
 </script>
 
 <aside class:isOpen on:click={toggleMenu} on:keydown={toggleMenu}>
-  <menu>
-    <hr />
+  <div class="userDetails" class:isOpen>
+    <div>
+      <div>{$page.data.name}</div>
+      <div>{$t('common.coins.coinsLeft', { variable: $page.data.coins })}</div>
+    </div>
+  </div>
 
+  <menu>
     <section>
       <button on:click={() => openGetCoinsDialog($page.data.coins)}>
         {$t('common.coins.getCoins')}
       </button>
     </section>
-
-    <hr />
 
     <nav>
       {#each links as link (getLinkKey(link))}
@@ -60,9 +63,51 @@
       }
     }
 
+    .userDetails {
+      height: 48px;
+      border-bottom: 1px solid rgba(white, 0.04);
+
+      &:not(.isOpen) {
+        opacity: 0;
+        visibility: hidden;
+
+        transition: 0.1s ease-in;
+      }
+
+      &.isOpen {
+        opacity: 1;
+        visibility: visible;
+
+        transition: 0.2s ease-in;
+        transition-delay: 0.3s;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      div {
+        margin-right: 82px;
+        width: 120px;
+
+        @media ($mobile) {
+          margin-right: 58px;
+          width: 110px;
+        }
+
+        overflow: hidden;
+        white-space: nowrap;
+
+        font-size: small;
+        text-align: right;
+        div {
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
     menu {
-      padding: 16px;
-      margin-top: 24px;
+      padding: 0 16px;
 
       min-width: calc($asideWidth - 16px * 2);
       @media ($mobile) {
@@ -94,13 +139,6 @@
             background: color.adjust($text, $alpha: -0.85);
           }
         }
-      }
-
-      hr {
-        width: 100%;
-        height: 1px;
-        border: none;
-        background-color: rgba(white, 0.04);
       }
 
       nav {

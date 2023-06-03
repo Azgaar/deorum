@@ -13,7 +13,7 @@
   let isPortraitsPage = browser ? window.location.pathname.includes('portraits') : true;
   let pageType = isPortraitsPage ? 'portraits' : 'characters';
 
-  const hadndleLogout = () => {
+  const handleLogout = () => {
     logout();
     goto('/signin', { invalidateAll: true });
   };
@@ -57,7 +57,7 @@
     </BasicButton>
 
     {#if $page.data.role}
-      <BasicButton onClick={hadndleLogout}>
+      <BasicButton onClick={handleLogout}>
         {$t('common.auth.logout')}
       </BasicButton>
     {/if}

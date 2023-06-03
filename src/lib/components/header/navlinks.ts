@@ -12,26 +12,42 @@ type TNavlinksData = {
 };
 
 // prettier-ignore
-const linkGenerators: {[key: string]: (data: TNavlinksData) => ILink[]} = {
+const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   '/admin/portraits/statistics': () => [
     { id: 'originals', key: 'admin.editor.originals', to: './originals' },
     { id: 'tags', key: 'admin.editor.tags', to: './tags' },
     { id: 'styles', key: 'admin.editor.styles', to: './styles' },
     { id: 'colors', key: 'admin.editor.colors', to: './colors' },
     { id: 'quality', key: 'admin.editor.quality', to: './quality' },
-    { id: 'back', key: 'common.controls.back', to: '/admin/portraits' }
+    { id: 'backToPortraits', key: 'common.controls.back', to: '/admin/portraits' }
   ],
   '/admin/characters/statistics': () => [
     { id: 'races', key: 'admin.statistics.races', to: './races' },
     { id: 'genders', key: 'admin.statistics.genders', to: './genders' },
     { id: 'archetypes', key: 'admin.statistics.archetypes', to: './archetypes' },
     { id: 'backgrounds', key: 'admin.statistics.backgrounds', to: './backgrounds' },
-    { id: 'cancel', key: 'common.controls.back', to: '/admin/characters' }
+    { id: 'backToCharacters', key: 'common.controls.back', to: '/admin/characters' }
   ],
   '/(user)/match': (data) => [
     { id: 'tags', key: 'common.navigation.tags', to: `/match/tags/${data.currentId}` },
     { id: 'next', key: 'common.navigation.next', to: `./${data.nextId}` }
   ],
+  '/(guest)/(characters)/gallery/[slug]': () => [
+    { id: `library`, key: 'common.navigation.library', to: '/library' },
+  ],
+  '/(guest)/(characters)/[slug]': (data) => [
+    { id: 'gallery', key: 'common.navigation.backToGallery', to: `/gallery/${data.currentId}`, reload: true },
+  ],
+  '/(user)/library': (data) => [
+    { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
+  ],
+  'default': () => [
+    { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
+  ],
+};
+
+// prettier-ignore
+const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   'default': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
     { id: `library`, key: 'common.navigation.library', to: '/library' },
@@ -39,15 +55,10 @@ const linkGenerators: {[key: string]: (data: TNavlinksData) => ILink[]} = {
     { id: 'terms', key: 'common.navigation.terms', to: '/terms' },
     { id: 'discord', key: 'common.navigation.discord', to: 'https://discordapp.com/invite/X7E84HU' },
     { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar', roles: [Role.GUEST, Role.USER] },
-    { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits', roles: [Role.ADMIN] }
+    { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits', roles: [Role.ADMIN] },
+    { id: 'logout', key: 'common.auth.logout', to: '/logout', roles: [Role.USER, Role.ADMIN] }
   ],
 };
-
-const commonLinks = [
-  { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
-  { id: 'signup', key: 'common.auth.signup', to: '/signup', roles: [Role.GUEST] },
-  { id: 'logout', key: 'common.auth.logout', to: '/logout', roles: [Role.USER, Role.ADMIN] }
-];
 
 function getGalleryNextId({ routeId, currentId, galleryNextId, randomId }: TNavlinksData) {
   if (routeId === '/(guest)/(characters)/[slug]') return `/gallery/${currentId}`;
@@ -56,25 +67,26 @@ function getGalleryNextId({ routeId, currentId, galleryNextId, randomId }: TNavl
   return '/gallery';
 }
 
-const match = (routeId: string) => {
-  const keys = Object.keys(linkGenerators);
-  const match = keys.find((key) => routeId.startsWith(key)) || 'default';
-  return linkGenerators[match];
+const match = (type: 'quickAccess' | 'sidebar', routeId: string) => {
+  const generator = type === 'quickAccess' ? createQuickAccessLinks : createSidebarLinks;
+  const match = Object.keys(generator).find((key) => routeId.startsWith(key)) || 'default';
+  return generator[match];
 };
 
 export const getLinks = (
+  type: 'quickAccess' | 'sidebar',
   page: Page<Record<string, string>, string | null>,
   galleryNextId: string | null
 ) => {
   const routeId = page.route.id;
+  console.log('routeId', routeId);
   if (!routeId) return [];
 
   const { role, currentId, randomId, nextId } = page.data;
   const linksData = { routeId, role, currentId, randomId, nextId, galleryNextId };
 
-  const routeLinks = match(routeId)(linksData);
-  const combinedLinks = [...routeLinks, ...commonLinks];
-  const filteredLinks = combinedLinks.filter(({ roles }) => !roles || roles.includes(role));
+  const routeLinks = match(type, routeId)(linksData);
+  const filteredLinks = routeLinks.filter(({ roles }) => !roles || roles.includes(role));
 
   return filteredLinks;
 };

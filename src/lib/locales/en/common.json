@@ -66,6 +66,7 @@
   },
   "navigation": {
     "gallery": "Gallery",
+    "backToGallery": "Back to Gallery",
     "match": "Match",
     "tags": "Tags",
     "admin": "Admin",

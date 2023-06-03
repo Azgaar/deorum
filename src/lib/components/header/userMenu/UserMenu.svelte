@@ -9,15 +9,10 @@
   const toggleMenu = () => (isOpen = !isOpen);
 </script>
 
-<div class="backdrop" class:isOpen on:click={toggleMenu} on:keydown={toggleMenu} />
+<div>
+  <div class="backdrop" class:isOpen on:click={toggleMenu} on:keydown={toggleMenu} />
 
-<MenuContent bind:isOpen />
-
-<div class="userMenu">
-  <div class="userDetails" class:isOpen>
-    <div>{$page.data.name}</div>
-    <div>{$t('common.coins.coinsLeft', { variable: $page.data.coins })}</div>
-  </div>
+  <MenuContent bind:isOpen />
 
   <button class="userMenuButton" on:click={() => (isOpen = !isOpen)}>
     <Wreath />
@@ -29,56 +24,32 @@
 <style lang="scss">
   @use 'sass:color';
 
-  .userMenu {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  .userMenuButton {
+    position: relative;
+    background: none;
+    border: 0;
+    padding: 8px;
+    margin-bottom: 8px;
     z-index: 2;
 
-    .userDetails {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
-      font-size: small;
+    display: flex;
+    justify-content: center;
 
-      transition: 0.3s ease-in;
-      opacity: 0;
-
-      &.isOpen {
-        opacity: 1;
-      }
+    .menuIcon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 26px;
+      line-height: 1;
+      background-color: color.adjust($primary, $alpha: -0.8);
+      user-select: none;
     }
 
-    .userMenuButton {
-      position: relative;
-      background: none;
-      border: 0;
-      padding: 8px;
-      cursor: pointer;
-      z-index: 2;
+    color: rgba($text, 0.9);
+    transition: all 0.3s;
 
-      right: 0px;
-      bottom: 6px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .menuIcon {
-        border-radius: 50%;
-        font-size: 26px;
-        line-height: 1.4;
-        background-color: color.adjust($primary, $alpha: -0.8);
-        user-select: none;
-      }
-
-      color: rgba($text, 0.9);
-      transition: all 0.3s;
-
-      &:hover {
-        color: $text;
-      }
+    &:hover {
+      color: $text;
     }
   }
 
