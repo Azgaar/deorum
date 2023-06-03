@@ -18,7 +18,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const data = (await request.json()) as TSimilarityCriteria;
     const similarPortraits = scorePortraits(allPortraits, data, SIZE);
-
     log('similar portraits', `Searching ${SIZE} similar portraits`);
     return json(similarPortraits);
   } catch (err) {

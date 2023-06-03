@@ -1,11 +1,9 @@
-import { json } from '@sveltejs/kit';
-
-import { log, report } from '$lib/utils/log';
-import { createServerError } from '$lib/utils/errors';
 import { getCachedList } from '$lib/cache/cacheInstance';
-import { concatImgSrc } from '$lib/utils/url';
-
 import type { ITag } from '$lib/types/api.types';
+import { createServerError } from '$lib/utils/errors';
+import { report } from '$lib/utils/log';
+import { concatImgSrc } from '$lib/utils/url';
+import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 const purgeData = ({ id, name, image }: ITag) => ({
@@ -16,10 +14,8 @@ const purgeData = ({ id, name, image }: ITag) => ({
 
 export const GET: RequestHandler = async () => {
   try {
-    const rawTags = await getCachedList<ITag>('tags');
-    const tags = rawTags.map(purgeData);
-
-    log('tags', `Loading all tags`);
+    const data = await getCachedList<ITag>('tags');
+    const tags = data.map(purgeData);
     return json(tags);
   } catch (err) {
     report('tags', err);

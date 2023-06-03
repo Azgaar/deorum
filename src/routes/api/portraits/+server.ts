@@ -1,16 +1,14 @@
-import { error, json, type RequestHandler } from '@sveltejs/kit';
-
-import { log, report } from '$lib/utils/log';
-import { createServerError } from '$lib/utils/errors';
-import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
-import { pluralize } from '$lib/utils/string';
-import { getNewValue } from '$lib/utils/portraits';
 import admin from '$lib/api/admin';
-
+import { authorize } from '$lib/api/auth';
+import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
+import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
 import type { IPortrait } from '$lib/types/api.types';
 import type { IChange } from '$lib/types/editor.types';
-import { authorize } from '$lib/api/auth';
-import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
+import { createServerError } from '$lib/utils/errors';
+import { log, report } from '$lib/utils/log';
+import { getNewValue } from '$lib/utils/portraits';
+import { pluralize } from '$lib/utils/string';
+import { error, json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -25,12 +23,10 @@ export const GET: RequestHandler = async ({ url }) => {
       if (!pageSize) throw error(400, 'Page size is not defined');
       const args = [page, pageSize, filter, sort, expand] as const;
       const portraitsPage = await getCachedPage<IPortrait>('portraits', ...args);
-      log('portraits', `Loading ${pageSize} portraits`);
       return json(portraitsPage);
     }
 
     const portraits = await getCachedList<IPortrait>('portraits', filter, sort, expand);
-    log('portraits', `Loading all portraits`);
     return json(portraits);
   } catch (err) {
     report('portraits', err);
@@ -47,7 +43,7 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!coinsLeft || coinsLeft < UPLOAD_PORTRAIT_PRICE) throw error(403, 'Not enought coins');
 
     const formData = await request.formData();
-    const result = await admin.records.create('portraits', formData, { $autoCancel: false });
+    const result = await admin.records.create('portraits', formData);
 
     const coins = coinsLeft - UPLOAD_PORTRAIT_PRICE;
     await client.records.update('profiles', user.profile.id, { coins });

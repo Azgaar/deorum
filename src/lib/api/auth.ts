@@ -6,7 +6,7 @@ import { makePOJO } from '$lib/utils/object';
 import type { IUser } from '$lib/types/api.types';
 import { REGISTRATION_BONUS } from '$lib/config/coins';
 
-export const isSignedIn = (instance: PocketBase): boolean => Boolean(instance.authStore.model?.id);
+export const isSignedIn = (instance: PocketBase): boolean => Boolean(instance.authStore.isValid);
 
 export const signup = async ({
   email,
@@ -50,12 +50,13 @@ export const authorize = async (request: Request) => {
   const cookie = request.headers?.get('cookie');
   if (!cookie) return Promise.resolve(unauthorized);
 
+  // ensure cookie is valid
   const client = new PocketBase(URL);
   client.authStore.loadFromCookie(cookie);
+  if (!client.authStore.isValid || !client.authStore.model?.id)
+    return Promise.resolve(unauthorized);
 
-  // check if cookie is invalid
-  if (!client.authStore.model?.id) return Promise.resolve(unauthorized);
-
+  // ensure user is valid
   const { id } = client.authStore.model;
   const userData = await client.users.getOne(id);
   const user = makePOJO(userData) as unknown as IUser;

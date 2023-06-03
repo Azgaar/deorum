@@ -11,9 +11,7 @@ export const GET: RequestHandler = async ({ url, params }) => {
   try {
     const id = params.slug as string;
     const expand = url.searchParams.get('expand') || '';
-
     const portrait = await getCachedElement<IPortrait>('portraits', id, expand);
-    log('portraits', `Loading portrait ${id}`);
     return json(portrait);
   } catch (err) {
     report('portraits', err);

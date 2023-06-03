@@ -6,7 +6,7 @@ const isHttpError = (error: unknown): error is HttpError =>
 
 export function normalizeError(err: unknown): string {
   if (typeof err === 'string') return err;
-  if (err instanceof ClientResponseError) return err.data.message;
+  if (err instanceof ClientResponseError) return err.data?.message || err.message;
   if (isHttpError(err)) return err.body.message;
   if (err instanceof Error) return err.message;
   if (err instanceof Object) return err.toString();

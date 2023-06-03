@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { log, report } from '$lib/utils/log';
+import { report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
 import { getCachedList } from '$lib/cache/cacheInstance';
 import { concatImgSrc } from '$lib/utils/url';
@@ -39,10 +39,8 @@ const purgeData = ({
 
 export const GET: RequestHandler = async () => {
   try {
-    const rawRaces = await getCachedList<IRace>('races');
-    const races = rawRaces.map(purgeData);
-
-    log('races', `Loading all races`);
+    const data = await getCachedList<IRace>('races');
+    const races = data.map(purgeData);
     return json(races);
   } catch (err) {
     report('races', err);

@@ -1,12 +1,10 @@
-import { json, error } from '@sveltejs/kit';
-
 import admin from '$lib/api/admin';
-import { log, report } from '$lib/utils/log';
 import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
-import { toJson } from '$lib/utils/requests';
-import { createServerError } from '$lib/utils/errors';
-
 import type { ICharacter, IPortrait } from '$lib/types/api.types';
+import { createServerError } from '$lib/utils/errors';
+import { log, report } from '$lib/utils/log';
+import { toJson } from '$lib/utils/requests';
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {
@@ -21,14 +19,13 @@ export const GET: RequestHandler = async ({ url }) => {
     if (page) {
       if (!pageSize) throw error(400, 'Page size is not defined');
       const args = [page, pageSize, filter, sort, expand] as const;
-      const charactersPage = await getCachedPage<ICharacter>('characters', ...args);
-      log('characters', `Loading ${pageSize} characters`);
-      return json(charactersPage);
+      const data = await getCachedPage<ICharacter>('characters', ...args);
+      return json(data);
     }
 
-    const allCharacters = await getCachedList<ICharacter>('characters', filter, sort, expand);
-    log('characters', `Loading all characters`);
-    return json(allCharacters);
+    const args = [filter, sort, expand] as const;
+    const data = await getCachedList<ICharacter>('characters', ...args);
+    return json(data);
   } catch (err) {
     report('characters', err);
     throw createServerError(err);

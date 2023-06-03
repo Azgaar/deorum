@@ -23,12 +23,10 @@ export const GET: RequestHandler = async ({ url }) => {
       if (!pageSize) throw error(400, 'Page size is not defined');
       const args = [page, pageSize, filter, sort, expand] as const;
       const customCharactersPage = await getCachedPage<ICharacter>('custom', ...args);
-      log('custom', `Loading ${pageSize} custom characters`);
       return json(customCharactersPage);
     }
 
     const allCustomCharacters = await getCachedList<ICharacter>('custom', filter, sort, expand);
-    log('custom', `Loading all custom characters`);
     return json(allCustomCharacters);
   } catch (err) {
     report('custom', err);

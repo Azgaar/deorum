@@ -1,10 +1,16 @@
 import admin from './admin';
 import { BATCH_SIZE } from '$lib/config';
 
-// admin based action, run on server only!
+// admin based actions, run on server only!
+
+type TRequestOptions = {
+  filter?: string;
+  sort?: string;
+  expand?: string;
+};
 
 export async function getElement(name: string, id: string, expand?: string) {
-  const options: { expand?: string } = {};
+  const options: TRequestOptions = {};
   if (expand) options.expand = expand;
 
   return admin.records.getOne(name, id, options);
@@ -18,7 +24,7 @@ export async function getPage(
   sort?: string,
   expand?: string
 ) {
-  const options: { filter?: string; sort?: string; expand?: string } = {};
+  const options: TRequestOptions = {};
   if (filter) options.filter = filter;
   if (sort) options.sort = sort;
   if (expand) options.expand = expand;
@@ -27,7 +33,7 @@ export async function getPage(
 }
 
 export async function getFullList(name: string, filter?: string, sort?: string, expand?: string) {
-  const options: { filter?: string; sort?: string; expand?: string } = {};
+  const options: TRequestOptions = {};
   if (filter) options.filter = filter;
   if (sort) options.sort = sort;
   if (expand) options.expand = expand;

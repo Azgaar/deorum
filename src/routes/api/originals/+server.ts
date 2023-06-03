@@ -1,10 +1,9 @@
-import { json } from '@sveltejs/kit';
-import { log, report } from '$lib/utils/log';
-import { createServerError } from '$lib/utils/errors';
 import { getCachedList } from '$lib/cache/cacheInstance';
-import { concatImgSrc } from '$lib/utils/url';
-
 import type { IOriginal } from '$lib/types/api.types';
+import { createServerError } from '$lib/utils/errors';
+import { report } from '$lib/utils/log';
+import { concatImgSrc } from '$lib/utils/url';
+import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 const purgeData = ({ id, name, image }: IOriginal) => ({
@@ -15,9 +14,8 @@ const purgeData = ({ id, name, image }: IOriginal) => ({
 
 export const GET: RequestHandler = async () => {
   try {
-    const rawOriginals = await getCachedList<IOriginal>('originals');
-    const originals = rawOriginals.map(purgeData);
-    log('originals', `Loading all originals`);
+    const data = await getCachedList<IOriginal>('originals');
+    const originals = data.map(purgeData);
     return json(originals);
   } catch (err) {
     report('originals', err);

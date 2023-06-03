@@ -11,5 +11,5 @@
     "strict": true
   },
   "include": ["src/**/*", "types/**/*", ".svelte-kit/ambient.d.ts"],
-  "exclude": ["node_modules/*", "src/**/*.js"]
+  "exclude": ["node_modules/*", "src/**/*.js", "**/cache.js"]
 }
