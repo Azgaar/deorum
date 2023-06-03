@@ -13,6 +13,7 @@
 
 <style lang="scss">
   div.loadMore {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

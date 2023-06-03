@@ -149,7 +149,7 @@
     "orc": "orc",
     "elf knightess": "elf knightess",
     "high elf": "high elf",
-    "high elf maiden": "heigh elf maiden",
+    "high elf maiden": "high elf maiden",
     "bard": "bard",
     "scholar": "scholar",
     "lute player": "lute player",
@@ -217,7 +217,7 @@
     "multi-face": "multi-face",
     "angry": "angry",
     "sorrow": "sorrow",
-    "wisdom": "wisdom",
+    "wisdom": "wise",
     "sexy": "sexy",
     "horror": "horror",
     "sleepy": "sleepy",
@@ -235,7 +235,7 @@
     "blossom": "blossom",
     "trickster": "trickster",
     "long-eared": "long-eared",
-    "beard": "beard",
+    "long-bearded": "long-bearded",
     "scaly": "scaly",
     "scars": "scars",
     "calm": "calm",
@@ -256,7 +256,8 @@
     "eyeless": "eyeless",
     "hat": "hat",
     "angel": "angel",
-    "bird": "bird"
+    "bird": "bird",
+    "bald": "bald"
   },
   "styles": {
     "asian": "asian",
