@@ -78,8 +78,8 @@
   },
   "search": {
     "search": "Search",
-    "dialog": {
-      "title": "Search characters"
+    "dialogs": {
+      "searchCharacters": "Search characters"
     },
     "sorting": {
       "asc": "Sort ascending",

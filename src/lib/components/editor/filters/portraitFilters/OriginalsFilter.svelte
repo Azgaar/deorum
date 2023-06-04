@@ -49,15 +49,17 @@
   <form on:submit={handleSubmit}>
     <DialogBody>
       <div class="content">
-        {#each found as [entryId, { image, name }] (entryId)}
-          <!-- svelte-ignore a11y-label-has-associated-control -->
-          <label use:tooltip title={$t(`admin.originals.${name}`)}>
-            <img src={image} alt={name} />
-            <div class="checkbox">
-              <Checkbox name={entryId} checked={selected.includes(entryId)} />
-            </div>
-          </label>
-        {/each}
+        <div class="grid">
+          {#each found as [entryId, { image, name }] (entryId)}
+            <!-- svelte-ignore a11y-label-has-associated-control -->
+            <label use:tooltip title={$t(`admin.originals.${name}`)}>
+              <img src={image} alt={name} />
+              <div class="checkbox">
+                <Checkbox name={entryId} checked={selected.includes(entryId)} />
+              </div>
+            </label>
+          {/each}
+        </div>
       </div>
     </DialogBody>
 
@@ -102,34 +104,36 @@
       height: min(580px, 75vh);
       overflow-y: auto;
 
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-gap: 3px;
+      div.grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 3px;
 
-      @media ($mobile) {
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 2px;
-      }
-
-      label {
-        position: relative;
-        cursor: pointer;
-
-        .checkbox {
-          position: absolute;
-          right: 0;
-          bottom: 0;
+        @media ($mobile) {
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 2px;
         }
 
-        img {
-          width: 100%;
-          aspect-ratio: 1;
+        label {
+          position: relative;
+          cursor: pointer;
 
-          transition: filter 0.2s ease-in-out;
-          filter: brightness(0.9);
+          .checkbox {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+          }
 
-          &:hover {
-            filter: brightness(0.95);
+          img {
+            width: 100%;
+            aspect-ratio: 1;
+
+            transition: filter 0.2s ease-in-out;
+            filter: brightness(0.9);
+
+            &:hover {
+              filter: brightness(0.95);
+            }
           }
         }
       }
