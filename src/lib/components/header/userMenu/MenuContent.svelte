@@ -3,6 +3,7 @@
   import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import { t } from '$lib/locales/translations';
   import { galleryNextId } from '$lib/stores';
+  import Button from '../Button.svelte';
   import Link from '../Link.svelte';
   import { getLinkKey, getLinks } from '../navlinks';
 
@@ -22,9 +23,9 @@
 
   <menu>
     <section>
-      <button on:click={() => openGetCoinsDialog($page.data.coins)}>
+      <Button onClick={() => openGetCoinsDialog($page.data.coins)}>
         {$t('common.coins.getCoins')}
-      </button>
+      </Button>
     </section>
 
     <nav>
@@ -116,7 +117,7 @@
 
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
 
       section {
         width: 100%;
@@ -124,21 +125,6 @@
         flex-direction: column;
         align-items: center;
         gap: 8px;
-
-        button {
-          color: $text;
-          background: none;
-          border: none;
-          border-radius: 24px;
-          transition: all 0.2s ease-in-out;
-          padding: 8px 24px;
-          font-size: 16px;
-          cursor: pointer;
-
-          &:hover {
-            background: color.adjust($text, $alpha: -0.85);
-          }
-        }
       }
 
       nav {

@@ -20,9 +20,10 @@
 
 <button
   type="button"
+  class:active={order !== 'no'}
   on:click={handleSort}
   use:tooltip
-  title={$t(`admin.sorting.${order}`)}
+  title={$t(`common.search.sorting.${order}`)}
   style="transform: rotate({ANGLES[order]}deg)"
 >
   {ICON}
@@ -30,11 +31,17 @@
 
 <style lang="scss">
   button {
+    height: 20px;
     border: none;
     background: none;
-    color: $text;
-    height: 20px;
-    transition: transform 0.2s ease-in-out;
+
+    color: rgba($color: $text, $alpha: 0.2);
+
+    &.active {
+      color: $text;
+    }
+
+    transition: all 0.2s ease-in-out;
     transform-origin: center;
     cursor: pointer;
   }

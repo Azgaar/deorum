@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from '$app/stores';
-
   import { t } from '$lib/locales/translations';
   import type { ILink } from '$lib/types/components.types';
 
@@ -31,6 +30,10 @@
     border-radius: 24px;
     transition: all 0.2s ease-in-out;
     padding: 8px 24px;
+
+    @media ($mobile) {
+      padding: 6px 12px;
+    }
   }
 
   a.active {

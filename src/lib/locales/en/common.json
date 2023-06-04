@@ -65,8 +65,8 @@
     }
   },
   "navigation": {
+    "back": "Back",
     "gallery": "Gallery",
-    "backToGallery": "Back to Gallery",
     "match": "Match",
     "tags": "Tags",
     "admin": "Admin",
@@ -75,6 +75,17 @@
     "donate": "Donate",
     "terms": "Terms of Use",
     "discord": "Discord Server"
+  },
+  "search": {
+    "search": "Search",
+    "dialog": {
+      "title": "Search characters"
+    },
+    "sorting": {
+      "asc": "Sort ascending",
+      "desc": "Sort descending",
+      "no": "Don't sort"
+    }
   },
   "success": {
     "copied": "Copied to you clipboard"

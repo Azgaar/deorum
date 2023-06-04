@@ -7,6 +7,16 @@ export interface IPortraitFilters {
   hasCharacters: boolean | null;
 }
 
+export interface ICharacterFilters {
+  name: string;
+  bio: string;
+  gender: string;
+  race: string[];
+  archetype: string[];
+  background: string[];
+  age: [number, number];
+}
+
 export interface ISorting {
   key: string;
   order: 'asc' | 'desc' | 'no';
