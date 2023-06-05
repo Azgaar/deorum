@@ -1,38 +1,29 @@
-import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
+import type { ISorting } from '$lib/types/filters.types';
 
-const operatorsMap: { [key in keyof IPortraitFilters]: '=' | '~' } = {
-  original: '=',
-  quality: '=',
-  colors: '~',
-  tags: '~',
-  styles: '~',
-  hasCharacters: '='
+const operatorsMap: { [key: string]: '=' | '~' } = {
+  name: '~',
+  bio: '~',
+  gender: '='
 };
 
-export function parseFilters(filters: IPortraitFilters) {
-  let query = '';
-
-  for (const key in filters) {
-    const entity = key as keyof IPortraitFilters;
-    const value = filters[entity];
-
-    if (entity === 'hasCharacters') {
-      if (value === null) continue;
-      if (value === true) query += `${query ? '&&' : ''}(characters!="[]")`;
-      else query += `${query ? '&&' : ''}(characters="[]")`;
-    }
-
-    if (Array.isArray(value) && value.length > 0) {
-      const base = value.map((value) => `${key}${operatorsMap[entity]}${parse(value)}`).join('||');
-      query += `${query ? '&&' : ''}(${base})`;
-    }
-  }
-
-  return query;
+function parse(value: unknown) {
+  return typeof value === 'string' ? `"${value}"` : value;
 }
 
-function parse(value: string | number | boolean) {
-  return typeof value === 'string' ? `"${value}"` : value;
+export function parseFilters(filters: { [key: string]: unknown }) {
+  const query = Object.entries(filters).map(([key, value]) => {
+    if (value === null) return '';
+
+    const operator = operatorsMap[key] || '=';
+    if (key === 'hasCharacters') return value ? 'characters!="[]"' : 'characters="[]"';
+    if (Array.isArray(value)) {
+      if (value.length === 0) return '';
+      return '(' + value.map((value) => `${key}=${parse(value)}`).join('||') + ')';
+    }
+    return value ? `${key}${operator}${parse(value)}` : '';
+  });
+
+  return query.filter(Boolean).join('&&');
 }
 
 export function parseSorting(sorting: ISorting) {

@@ -14,7 +14,6 @@ export interface ICharacterFilters {
   race: string[];
   archetype: string[];
   background: string[];
-  age: [number, number];
 }
 
 export interface ISorting {

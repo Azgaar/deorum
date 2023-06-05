@@ -5,7 +5,12 @@
   import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import { t } from '$lib/locales/translations';
+  import { toastError } from '$lib/stores';
+  import type { ICharacter, IList } from '$lib/types/api.types';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
+  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import { report } from '$lib/utils/log';
+  import { request } from '$lib/utils/requests';
   import SelectionFilter from './filters/SelectionFilter.svelte';
   import TextFilter from './filters/TextFilter.svelte';
 
@@ -18,18 +23,28 @@
     gender: '',
     race: ['byigyk8mmkjh63c', 'ozfm6jtt6c5qesi', 'ok3meeuvsbdsa0h'],
     archetype: [],
-    background: [],
-    age: [-Infinity, Infinity]
+    background: []
   };
 
   const handleCancel = () => {
     isOpen = false;
   };
 
-  const handleApply = (event: SubmitEvent) => {
+  const handleApply = async (event: SubmitEvent) => {
     event.preventDefault();
-    console.log(filters);
-    handleCancel();
+
+    try {
+      const filter = parseFilters(filters);
+      const sort = parseSorting(sorting);
+
+      const searchParams = new URLSearchParams({ page: '1', pageSize: '10', filter, sort });
+      const data = await request<IList<ICharacter>>(`/api/characters?${searchParams}`);
+
+      console.log(data);
+    } catch (err) {
+      report('admin', err, { request: 'searchCharacters' });
+      toastError(err);
+    }
   };
 </script>
 
@@ -89,6 +104,8 @@
     gap: 1rem;
 
     div.parameters {
+      max-width: 400px;
+
       display: flex;
       flex-direction: column;
       gap: 0.5rem;

@@ -29,9 +29,9 @@
   }
 
   span {
-    font-size: 0.85em;
-    max-width: 150px;
-    padding: 0.4em 1em;
+    font-size: 0.8em;
+    max-width: 120px;
+    padding: 4px 8px;
     border-radius: 1em;
     background-color: color.adjust($on-surface, $alpha: -0.1);
     white-space: nowrap;

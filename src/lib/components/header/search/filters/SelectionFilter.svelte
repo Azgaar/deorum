@@ -57,7 +57,7 @@
     position: relative;
     display: grid;
     align-items: center;
-    grid-template-columns: auto 1fr 2fr;
+    grid-template-columns: auto 1fr 2fr auto;
     gap: 0.5em;
 
     &.inactive > span {
@@ -71,8 +71,6 @@
     }
 
     .edit {
-      position: absolute;
-      right: 0;
       background: none;
       border: none;
       cursor: pointer;
