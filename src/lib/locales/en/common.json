@@ -78,9 +78,7 @@
   },
   "search": {
     "search": "Search",
-    "dialogs": {
-      "searchCharacters": "Search characters"
-    },
+    "title": "Search characters",
     "sorting": {
       "asc": "Sort ascending",
       "desc": "Sort descending",

@@ -35,7 +35,7 @@
 
 <Dialog {isOpen} onClickOutside={handleCancel}>
   <DialogHeader>
-    {$t('common.search.dialogs.searchCharacters')}
+    {$t('common.search.title')}
   </DialogHeader>
 
   <form name="Search characters" on:submit={handleApply}>

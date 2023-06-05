@@ -54,10 +54,10 @@
 
 <style lang="scss">
   div.filter {
+    position: relative;
     display: grid;
     align-items: center;
-    justify-items: end;
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-columns: auto 1fr 2fr;
     gap: 0.5em;
 
     &.inactive > span {
@@ -71,6 +71,8 @@
     }
 
     .edit {
+      position: absolute;
+      right: 0;
       background: none;
       border: none;
       cursor: pointer;

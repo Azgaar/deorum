@@ -4,8 +4,6 @@
 
   export let element: { id: string; name: string; image?: string } | undefined;
   export let translationPath: string;
-
-  $: console.log(element);
 </script>
 
 {#if element?.image}

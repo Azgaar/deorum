@@ -161,7 +161,6 @@
   };
 
   const handleChangesSave = async () => {
-    console.log('handleChangesSave');
     if (!current.original) return toastError($t('admin.errors.selectOriginal'));
     if (!current.colors.length) return toastError($t('admin.errors.selectColor'));
     if (!current.styles.length) return toastError($t('admin.errors.selectStyle'));

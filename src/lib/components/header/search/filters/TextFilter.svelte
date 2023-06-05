@@ -11,15 +11,14 @@
 <div aria-label={`Filter by ${entity}`} class="filter" class:inactive={!filters[entity].length}>
   <Sorting key={entity} bind:sorting />
   <span>{$t(`common.character.${entity}`)}:</span>
-  <input type="text" bind:value={filters[entity]} />
+  <input type="search" bind:value={filters[entity]} />
 </div>
 
 <style lang="scss">
   div.filter {
     display: grid;
     align-items: center;
-    justify-items: end;
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto 1fr 2fr;
     gap: 0.5em;
 
     &.inactive > span {
@@ -31,14 +30,13 @@
     }
 
     input {
-      background: none;
-      border: none;
-      border-bottom: 1px solid rgba($text, 0.4);
-      outline: none;
-      color: $text;
-
-      height: 22px;
       text-indent: 6px;
+      color: $text;
+      background: rgba($text, 0.01);
+      border: none;
+      border-bottom: 1px solid rgba($text, 0.02);
+      border-radius: 4px;
+      outline: none;
     }
   }
 </style>

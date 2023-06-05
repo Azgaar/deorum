@@ -79,7 +79,6 @@ export const getLinks = (
   galleryNextId: string | null
 ) => {
   const routeId = page.route.id;
-  console.log('routeId', routeId);
   if (!routeId) return [];
 
   const { role, currentId, randomId, nextId } = page.data;
