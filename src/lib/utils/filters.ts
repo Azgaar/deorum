@@ -10,7 +10,7 @@ function parse(value: unknown) {
   return typeof value === 'string' ? `"${value}"` : value;
 }
 
-export function parseFilters(filters: { [key: string]: unknown }) {
+export function parseFilters(filters: object) {
   const query = Object.entries(filters).map(([key, value]) => {
     if (value === null) return '';
 

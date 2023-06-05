@@ -6,13 +6,15 @@
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
-  import type { ICharacter, IList } from '$lib/types/api.types';
+  import type { IList } from '$lib/types/api.types';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
+  import type { IGalleryItem } from '$lib/types/gallery.types';
   import { parseFilters, parseSorting } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import SelectionFilter from './filters/SelectionFilter.svelte';
   import TextFilter from './filters/TextFilter.svelte';
+  import Item from './results/Item.svelte';
 
   export let isOpen: boolean;
 
@@ -25,6 +27,7 @@
     archetype: [],
     background: []
   };
+  let results: IList<IGalleryItem>;
 
   const handleCancel = () => {
     isOpen = false;
@@ -37,10 +40,8 @@
       const filter = parseFilters(filters);
       const sort = parseSorting(sorting);
 
-      const searchParams = new URLSearchParams({ page: '1', pageSize: '10', filter, sort });
-      const data = await request<IList<ICharacter>>(`/api/characters?${searchParams}`);
-
-      console.log(data);
+      const searchParams = new URLSearchParams({ page: '1', pageSize: '6', filter, sort });
+      results = await request<IList<IGalleryItem>>(`/api/gallery/search?${searchParams}`);
     } catch (err) {
       report('admin', err, { request: 'searchCharacters' });
       toastError(err);
@@ -83,6 +84,14 @@
           bind:sorting
         />
       </div>
+
+      <div class="results">
+        {#if results}
+          {#each results.items as item (item.id)}
+            <Item {item} />
+          {/each}
+        {/if}
+      </div>
     </DialogBody>
 
     <DialogFooter>
@@ -99,13 +108,13 @@
 
 <style lang="scss">
   form {
+    max-width: 400px;
+
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
     div.parameters {
-      max-width: 400px;
-
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
