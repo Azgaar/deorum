@@ -83,7 +83,9 @@
       "asc": "Sort ascending",
       "desc": "Sort descending",
       "no": "Don't sort"
-    }
+    },
+    "foundItems": "Found items: {{variable}}",
+    "noResults": "No characters found, please change search criteria and try again"
   },
   "success": {
     "copied": "Copied to you clipboard"

@@ -144,18 +144,6 @@
               right: 0;
               bottom: 0;
             }
-
-            img {
-              width: 100%;
-              aspect-ratio: 1;
-
-              transition: filter 0.2s ease-in-out;
-              filter: brightness(0.9);
-
-              &:hover {
-                filter: brightness(0.95);
-              }
-            }
           }
 
           &.textElement {

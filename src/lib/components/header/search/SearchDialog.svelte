@@ -15,33 +15,51 @@
   import SelectionFilter from './filters/SelectionFilter.svelte';
   import TextFilter from './filters/TextFilter.svelte';
   import Item from './results/Item.svelte';
+  import Pagination from './results/Pagination.svelte';
 
   export let isOpen: boolean;
 
+  const pageSize = '6';
+  let page = 1;
   let sorting: ISorting = { key: 'created', order: 'desc' };
   let filters: ICharacterFilters = {
     name: '',
     bio: '',
     gender: '',
-    race: ['byigyk8mmkjh63c', 'ozfm6jtt6c5qesi', 'ok3meeuvsbdsa0h'],
+    race: [],
     archetype: [],
     background: []
   };
+
   let results: IList<IGalleryItem>;
+
+  const handlePageChange = (event: Event) => {
+    const target = event.target as HTMLButtonElement;
+    if (target.disabled || target.hasAttribute('aria-current')) event.preventDefault();
+
+    const newPage = target.dataset.page;
+    if (newPage !== undefined) {
+      page = Number(newPage);
+      handleApply(event);
+    }
+  };
 
   const handleCancel = () => {
     isOpen = false;
   };
 
-  const handleApply = async (event: SubmitEvent) => {
+  const handleApply = async (event: Event) => {
     event.preventDefault();
 
     try {
       const filter = parseFilters(filters);
       const sort = parseSorting(sorting);
 
-      const searchParams = new URLSearchParams({ page: '1', pageSize: '6', filter, sort });
-      results = await request<IList<IGalleryItem>>(`/api/gallery/search?${searchParams}`);
+      const searchParams = new URLSearchParams({ page: String(page), pageSize, filter, sort });
+      const list = await request<IList<IGalleryItem>>(`/api/gallery/search?${searchParams}`);
+
+      page = list.page;
+      results = list;
     } catch (err) {
       report('admin', err, { request: 'searchCharacters' });
       toastError(err);
@@ -85,13 +103,24 @@
         />
       </div>
 
-      <div class="results">
-        {#if results}
-          {#each results.items as item (item.id)}
-            <Item {item} />
-          {/each}
-        {/if}
-      </div>
+      {#if results?.items.length > 0}
+        <div class="results">
+          <div class="items">
+            {#each results.items as item (item.id)}
+              <Item {item} />
+            {/each}
+          </div>
+
+          <div class="controls">
+            <Pagination {page} pages={results.totalPages} onClick={handlePageChange} />
+            <div>{$t('common.search.foundItems', { variable: results.totalItems })}</div>
+          </div>
+        </div>
+      {/if}
+
+      {#if results?.items.length === 0}
+        <div class="noResults">{$t('common.search.noResults')}</div>
+      {/if}
     </DialogBody>
 
     <DialogFooter>
@@ -118,6 +147,25 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+    }
+
+    div.results {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      div.controls {
+        font-size: 0.85em;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+    div.noResults {
+      font-size: 0.8rem;
     }
   }
 </style>

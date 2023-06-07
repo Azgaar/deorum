@@ -9,7 +9,7 @@ import { toJson } from '$lib/utils/requests';
 export const GET: RequestHandler = async ({ url: { searchParams }, fetch }) => {
   const page = Number(searchParams.get('page'));
   const pageSize = Number(searchParams.get('pageSize'));
-  const filter = searchParams.get('filter') || '';
+  const filter = encodeURIComponent(searchParams.get('filter') || '');
   const sort = searchParams.get('sort') || '';
   const { expand } = charactersConfig;
 
@@ -17,6 +17,6 @@ export const GET: RequestHandler = async ({ url: { searchParams }, fetch }) => {
   const list = await toJson<IList<ICharacter>>(fetch(url));
   const items = list.items.filter(verifyCharacter).map(getGalleryItemData);
 
-  log('search', `Found ${items.length} characters`, url);
+  log('search', `Found ${list.totalItems} characters`, url);
   return json({ ...list, items });
 };

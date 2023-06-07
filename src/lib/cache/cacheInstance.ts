@@ -16,7 +16,7 @@ export const getCachedList = async <T>(
   expand = ''
 ): Promise<T[]> => {
   if (browser) throw new Error('Should not be called from client side!');
-  const key = [collection, filter, sort, expand, '$list'].filter(Boolean).join('-');
+  const key = createKey(collection, filter, sort, expand, '$list');
 
   const cached = cache.get(key);
   if (cached?.length) {
@@ -41,11 +41,15 @@ export const getCachedPage = async <T>(
   expand = ''
 ): Promise<IList<T>> => {
   if (browser) throw new Error('Should not be called from client side!');
-  const key = [collection, page, pageSize, filter, sort, expand, '$page'].filter(Boolean).join('-');
+  const key = createKey(collection, page, pageSize, filter, sort, expand, '$page');
 
   const cached = cache.get(key);
   if (cached) {
-    log(collection, `getCachedPage – got ${cached.items?.length} page entries from cache`, key);
+    log(
+      collection,
+      `getCachedPage – got 1 page out of ${cached.totalPages} with ${cached.items?.length} entries from cache`,
+      key
+    );
     return new Promise((resolve) => resolve(cached));
   }
 
@@ -53,7 +57,11 @@ export const getCachedPage = async <T>(
   const serialized = makePOJO(list);
 
   cache.put(key, serialized, EXPIRATION);
-  log(collection, `getCachedPage – got ${serialized.items?.length} page entries from DB`, key);
+  log(
+    collection,
+    `getCachedPage – got 1 page out of ${serialized.totalPages} with ${serialized.items?.length} entries from DB`,
+    key
+  );
   return serialized;
 };
 
@@ -63,8 +71,7 @@ export const getCachedElement = async <T>(
   expand = ''
 ): Promise<T> => {
   if (browser) throw new Error('Should not be called from client side!');
-
-  const key = [collection, id, expand, '$element'].filter(Boolean).join('-');
+  const key = createKey(collection, id, expand, '$element');
 
   const cached = cache.get(key);
   if (cached) {
@@ -93,3 +100,7 @@ export const updateCache = (
   if (browser) throw new Error('Should not be called from client side!');
   cache.update(collection, id, partialValue);
 };
+
+function createKey(...args: unknown[]) {
+  return args.filter(Boolean).join('-');
+}

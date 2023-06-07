@@ -18,7 +18,7 @@
   div.filter {
     display: grid;
     align-items: center;
-    grid-template-columns: auto 1fr 2fr;
+    grid-template-columns: auto 1fr 2fr 20px;
     gap: 0.5em;
 
     &.inactive > span {
