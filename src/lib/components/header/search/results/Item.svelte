@@ -3,8 +3,16 @@
   import type { IGalleryItem } from '$lib/types/gallery.types';
   import { t } from '$lib/locales/translations';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
+  import { goto } from '$app/navigation';
 
   export let item: IGalleryItem;
+  export let isOpen: boolean;
+
+  const handleClick = async (e: Event) => {
+    e.preventDefault();
+    await goto(`/${item.id}`);
+    isOpen = false;
+  };
 </script>
 
 <div class="preview">
@@ -13,7 +21,12 @@
     <div class="top">
       <div class="name">{item.name}</div>
 
-      <a data-sveltekit-preload-data="hover" class="showDetails" href={item.id}>
+      <a
+        data-sveltekit-preload-data="hover"
+        on:click={handleClick}
+        class="showDetails"
+        href="/{item.id}"
+      >
         <span>{$t('common.gallery.showDetails')}</span>
         <ArrowRight width={16} />
       </a>

@@ -21,7 +21,7 @@
 
   const pageSize = '6';
   let page = 1;
-  let sorting: ISorting = { key: 'created', order: 'desc' };
+  let sorting: ISorting = { key: 'id', order: 'desc' };
   let filters: ICharacterFilters = {
     name: '',
     bio: '',
@@ -107,7 +107,7 @@
         <div class="results">
           <div class="items">
             {#each results.items as item (item.id)}
-              <Item {item} />
+              <Item bind:isOpen {item} />
             {/each}
           </div>
 

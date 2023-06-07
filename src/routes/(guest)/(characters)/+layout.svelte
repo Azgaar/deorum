@@ -14,6 +14,11 @@
   let carousel = new Carousel(data.items, data.currentId);
   setContext('carousel', carousel);
 
+  $: {
+    console.log('characters layout data', data.items, data.currentId);
+    carousel.updateCarousel(data.items, data.currentId);
+  }
+
   const keyBindings = {
     drill: ['Enter', 'NumpadEnter'],
     next: ['Space', 'ArrowRight', 'ArrowDown'],

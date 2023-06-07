@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import { t } from '$lib/locales/translations';
-  import { galleryNextId } from '$lib/stores';
+  import { galleryId } from '$lib/stores';
   import Button from '../Button.svelte';
   import Link from '../Link.svelte';
   import { getLinkKey, getLinks } from '../navlinks';
@@ -10,7 +10,7 @@
   export let isOpen: boolean;
   const toggleMenu = () => (isOpen = !isOpen);
 
-  $: links = getLinks('sidebar', $page, $galleryNextId);
+  $: links = getLinks('sidebar', $page, $galleryId);
 </script>
 
 <aside class:isOpen on:click={toggleMenu} on:keydown={toggleMenu}>

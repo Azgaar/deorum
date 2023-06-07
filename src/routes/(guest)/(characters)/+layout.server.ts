@@ -33,5 +33,5 @@ export const load: import('./$types').LayoutServerLoad = async ({ params, fetch 
 
   log('characters', `Loading character ${current.name} ${params.slug}`);
 
-  return { items, currentId: current.id, randomId };
+  return { items, currentId: current.id };
 };

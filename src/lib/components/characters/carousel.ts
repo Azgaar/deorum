@@ -1,11 +1,10 @@
-import { get, writable, type Subscriber, type Writable } from 'svelte/store';
-
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-import { toastError } from '$lib/stores';
+import { galleryId, toastError } from '$lib/stores';
+import type { IGalleryItem } from '$lib/types/gallery.types';
 import { sliceElements } from '$lib/utils/array';
 import { report } from '$lib/utils/log';
 import { preloadImage, request } from '$lib/utils/requests';
-import type { IGalleryItem } from '$lib/types/gallery.types';
+import { get, writable, type Subscriber, type Writable } from 'svelte/store';
 
 const CURRENT_INDEX = 2;
 const TAIL_IMAGES = 2;
@@ -33,13 +32,16 @@ export class Carousel {
   }
 
   // slice items array to get carousel items
-  private updateCarousel(items: IGalleryItem[], currentId: string) {
+  public updateCarousel(items: IGalleryItem[], currentId: string) {
+    this.items = items;
     const currentIdx = items.findIndex(({ id }) => id === currentId);
     this.currentItem.set(items[currentIdx]);
 
     const before = sliceElements(items, currentIdx - TAIL_IMAGES, currentIdx);
     const after = sliceElements(items, currentIdx + 1, currentIdx + 1 + TAIL_IMAGES);
     this.carousel.set([...before, items[currentIdx], ...after]);
+
+    galleryId.set(currentId);
   }
 
   // lazily preload images that comes initially, but not displayed in the carousel

@@ -1,13 +1,13 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { galleryNextId } from '$lib/stores';
+  import { galleryId } from '$lib/stores';
   import { fade } from 'svelte/transition';
   import Link from '../Link.svelte';
   import { getLinks, getLinkKey } from '../navlinks';
 
   let collapsed = true;
   const toggleMenu = () => (collapsed = !collapsed);
-  $: links = getLinks('sidebar', $page, $galleryNextId);
+  $: links = getLinks('sidebar', $page, $galleryId);
 </script>
 
 <nav in:fade>
