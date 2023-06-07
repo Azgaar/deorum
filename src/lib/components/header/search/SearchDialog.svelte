@@ -5,7 +5,7 @@
   import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import { t } from '$lib/locales/translations';
-  import { toastError } from '$lib/stores';
+  import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
   import type { IList } from '$lib/types/api.types';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
@@ -50,6 +50,7 @@
 
   const handleApply = async (event: Event) => {
     event.preventDefault();
+    showLoadingOverlay();
 
     try {
       const filter = parseFilters(filters);
@@ -63,6 +64,8 @@
     } catch (err) {
       report('admin', err, { request: 'searchCharacters' });
       toastError(err);
+    } finally {
+      hideLoadingOverlay();
     }
   };
 </script>
