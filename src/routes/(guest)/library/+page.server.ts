@@ -7,6 +7,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
   const parentData = await parent();
+  if (!parentData.userId) throw new Error('User not logged in');
 
   const [custom, uploaded, liked] = await Promise.all([
     getCustomCharacters(parentData.userId),
@@ -23,9 +24,7 @@ export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
 
   return { library: { custom, uploaded, liked } };
 
-  async function getCustomCharacters(userId: string | null) {
-    if (!userId) return [];
-
+  async function getCustomCharacters(userId: string) {
     const url = `/api/custom?filter=(creator="${userId}")&sort=updated&expand=${charactersConfig.expand}`;
     const characters = await toJson<ICharacter[]>(fetch(url));
     const items = characters.map(getGalleryItemData);
@@ -33,9 +32,7 @@ export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
     return items;
   }
 
-  async function getUploadedPortaits(userId: string | null) {
-    if (!userId) return [];
-
+  async function getUploadedPortaits(userId: string) {
     const url = `/api/portraits?filter=(user="${userId}")&sort=updated`;
     const portraits = await toJson<IPortrait[]>(fetch(url));
 

@@ -34,10 +34,10 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
     { id: `library`, key: 'common.navigation.library', to: '/library' },
   ],
   '/(guest)/(characters)/[slug]': (data) => [
-    { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}`, reload: true },
+    { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}` },
   ],
-  '/(user)/library': (data) => [
-    { id: 'newGallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}`, reload: true },
+  '/(guest)/library': (data) => [
+    { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
   ],
   'default': () => [
     { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
