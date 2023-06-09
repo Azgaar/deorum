@@ -118,6 +118,7 @@
         -webkit-line-clamp: 3;
         line-clamp: 3;
         -webkit-box-orient: vertical;
+        min-height: 39px;
       }
 
       div.features {

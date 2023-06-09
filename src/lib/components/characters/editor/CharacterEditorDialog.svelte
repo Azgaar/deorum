@@ -43,31 +43,32 @@
   $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
 
   const options = createOptions(races, archetypes, backgrounds);
+  let isPortraitPoolLoaded: boolean;
 
   const handleGenderChange = (value: string) => {
     character.gender = value as TGender;
-    portraitsPreloaded = false;
+    isPortraitPoolLoaded = false;
   };
 
   const handleRaceChange = (value: string) => {
     character.race = value;
     const race = races.get(value);
     if (race) character['@expand'].race = race;
-    portraitsPreloaded = false;
+    isPortraitPoolLoaded = false;
   };
 
   const handleArchetypeChange = (value: string) => {
     character.archetype = value;
     const archetype = archetypes.get(value);
     if (archetype) character['@expand'].archetype = archetype;
-    portraitsPreloaded = false;
+    isPortraitPoolLoaded = false;
   };
 
   const handleBackgroundChange = (value: string) => {
     character.background = value;
     const background = backgrounds.get(value);
     if (background) character['@expand'].background = background;
-    portraitsPreloaded = false;
+    isPortraitPoolLoaded = false;
   };
 
   const handleSubmit = async (event: SubmitEvent) => {
@@ -126,7 +127,7 @@
     <DialogBody>
       <div class="columns">
         <div class="column">
-          <PortraitEditor bind:character />
+          <PortraitEditor bind:character bind:isPortraitPoolLoaded />
         </div>
 
         <div class="column">
