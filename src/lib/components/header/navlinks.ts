@@ -36,6 +36,9 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
   '/(guest)/(characters)/[slug]': (data) => [
     { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}` },
   ],
+  '/(guest)/library/[slug]': () => [
+    { id: 'backToLibrary', key: 'common.navigation.back', to: '/library' },
+  ],
   '/(guest)/library': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
   ],
