@@ -12,7 +12,7 @@
     height: 56px;
 
     &:hover:not(.head) {
-      background-color: rgba(255, 255, 255, 0.04);
+      background-color: rgb($text, 0.04);
     }
   }
 </style>

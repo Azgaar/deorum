@@ -87,7 +87,7 @@
         padding: 4px 24px;
         font-size: 14px;
         font-style: italic;
-        background-color: rgba($surface, 0.4);
+        background-color: rgb($surface, 0.4);
         border-radius: 4px;
       }
     }

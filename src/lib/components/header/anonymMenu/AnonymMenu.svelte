@@ -64,7 +64,7 @@
       top: $height;
       right: 0;
       bottom: 0;
-      background-image: linear-gradient(135deg, rgba(12, 2, 1, 1), rgba(32, 10, 2, 0.9));
+      background-image: linear-gradient(135deg, rgb(12, 2, 1), rgb(32, 10, 2, 0.9));
       z-index: 1;
 
       display: flex;

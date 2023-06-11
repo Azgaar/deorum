@@ -17,6 +17,6 @@
     width: 100%;
 
     color: $text;
-    background-color: rgba($secondary, 0.6);
+    background-color: rgb($secondary, 0.6);
   }
 </style>

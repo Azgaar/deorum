@@ -27,23 +27,23 @@
     align-items: center;
 
     padding: 0.1em 0.5em 0.1em 0.2em;
-    background: rgba($secondary, 0.6);
+    background: rgb($secondary, 0.6);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      background: rgba($secondary, 0.6);
+      background: rgb($secondary, 0.6);
 
       .action {
         opacity: 1;
         &:hover {
-          background-color: rgba($secondary, 0.6);
+          background-color: rgb($secondary, 0.6);
         }
       }
     }
 
     &:active {
-      background: rgba($secondary, 0.7);
+      background: rgb($secondary, 0.7);
     }
 
     .action {
@@ -59,7 +59,7 @@
 
       transition: all 0.2s ease-in-out;
       opacity: 0;
-      background-color: rgba($secondary, 0.7);
+      background-color: rgb($secondary, 0.7);
     }
   }
 </style>

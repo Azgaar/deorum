@@ -23,7 +23,7 @@
     color: $text;
     cursor: pointer;
 
-    background: rgba($secondary, 0.6);
+    background: rgb($secondary, 0.6);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
 
@@ -40,6 +40,6 @@
   }
 
   button:hover {
-    background: rgba($secondary, 0.6);
+    background: rgb($secondary, 0.6);
   }
 </style>

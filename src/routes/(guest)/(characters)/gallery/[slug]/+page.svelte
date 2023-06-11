@@ -110,8 +110,8 @@
         &:nth-child(3) {
           left: 50%;
           z-index: 2;
-          box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
-            0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 30px rgb(black, 0.6), 0 0 60px rgb(black, 0.45),
+            0 0 110px rgb(black, 0.25), 0 0 100px rgb(black, 0.1);
           opacity: 1;
         }
 

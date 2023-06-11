@@ -48,7 +48,7 @@
     right: 0;
     bottom: 0;
     height: 100%;
-    background-image: linear-gradient(135deg, rgba(12, 2, 1, 1), rgba(32, 10, 2, 0.9));
+    background-image: linear-gradient(135deg, rgb(12, 2, 1), rgb(32, 10, 2, 0.9));
     z-index: 1;
 
     display: flex;
@@ -66,7 +66,7 @@
 
     .userDetails {
       height: 48px;
-      border-bottom: 1px solid rgba(white, 0.04);
+      border-bottom: 1px solid rgb($text, 0.04);
 
       &:not(.isOpen) {
         opacity: 0;

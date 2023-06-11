@@ -34,7 +34,7 @@
     border: none;
     background: none;
 
-    color: rgba($color: $text, $alpha: 0.2);
+    color: rgb($text, 0.2);
 
     &.active {
       color: $text;

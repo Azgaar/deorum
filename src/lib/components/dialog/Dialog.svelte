@@ -39,7 +39,7 @@
     color: $text;
     border: none;
 
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(black, 0.4);
     z-index: 100;
 
     display: flex;
@@ -47,7 +47,7 @@
     align-items: center;
 
     .dialog-container {
-      padding: 20px 20px 14px;
+      padding: 20px;
       box-sizing: border-box;
       max-width: min(600px, 80vw);
       min-width: 340px;
@@ -56,7 +56,7 @@
 
       background-color: $surface;
       border-radius: 5px;
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 0px 15px rgb(black, 0.3);
 
       display: flex;
       flex-direction: column;

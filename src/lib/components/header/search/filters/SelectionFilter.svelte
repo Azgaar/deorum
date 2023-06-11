@@ -62,7 +62,7 @@
     gap: 0.5em;
 
     &.inactive > span {
-      color: rgba($color: $text, $alpha: 0.2);
+      color: rgb($text, 0.2);
     }
 
     .elements {

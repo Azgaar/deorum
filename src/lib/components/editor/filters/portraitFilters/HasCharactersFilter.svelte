@@ -33,14 +33,14 @@
       padding: 0;
 
       background: none;
-      color: rgba($text, 0.3);
+      color: rgb($text, 0.3);
       border: none;
       transition: all 0.2s ease-in-out;
       cursor: pointer;
     }
 
     button:hover {
-      color: rgba($text, 0.8);
+      color: rgb($text, 0.8);
     }
 
     button.current {

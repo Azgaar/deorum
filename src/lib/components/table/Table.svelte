@@ -18,6 +18,6 @@
     border-radius: 4px;
     border-width: 1px;
     border-style: solid;
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: rgb($text, 0.12);
   }
 </style>

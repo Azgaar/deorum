@@ -28,15 +28,15 @@
       padding: 0;
 
       cursor: pointer;
-      color: rgba($text, 0.3);
-      background-color: rgba($secondary, 0.15);
+      color: rgb($text, 0.3);
+      background-color: rgb($secondary, 0.15);
       border: none;
       transition: all 0.2s ease-in-out;
     }
 
     button:hover {
-      color: rgba($text, 0.8);
-      background-color: rgba($secondary, 0.3);
+      color: rgb($text, 0.8);
+      background-color: rgb($secondary, 0.3);
     }
 
     button.current {

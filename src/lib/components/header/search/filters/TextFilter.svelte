@@ -23,7 +23,7 @@
     gap: 0.5em;
 
     &.inactive > span {
-      color: rgba($color: $text, $alpha: 0.2);
+      color: rgb($text, 0.2);
     }
 
     span {
@@ -33,9 +33,9 @@
     input {
       text-indent: 6px;
       color: $text;
-      background: rgba($text, 0.01);
+      background: rgb($text, 0.01);
       border: none;
-      border-bottom: 1px solid rgba($text, 0.02);
+      border-bottom: 1px solid rgb($text, 0.02);
       border-radius: 4px;
       outline: none;
     }

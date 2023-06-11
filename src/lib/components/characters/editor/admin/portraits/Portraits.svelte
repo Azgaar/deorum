@@ -70,8 +70,8 @@
       width: 50px;
       height: 50px;
       border-radius: 4px;
-      color: rgba($text, 0.6);
-      background-color: rgba($secondary, 0.6);
+      color: rgb($text, 0.6);
+      background-color: rgb($secondary, 0.6);
       transition: all 0.2s ease-in-out;
 
       display: flex;

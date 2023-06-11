@@ -45,7 +45,7 @@
       user-select: none;
     }
 
-    color: rgba($text, 0.9);
+    color: rgb($text, 0.9);
     transition: all 0.3s;
 
     &:hover {

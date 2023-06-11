@@ -55,8 +55,8 @@
     }
 
     &:disabled {
-      background-color: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.38);
+      background-color: rgb($text, 0.1);
+      color: rgb($text, 0.4);
       pointer-events: none;
     }
   }

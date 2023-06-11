@@ -157,7 +157,7 @@
     </DialogBody>
 
     <DialogFooter>
-      <DialogAction handleClick={handleCancel}>
+      <DialogAction handleClick={handleCancel} disabled>
         {$t('common.controls.cancel')}
       </DialogAction>
 
@@ -170,11 +170,11 @@
 
 <style lang="scss">
   form {
-    max-width: 400px;
+    max-width: min(400px, 80vh);
 
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 
     div.parameters {
       display: flex;
