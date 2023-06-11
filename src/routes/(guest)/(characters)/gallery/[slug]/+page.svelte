@@ -26,8 +26,8 @@
     {#each $items as item, index (item.id)}
       <article
         aria-current={index === middleIndex}
-        on:click={() => carousel.move(index > middleIndex)}
-        on:keydown={() => carousel.move(index > middleIndex)}
+        on:click={() => index !== middleIndex && carousel.move(index > middleIndex)}
+        on:keydown={() => index !== middleIndex && carousel.move(index > middleIndex)}
       >
         <Card {item} actionable={item.id === carousel.currentId} />
       </article>

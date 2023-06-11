@@ -22,6 +22,7 @@
   import { request } from '$lib/utils/requests';
   import SelectionFilter from './filters/SelectionFilter.svelte';
   import TextFilter from './filters/TextFilter.svelte';
+  import GenderFilter from './filters/GenderFilter.svelte';
   import Item from './results/Item.svelte';
   import Pagination from './results/Pagination.svelte';
 
@@ -96,6 +97,8 @@
       <div class="parameters">
         <TextFilter entity="name" bind:filters bind:sorting {defaultSorting} />
         <TextFilter entity="bio" bind:filters bind:sorting {defaultSorting} />
+
+        <GenderFilter bind:filters bind:sorting {defaultSorting} />
 
         <SelectionFilter
           entity="race"
