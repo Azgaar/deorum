@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { browser } from '$app/environment';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
-  import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
@@ -22,7 +21,12 @@
     TPostHandler
   } from '$lib/types/editor.types';
   import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import {
+    parseFilters,
+    parseParamsToFilters,
+    parseParamsToSorting,
+    parseSorting
+  } from '$lib/utils/filters';
   import { debounce } from '$lib/utils/funtional';
   import { convertImageFile } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
@@ -32,21 +36,10 @@
   import Grid from '../Grid.svelte';
   import LoadMore from '../LoadMore.svelte';
   import type { PageData } from './$types';
+  import FilterPortraitsDialog from './FilterPortraitsDialog.svelte';
 
   export let data: PageData;
   let { page, pageSize, hasMore } = data; // incoming data: mutable
-
-  let filters: IPortraitFilters = {
-    original: [],
-    quality: [],
-    colors: [],
-    tags: [],
-    styles: [],
-    hasCharacters: null
-  };
-
-  const defaultSorting: ISorting = { key: 'created', order: 'desc' };
-  let sorting = { ...defaultSorting };
 
   // incoming data: immutable maps
   const originals = new Map(data.originals.map(({ id, image, name }) => [id, { image, name }]));
@@ -70,6 +63,21 @@
     if (uploaded.length) return uploaded[0];
     return portraitsMap.get(selected[0]);
   };
+
+  // filters data
+  let isFilterDialogOpen = false;
+  const defaultFilters = {
+    original: [],
+    quality: [],
+    color: [],
+    tag: [],
+    style: [],
+    hasCharacters: null
+  };
+  const defaultSorting: ISorting = { key: 'created', order: 'desc' };
+  const href = browser ? window.location.href : undefined;
+  let filters = parseParamsToFilters<IPortraitFilters>(href, defaultFilters);
+  let sorting = parseParamsToSorting(href, defaultSorting);
 
   const enterUploadMode = (event: Event) => {
     const input = event.target as HTMLInputElement;
@@ -237,29 +245,6 @@
     };
   };
 
-  let filtersData = {
-    isOpen: false,
-    filters,
-    sorting,
-    defaultSorting,
-    onSubmit: (_: IPortraitFilters, __: ISorting) => {},
-    originalsMap: originals,
-    tagsMap: tags,
-    stylesMap: styles
-  };
-
-  const openFilters = () => {
-    const onSubmit = (filters: IPortraitFilters, sorting: ISorting) => {
-      const params = new URLSearchParams({ sort: parseSorting(sorting) });
-      parseFilters(filters).forEach((value) => params.append('filter', value));
-
-      goto(`./portraits/?${decodeURIComponent(params.toString())}`);
-      filtersData = { ...filtersData, isOpen: false };
-    };
-
-    filtersData = { ...filtersData, isOpen: true, filters, sorting, onSubmit };
-  };
-
   const createPatchHandler = (): TPatchHandler => async (changes) => {
     const patches = [];
     for (const id of selected) {
@@ -396,7 +381,7 @@
       handleDelete={createDeleteHandler()}
     />
   {:else}
-    <AdminMenu {openFilters} />
+    <AdminMenu openFilters={() => (isFilterDialogOpen = true)} />
   {/if}
 
   <input
@@ -420,7 +405,7 @@
 <OriginalsDialog {...originalsDialogData} />
 <SelectCharacterDialog {...selectCharacterDialogData} />
 
-<Filters {...filtersData} />
+<FilterPortraitsDialog bind:isOpen={isFilterDialogOpen} {filters} {sorting} {defaultSorting} />
 
 <style lang="scss">
   @use 'sass:color';

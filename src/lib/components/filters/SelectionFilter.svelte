@@ -2,22 +2,24 @@
   import Sorting from '$lib/components/filters/Sorting.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
-  import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
+  import type { ISorting } from '$lib/types/filters.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import SelectionDialog from './SelectionDialog.svelte';
   import SelectionElement from './SelectionElement.svelte';
 
-  export let entity: 'race' | 'archetype' | 'background';
+  export let entity: 'race' | 'archetype' | 'background' | 'original' | 'color' | 'tag' | 'style';
   export let dataPath: string;
+  export let titlePath: string;
   export let translationPath: string;
-  export let filters: ICharacterFilters;
+  export let filters: object;
   export let sorting: ISorting;
   export let defaultSorting: ISorting;
 
   let isOpen = false;
   let data: { id: string; name: string; image?: string }[] = [];
-  $: title = $t(`common.controls.select`) + ' ' + $t(`common.character.${entity}`);
+  $: title = $t(`common.controls.select`) + ' ' + $t(titlePath);
+  $: selected = (filters as Record<string, string[]>)[entity];
 
   loadData();
   async function loadData() {
@@ -28,13 +30,17 @@
       toastError(error);
     }
   }
+
+  const hadleSubmit = (selected: string[]) => {
+    (filters as Record<string, string[]>)[entity] = selected;
+  };
 </script>
 
-<div aria-label={`Filter by ${entity}`} class="filter" class:inactive={!filters[entity].length}>
+<div aria-label={`Filter by ${entity}`} class="filter" class:inactive={!selected.length}>
   <Sorting key={entity} bind:sorting {defaultSorting} />
-  <span>{$t(`common.character.${entity}`)}:</span>
+  <span>{$t(titlePath)}:</span>
   <div class="elements">
-    {#each filters[entity] as id (id)}
+    {#each selected as id (id)}
       <SelectionElement element={data.find((item) => item.id === id)} {translationPath} />
     {/each}
   </div>
@@ -42,14 +48,7 @@
 </div>
 
 {#if isOpen}
-  <SelectionDialog
-    bind:isOpen
-    {title}
-    {data}
-    {translationPath}
-    selected={filters[entity]}
-    onSubmit={(selected) => (filters[entity] = selected)}
-  />
+  <SelectionDialog bind:isOpen {title} {data} {translationPath} {selected} onSubmit={hadleSubmit} />
 {/if}
 
 <style lang="scss">

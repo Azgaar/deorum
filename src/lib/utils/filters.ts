@@ -14,13 +14,13 @@ export function parseFilters(filters: object): string[] {
   const query = Object.entries(filters).map(([key, value]) => {
     if (value === null) return '';
 
-    const operator = operatorsMap[key] || '=';
     if (key === 'hasCharacters') return value ? 'characters!="[]"' : 'characters="[]"';
     if (Array.isArray(value)) {
       if (value.length === 0) return '';
       return '(' + value.map((value) => `${key}=${parse(value)}`).join('||') + ')';
     }
-    return value ? `${key}${operator}${parse(value)}` : '';
+
+    return value ? `${key}${operatorsMap[key] || '='}${parse(value)}` : '';
   });
 
   return query.filter(Boolean);
@@ -32,7 +32,7 @@ export function parseSorting(sorting: ISorting) {
 
 export function parseParamsToFilters<T>(
   url: string | undefined,
-  defaultFilters: Record<string, string | string[]>
+  defaultFilters: Record<string, string | string[] | null>
 ) {
   if (!url) return defaultFilters as T;
   const filters = { ...defaultFilters };

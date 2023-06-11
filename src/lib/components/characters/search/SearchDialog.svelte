@@ -102,6 +102,7 @@
         <SelectionFilter
           entity="race"
           dataPath="/api/races"
+          titlePath="common.character.race"
           translationPath="common.races"
           bind:filters
           bind:sorting
@@ -111,6 +112,7 @@
         <SelectionFilter
           entity="archetype"
           dataPath="/api/archetypes"
+          titlePath="common.character.archetype"
           translationPath="common.archetypes"
           bind:filters
           bind:sorting
@@ -120,6 +122,7 @@
         <SelectionFilter
           entity="background"
           dataPath="/api/backgrounds"
+          titlePath="common.character.background"
           translationPath="common.backgrounds"
           bind:filters
           bind:sorting

@@ -11,7 +11,7 @@ const EXPIRATION = 1000 * 60 * 60 * 6; // 6 hours
 
 export const getCachedList = async <T>(
   collection: TCollection,
-  filters: string[],
+  filters?: string[],
   sort = '',
   expand = ''
 ): Promise<T[]> => {
@@ -36,7 +36,7 @@ export const getCachedPage = async <T>(
   collection: TCollection,
   page: number,
   pageSize: number,
-  filters: string[],
+  filters?: string[],
   sort = '',
   expand = ''
 ): Promise<IList<T>> => {
