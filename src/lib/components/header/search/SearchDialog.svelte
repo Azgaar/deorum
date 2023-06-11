@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Dialog from '$lib/components/dialog/Dialog.svelte';
@@ -11,7 +12,12 @@
   import type { IList } from '$lib/types/api.types';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import {
+    parseFilters,
+    parseParamsToFilters,
+    parseParamsToSorting,
+    parseSorting
+  } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import SelectionFilter from './filters/SelectionFilter.svelte';
@@ -22,18 +28,13 @@
   export let isOpen: boolean;
 
   const pageSize = '5';
-  const defaultSorting: ISorting = { key: 'id', order: 'desc' };
-
   let page = 1;
-  let sorting = { ...defaultSorting };
-  let filters: ICharacterFilters = {
-    name: '',
-    bio: '',
-    gender: '',
-    race: [],
-    archetype: [],
-    background: []
-  };
+
+  const defaultFilters = { name: '', bio: '', gender: '', race: [], archetype: [], background: [] };
+  const defaultSorting: ISorting = { key: 'id', order: 'desc' };
+  const href = browser ? window.location.href : undefined;
+  let filters = parseParamsToFilters<ICharacterFilters>(href, defaultFilters);
+  let sorting = parseParamsToSorting(href, defaultSorting);
 
   let results: IList<IGalleryItem>;
 
@@ -157,7 +158,7 @@
     </DialogBody>
 
     <DialogFooter>
-      <DialogAction handleClick={handleCancel} disabled>
+      <DialogAction handleClick={handleCancel}>
         {$t('common.controls.cancel')}
       </DialogAction>
 

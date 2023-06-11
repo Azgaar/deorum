@@ -34,7 +34,7 @@
     }
 
     &:active {
-      background: $text;
+      color: $text;
     }
 
     &:disabled {

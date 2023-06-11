@@ -43,6 +43,12 @@
       &:active {
         background-color: color.adjust($primary, $lightness: -10%);
       }
+
+      &:disabled {
+        background-color: rgb($text, 0.1);
+        color: rgb($text, 0.4);
+        pointer-events: none;
+      }
     }
 
     &.text {
@@ -52,12 +58,11 @@
       &:hover {
         color: $text;
       }
-    }
 
-    &:disabled {
-      background-color: rgb($text, 0.1);
-      color: rgb($text, 0.4);
-      pointer-events: none;
+      &:disabled {
+        color: rgb($text, 0.4);
+        pointer-events: none;
+      }
     }
   }
 </style>
