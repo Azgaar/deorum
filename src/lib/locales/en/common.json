@@ -85,7 +85,8 @@
       "no": "Don't sort"
     },
     "foundItems": "Found items: {{variable}}",
-    "noResults": "No characters found, please change search criteria and try again"
+    "noResults": "No characters found, please change search criteria and try again",
+    "openGallery": "Open Gallery"
   },
   "success": {
     "copied": "Copied to you clipboard"

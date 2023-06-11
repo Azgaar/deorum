@@ -2,7 +2,6 @@ import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
 
-import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
 import type {
   IBackground,
   IArchetype,
@@ -23,17 +22,6 @@ const DEFAULT_SORT = '-created';
 
 const pageSize = 100;
 const page = 1;
-
-// TODO: parse from search params
-const filters: IPortraitFilters = {
-  original: [],
-  quality: [],
-  colors: [],
-  tags: [],
-  styles: [],
-  hasCharacters: null
-};
-const sorting: ISorting = { key: 'created', order: 'desc' };
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
   try {
@@ -63,8 +51,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       page,
       pageSize,
       hasMore,
-      filters,
-      sorting,
       portraits,
       originals,
       tags,
@@ -82,8 +68,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       pageSize,
       page,
       hasMore: false,
-      filters,
-      sorting,
       portraits: [],
       originals: [],
       tags: [],

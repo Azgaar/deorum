@@ -9,11 +9,14 @@ import type { ICharacter } from '$lib/types/api.types';
 
 export const ssr = true;
 
-const SELECT_BEFORE = 10;
+const SELECT_BEFORE = 5;
 const SELECT_AFTER = 15;
 
-export const load: import('./$types').LayoutServerLoad = async ({ params, fetch }) => {
-  const { filter, sort, expand } = charactersConfig;
+export const load: import('./$types').LayoutServerLoad = async ({ url, params, fetch }) => {
+  const filter = url.searchParams.get('filter') || charactersConfig.filter;
+  const sort = url.searchParams.get('sort') || charactersConfig.sort;
+  const expand = url.searchParams.get('expand') || charactersConfig.expand;
+
   const res = await fetch(`/api/characters?sort=${sort}&filter=${filter}&expand=${expand}`);
   const allCharacters = await (<Promise<ICharacter[]>>res.json());
   if (!allCharacters || !allCharacters.length) throw error(503, 'No characters returned');
@@ -21,17 +24,27 @@ export const load: import('./$types').LayoutServerLoad = async ({ params, fetch 
   const validCharacters = allCharacters.filter(verifyCharacter);
   if (!validCharacters.length) throw error(503, 'No valid characters found');
 
-  const randomId = validCharacters[getRandomIndex(validCharacters.length)].id;
   const currentIndex =
     Boolean(params.slug) && validCharacters.findIndex(({ id }) => id === params.slug);
-  if (currentIndex === false || currentIndex === -1) throw redirect(307, `/gallery/${randomId}`);
+
+  if (currentIndex === false || currentIndex === -1) {
+    const randomId = validCharacters[getRandomIndex(validCharacters.length)].id;
+    throw redirect(307, `/gallery/${randomId}`);
+  }
 
   const current = validCharacters[currentIndex];
-  const before = sliceElements(validCharacters, currentIndex - SELECT_BEFORE, currentIndex);
-  const after = sliceElements(validCharacters, currentIndex + 1, currentIndex + SELECT_AFTER + 1);
-  const items = [...before, current, ...after].map(getGalleryItemData);
-
   log('characters', `Loading character ${current.name} ${params.slug}`);
 
-  return { items, currentId: current.id };
+  const isFiltered = url.searchParams.get('filter');
+  if (isFiltered) {
+    // if gallery is explicitly filtered, return all filtered characters
+    const items = validCharacters.map(getGalleryItemData);
+    return { items, currentId: current.id };
+  } else {
+    // if gallery is not explicitly filtered, return a portion of characters to save resources
+    const before = sliceElements(validCharacters, currentIndex - SELECT_BEFORE, currentIndex);
+    const after = sliceElements(validCharacters, currentIndex + 1, currentIndex + SELECT_AFTER + 1);
+    const items = [...before, current, ...after].map(getGalleryItemData);
+    return { items, currentId: current.id };
+  }
 };

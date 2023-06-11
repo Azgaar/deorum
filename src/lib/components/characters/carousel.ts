@@ -34,6 +34,7 @@ export class Carousel {
   // slice items array to get carousel items
   public updateCarousel(items: IGalleryItem[], currentId: string) {
     this.items = items;
+    this.currentId = currentId;
     const currentIdx = items.findIndex(({ id }) => id === currentId);
     this.currentItem.set(items[currentIdx]);
 
@@ -61,9 +62,8 @@ export class Carousel {
     const edgeId = right ? this.items.at(-1)?.id : this.items.at(0)?.id;
 
     try {
-      const moreItems = await request<IGalleryItem[]>(
-        `/api/gallery/more?edgeId=${edgeId}&right=${right}`
-      );
+      const url = `/api/gallery/more?edgeId=${edgeId}&right=${right}`;
+      const moreItems = await request<IGalleryItem[]>(url);
 
       this.items = right ? [...this.items, ...moreItems] : [...moreItems, ...this.items];
       this.updateCarousel(this.items, this.currentId);
@@ -91,14 +91,20 @@ export class Carousel {
     const nextIndex = right ? CURRENT_INDEX + 1 : CURRENT_INDEX - 1;
     const nextId = get(this.carousel)[nextIndex].id;
 
-    history.pushState({}, '', `./${nextId}`); // don't trigger server update
+    const url = new URL(location.href);
+    url.pathname = url.pathname.replace(this.currentId, nextId);
+    history.pushState({}, '', url); // don't trigger server update
 
     this.currentId = nextId;
     this.updateCarousel(this.items, nextId);
 
-    const dataIndex = this.items.findIndex(({ id }) => id === nextId);
-    const itemsBeforeEnd = Math.min(dataIndex, this.items.length - dataIndex);
-    if (itemsBeforeEnd < LOAD_ON_IMAGES_LEFT) this.loadMore(right);
+    const isFiltered = location.search.includes('filter');
+    // if gallery is explicitly filtered, don't load more items
+    if (!isFiltered) {
+      const dataIndex = this.items.findIndex(({ id }) => id === nextId);
+      const itemsBeforeEnd = Math.min(dataIndex, this.items.length - dataIndex);
+      if (itemsBeforeEnd < LOAD_ON_IMAGES_LEFT) this.loadMore(right);
+    }
   }
 
   public next = () => {

@@ -39,5 +39,10 @@
     &:active {
       background: color.adjust($text, $alpha: -0.95);
     }
+
+    &:disabled {
+      pointer-events: none;
+      color: color.adjust($text, $alpha: -0.9);
+    }
   }
 </style>

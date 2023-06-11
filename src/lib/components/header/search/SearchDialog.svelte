@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import Dialog from '$lib/components/dialog/Dialog.svelte';
   import DialogAction from '$lib/components/dialog/DialogAction.svelte';
   import DialogBody from '$lib/components/dialog/DialogBody.svelte';
@@ -19,9 +21,11 @@
 
   export let isOpen: boolean;
 
-  const pageSize = '6';
+  const pageSize = '5';
+  const defaultSorting: ISorting = { key: 'id', order: 'desc' };
+
   let page = 1;
-  let sorting: ISorting = { key: 'id', order: 'desc' };
+  let sorting = { ...defaultSorting };
   let filters: ICharacterFilters = {
     name: '',
     bio: '',
@@ -68,6 +72,17 @@
       hideLoadingOverlay();
     }
   };
+
+  const handleOpenFitleredGallery = () => {
+    if (!results?.items.length) return;
+
+    const filter = parseFilters(filters);
+    const sort = parseSorting(sorting);
+
+    const firstId = results.items[0].id;
+    goto(`/gallery/${firstId}/?filter=${filter}&sort=${sort}`);
+    isOpen = false;
+  };
 </script>
 
 <Dialog {isOpen} onClickOutside={handleCancel}>
@@ -78,8 +93,8 @@
   <form name="Search characters" on:submit={handleApply}>
     <DialogBody>
       <div class="parameters">
-        <TextFilter entity="name" bind:filters bind:sorting />
-        <TextFilter entity="bio" bind:filters bind:sorting />
+        <TextFilter entity="name" bind:filters bind:sorting {defaultSorting} />
+        <TextFilter entity="bio" bind:filters bind:sorting {defaultSorting} />
 
         <SelectionFilter
           entity="race"
@@ -87,6 +102,7 @@
           translationPath="common.races"
           bind:filters
           bind:sorting
+          {defaultSorting}
         />
 
         <SelectionFilter
@@ -95,6 +111,7 @@
           translationPath="common.archetypes"
           bind:filters
           bind:sorting
+          {defaultSorting}
         />
 
         <SelectionFilter
@@ -103,6 +120,7 @@
           translationPath="common.backgrounds"
           bind:filters
           bind:sorting
+          {defaultSorting}
         />
       </div>
 
@@ -116,7 +134,19 @@
 
           <div class="controls">
             <Pagination {page} pages={results.totalPages} onClick={handlePageChange} />
-            <div>{$t('common.search.foundItems', { variable: results.totalItems })}</div>
+
+            <div>
+              <div>{$t('common.search.foundItems', { variable: results.totalItems })}</div>
+
+              <BasicButton
+                style="text-decoration: underline; font-size: 1em; padding: 0;"
+                variant="text"
+                onClick={handleOpenFitleredGallery}
+                disabled={!results || results.items.length < 5}
+              >
+                {$t('common.search.openGallery')}
+              </BasicButton>
+            </div>
           </div>
         </div>
       {/if}
@@ -164,6 +194,19 @@
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          @media ($mobile) {
+            font-size: 8px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0rem;
+          }
+        }
       }
     }
 

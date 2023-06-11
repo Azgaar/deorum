@@ -27,7 +27,5 @@ export function parseFilters(filters: object) {
 }
 
 export function parseSorting(sorting: ISorting) {
-  const base = sorting.order === 'no' ? '' : `${sorting.order === 'desc' ? '-' : ''}${sorting.key}`;
-  const created = sorting.key.includes('created') ? '' : ',-created';
-  return `${base}${created}`;
+  return sorting.order === 'no' ? '' : `${sorting.order === 'desc' ? '-' : ''}${sorting.key}`;
 }

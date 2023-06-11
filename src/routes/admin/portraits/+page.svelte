@@ -33,7 +33,19 @@
   import type { PageData } from './$types';
 
   export let data: PageData;
-  let { page, pageSize, hasMore, filters, sorting } = data; // incoming data: mutable
+  let { page, pageSize, hasMore } = data; // incoming data: mutable
+
+  let filters: IPortraitFilters = {
+    original: [],
+    quality: [],
+    colors: [],
+    tags: [],
+    styles: [],
+    hasCharacters: null
+  };
+
+  const defaultSorting: ISorting = { key: 'created', order: 'desc' };
+  let sorting = { ...defaultSorting };
 
   // incoming data: immutable maps
   const originals = new Map(data.originals.map(({ id, image, name }) => [id, { image, name }]));
@@ -228,6 +240,7 @@
     isOpen: false,
     filters,
     sorting,
+    defaultSorting,
     onSubmit: (_: IPortraitFilters, __: ISorting) => {},
     originalsMap: originals,
     tagsMap: tags,

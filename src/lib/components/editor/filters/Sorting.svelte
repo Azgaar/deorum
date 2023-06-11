@@ -5,16 +5,16 @@
 
   export let key: string;
   export let sorting: ISorting;
+  export let defaultSorting: ISorting;
 
-  const ICON = '⇧';
   const ANGLES = { asc: 0, desc: 180, no: 90 };
 
   $: order = sorting.key === key ? sorting.order : 'no';
+  $: key === 'race' && console.log({ order, sorting, defaultSorting });
 
   const handleSort = () => {
     const newOrder = order === 'no' ? 'desc' : order === 'asc' ? 'no' : 'asc';
-    order = newOrder;
-    sorting = { key, order };
+    sorting = newOrder === 'no' ? defaultSorting : { key, order: newOrder };
   };
 </script>
 
@@ -26,7 +26,7 @@
   title={$t(`common.search.sorting.${order}`)}
   style="transform: rotate({ANGLES[order]}deg)"
 >
-  {ICON}
+  {'⇧'}
 </button>
 
 <style lang="scss">

@@ -39,12 +39,12 @@
       align-items: center;
       justify-content: center;
 
-      color: rgba($color: $text, $alpha: 0.2);
+      color: rgba($color: $text, $alpha: 0.4);
       transition: all 0.2s ease-in-out;
       cursor: pointer;
 
       &:hover:not([disabled]) {
-        color: rgba($color: $text, $alpha: 0.5);
+        color: rgba($color: $text, $alpha: 0.6);
       }
 
       &[disabled] {

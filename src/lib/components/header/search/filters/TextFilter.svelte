@@ -6,10 +6,11 @@
   export let entity: 'name' | 'bio';
   export let filters: ICharacterFilters;
   export let sorting: ISorting;
+  export let defaultSorting: ISorting;
 </script>
 
 <div aria-label={`Filter by ${entity}`} class="filter" class:inactive={!filters[entity].length}>
-  <Sorting key={entity} bind:sorting />
+  <Sorting key={entity} bind:sorting {defaultSorting} />
   <span>{$t(`common.character.${entity}`)}:</span>
   <input type="search" bind:value={filters[entity]} />
 </div>

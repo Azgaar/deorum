@@ -17,6 +17,7 @@
   export let isOpen: boolean;
   export let filters: IPortraitFilters;
   export let sorting: ISorting;
+  export let defaultSorting: ISorting;
   export let onSubmit: (filters: IPortraitFilters, sorting: ISorting) => void;
 
   export let originalsMap: Map<string, { image: string; name: string }>;
@@ -69,13 +70,13 @@
     <DialogBody>
       <div class="content">
         <div class="item" class:inactive={!filters.quality.length}>
-          <Sorting key="quality" bind:sorting />
+          <Sorting key="quality" bind:sorting {defaultSorting} />
           <span>{$t('admin.editor.quality')}:</span>
           <QualityFilter bind:quality={filters.quality} />
         </div>
 
         <div class="item" class:inactive={!filters.original.length}>
-          <Sorting key="original" bind:sorting />
+          <Sorting key="original" bind:sorting {defaultSorting} />
           <span>{$t('admin.editor.original')}:</span>
           {#if filters.original.length}
             <div class="selected rounded">
@@ -95,7 +96,7 @@
         </div>
 
         <div class="item" class:inactive={!filters.colors.length}>
-          <Sorting key="colors" bind:sorting />
+          <Sorting key="colors" bind:sorting {defaultSorting} />
           <span>{$t('admin.editor.colors')}:</span>
           {#if filters.colors.length}
             <div class="selected rounded">
@@ -112,7 +113,7 @@
         </div>
 
         <div class="item" class:inactive={!filters.tags.length}>
-          <Sorting key="tags" bind:sorting />
+          <Sorting key="tags" bind:sorting {defaultSorting} />
           <span>{$t('admin.editor.tags')}:</span>
           {#if filters.tags.length}
             <div class="selected">
@@ -134,7 +135,7 @@
         </div>
 
         <div class="item" class:inactive={!filters.styles.length}>
-          <Sorting key="styles" bind:sorting />
+          <Sorting key="styles" bind:sorting {defaultSorting} />
           <span>{$t('admin.editor.styles')}:</span>
           {#if filters.styles.length}
             <div class="selected">

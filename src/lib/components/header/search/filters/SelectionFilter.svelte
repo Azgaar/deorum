@@ -14,6 +14,7 @@
   export let translationPath: string;
   export let filters: ICharacterFilters;
   export let sorting: ISorting;
+  export let defaultSorting: ISorting;
 
   let isOpen = false;
   let data: { id: string; name: string; image?: string }[] = [];
@@ -31,7 +32,7 @@
 </script>
 
 <div aria-label={`Filter by ${entity}`} class="filter" class:inactive={!filters[entity].length}>
-  <Sorting key={entity} bind:sorting />
+  <Sorting key={entity} bind:sorting {defaultSorting} />
   <span>{$t(`common.character.${entity}`)}:</span>
   <div class="elements">
     {#each filters[entity] as id (id)}

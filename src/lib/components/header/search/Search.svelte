@@ -2,14 +2,13 @@
   import { page } from '$app/stores';
   import Search from '$lib/components/icons/Search.svelte';
   import View from '$lib/components/mediaQuery/View.svelte';
+  import { pages } from '$lib/config/pages';
   import { t } from '$lib/locales/translations';
   import Button from '../Button.svelte';
   import SearchDialog from './SearchDialog.svelte';
 
   let isOpen = false;
-
-  const searchablePages = ['/(guest)/(characters)/gallery/[slug]', '/(guest)/(characters)/[slug]'];
-  $: isVisible = $page.route.id && searchablePages.includes($page.route.id);
+  $: isVisible = $page.route.id && pages.gallery.includes($page.route.id);
 </script>
 
 <div aria-label="Search container">

@@ -25,7 +25,7 @@
     color: color.adjust($text, $lightness: -10%);
     font-size: 0.8em;
     opacity: 1;
-    transition: all 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     &.primary {
       height: 36px;
