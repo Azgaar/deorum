@@ -18,7 +18,7 @@
       aria-current={filters.gender === ''}
       on:click={() => (filters.gender = '')}
     >
-      {$t(`common.values.all`)}
+      {$t(`common.values.any`)}
     </button>
 
     {#each genders as gender}
