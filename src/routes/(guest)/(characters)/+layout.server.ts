@@ -1,25 +1,26 @@
-import { error, redirect } from '@sveltejs/kit';
-
+import { charactersConfig } from '$lib/config';
+import type { ICharacter } from '$lib/types/api.types';
 import { getRandomIndex, sliceElements } from '$lib/utils/array';
 import { getGalleryItemData, verifyCharacter } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
-import { charactersConfig } from '$lib/config';
-
-import type { ICharacter } from '$lib/types/api.types';
+import { error, redirect } from '@sveltejs/kit';
+import type { LayoutServerLoad } from './$types';
+import { toJson } from '$lib/utils/requests';
 
 export const ssr = true;
 
 const SELECT_BEFORE = 5;
 const SELECT_AFTER = 15;
 
-export const load: import('./$types').LayoutServerLoad = async ({ url, params, fetch }) => {
-  const filter = url.searchParams.get('filter') || charactersConfig.filter;
-  const sort = url.searchParams.get('sort') || charactersConfig.sort;
-  const expand = url.searchParams.get('expand') || charactersConfig.expand;
+export const load: LayoutServerLoad = async ({ url, params, fetch }) => {
+  const searchParams = new URLSearchParams({
+    sort: url.searchParams.get('sort') || charactersConfig.sort,
+    expand: url.searchParams.get('expand') || charactersConfig.expand
+  });
+  url.searchParams.getAll('filter').forEach((value) => searchParams.append('filter', value));
 
-  const res = await fetch(`/api/characters?sort=${sort}&filter=${filter}&expand=${expand}`);
-  const allCharacters = await (<Promise<ICharacter[]>>res.json());
-  if (!allCharacters || !allCharacters.length) throw error(503, 'No characters returned');
+  const allCharacters = await toJson<ICharacter[]>(fetch(`/api/characters?${searchParams}`));
+  if (!allCharacters?.length) throw error(503, 'No characters returned');
 
   const validCharacters = allCharacters.filter(verifyCharacter);
   if (!validCharacters.length) throw error(503, 'No valid characters found');

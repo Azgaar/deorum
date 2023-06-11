@@ -1,10 +1,10 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import Button from '$lib/components/header/Button.svelte';
   import Search from '$lib/components/icons/Search.svelte';
   import View from '$lib/components/mediaQuery/View.svelte';
   import { pages } from '$lib/config/pages';
   import { t } from '$lib/locales/translations';
-  import Button from '../Button.svelte';
   import SearchDialog from './SearchDialog.svelte';
 
   let isOpen = false;

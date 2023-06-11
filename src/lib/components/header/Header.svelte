@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import Search from '$lib/components/characters/search/Search.svelte';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
   import AnonymMenu from './anonymMenu/AnonymMenu.svelte';
   import QuickActionsMenu from './quickActionsMenu/QuickActionsMenu.svelte';
-  import Search from './search/Search.svelte';
   import UserMenu from './userMenu/UserMenu.svelte';
 </script>
 

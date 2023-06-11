@@ -7,6 +7,9 @@
   import DialogBody from '$lib/components/dialog/DialogBody.svelte';
   import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
+  import GenderFilter from '$lib/components/filters/GenderFilter.svelte';
+  import SelectionFilter from '$lib/components/filters/SelectionFilter.svelte';
+  import TextFilter from '$lib/components/filters/TextFilter.svelte';
   import { t } from '$lib/locales/translations';
   import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
   import type { IList } from '$lib/types/api.types';
@@ -20,9 +23,6 @@
   } from '$lib/utils/filters';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
-  import SelectionFilter from './filters/SelectionFilter.svelte';
-  import TextFilter from './filters/TextFilter.svelte';
-  import GenderFilter from './filters/GenderFilter.svelte';
   import Item from './results/Item.svelte';
   import Pagination from './results/Pagination.svelte';
 
@@ -59,30 +59,29 @@
     showLoadingOverlay();
 
     try {
-      const filter = parseFilters(filters);
       const sort = parseSorting(sorting);
-
-      const searchParams = new URLSearchParams({ page: String(page), pageSize, filter, sort });
-      const list = await request<IList<IGalleryItem>>(`/api/gallery/search?${searchParams}`);
+      const params = new URLSearchParams({ page: String(page), pageSize, sort });
+      parseFilters(filters).forEach((value) => params.append('filter', value));
+      const list = await request<IList<IGalleryItem>>(`/api/gallery/search?${params}`);
 
       page = list.page;
       results = list;
     } catch (err) {
-      report('admin', err, { request: 'searchCharacters' });
+      report('search', err, { request: 'searchCharacters' });
       toastError(err);
     } finally {
       hideLoadingOverlay();
     }
   };
 
-  const handleOpenFitleredGallery = () => {
+  const handleOpenFilteredGallery = () => {
     if (!results?.items.length) return;
 
-    const filter = parseFilters(filters);
-    const sort = parseSorting(sorting);
+    const params = new URLSearchParams({ sort: parseSorting(sorting) });
+    parseFilters(filters).forEach((value) => params.append('filter', value));
 
     const firstId = results.items[0].id;
-    goto(`/gallery/${firstId}/?filter=${filter}&sort=${sort}`);
+    goto(`/gallery/${firstId}/?${decodeURIComponent(params.toString())}`);
     isOpen = false;
   };
 </script>
@@ -145,7 +144,7 @@
               <BasicButton
                 style="text-decoration: underline; font-size: 1em; padding: 0;"
                 variant="text"
-                onClick={handleOpenFitleredGallery}
+                onClick={handleOpenFilteredGallery}
                 disabled={!results || results.items.length < 5}
               >
                 {$t('common.search.openGallery')}

@@ -1,7 +1,6 @@
 <script lang="ts">
-  import Sorting from '$lib/components/editor/filters/Sorting.svelte';
+  import Sorting from '$lib/components/filters/Sorting.svelte';
   import { t } from '$lib/locales/translations';
-  import { tooltip } from '$lib/scripts/tooltip';
   import { toastError } from '$lib/stores';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
   import { report } from '$lib/utils/log';

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Sorting from '$lib/components/editor/filters/Sorting.svelte';
+  import Sorting from '$lib/components/filters/Sorting.svelte';
   import { t } from '$lib/locales/translations';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
 

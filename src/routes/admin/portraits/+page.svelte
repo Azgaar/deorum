@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
@@ -248,35 +249,12 @@
   };
 
   const openFilters = () => {
-    const onSubmit = async (newFilter: IPortraitFilters, newSort: ISorting) => {
-      try {
-        filtersData = { ...filtersData, isOpen: false };
+    const onSubmit = (filters: IPortraitFilters, sorting: ISorting) => {
+      const params = new URLSearchParams({ sort: parseSorting(sorting) });
+      parseFilters(filters).forEach((value) => params.append('filter', value));
 
-        const filter = parseFilters(newFilter);
-        const sort = parseSorting(newSort);
-        const searchParams = new URLSearchParams({
-          page: '1',
-          pageSize: String(pageSize),
-          filter,
-          sort
-        });
-
-        const { items, totalPages } = await request<IList<IPortrait>>(
-          `/api/portraits?${searchParams}`
-        );
-
-        const queryString = `/admin/portraits?filter=${filter}&sort=${sort}`;
-        window.history.pushState({}, '', queryString);
-
-        sorting = newSort;
-        filters = newFilter;
-        page = 1;
-        hasMore = page < totalPages;
-        data.portraits = items;
-      } catch (err) {
-        report('admin', err, { request: 'getPortraits', filter: newFilter, sort: newSort });
-        toastError(err);
-      }
+      goto(`./portraits/?${decodeURIComponent(params.toString())}`);
+      filtersData = { ...filtersData, isOpen: false };
     };
 
     filtersData = { ...filtersData, isOpen: true, filters, sorting, onSubmit };

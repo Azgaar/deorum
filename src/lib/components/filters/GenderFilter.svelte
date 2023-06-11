@@ -1,9 +1,8 @@
 <script lang="ts">
-  import Sorting from '$lib/components/editor/filters/Sorting.svelte';
+  import Sorting from '$lib/components/filters/Sorting.svelte';
   import { genders } from '$lib/data/genders';
   import { t } from '$lib/locales/translations';
   import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
-
   export let filters: ICharacterFilters;
   export let sorting: ISorting;
   export let defaultSorting: ISorting;

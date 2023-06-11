@@ -11,12 +11,12 @@ const EXPIRATION = 1000 * 60 * 60 * 6; // 6 hours
 
 export const getCachedList = async <T>(
   collection: TCollection,
-  filter = '',
+  filters: string[],
   sort = '',
   expand = ''
 ): Promise<T[]> => {
   if (browser) throw new Error('Should not be called from client side!');
-  const key = createKey(collection, filter, sort, expand, '$list');
+  const key = createKey(collection, filters, sort, expand, '$list');
 
   const cached = cache.get(key);
   if (cached?.length) {
@@ -24,7 +24,7 @@ export const getCachedList = async <T>(
     return new Promise((resolve) => resolve(cached));
   }
 
-  const fullList = (await getFullList(collection, filter, sort, expand)) as T[];
+  const fullList = (await getFullList(collection, filters, sort, expand)) as T[];
   const serialized = makePOJO(fullList);
 
   cache.put(key, serialized, EXPIRATION);
@@ -36,12 +36,12 @@ export const getCachedPage = async <T>(
   collection: TCollection,
   page: number,
   pageSize: number,
-  filter = '',
+  filters: string[],
   sort = '',
   expand = ''
 ): Promise<IList<T>> => {
   if (browser) throw new Error('Should not be called from client side!');
-  const key = createKey(collection, page, pageSize, filter, sort, expand, '$page');
+  const key = createKey(collection, page, pageSize, filters, sort, expand, '$page');
 
   const cached = cache.get(key);
   if (cached) {
@@ -53,7 +53,7 @@ export const getCachedPage = async <T>(
     return new Promise((resolve) => resolve(cached));
   }
 
-  const list = (await getPage(collection, page, pageSize, filter, sort, expand)) as IList<T>;
+  const list = (await getPage(collection, page, pageSize, filters, sort, expand)) as IList<T>;
   const serialized = makePOJO(list);
 
   cache.put(key, serialized, EXPIRATION);

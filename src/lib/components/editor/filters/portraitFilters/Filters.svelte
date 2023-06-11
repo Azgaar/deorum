@@ -5,10 +5,10 @@
   import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
+  import Sorting from '$lib/components/filters/Sorting.svelte';
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
   import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-  import Sorting from '../Sorting.svelte';
   import ColorsFilter from './ColorsFilter.svelte';
   import HasCharactersFilter from './HasCharactersFilter.svelte';
   import OriginalsFilter from './OriginalsFilter.svelte';
