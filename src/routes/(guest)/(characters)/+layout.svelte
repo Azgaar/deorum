@@ -18,7 +18,7 @@
   const keyBindings = {
     drill: ['Enter', 'NumpadEnter'],
     next: ['Space', 'ArrowRight', 'ArrowDown'],
-    prev: ['ArrowLeft', 'ArrowUp', 'Backspace']
+    prev: ['ArrowLeft', 'ArrowUp']
   };
 
   const handleKeydown = (event: KeyboardEvent) => {

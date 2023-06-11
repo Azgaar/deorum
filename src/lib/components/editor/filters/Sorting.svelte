@@ -10,7 +10,6 @@
   const ANGLES = { asc: 0, desc: 180, no: 90 };
 
   $: order = sorting.key === key ? sorting.order : 'no';
-  $: key === 'race' && console.log({ order, sorting, defaultSorting });
 
   const handleSort = () => {
     const newOrder = order === 'no' ? 'desc' : order === 'asc' ? 'no' : 'asc';

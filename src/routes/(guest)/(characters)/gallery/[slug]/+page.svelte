@@ -7,11 +7,7 @@
 
   const carousel = getContext<Carousel>('carousel');
   const items = carousel.carousel;
-
-  const handleClick = (id: string) => () => {
-    if (id === carousel.currentId) return;
-    carousel.move(id > carousel.currentId);
-  };
+  const middleIndex = Math.floor($items.length / 2);
 
   onMount(() => {
     const storageKey = 'deorum-galleryTooltip-showed-times';
@@ -27,10 +23,14 @@
 
 <div class="wrapper">
   <section class="carousel">
-    {#each $items as item (item.id)}
-      <div class="item" on:click={handleClick(item.id)} on:keydown={handleClick(item.id)}>
+    {#each $items as item, index (item.id)}
+      <article
+        aria-current={index === middleIndex}
+        on:click={() => carousel.move(index > middleIndex)}
+        on:keydown={() => carousel.move(index > middleIndex)}
+      >
         <Card {item} actionable={item.id === carousel.currentId} />
-      </div>
+      </article>
     {/each}
   </section>
 </div>
@@ -65,7 +65,7 @@
       align-items: center;
       margin: 0 auto;
 
-      .item {
+      article {
         position: absolute;
         width: var(--item-width);
         z-index: 0;
@@ -73,55 +73,55 @@
 
         transform: translateX(-50%) scale(1);
         transition: all 0.3s ease-in-out;
-      }
 
-      .item:nth-child(1),
-      .item:nth-child(5) {
-        transform: translateX(-50%) scale(var(--third-item-scale));
-        opacity: 0.4;
-        animation: fadeIn04 0.3s ease-in-out;
-        cursor: pointer;
+        &:nth-child(1),
+        &:nth-child(5) {
+          transform: translateX(-50%) scale(var(--third-item-scale));
+          opacity: 0.4;
+          animation: fadeIn04 0.3s ease-in-out;
+          cursor: pointer;
 
-        @keyframes fadeIn04 {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 0.4;
+          @keyframes fadeIn04 {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 0.4;
+            }
           }
         }
-      }
 
-      .item:nth-child(2),
-      .item:nth-child(4) {
-        transform: translateX(-50%) scale(var(--second-item-scale));
-        z-index: 1;
-        opacity: 0.9;
-        cursor: pointer;
-      }
+        &:nth-child(2),
+        &:nth-child(4) {
+          transform: translateX(-50%) scale(var(--second-item-scale));
+          z-index: 1;
+          opacity: 0.9;
+          cursor: pointer;
+        }
 
-      .item:nth-child(1) {
-        left: 15%;
-      }
+        &:nth-child(1) {
+          left: 15%;
+        }
 
-      .item:nth-child(2) {
-        left: 30%;
-      }
+        &:nth-child(2) {
+          left: 30%;
+        }
 
-      .item:nth-child(3) {
-        left: 50%;
-        z-index: 2;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
-          0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
-        opacity: 1;
-      }
+        &:nth-child(3) {
+          left: 50%;
+          z-index: 2;
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 0, 0, 0.45),
+            0 0 110px rgba(0, 0, 0, 0.25), 0 0 100px rgba(0, 0, 0, 0.1);
+          opacity: 1;
+        }
 
-      .item:nth-child(4) {
-        left: 70%;
-      }
+        &:nth-child(4) {
+          left: 70%;
+        }
 
-      .item:nth-child(5) {
-        left: 85%;
+        &:nth-child(5) {
+          left: 85%;
+        }
       }
     }
   }
