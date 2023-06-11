@@ -70,6 +70,6 @@
     gap: 2px;
 
     border-radius: 20px;
-    background: color.adjust($on-surface, $alpha: -0.6);
+    background: rgb($on-surface, 0.4);
   }
 </style>

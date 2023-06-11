@@ -22,7 +22,7 @@
     cursor: pointer;
     user-select: none;
 
-    color: color.adjust($text, $lightness: -10%);
+    color: rgb($text, 0.9);
     font-size: 0.8em;
     opacity: 1;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;

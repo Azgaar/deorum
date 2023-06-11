@@ -25,7 +25,6 @@
 </nav>
 
 <style lang="scss">
-  @use 'sass:color';
   $height: 48px;
   $asideWidth: 220px;
 
@@ -44,7 +43,7 @@
     .backdrop {
       position: absolute;
       inset: 0;
-      background-color: color.adjust(black, $alpha: -0.8);
+      background-color: rgb(black, 0.2);
 
       transition: 0.5s;
       opacity: 1;

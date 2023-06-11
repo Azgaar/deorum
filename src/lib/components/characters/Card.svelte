@@ -84,8 +84,6 @@
 </figure>
 
 <style lang="scss">
-  @use 'sass:color';
-
   figure {
     position: relative;
     margin: 0;
@@ -131,7 +129,7 @@
           max-width: 150px;
           padding: 0.4em 1em;
           border-radius: 1em;
-          background-color: color.adjust($on-surface, $alpha: -0.1);
+          background-color: rgb($on-surface, 0.9);
           white-space: nowrap;
         }
       }

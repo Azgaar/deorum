@@ -11,12 +11,10 @@
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   div.loading {
     position: fixed;
     inset: 0;
-    background-color: color.adjust($surface, $alpha: -0.8);
+    background-color: rgb($surface, 0.2);
     z-index: 1000;
     display: flex;
     justify-content: center;

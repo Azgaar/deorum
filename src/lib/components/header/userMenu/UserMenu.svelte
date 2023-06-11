@@ -22,8 +22,6 @@
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   .userMenuButton {
     position: relative;
     background: none;
@@ -31,6 +29,7 @@
     padding: 8px;
     margin-bottom: 8px;
     z-index: 2;
+    cursor: pointer;
 
     display: flex;
     justify-content: center;
@@ -41,7 +40,7 @@
       border-radius: 50%;
       font-size: 26px;
       line-height: 1;
-      background-color: color.adjust($primary, $alpha: -0.8);
+      background-color: rgb($primary, 0.2);
       user-select: none;
     }
 
@@ -56,7 +55,7 @@
   .backdrop {
     position: absolute;
     inset: 0;
-    background-color: color.adjust(black, $alpha: -0.8);
+    background-color: rgb(black, 0.2);
     z-index: 1;
 
     transition: 0.5s;

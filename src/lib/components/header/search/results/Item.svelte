@@ -36,8 +36,6 @@
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   .preview {
     padding: 0.5rem 0.2rem;
     border-bottom: 1px solid $secondary;
@@ -87,7 +85,7 @@
     }
 
     &:hover {
-      background: color.adjust($on-surface, $alpha: -0.8);
+      background: rgb($on-surface, 0.2);
 
       .data {
         .top {

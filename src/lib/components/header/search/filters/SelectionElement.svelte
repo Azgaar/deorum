@@ -20,8 +20,6 @@
 {/if}
 
 <style lang="scss">
-  @use 'sass:color';
-
   img {
     width: 20px;
     height: 20px;
@@ -33,7 +31,7 @@
     max-width: 120px;
     padding: 4px 8px;
     border-radius: 1em;
-    background-color: color.adjust($on-surface, $alpha: -0.1);
+    background-color: rgb($on-surface, 0.9);
     white-space: nowrap;
   }
 </style>

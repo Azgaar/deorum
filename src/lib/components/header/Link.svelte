@@ -22,8 +22,6 @@
 </a>
 
 <style lang="scss">
-  @use 'sass:color';
-
   a {
     text-decoration: none;
     color: $text;
@@ -38,10 +36,10 @@
   }
 
   a.active {
-    background: color.adjust($text, $alpha: -0.97);
+    background: rgb($text, 0.03);
   }
 
   a:hover {
-    background: color.adjust($text, $alpha: -0.85);
+    background: rgb($text, 0.15);
   }
 </style>

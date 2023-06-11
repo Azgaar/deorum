@@ -18,8 +18,6 @@
 {/if}
 
 <style lang="scss">
-  @use 'sass:color';
-
   button,
   a {
     padding: 0;
@@ -37,11 +35,11 @@
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-      background: color.adjust($on-surface, $alpha: -0.1);
+      background: rgb($on-surface, 0.9);
     }
 
     &.isActive {
-      background: color.adjust($on-surface, $alpha: -0.2);
+      background: rgb($on-surface, 0.8);
     }
   }
 </style>
