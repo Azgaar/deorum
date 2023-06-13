@@ -1,9 +1,9 @@
 export interface IPortraitFilters {
   original: string[];
   quality: number[];
-  color: string[];
-  tag: string[];
-  style: string[];
+  colors: string[];
+  tags: string[];
+  styles: string[];
   hasCharacters: boolean | null;
 }
 

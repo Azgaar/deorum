@@ -40,7 +40,7 @@
     display: grid;
     align-items: baseline;
     grid-template-columns: auto auto 1fr;
-    gap: 0.2em;
+    gap: 0.52em;
 
     &.inactive > span {
       color: rgb($text, 0.2);
@@ -52,7 +52,7 @@
 
     .quality {
       display: flex;
-      gap: 2px;
+      gap: 1px;
       height: 20px;
 
       button {

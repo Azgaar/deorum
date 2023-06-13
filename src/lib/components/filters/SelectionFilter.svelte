@@ -8,13 +8,23 @@
   import SelectionDialog from './SelectionDialog.svelte';
   import SelectionElement from './SelectionElement.svelte';
 
-  export let entity: 'race' | 'archetype' | 'background' | 'original' | 'color' | 'tag' | 'style';
+  export let key: 'name' | 'id' = 'id';
+  export let entity:
+    | 'race'
+    | 'archetype'
+    | 'background'
+    | 'original'
+    | 'colors'
+    | 'tags'
+    | 'styles';
+  export let type: 'image' | 'text';
   export let dataPath: string;
   export let titlePath: string;
   export let translationPath: string;
   export let filters: object;
   export let sorting: ISorting;
   export let defaultSorting: ISorting;
+  export let columns = 4;
 
   let isOpen = false;
   let data: { id: string; name: string; image?: string }[] = [];
@@ -40,15 +50,25 @@
   <Sorting key={entity} bind:sorting {defaultSorting} />
   <span>{$t(titlePath)}:</span>
   <div class="elements">
-    {#each selected as id (id)}
-      <SelectionElement element={data.find((item) => item.id === id)} {translationPath} />
+    {#each selected as element (element)}
+      <SelectionElement element={data.find((item) => item[key] === element)} {translationPath} />
     {/each}
   </div>
   <button type="button" class="edit" on:click={() => (isOpen = true)}>⚙️</button>
 </div>
 
 {#if isOpen}
-  <SelectionDialog bind:isOpen {title} {data} {translationPath} {selected} onSubmit={hadleSubmit} />
+  <SelectionDialog
+    bind:isOpen
+    {type}
+    {key}
+    {title}
+    {data}
+    {translationPath}
+    {selected}
+    onSubmit={hadleSubmit}
+    {columns}
+  />
 {/if}
 
 <style lang="scss">

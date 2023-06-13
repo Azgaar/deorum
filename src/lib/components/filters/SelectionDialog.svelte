@@ -10,21 +10,22 @@
   import { tooltip } from '$lib/scripts/tooltip';
 
   export let isOpen: boolean;
+  export let type: 'image' | 'text';
   export let title: string;
   export let translationPath: string;
+  export let key: 'name' | 'id' = 'id';
   export let data: { id: string; name: string; image?: string }[];
   export let selected: string[];
   export let onSubmit: (newSelected: string[]) => void;
+  export let columns: number;
 
-  let search = '';
-
-  const testSearchQuery = (search: string, name: string) => {
-    return search && new RegExp(search, 'i').test(name) === false;
-  };
+  let searchQuery = '';
+  const search = (query: string, text: string) =>
+    query && new RegExp(query, 'i').test(text) === false;
 
   const handleCancel = () => {
     isOpen = false;
-    search = '';
+    searchQuery = '';
   };
 
   const handleSubmit = (e: SubmitEvent) => {
@@ -41,36 +42,41 @@
   <DialogHeader>
     <div class="title">
       <span>{title}</span>
-      <input type="search" bind:value={search} placeholder={$t('common.controls.search')} />
+      <input type="search" bind:value={searchQuery} placeholder={$t('common.controls.search')} />
     </div>
   </DialogHeader>
 
   <form name="selection dialog" on:submit={handleSubmit}>
     <DialogBody>
       <div class="content">
-        <div class="grid">
-          {#each data as { id, image, name } (id)}
-            {#if image}
+        <div class="grid" style="grid-template-columns: repeat({columns}, 1fr);">
+          {#each data as element (element.id)}
+            {#if type === 'image' && element.image}
               <!-- svelte-ignore a11y-label-has-associated-control -->
               <label
                 class="imageElement"
-                class:filtered={testSearchQuery(search, $t(`${translationPath}.${name}`))}
+                class:filtered={search(searchQuery, $t(`${translationPath}.${element.name}`))}
                 use:tooltip
                 title={$t(`${translationPath}.${name}`)}
               >
-                <Picture src={image} alt={name} />
+                <Picture src={element.image} alt={element.name} />
                 <div class="checkbox">
-                  <Checkbox name={id} checked={selected.includes(id)} />
+                  <Checkbox name={element[key]} checked={selected.includes(element[key])} />
                 </div>
               </label>
             {:else}
               <!-- svelte-ignore a11y-label-has-associated-control -->
               <label
                 class="textElement"
-                class:filtered={testSearchQuery(search, $t(`${translationPath}.${name}`))}
+                class:filtered={search(searchQuery, $t(`${translationPath}.${element.name}`))}
               >
-                <Checkbox name={id} checked={selected.includes(id)} />
-                <span>{$t(`${translationPath}.${name}`)}</span>
+                <Checkbox name={element[key]} checked={selected.includes(element[key])} />
+                <div>
+                  {#if element.image}
+                    <img src={element.image} alt={element.name} />
+                  {/if}
+                  <span>{$t(`${translationPath}.${element.name}`)}</span>
+                </div>
               </label>
             {/if}
           {/each}
@@ -122,7 +128,6 @@
       div.grid {
         display: grid;
         align-items: start;
-        grid-template-columns: repeat(4, 1fr);
         grid-gap: 3px;
 
         @media ($mobile) {
@@ -150,6 +155,17 @@
             display: flex;
             align-items: center;
             gap: 4px;
+
+            > div {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+
+              img {
+                width: 16px;
+                height: 16px;
+              }
+            }
           }
         }
       }

@@ -36,9 +36,7 @@
     width: 100%;
     height: 100%;
 
-    color: $text;
     border: none;
-
     background-color: rgb(black, 0.4);
     z-index: 100;
 

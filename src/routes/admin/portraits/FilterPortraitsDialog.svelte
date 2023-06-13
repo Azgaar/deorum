@@ -43,6 +43,7 @@
         <QualityFilter bind:filters bind:sorting {defaultSorting} />
 
         <SelectionFilter
+          type="image"
           entity="original"
           dataPath="/api/originals"
           titlePath="admin.editor.originals"
@@ -53,17 +54,21 @@
         />
 
         <SelectionFilter
-          entity="color"
+          type="image"
+          key="name"
+          entity="colors"
           dataPath="/api/colors"
           titlePath="admin.editor.colors"
           translationPath="admin.colors"
           bind:filters
           bind:sorting
           {defaultSorting}
+          columns={6}
         />
 
         <SelectionFilter
-          entity="tag"
+          type="text"
+          entity="tags"
           dataPath="/api/tags"
           titlePath="admin.editor.tags"
           translationPath="admin.tags"
@@ -73,7 +78,8 @@
         />
 
         <SelectionFilter
-          entity="style"
+          type="text"
+          entity="styles"
           dataPath="/api/styles"
           titlePath="admin.editor.styles"
           translationPath="admin.styles"

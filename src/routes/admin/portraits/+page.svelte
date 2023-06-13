@@ -69,9 +69,9 @@
   const defaultFilters = {
     original: [],
     quality: [],
-    color: [],
-    tag: [],
-    style: [],
+    colors: [],
+    tags: [],
+    styles: [],
     hasCharacters: null
   };
   const defaultSorting: ISorting = { key: 'created', order: 'desc' };
@@ -306,16 +306,13 @@
 
   const handleLoadMore = async () => {
     try {
-      const searchParams = new URLSearchParams({
+      const params = new URLSearchParams({
         page: String(page + 1),
         pageSize: String(pageSize),
-        filter: parseFilters(filters),
         sort: parseSorting(sorting)
       });
-
-      const { items, totalPages } = await request<IList<IPortrait>>(
-        `/api/portraits?${searchParams}`
-      );
+      parseFilters(filters).forEach((value) => params.append('filter', value));
+      const { items, totalPages } = await request<IList<IPortrait>>(`/api/portraits?${params}`);
 
       page += 1;
       hasMore = page < totalPages;

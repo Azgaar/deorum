@@ -100,6 +100,7 @@
         <GenderFilter bind:filters bind:sorting {defaultSorting} />
 
         <SelectionFilter
+          type="image"
           entity="race"
           dataPath="/api/races"
           titlePath="common.character.race"
@@ -110,6 +111,7 @@
         />
 
         <SelectionFilter
+          type="text"
           entity="archetype"
           dataPath="/api/archetypes"
           titlePath="common.character.archetype"
@@ -120,6 +122,7 @@
         />
 
         <SelectionFilter
+          type="text"
           entity="background"
           dataPath="/api/backgrounds"
           titlePath="common.character.background"

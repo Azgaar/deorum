@@ -5,7 +5,7 @@
 <style lang="scss">
   .dialog-body {
     font-size: 14px;
-    color: $text;
+    color: rgb($text, 0.9);
     line-height: 1;
 
     display: flex;
