@@ -44,6 +44,10 @@
   const hadleSubmit = (selected: string[]) => {
     (filters as Record<string, string[]>)[entity] = selected;
   };
+
+  const createDeleteHandler = (key: string) => () => {
+    (filters as Record<string, string[]>)[entity] = selected.filter((item) => item !== key);
+  };
 </script>
 
 <div aria-label={`Filter by ${entity}`} class="filter" class:inactive={!selected.length}>
@@ -51,7 +55,11 @@
   <span>{$t(titlePath)}:</span>
   <div class="elements">
     {#each selected as element (element)}
-      <SelectionElement element={data.find((item) => item[key] === element)} {translationPath} />
+      <SelectionElement
+        element={data.find((item) => item[key] === element)}
+        onDelete={createDeleteHandler(element)}
+        {translationPath}
+      />
     {/each}
   </div>
   <button type="button" class="edit" on:click={() => (isOpen = true)}>⚙️</button>
