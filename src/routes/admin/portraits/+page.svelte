@@ -1,5 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
@@ -7,6 +9,7 @@
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type {
@@ -378,7 +381,27 @@
       handleDelete={createDeleteHandler()}
     />
   {:else}
-    <AdminMenu openFilters={() => (isFilterDialogOpen = true)} />
+    <AdminMenu>
+      <BasicButton onClick={() => (isFilterDialogOpen = true)}>
+        {$t('admin.menu.filter')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto('./characters')}>
+        {$t('admin.menu.characters')}
+      </BasicButton>
+
+      <BasicButton onClick={() => document.getElementById('uploadFilesInput')?.click()}>
+        {$t('admin.menu.upload')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto(`./portraits/duplicates`)}>
+        {$t('admin.menu.duplicates')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto(`./portraits/statistics`)}>
+        {$t('admin.menu.statistics')}
+      </BasicButton>
+    </AdminMenu>
   {/if}
 
   <input

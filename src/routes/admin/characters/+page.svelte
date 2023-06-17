@@ -1,10 +1,13 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
   import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
+  import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
@@ -202,7 +205,19 @@
       />
     </div>
   {:else}
-    <AdminMenu openFilters={() => (isFilterDialogOpen = true)} />
+    <AdminMenu>
+      <BasicButton onClick={() => (isFilterDialogOpen = true)}>
+        {$t('admin.menu.filter')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto('./portraits')}>
+        {$t('admin.menu.portraits')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto(`./characters/statistics`)}>
+        {$t('admin.menu.statistics')}
+      </BasicButton>
+    </AdminMenu>
   {/if}
 </aside>
 
