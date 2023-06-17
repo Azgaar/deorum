@@ -15,7 +15,7 @@
     transition: all 0.3s ease-in-out;
 
     font-size: inherit;
-    padding: 8px 24px;
+    padding: 8px 20px;
 
     @media ($mobile) {
       padding: 6px 12px;

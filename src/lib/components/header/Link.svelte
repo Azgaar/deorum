@@ -28,7 +28,7 @@
     background: none;
     border-radius: 24px;
     transition: all 0.2s ease-in-out;
-    padding: 8px 24px;
+    padding: 8px 20px;
 
     @media ($mobile) {
       padding: 6px 12px;

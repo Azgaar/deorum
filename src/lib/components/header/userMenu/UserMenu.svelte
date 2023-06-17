@@ -28,8 +28,13 @@
     border: 0;
     padding: 8px;
     margin-bottom: 8px;
+    margin-left: 8px;
     z-index: 2;
     cursor: pointer;
+
+    @media ($mobile) {
+      margin-left: 0;
+    }
 
     display: flex;
     justify-content: center;
