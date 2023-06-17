@@ -9,6 +9,7 @@
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { blackPortrait } from '$lib/data/portraits';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
@@ -42,7 +43,6 @@
   import FilterPortraitsDialog from './FilterPortraitsDialog.svelte';
 
   export let data: PageData;
-  let { page, pageSize, hasMore } = data; // incoming data: mutable
 
   // incoming data: immutable maps
   const originals = new Map(data.originals.map(({ id, image, name }) => [id, { image, name }]));
@@ -89,26 +89,8 @@
     uploaded = Array.from(input.files).map((file) => {
       const id = Math.random().toString(36).slice(2, 9);
       const src = URL.createObjectURL(file);
-
-      return {
-        id,
-        file,
-        src,
-        original: '',
-        tags: [],
-        styles: [],
-        colors: [],
-        quality: 0,
-        name: '',
-        age: 0,
-        gender: '',
-        race: '',
-        archetype: '',
-        background: '',
-        image: '',
-        characters: []
-      };
-    }) as unknown as IUploadedPortrait[];
+      return { ...blackPortrait, id, file, src };
+    });
 
     selected = uploaded.map((file) => file.id);
     input.value = '';
@@ -310,16 +292,18 @@
   const handleLoadMore = async () => {
     try {
       const params = new URLSearchParams({
-        page: String(page + 1),
-        pageSize: String(pageSize),
+        page: String(data.page + 1),
+        pageSize: String(data.pageSize),
         sort: parseSorting(sorting)
       });
       parseFilters(filters).forEach((value) => params.append('filter', value));
-      const { items, totalPages } = await request<IList<IPortrait>>(`/api/portraits?${params}`);
+      const { items, page, totalPages } = await request<IList<IPortrait>>(
+        `/api/portraits?${params}`
+      );
 
-      page += 1;
-      hasMore = page < totalPages;
       data.portraits = [...data.portraits, ...items];
+      data.page = page;
+      data.hasMore = page < totalPages;
     } catch (err) {
       report('admin', err, 'load more');
       toastError(err);
@@ -355,7 +339,7 @@
     <div>No portraits found, try to change filter criteria</div>
   {/if}
 
-  {#if hasMore}
+  {#if data.hasMore}
     <LoadMore onClick={handleLoadMore} />
   {/if}
 </section>
