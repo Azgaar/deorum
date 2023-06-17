@@ -98,7 +98,7 @@
     .noAccount {
       font-size: 13px;
       font-weight: 300;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgb($text, 0.5);
 
       position: absolute;
       left: 0;
@@ -106,7 +106,7 @@
     }
 
     a {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgb($text, 0.8);
     }
   }
 </style>

@@ -27,7 +27,7 @@
       width: 100%;
       cursor: pointer;
       color: $text;
-      background-color: rgba($secondary, 0.6);
+      background-color: rgb($secondary, 0.6);
       border: none;
       transition: all 0.2s ease-in-out;
 
@@ -47,11 +47,11 @@
     }
 
     .active {
-      background-color: rgba($secondary, 0.7);
+      background-color: rgb($secondary, 0.7);
     }
 
     button:hover {
-      background-color: rgba($secondary, 0.75);
+      background-color: rgb($secondary, 0.75);
 
       span:not(.current) {
         opacity: 0.5;

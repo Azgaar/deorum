@@ -16,6 +16,7 @@
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
   export let character: ICharacter;
+  export let isPortraitPoolLoaded: boolean;
 
   $: src = character.portraits.length
     ? `${PORTRAITS_IMAGE_PATH}/${getCharacterImage(character)}`
@@ -41,9 +42,8 @@
     event.preventDefault();
   }
 
-  let isPortraitPoolLoadInitiated = false;
   async function loadPortraitsPool() {
-    isPortraitPoolLoadInitiated = true;
+    isPortraitPoolLoaded = true;
     isLoading = true;
 
     const similarPortraits = await fetchSimilar(character);
@@ -90,7 +90,7 @@
   }
 
   async function nextPortrait() {
-    if (!isPortraitPoolLoadInitiated) await loadPortraitsPool();
+    if (!isPortraitPoolLoaded) await loadPortraitsPool();
 
     const portraits = character['@expand'].portraits;
     if (portraits?.length) {

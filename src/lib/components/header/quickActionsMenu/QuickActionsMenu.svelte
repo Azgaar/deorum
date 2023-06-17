@@ -1,11 +1,11 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { galleryNextId } from '$lib/stores';
+  import { galleryId } from '$lib/stores';
   import { fade } from 'svelte/transition';
   import Link from '../Link.svelte';
   import { getLinks, getLinkKey } from '../navlinks';
 
-  $: links = getLinks('quickAccess', $page, $galleryNextId);
+  $: links = getLinks('quickAccess', $page, $galleryId);
 </script>
 
 <nav transition:fade>

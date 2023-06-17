@@ -31,6 +31,7 @@
   "values": {
     "undefined": "undefined",
     "all": "all",
+    "any": "any",
     "unnamed": "Unnamed"
   },
   "info": {
@@ -65,8 +66,8 @@
     }
   },
   "navigation": {
+    "back": "Back",
     "gallery": "Gallery",
-    "backToGallery": "Back to Gallery",
     "match": "Match",
     "tags": "Tags",
     "admin": "Admin",
@@ -75,6 +76,18 @@
     "donate": "Donate",
     "terms": "Terms of Use",
     "discord": "Discord Server"
+  },
+  "search": {
+    "search": "Search",
+    "title": "Search characters",
+    "sorting": {
+      "asc": "Sort ascending",
+      "desc": "Sort descending",
+      "no": "Don't sort"
+    },
+    "foundItems": "Found items: {{variable}}",
+    "noResults": "No characters found, please change search criteria and try again",
+    "openGallery": "Open Gallery"
   },
   "success": {
     "copied": "Copied to you clipboard"

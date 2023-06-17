@@ -20,6 +20,6 @@
 
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: rgba(255, 255, 255, 0.12);
+    border-bottom-color: rgb($text, 0.12);
   }
 </style>

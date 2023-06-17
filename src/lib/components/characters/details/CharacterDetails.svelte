@@ -57,7 +57,7 @@
         display: grid;
         justify-items: center;
         grid-gap: 16px;
-        grid-template-columns: 320px 1fr;
+        grid-template-columns: 320px minmax(500px, 1fr);
 
         @media ($mobile) {
           grid-template-columns: 1fr;

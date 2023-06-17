@@ -15,18 +15,18 @@ export const GET: RequestHandler = async ({ url }) => {
     const page = Number(url.searchParams.get('page'));
     const pageSize = Number(url.searchParams.get('pageSize'));
 
-    const filter = url.searchParams.get('filter') || '';
+    const filters = url.searchParams.getAll('filter');
     const sort = url.searchParams.get('sort') || '';
     const expand = url.searchParams.get('expand') || '';
 
     if (page) {
       if (!pageSize) throw error(400, 'Page size is not defined');
-      const args = [page, pageSize, filter, sort, expand] as const;
+      const args = [page, pageSize, filters, sort, expand] as const;
       const portraitsPage = await getCachedPage<IPortrait>('portraits', ...args);
       return json(portraitsPage);
     }
 
-    const portraits = await getCachedList<IPortrait>('portraits', filter, sort, expand);
+    const portraits = await getCachedList<IPortrait>('portraits', filters, sort, expand);
     return json(portraits);
   } catch (err) {
     report('portraits', err);

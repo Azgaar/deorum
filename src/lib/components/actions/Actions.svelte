@@ -13,8 +13,6 @@
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   div.actions {
     position: absolute;
     width: 100%;
@@ -25,7 +23,7 @@
       position: absolute;
 
       border-radius: 20px;
-      background: color.adjust($on-surface, $alpha: -0.6);
+      background: rgb($on-surface, 0.4);
       display: flex;
       gap: 4px;
 

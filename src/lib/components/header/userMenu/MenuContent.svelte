@@ -2,14 +2,15 @@
   import { page } from '$app/stores';
   import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import { t } from '$lib/locales/translations';
-  import { galleryNextId } from '$lib/stores';
+  import { galleryId } from '$lib/stores';
+  import Button from '../Button.svelte';
   import Link from '../Link.svelte';
   import { getLinkKey, getLinks } from '../navlinks';
 
   export let isOpen: boolean;
   const toggleMenu = () => (isOpen = !isOpen);
 
-  $: links = getLinks('sidebar', $page, $galleryNextId);
+  $: links = getLinks('sidebar', $page, $galleryId);
 </script>
 
 <aside class:isOpen on:click={toggleMenu} on:keydown={toggleMenu}>
@@ -22,9 +23,9 @@
 
   <menu>
     <section>
-      <button on:click={() => openGetCoinsDialog($page.data.coins)}>
+      <Button onClick={() => openGetCoinsDialog($page.data.coins)}>
         {$t('common.coins.getCoins')}
-      </button>
+      </Button>
     </section>
 
     <nav>
@@ -47,7 +48,7 @@
     right: 0;
     bottom: 0;
     height: 100%;
-    background-image: linear-gradient(135deg, rgba(12, 2, 1, 1), rgba(32, 10, 2, 0.9));
+    background-image: linear-gradient(135deg, rgb(12, 2, 1), rgb(32, 10, 2, 0.9));
     z-index: 1;
 
     display: flex;
@@ -65,7 +66,7 @@
 
     .userDetails {
       height: 48px;
-      border-bottom: 1px solid rgba(white, 0.04);
+      border-bottom: 1px solid rgb($text, 0.04);
 
       &:not(.isOpen) {
         opacity: 0;
@@ -116,7 +117,7 @@
 
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
 
       section {
         width: 100%;
@@ -124,21 +125,6 @@
         flex-direction: column;
         align-items: center;
         gap: 8px;
-
-        button {
-          color: $text;
-          background: none;
-          border: none;
-          border-radius: 24px;
-          transition: all 0.2s ease-in-out;
-          padding: 8px 24px;
-          font-size: 16px;
-          cursor: pointer;
-
-          &:hover {
-            background: color.adjust($text, $alpha: -0.85);
-          }
-        }
       }
 
       nav {

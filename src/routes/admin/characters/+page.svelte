@@ -1,13 +1,23 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
   import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
+  import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import type { ICharacterFilters, ISorting } from '$lib/types/filters.types';
+  import {
+    parseFilters,
+    parseParamsToFilters,
+    parseParamsToSorting,
+    parseSorting
+  } from '$lib/utils/filters';
   import { debounce } from '$lib/utils/funtional';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
@@ -15,6 +25,7 @@
   import Grid from '../Grid.svelte';
   import LoadMore from '../LoadMore.svelte';
   import type { PageData } from './$types';
+  import FilterCharactersDialog from './FilterCharactersDialog.svelte';
 
   export let data: PageData;
 
@@ -25,7 +36,7 @@
   const tags = new Map(data.tags.map(({ id, name, image }) => [id, { name, image }]));
 
   // incoming data: mutable
-  let { page, pageSize, hasMore, filters, sorting } = data;
+  let { page, pageSize, hasMore } = data;
 
   // reactive data
   let selected: string[] = [];
@@ -37,6 +48,14 @@
     if (!selected.length) return null;
     return charactersMap.get(selected[0]);
   };
+
+  // filters data
+  let isFilterDialogOpen = false;
+  const defaultFilters = { name: '', bio: '', gender: '', race: [], archetype: [], background: [] };
+  const defaultSorting: ISorting = { key: 'created', order: 'desc' };
+  const href = browser ? window.location.href : undefined;
+  let filters = parseParamsToFilters<ICharacterFilters>(href, defaultFilters);
+  let sorting = parseParamsToSorting(href, defaultSorting);
 
   const handleClick = (e: Event) => {
     const figure = (e.target as HTMLElement).closest('figure');
@@ -72,14 +91,11 @@
       const params = new URLSearchParams({
         page: String(page + 1),
         pageSize: String(pageSize),
-        filter: parseFilters(filters),
         sort: parseSorting(sorting),
         expand: charactersConfig.expand
       });
-
-      const charactersList = await request<IList<ICharacter>>(
-        `/api/characters?${params.toString()}`
-      );
+      parseFilters(filters).forEach((value) => params.append('filter', value));
+      const charactersList = await request<IList<ICharacter>>(`/api/characters?${params}`);
 
       page += 1;
       hasMore = page < charactersList.totalPages;
@@ -189,7 +205,19 @@
       />
     </div>
   {:else}
-    <AdminMenu openFilters={() => {}} />
+    <AdminMenu>
+      <BasicButton onClick={() => (isFilterDialogOpen = true)}>
+        {$t('admin.menu.filter')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto('./portraits')}>
+        {$t('admin.menu.portraits')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto(`./characters/statistics`)}>
+        {$t('admin.menu.statistics')}
+      </BasicButton>
+    </AdminMenu>
   {/if}
 </aside>
 
@@ -198,6 +226,7 @@
 {/if}
 
 <GenericDialog {...genericDialogData} />
+<FilterCharactersDialog bind:isOpen={isFilterDialogOpen} {filters} {sorting} {defaultSorting} />
 
 <style lang="scss">
   @use 'sass:color';

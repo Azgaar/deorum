@@ -161,7 +161,6 @@
   };
 
   const handleChangesSave = async () => {
-    console.log('handleChangesSave');
     if (!current.original) return toastError($t('admin.errors.selectOriginal'));
     if (!current.colors.length) return toastError($t('admin.errors.selectColor'));
     if (!current.styles.length) return toastError($t('admin.errors.selectStyle'));
@@ -447,7 +446,7 @@
         div.loadingPlaceholder {
           height: 21px;
           padding: 1px 4px;
-          background: rgba($secondary, 0.6);
+          background: rgb($secondary, 0.6);
           border-radius: 16px;
 
           display: flex;

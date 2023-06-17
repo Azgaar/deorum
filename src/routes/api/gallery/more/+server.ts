@@ -1,11 +1,9 @@
-import { json, error } from '@sveltejs/kit';
-
-import { sliceElements } from '$lib/utils/array';
-import { log } from '$lib/utils/log';
-import { getGalleryItemData, verifyCharacter } from '$lib/utils/characters';
 import { charactersConfig } from '$lib/config';
-
 import type { ICharacter } from '$lib/types/api.types';
+import { sliceElements } from '$lib/utils/array';
+import { getGalleryItemData, verifyCharacter } from '$lib/utils/characters';
+import { log } from '$lib/utils/log';
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url, fetch }) => {

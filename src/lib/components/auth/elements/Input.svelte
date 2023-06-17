@@ -57,7 +57,7 @@
     input {
       background: none;
       border: none;
-      border-bottom: 1px solid rgba($text, 0.4);
+      border-bottom: 1px solid rgb($text, 0.4);
       outline: none;
       color: $text;
 

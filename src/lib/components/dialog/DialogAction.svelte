@@ -11,17 +11,14 @@
 {/if}
 
 <style lang="scss">
-  @use 'sass:color';
-
   .action-button {
-    padding: 8px 16px;
+    padding: 0;
     border: none;
-    border-radius: 24px;
+    background: none;
 
-    color: $text;
     font-size: 12px;
     font-weight: 300;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
 
@@ -29,15 +26,20 @@
     align-items: center;
     justify-content: center;
 
-    transition: background 0.2s ease-in-out;
-    background: none;
+    color: rgb($text, 0.85);
+    transition: color 0.2s ease-in-out;
 
     &:hover {
-      background: color.adjust($text, $alpha: -0.85);
+      color: $text;
     }
 
     &:active {
-      background: color.adjust($text, $alpha: -0.95);
+      color: $text;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      color: rgb($text, 0.2);
     }
   }
 </style>

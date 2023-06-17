@@ -152,7 +152,7 @@
         textArea {
           flex: 1;
           padding: 8px 8px 24px;
-          background-color: rgba($secondary, 0.6);
+          background-color: rgb($secondary, 0.6);
           border: none;
           border-radius: 4px;
           outline: none;

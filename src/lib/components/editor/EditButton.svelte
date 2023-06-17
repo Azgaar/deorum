@@ -21,7 +21,7 @@
 
     cursor: pointer;
     padding: 1px 4px;
-    background: rgba($secondary, 0.6);
+    background: rgb($secondary, 0.6);
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
     white-space: nowrap;
@@ -32,6 +32,6 @@
   }
 
   button:hover {
-    background: rgba($secondary, 0.6);
+    background: rgb($secondary, 0.6);
   }
 </style>

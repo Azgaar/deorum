@@ -20,21 +20,26 @@ export async function getPage(
   name: string,
   page: number,
   perPage: number,
-  filter?: string,
+  filters?: string[],
   sort?: string,
   expand?: string
 ) {
   const options: TRequestOptions = {};
-  if (filter) options.filter = filter;
+  if (filters) options.filter = filters.join('&&');
   if (sort) options.sort = sort;
   if (expand) options.expand = expand;
 
   return admin.records.getList(name, page, perPage, options);
 }
 
-export async function getFullList(name: string, filter?: string, sort?: string, expand?: string) {
+export async function getFullList(
+  name: string,
+  filters?: string[],
+  sort?: string,
+  expand?: string
+) {
   const options: TRequestOptions = {};
-  if (filter) options.filter = filter;
+  if (filters) options.filter = filters.join('&&');
   if (sort) options.sort = sort;
   if (expand) options.expand = expand;
 

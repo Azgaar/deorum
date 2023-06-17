@@ -32,8 +32,6 @@
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   div.container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -46,7 +44,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border: 1px solid color.adjust(black, $alpha: -0.8);
+      border: 1px solid rgb(black, 0.2);
       padding: 2px;
 
       div.name {

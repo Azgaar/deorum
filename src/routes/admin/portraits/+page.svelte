@@ -1,12 +1,16 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
+  import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
   import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
-  import Filters from '$lib/components/editor/filters/portraitFilters/Filters.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { blackPortrait } from '$lib/data/portraits';
+  import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
   import type {
@@ -21,7 +25,12 @@
     TPostHandler
   } from '$lib/types/editor.types';
   import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-  import { parseFilters, parseSorting } from '$lib/utils/filters';
+  import {
+    parseFilters,
+    parseParamsToFilters,
+    parseParamsToSorting,
+    parseSorting
+  } from '$lib/utils/filters';
   import { debounce } from '$lib/utils/funtional';
   import { convertImageFile } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
@@ -31,9 +40,9 @@
   import Grid from '../Grid.svelte';
   import LoadMore from '../LoadMore.svelte';
   import type { PageData } from './$types';
+  import FilterPortraitsDialog from './FilterPortraitsDialog.svelte';
 
   export let data: PageData;
-  let { page, pageSize, hasMore, filters, sorting } = data; // incoming data: mutable
 
   // incoming data: immutable maps
   const originals = new Map(data.originals.map(({ id, image, name }) => [id, { image, name }]));
@@ -58,6 +67,21 @@
     return portraitsMap.get(selected[0]);
   };
 
+  // filters data
+  let isFilterDialogOpen = false;
+  const defaultFilters = {
+    original: [],
+    quality: [],
+    colors: [],
+    tags: [],
+    styles: [],
+    hasCharacters: null
+  };
+  const defaultSorting: ISorting = { key: 'created', order: 'desc' };
+  const href = browser ? window.location.href : undefined;
+  let filters = parseParamsToFilters<IPortraitFilters>(href, defaultFilters);
+  let sorting = parseParamsToSorting(href, defaultSorting);
+
   const enterUploadMode = (event: Event) => {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
@@ -65,26 +89,8 @@
     uploaded = Array.from(input.files).map((file) => {
       const id = Math.random().toString(36).slice(2, 9);
       const src = URL.createObjectURL(file);
-
-      return {
-        id,
-        file,
-        src,
-        original: '',
-        tags: [],
-        styles: [],
-        colors: [],
-        quality: 0,
-        name: '',
-        age: 0,
-        gender: '',
-        race: '',
-        archetype: '',
-        background: '',
-        image: '',
-        characters: []
-      };
-    }) as unknown as IUploadedPortrait[];
+      return { ...blackPortrait, id, file, src };
+    });
 
     selected = uploaded.map((file) => file.id);
     input.value = '';
@@ -224,51 +230,6 @@
     };
   };
 
-  let filtersData = {
-    isOpen: false,
-    filters,
-    sorting,
-    onSubmit: (_: IPortraitFilters, __: ISorting) => {},
-    originalsMap: originals,
-    tagsMap: tags,
-    stylesMap: styles
-  };
-
-  const openFilters = () => {
-    const onSubmit = async (newFilter: IPortraitFilters, newSort: ISorting) => {
-      try {
-        filtersData = { ...filtersData, isOpen: false };
-
-        const filter = parseFilters(newFilter);
-        const sort = parseSorting(newSort);
-        const searchParams = new URLSearchParams({
-          page: '1',
-          pageSize: String(pageSize),
-          filter,
-          sort
-        });
-
-        const { items, totalPages } = await request<IList<IPortrait>>(
-          `/api/portraits?${searchParams}`
-        );
-
-        const queryString = `/admin/portraits?filter=${filter}&sort=${sort}`;
-        window.history.pushState({}, '', queryString);
-
-        sorting = newSort;
-        filters = newFilter;
-        page = 1;
-        hasMore = page < totalPages;
-        data.portraits = items;
-      } catch (err) {
-        report('admin', err, { request: 'getPortraits', filter: newFilter, sort: newSort });
-        toastError(err);
-      }
-    };
-
-    filtersData = { ...filtersData, isOpen: true, filters, sorting, onSubmit };
-  };
-
   const createPatchHandler = (): TPatchHandler => async (changes) => {
     const patches = [];
     for (const id of selected) {
@@ -330,20 +291,19 @@
 
   const handleLoadMore = async () => {
     try {
-      const searchParams = new URLSearchParams({
-        page: String(page + 1),
-        pageSize: String(pageSize),
-        filter: parseFilters(filters),
+      const params = new URLSearchParams({
+        page: String(data.page + 1),
+        pageSize: String(data.pageSize),
         sort: parseSorting(sorting)
       });
-
-      const { items, totalPages } = await request<IList<IPortrait>>(
-        `/api/portraits?${searchParams}`
+      parseFilters(filters).forEach((value) => params.append('filter', value));
+      const { items, page, totalPages } = await request<IList<IPortrait>>(
+        `/api/portraits?${params}`
       );
 
-      page += 1;
-      hasMore = page < totalPages;
       data.portraits = [...data.portraits, ...items];
+      data.page = page;
+      data.hasMore = page < totalPages;
     } catch (err) {
       report('admin', err, 'load more');
       toastError(err);
@@ -379,7 +339,7 @@
     <div>No portraits found, try to change filter criteria</div>
   {/if}
 
-  {#if hasMore}
+  {#if data.hasMore}
     <LoadMore onClick={handleLoadMore} />
   {/if}
 </section>
@@ -405,7 +365,27 @@
       handleDelete={createDeleteHandler()}
     />
   {:else}
-    <AdminMenu {openFilters} />
+    <AdminMenu>
+      <BasicButton onClick={() => (isFilterDialogOpen = true)}>
+        {$t('admin.menu.filter')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto('./characters')}>
+        {$t('admin.menu.characters')}
+      </BasicButton>
+
+      <BasicButton onClick={() => document.getElementById('uploadFilesInput')?.click()}>
+        {$t('admin.menu.upload')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto(`./portraits/duplicates`)}>
+        {$t('admin.menu.duplicates')}
+      </BasicButton>
+
+      <BasicButton onClick={() => goto(`./portraits/statistics`)}>
+        {$t('admin.menu.statistics')}
+      </BasicButton>
+    </AdminMenu>
   {/if}
 
   <input
@@ -429,7 +409,7 @@
 <OriginalsDialog {...originalsDialogData} />
 <SelectCharacterDialog {...selectCharacterDialogData} />
 
-<Filters {...filtersData} />
+<FilterPortraitsDialog bind:isOpen={isFilterDialogOpen} {filters} {sorting} {defaultSorting} />
 
 <style lang="scss">
   @use 'sass:color';

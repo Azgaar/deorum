@@ -22,10 +22,10 @@
     cursor: pointer;
     user-select: none;
 
-    color: color.adjust($text, $lightness: -10%);
+    color: rgb($text, 0.9);
     font-size: 0.8em;
     opacity: 1;
-    transition: all 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     &.primary {
       height: 36px;
@@ -43,6 +43,12 @@
       &:active {
         background-color: color.adjust($primary, $lightness: -10%);
       }
+
+      &:disabled {
+        background-color: rgb($text, 0.1);
+        color: rgb($text, 0.4);
+        pointer-events: none;
+      }
     }
 
     &.text {
@@ -52,12 +58,11 @@
       &:hover {
         color: $text;
       }
-    }
 
-    &:disabled {
-      background-color: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.38);
-      pointer-events: none;
+      &:disabled {
+        color: rgb($text, 0.4);
+        pointer-events: none;
+      }
     }
   }
 </style>

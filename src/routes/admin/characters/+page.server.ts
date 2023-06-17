@@ -1,39 +1,25 @@
+import { charactersConfig } from '$lib/config';
 import { toastError } from '$lib/stores';
+import type { IArchetype, IBackground, ICharacter, IList, IRace, ITag } from '$lib/types/api.types';
 import { report } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
-
-import type { IPortraitFilters, ISorting } from '$lib/types/filters.types';
-import type { IArchetype, IBackground, ICharacter, IList, IRace, ITag } from '$lib/types/api.types';
 import type { PageServerLoad } from './$types';
-import { charactersConfig } from '$lib/config';
 
 export const ssr = true;
 
-const DEFAULT_FILTER = '';
 const DEFAULT_SORT = '-created';
-
 const pageSize = 100;
 const page = 1;
-
-const filters: IPortraitFilters = {
-  original: [],
-  quality: [],
-  colors: [],
-  tags: [],
-  styles: [],
-  hasCharacters: null
-};
-const sorting: ISorting = { key: 'created', order: 'desc' };
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
   try {
     const params = new URLSearchParams({
       page: String(page),
       pageSize: String(pageSize),
-      filter: url.searchParams.get('filter') || DEFAULT_FILTER,
       sort: url.searchParams.get('sort') || DEFAULT_SORT,
       expand: charactersConfig.expand
     });
+    url.searchParams.getAll('filter').forEach((value) => params.append('filter', value));
 
     const [charactersList, tags, races, archetypes, backgrounds] = await Promise.all([
       toJson<IList<ICharacter>>(fetch(`/api/characters?${params}`)),
@@ -50,8 +36,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       page,
       pageSize,
       hasMore,
-      filters,
-      sorting,
       characters,
       races,
       archetypes,
@@ -66,8 +50,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       page,
       pageSize,
       hasMore: false,
-      filters,
-      sorting,
       characters: [],
       races: [],
       archetypes: [],

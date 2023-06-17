@@ -5,9 +5,7 @@ import { Role } from '$lib/config';
 type TNavlinksData = {
   routeId?: string;
   role?: Role;
-  currentId?: string;
-  galleryNextId: string | null;
-  randomId?: string;
+  galleryId: string | null;
   nextId?: string;
 };
 
@@ -29,17 +27,20 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
     { id: 'backToCharacters', key: 'common.controls.back', to: '/admin/characters' }
   ],
   '/(user)/match': (data) => [
-    { id: 'tags', key: 'common.navigation.tags', to: `/match/tags/${data.currentId}` },
+    { id: 'tags', key: 'common.navigation.tags', to: `/match/tags/${data.galleryId}` },
     { id: 'next', key: 'common.navigation.next', to: `./${data.nextId}` }
   ],
   '/(guest)/(characters)/gallery/[slug]': () => [
     { id: `library`, key: 'common.navigation.library', to: '/library' },
   ],
   '/(guest)/(characters)/[slug]': (data) => [
-    { id: 'gallery', key: 'common.navigation.backToGallery', to: `/gallery/${data.currentId}`, reload: true },
+    { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}` },
   ],
-  '/(user)/library': (data) => [
-    { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
+  '/(guest)/library/[slug]': () => [
+    { id: 'backToLibrary', key: 'common.navigation.back', to: '/library' },
+  ],
+  '/(guest)/library': (data) => [
+    { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
   ],
   'default': () => [
     { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
@@ -49,7 +50,7 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
 // prettier-ignore
 const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   'default': (data) => [
-    { id: 'gallery', key: 'common.navigation.gallery', to: getGalleryNextId(data), reload: true },
+    { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
     { id: `library`, key: 'common.navigation.library', to: '/library' },
     { id: 'match', key: 'common.navigation.match', to: '/match', roles: [Role.ADMIN] },
     { id: 'terms', key: 'common.navigation.terms', to: '/terms' },
@@ -60,13 +61,6 @@ const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
   ],
 };
 
-function getGalleryNextId({ routeId, currentId, galleryNextId, randomId }: TNavlinksData) {
-  if (routeId === '/(guest)/(characters)/[slug]') return `/gallery/${currentId}`;
-  if (galleryNextId) return `/gallery/${galleryNextId}`;
-  if (randomId) return `/gallery/${randomId}`;
-  return '/gallery';
-}
-
 const match = (type: 'quickAccess' | 'sidebar', routeId: string) => {
   const generator = type === 'quickAccess' ? createQuickAccessLinks : createSidebarLinks;
   const match = Object.keys(generator).find((key) => routeId.startsWith(key)) || 'default';
@@ -76,14 +70,13 @@ const match = (type: 'quickAccess' | 'sidebar', routeId: string) => {
 export const getLinks = (
   type: 'quickAccess' | 'sidebar',
   page: Page<Record<string, string>, string | null>,
-  galleryNextId: string | null
+  galleryId: string | null
 ) => {
   const routeId = page.route.id;
-  console.log('routeId', routeId);
   if (!routeId) return [];
 
-  const { role, currentId, randomId, nextId } = page.data;
-  const linksData = { routeId, role, currentId, randomId, nextId, galleryNextId };
+  const { role, nextId } = page.data;
+  const linksData = { routeId, role, nextId, galleryId };
 
   const routeLinks = match(type, routeId)(linksData);
   const filteredLinks = routeLinks.filter(({ roles }) => !roles || roles.includes(role));

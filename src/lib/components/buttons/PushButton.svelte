@@ -15,7 +15,7 @@
     text-transform: lowercase;
     border-style: solid;
     border-width: 0 0 2px 0;
-    border-color: rgba($color: black, $alpha: 0.3);
+    border-color: rgb(black, 0.3);
     border-radius: 2px;
     height: 1.6em;
     padding: 0 0.5rem;

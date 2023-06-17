@@ -2,21 +2,22 @@ export function tooltip(element: HTMLElement) {
   let root: HTMLDivElement | null;
   let div: HTMLDivElement | null;
 
-  const title = element.getAttribute('title') || '';
-  if (!title) return;
-
+  if (!element.getAttribute('title')) return;
+  let title: string;
   let limit = [0, 0];
 
   function mouseenter(event: MouseEvent): void {
     root = document.querySelector('.root');
     if (!root) return;
 
+    title = element.getAttribute('title') || '';
     element.removeAttribute('title');
 
     div = document.createElement('div');
     div.textContent = title;
     div.role = 'tooltip';
     div.className = 'tooltip';
+
     mouseMove(event);
     root.appendChild(div);
 
@@ -37,7 +38,8 @@ export function tooltip(element: HTMLElement) {
       root = null;
       div = null;
     }
-    element.setAttribute('title', title);
+
+    if (!element.getAttribute('title')) element.setAttribute('title', title);
   }
 
   element.addEventListener('mouseenter', mouseenter);

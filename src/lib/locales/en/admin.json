@@ -26,11 +26,6 @@
     "convertImage": "Optimize image",
     "hasCharacters": "Has characters"
   },
-  "sorting": {
-    "asc": "Sort ascending",
-    "desc": "Sort descending",
-    "no": "Don't sort"
-  },
   "statistics": {
     "portraits": "Portraits",
     "averageQuality": "Mean quality",

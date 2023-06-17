@@ -22,15 +22,19 @@
 </div>
 
 <style lang="scss">
-  @use 'sass:color';
-
   .userMenuButton {
     position: relative;
     background: none;
     border: 0;
     padding: 8px;
     margin-bottom: 8px;
+    margin-left: 8px;
     z-index: 2;
+    cursor: pointer;
+
+    @media ($mobile) {
+      margin-left: 0;
+    }
 
     display: flex;
     justify-content: center;
@@ -41,11 +45,11 @@
       border-radius: 50%;
       font-size: 26px;
       line-height: 1;
-      background-color: color.adjust($primary, $alpha: -0.8);
+      background-color: rgb($primary, 0.2);
       user-select: none;
     }
 
-    color: rgba($text, 0.9);
+    color: rgb($text, 0.9);
     transition: all 0.3s;
 
     &:hover {
@@ -56,7 +60,7 @@
   .backdrop {
     position: absolute;
     inset: 0;
-    background-color: color.adjust(black, $alpha: -0.8);
+    background-color: rgb(black, 0.2);
     z-index: 1;
 
     transition: 0.5s;

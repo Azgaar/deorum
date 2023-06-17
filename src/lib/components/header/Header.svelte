@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import Search from '$lib/components/characters/search/Search.svelte';
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
   import AnonymMenu from './anonymMenu/AnonymMenu.svelte';
   import QuickActionsMenu from './quickActionsMenu/QuickActionsMenu.svelte';
@@ -10,6 +11,7 @@
   <TextLogo size={42} />
 
   <div class="right-panel noprint">
+    <Search />
     <QuickActionsMenu />
 
     {#if $page.data.userId}
@@ -30,17 +32,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    font-size: 1em;
     padding: 0 32px;
 
     @media ($mobile) {
+      font-size: 0.9em;
       padding: 0 8px;
-      font-size: small;
     }
 
     div.right-panel {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 8px;
+
+      @media ($mobile) {
+        gap: 2px;
+      }
     }
   }
 </style>

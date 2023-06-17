@@ -13,11 +13,12 @@
 
   let carousel = new Carousel(data.items, data.currentId);
   setContext('carousel', carousel);
+  $: carousel.updateCarousel(data.items, data.currentId);
 
   const keyBindings = {
     drill: ['Enter', 'NumpadEnter'],
     next: ['Space', 'ArrowRight', 'ArrowDown'],
-    prev: ['ArrowLeft', 'ArrowUp', 'Backspace']
+    prev: ['ArrowLeft', 'ArrowUp']
   };
 
   const handleKeydown = (event: KeyboardEvent) => {

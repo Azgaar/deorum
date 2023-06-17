@@ -1,13 +1,13 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { galleryNextId } from '$lib/stores';
+  import { galleryId } from '$lib/stores';
   import { fade } from 'svelte/transition';
   import Link from '../Link.svelte';
   import { getLinks, getLinkKey } from '../navlinks';
 
   let collapsed = true;
   const toggleMenu = () => (collapsed = !collapsed);
-  $: links = getLinks('sidebar', $page, $galleryNextId);
+  $: links = getLinks('sidebar', $page, $galleryId);
 </script>
 
 <nav in:fade>
@@ -25,7 +25,6 @@
 </nav>
 
 <style lang="scss">
-  @use 'sass:color';
   $height: 48px;
   $asideWidth: 220px;
 
@@ -44,7 +43,7 @@
     .backdrop {
       position: absolute;
       inset: 0;
-      background-color: color.adjust(black, $alpha: -0.8);
+      background-color: rgb(black, 0.2);
 
       transition: 0.5s;
       opacity: 1;
@@ -64,7 +63,7 @@
       top: $height;
       right: 0;
       bottom: 0;
-      background-image: linear-gradient(135deg, rgba(12, 2, 1, 1), rgba(32, 10, 2, 0.9));
+      background-image: linear-gradient(135deg, rgb(12, 2, 1), rgb(32, 10, 2, 0.9));
       z-index: 1;
 
       display: flex;

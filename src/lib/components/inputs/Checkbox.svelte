@@ -20,7 +20,7 @@
 
     transition: all 0.1s ease-in-out;
     background: transparent;
-    border-color: var(--checkbox-border-color, rgba(255, 255, 255, 0.54));
+    border-color: var(--checkbox-border-color, rgb($text, 0.54));
   }
 
   input::after {
