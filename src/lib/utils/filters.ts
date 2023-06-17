@@ -1,6 +1,11 @@
 import type { ISorting } from '$lib/types/filters.types';
 
-const operatorsMap: { [key: string]: '=' | '~' } = { name: '~', bio: '~', gender: '=' };
+const operatorsMap: { [key: string]: '=' | '~' } = {
+  name: '~',
+  bio: '~',
+  gender: '=',
+  quality: '='
+};
 
 function parse(value: unknown) {
   return typeof value === 'string' ? `"${value}"` : value;
@@ -13,7 +18,8 @@ export function parseFilters(filters: object): string[] {
     if (key === 'hasCharacters') return value ? 'characters!="[]"' : 'characters="[]"';
     if (Array.isArray(value)) {
       if (value.length === 0) return '';
-      return '(' + value.map((value) => `${key}~${parse(value)}`).join('||') + ')';
+      const operator = operatorsMap[key] || '~';
+      return '(' + value.map((value) => `${key}${operator}${parse(value)}`).join('||') + ')';
     }
 
     const operator = operatorsMap[key] || '=';

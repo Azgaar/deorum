@@ -8,7 +8,7 @@
   export let sorting: ISorting;
   export let defaultSorting: ISorting;
 
-  const handleChange = (value: number) => () => {
+  const handleChange = (value: string) => () => {
     filters.quality = filters.quality.includes(value)
       ? filters.quality.filter((v) => v !== value)
       : [...filters.quality, value];
@@ -24,8 +24,8 @@
     {#each qualities as value}
       <button
         type="button"
-        aria-current={filters.quality.includes(value)}
-        on:click={handleChange(value)}
+        aria-current={filters.quality.includes(String(value))}
+        on:click={handleChange(String(value))}
       >
         <span>{value}</span>
       </button>
