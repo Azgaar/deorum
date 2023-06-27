@@ -1,11 +1,13 @@
 <script lang="ts">
+  export let id: string | undefined = undefined;
   export let checked = false;
   export let onChange: ((e: Event) => void) | undefined = undefined;
-  export let name = '';
+  export let name: string | undefined = undefined;
   export let disabled = false;
+  export let hidden = false;
 </script>
 
-<input type="checkbox" {checked} {name} {disabled} on:change={onChange} />
+<input type="checkbox" {id} {checked} {name} {disabled} on:change={onChange} {hidden} />
 
 <style lang="scss">
   input {
@@ -21,6 +23,8 @@
     transition: all 0.1s ease-in-out;
     background: transparent;
     border-color: var(--checkbox-border-color, rgb($text, 0.54));
+
+    cursor: pointer;
   }
 
   input::after {

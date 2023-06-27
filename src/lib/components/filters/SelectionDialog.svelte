@@ -5,9 +5,7 @@
   import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import Checkbox from '$lib/components/inputs/Checkbox.svelte';
-  import Picture from '$lib/components/picture/Picture.svelte';
   import { t } from '$lib/locales/translations';
-  import { tooltip } from '$lib/scripts/tooltip';
 
   export let isOpen: boolean;
   export let type: 'image' | 'text';
@@ -51,34 +49,21 @@
       <div class="content">
         <div class="grid" style="grid-template-columns: repeat({columns}, 1fr);">
           {#each data as element (element.id)}
-            {#if type === 'image' && element.image}
-              <!-- svelte-ignore a11y-label-has-associated-control -->
-              <label
-                class="imageElement"
-                class:filtered={search(searchQuery, $t(`${translationPath}.${element.name}`))}
-                use:tooltip
-                title={$t(`${translationPath}.${name}`)}
-              >
-                <Picture src={element.image} alt={element.name} />
-                <div class="checkbox">
-                  <Checkbox name={element[key]} checked={selected.includes(element[key])} />
-                </div>
-              </label>
-            {:else}
-              <!-- svelte-ignore a11y-label-has-associated-control -->
-              <label
-                class="textElement"
-                class:filtered={search(searchQuery, $t(`${translationPath}.${element.name}`))}
-              >
-                <Checkbox name={element[key]} checked={selected.includes(element[key])} />
-                <div>
-                  {#if element.image}
-                    <img src={element.image} alt={element.name} />
-                  {/if}
-                  <span>{$t(`${translationPath}.${element.name}`)}</span>
-                </div>
-              </label>
-            {/if}
+            <label
+              for={element.id}
+              class={type}
+              class:filtered={search(searchQuery, $t(`${translationPath}.${element.name}`))}
+            >
+              <Checkbox
+                id={element.id}
+                name={element.id}
+                checked={selected.includes(element[key])}
+                hidden={type === 'image'}
+              />
+
+              {#if element.image}<img src={element.image} alt={element.name} />{/if}
+              <span>{$t(`${translationPath}.${element.name}`)}</span>
+            </label>
           {/each}
         </div>
       </div>
@@ -97,6 +82,8 @@
 </Dialog>
 
 <style lang="scss">
+  @use 'sass:color';
+
   .title {
     display: flex;
     align-items: center;
@@ -135,35 +122,49 @@
         }
 
         label {
-          position: relative;
-          cursor: pointer;
-          transition: opacity 0.2s ease-in-out;
+          overflow: hidden;
+          background-color: transparent;
+          color: rgb($text, 0.9);
+          transition: all 0.2s ease-in-out;
+
+          &:has(input:checked) {
+            background-color: color.adjust($surface, $lightness: +5%);
+          }
+
+          &:hover {
+            color: $text;
+          }
 
           &.filtered {
             opacity: 0.2;
           }
 
-          &.imageElement {
-            .checkbox {
-              position: absolute;
-              right: 0;
-              bottom: 0;
+          span {
+            user-select: none;
+            text-transform: capitalize;
+          }
+
+          &.image {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+
+            img {
+              width: 40px;
+              height: 40px;
             }
           }
 
-          &.textElement {
+          &.text {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 0.2rem;
+            cursor: pointer;
 
-            > div {
-              display: flex;
-              gap: 4px;
-
-              img {
-                width: 16px;
-                height: 16px;
-              }
+            img {
+              width: 16px;
+              height: 16px;
             }
           }
         }

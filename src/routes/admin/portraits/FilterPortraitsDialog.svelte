@@ -51,6 +51,7 @@
           bind:filters
           bind:sorting
           {defaultSorting}
+          columns={3}
         />
 
         <SelectionFilter
@@ -63,7 +64,6 @@
           bind:filters
           bind:sorting
           {defaultSorting}
-          columns={6}
         />
 
         <SelectionFilter
@@ -75,6 +75,7 @@
           bind:filters
           bind:sorting
           {defaultSorting}
+          columns={3}
         />
 
         <SelectionFilter
@@ -86,6 +87,7 @@
           bind:filters
           bind:sorting
           {defaultSorting}
+          columns={3}
         />
 
         <HasCharactersFilter bind:filters />
