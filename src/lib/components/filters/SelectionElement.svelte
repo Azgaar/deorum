@@ -9,19 +9,15 @@
 
 <div class="element">
   {#if element?.image}
-    <img
-      alt={element.id}
-      src={element.image}
-      use:tooltip
-      title={$t(`${translationPath}.${element.name}`)}
-    />
+    <img alt={element.id} src={element.image} />
   {:else if element?.name}
     <span>{$t(`${translationPath}.${element.name}`)}</span>
   {:else}
     <span>{$t('common.values.undefined')}</span>
   {/if}
 
-  <button on:click={onDelete}>✕</button>
+  <button on:click={onDelete} use:tooltip title={$t(`${translationPath}.${element.name}`)}>✕</button
+  >
 </div>
 
 <style lang="scss">
