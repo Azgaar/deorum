@@ -24,7 +24,8 @@
     "character": "персонаж",
     "loadMore": "Загрузить ещё",
     "convertImage": "Оптимизировать",
-    "hasCharacters": "С персонажами"
+    "hasCharacters": "С персонажами",
+    "changePortrait": "Изменить портрет"
   },
   "statistics": {
     "portraits": "Портреты",

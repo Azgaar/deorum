@@ -9,7 +9,7 @@
   import { toastError, toastSuccess } from '$lib/stores';
   import { isSameArray } from '$lib/utils/array';
   import { deriveCharacterLabel } from '$lib/utils/characters';
-  import { convertImageUrl, isConvertableFormat } from '$lib/utils/images';
+  import { convertFile, convertImageUrl, isConvertableFormat } from '$lib/utils/images';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
   import { getChanges } from '$lib/utils/portraits';
@@ -156,10 +156,6 @@
       openEditorDialog(key, entries, selected, onSubmit);
     };
 
-  const handleCancel = () => {
-    handleClearSelection();
-  };
-
   const handleChangesSave = async () => {
     if (!current.original) return toastError($t('admin.errors.selectOriginal'));
     if (!current.colors.length) return toastError($t('admin.errors.selectColor'));
@@ -211,11 +207,10 @@
     }
   };
 
-  const convertImage = async () => {
+  const updateImage = async (file: File) => {
     try {
-      const imageFile = await convertImageUrl(image);
       const formData = new FormData();
-      formData.set('image', imageFile);
+      formData.set('image', file);
 
       const result = await sendFormData<IPortrait>(
         `/api/portraits/${current.id}/image`,
@@ -230,6 +225,31 @@
       report('editor', err, current);
       toastError(err);
     }
+  };
+
+  const convertImage = async () => {
+    try {
+      const imageFile = await convertImageUrl(image);
+      updateImage(imageFile);
+    } catch (err) {
+      report('editor', err, current);
+      toastError(err);
+    }
+  };
+
+  const handlePortraitChange = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+    const file = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const imageFile = await convertFile(file);
+      await updateImage(imageFile);
+      handleClearSelection();
+    };
+
+    reader.readAsDataURL(file);
   };
 </script>
 
@@ -323,32 +343,42 @@
       </div>
     </div>
 
-    {#if isConvertable}
-      <div>
-        <BasicButton onClick={convertImage}>
-          {$t('admin.editor.convertImage')}
-        </BasicButton>
-      </div>
-    {/if}
-
     {#if !isUploading}
-      <div class="deletionBlock">
-        <BasicButton onClick={initiateDeletion}>
-          {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
-        </BasicButton>
+      <div class="controls">
+        {#if isConvertable}
+          <button on:click={convertImage}>
+            {$t('admin.editor.convertImage')}
+          </button>
+        {/if}
 
-        <BasicButton
-          onClick={triggerDeletion}
+        <button on:click={() => document.getElementById('uploadPortraitInput')?.click()}>
+          {$t('admin.editor.changePortrait')}
+        </button>
+
+        <input
+          on:change={handlePortraitChange}
+          hidden
+          id="uploadPortraitInput"
+          type="file"
+          accept="image/webp, image/jpg, image/jpeg, image/png"
+        />
+
+        <button on:click={initiateDeletion}>
+          {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
+        </button>
+
+        <button
+          on:click={triggerDeletion}
           style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
         >
           {$t('common.controls.confirmDeletion', { variable: selectedImages })}
-        </BasicButton>
+        </button>
       </div>
     {/if}
   </main>
 
   <footer>
-    <BasicButton onClick={handleCancel}>
+    <BasicButton onClick={handleClearSelection}>
       {isUploading || isChanged ? $t('common.controls.cancel') : $t('common.controls.clear')}
     </BasicButton>
 
@@ -359,6 +389,7 @@
 </section>
 
 <style lang="scss">
+  @use 'sass:color';
   section.editor {
     overflow: hidden;
     height: calc(100% - 3rem);
@@ -459,10 +490,27 @@
         align-items: baseline;
       }
 
-      div.deletionBlock {
+      div.controls {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        grid-row-gap: 8px;
+        grid-column-gap: 16px;
+
+        button {
+          font-weight: 300;
+          padding: 0.4rem 0.8rem;
+          border: none;
+          border-radius: 4px;
+          color: rgb($text, 0.9);
+
+          background-color: $primary;
+          transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+          cursor: pointer;
+
+          &:hover {
+            background-color: color.scale($primary, $lightness: 5%);
+          }
+        }
       }
     }
 

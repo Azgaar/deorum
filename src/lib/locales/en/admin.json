@@ -24,7 +24,8 @@
     "character": "character",
     "loadMore": "Load More",
     "convertImage": "Optimize image",
-    "hasCharacters": "Has characters"
+    "hasCharacters": "Has characters",
+    "changePortrait": "Replace portrait"
   },
   "statistics": {
     "portraits": "Portraits",
