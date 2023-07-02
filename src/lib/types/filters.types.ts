@@ -20,3 +20,5 @@ export interface ISorting {
   key: string;
   order: 'asc' | 'desc' | 'no';
 }
+
+export type TSelectElement = { id: string; name: string; image?: string };

@@ -2,7 +2,7 @@
   import Sorting from '$lib/components/filters/Sorting.svelte';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
-  import type { ISorting } from '$lib/types/filters.types';
+  import type { ISorting, TSelectElement } from '$lib/types/filters.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
   import SelectionDialog from './SelectionDialog.svelte';
@@ -27,9 +27,14 @@
   export let columns = 4;
 
   let isOpen = false;
-  let data: { id: string; name: string; image?: string }[] = [];
+
+  let data: TSelectElement[] = [];
+
   $: title = $t(`common.controls.select`) + ' ' + $t(titlePath);
   $: selected = (filters as Record<string, string[]>)[entity];
+  $: elements = selected
+    .map((item) => data.find((element) => element[key] === item))
+    .filter((el): el is NonNullable<TSelectElement> => Boolean(el));
 
   loadData();
   async function loadData() {
@@ -54,12 +59,8 @@
   <Sorting key={entity} bind:sorting {defaultSorting} />
   <span>{$t(titlePath)}:</span>
   <div class="elements">
-    {#each selected as element (element)}
-      <SelectionElement
-        element={data.find((item) => item[key] === element)}
-        onDelete={createDeleteHandler(element)}
-        {translationPath}
-      />
+    {#each elements as element (element.id)}
+      <SelectionElement {element} onDelete={createDeleteHandler(element.id)} {translationPath} />
     {/each}
   </div>
   <button type="button" class="edit" on:click={() => (isOpen = true)}>⚙️</button>

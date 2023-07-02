@@ -1,23 +1,25 @@
 <script lang="ts">
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
+  import type { TSelectElement } from '$lib/types/filters.types';
 
-  export let element: { id: string; name: string; image?: string } | undefined;
+  export let element: TSelectElement;
   export let translationPath: string;
   export let onDelete: VoidFunction;
 </script>
 
 <div class="element">
-  {#if element?.image}
+  {#if element.image}
     <img alt={element.id} src={element.image} />
-  {:else if element?.name}
+  {:else if element.name}
     <span>{$t(`${translationPath}.${element.name}`)}</span>
   {:else}
     <span>{$t('common.values.undefined')}</span>
   {/if}
 
-  <button on:click={onDelete} use:tooltip title={$t(`${translationPath}.${element.name}`)}>✕</button
-  >
+  <button on:click={onDelete} use:tooltip title={$t(`${translationPath}.${element.name}`)}>
+    ✕
+  </button>
 </div>
 
 <style lang="scss">

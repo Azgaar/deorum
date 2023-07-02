@@ -6,13 +6,14 @@
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
   import Checkbox from '$lib/components/inputs/Checkbox.svelte';
   import { t } from '$lib/locales/translations';
+  import type { TSelectElement } from '$lib/types/filters.types';
 
   export let isOpen: boolean;
   export let type: 'image' | 'text';
   export let title: string;
   export let translationPath: string;
   export let key: 'name' | 'id' = 'id';
-  export let data: { id: string; name: string; image?: string }[];
+  export let data: TSelectElement[];
   export let selected: string[];
   export let onSubmit: (newSelected: string[]) => void;
   export let columns: number;
