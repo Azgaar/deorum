@@ -17,7 +17,7 @@
   import { KEYS } from '$lib/config';
   import { CREATE_CHARACTER_PRICE } from '$lib/config/coins';
   import { t } from '$lib/locales/translations';
-  import { hideLoadingOverlay, showLoadingOverlay, toastError } from '$lib/stores';
+  import { hideLoadingOverlay, showLoadingOverlay, toastError, toastSuccess } from '$lib/stores';
   import type {
     IArchetype,
     IBackground,
@@ -107,13 +107,19 @@
         invalidate(KEYS.USER_DATA);
       }
 
+      console.log('Character saved', character);
+
       isOpen = false;
     } catch (error) {
       report('edit character', error, character);
       toastError(error);
     } finally {
       hideLoadingOverlay();
-      if (!$page.route.id?.includes('library')) goto('/library');
+      toastSuccess(
+        $t(
+          isUpdating ? 'common.details.editor.success.edit' : 'common.details.editor.success.create'
+        )
+      );
     }
   };
 </script>

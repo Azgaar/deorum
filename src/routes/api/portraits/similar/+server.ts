@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ request }) => {
   try {
     const allPortraits = await getCachedList<IPortrait>(
       'portraits',
-      'quality > 4',
+      ['quality > 4'],
       '',
       'characters'
     );

@@ -1,9 +1,8 @@
-import domtoimage from 'dom-to-image';
-
+import { goto } from '$app/navigation';
 import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-import { downloadFile } from '$lib/utils/file';
 import type { IGalleryItem } from '$lib/types/gallery.types';
 import { capitalize } from '$lib/utils/string';
+import domtoimage from 'dom-to-image';
 
 const exportVariants = {
   portrait: exportPortrait,
@@ -23,12 +22,16 @@ function exportPortrait(item: IGalleryItem) {
     .then((response) => response.blob())
     .then((blob) => {
       const dataUrl = window.URL.createObjectURL(blob);
-      downloadFile(dataUrl, `${item.name} - Deorum portrait.png`);
+      downloadFile(dataUrl, `${item.name} - Deorum character ${item.id}.png`);
     });
 }
 
-function exportCardImage(item: IGalleryItem) {
-  const node = document.getElementById('characterCard');
+async function exportCardImage(item: IGalleryItem) {
+  let node = document.getElementById('characterCard');
+  if (!node) {
+    await goto(`${item.creator ? '/library' : ''}/${item.id}`);
+    node = document.getElementById('characterCard');
+  }
   if (!node) throw new Error('Could not find character card node');
 
   document.body.classList.add('noprint');
@@ -46,7 +49,7 @@ function exportCardImage(item: IGalleryItem) {
       width: node.offsetWidth * scale
     })
     .then((dataUrl) => {
-      downloadFile(dataUrl, `${item.name} - Deorum character.jpeg`);
+      downloadFile(dataUrl, `${item.name} - Deorum character ${item.id}.jpeg`);
       document.body.classList.remove('noprint');
     });
 }
@@ -74,10 +77,17 @@ function exportText(item: IGalleryItem) {
   data += `\n\n${item.bio}`;
 
   const dataStr = `data:text/plain;charset=utf-8,${encodeURIComponent(data)}`;
-  downloadFile(dataStr, `${item.name} - Deorum character.txt`);
+  downloadFile(dataStr, `${item.name} - Deorum character ${item.id}.txt`);
 }
 
 function exportJson(item: IGalleryItem) {
   const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(item))}`;
-  downloadFile(dataStr, `${item.name} - Deorum character.json`);
+  downloadFile(dataStr, `${item.name} - Deorum character ${item.id}.json`);
+}
+
+function downloadFile(dataUrl: string, filename: string) {
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = filename;
+  link.click();
 }

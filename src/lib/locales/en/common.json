@@ -270,6 +270,10 @@
         "copy": "Copy biography",
         "generate": "Generate biography. Price: {{ variable }} coins",
         "configurePrompt": "Configure generation prompt"
+      },
+      "success": {
+        "edit": "Character is updated",
+        "create": "Character is created and added to the Library"
       }
     }
   },

@@ -1,6 +1,7 @@
 <script lang="ts">
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import Pencil from '$lib/components/icons/Pencil.svelte';
+  import Portal from '$lib/components/portal/Portal.svelte';
   import { charactersConfig } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
@@ -12,8 +13,8 @@
   import CharacterEditorDialog from '../editor/CharacterEditorDialog.svelte';
 
   export let item: IGalleryItem;
-  let editor = { open: false } as {
-    open: boolean;
+  let editor = { isOpen: false } as {
+    isOpen: boolean;
     character: ICharacter;
     races: Map<string, IRace>;
     archetypes: Map<string, IArchetype>;
@@ -44,7 +45,7 @@
           backgroundsArray.map((background) => [background.id, background])
         );
         const tags = new Map(tagsArray.map((tag) => [tag.id, tag]));
-        editor = { open: true, character, races, archetypes, backgrounds, tags };
+        editor = { isOpen: true, character, races, archetypes, backgrounds, tags };
       } catch (error) {
         report('edit character', error, item);
         toastError(error);
@@ -56,6 +57,8 @@
   <Pencil width={28} />
 </ActionButton>
 
-{#if editor.open}
-  <CharacterEditorDialog {...editor} bind:isOpen={editor.open} />
+{#if editor.isOpen}
+  <Portal target="main">
+    <CharacterEditorDialog {...editor} bind:isOpen={editor.isOpen} />
+  </Portal>
 {/if}

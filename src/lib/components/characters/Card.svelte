@@ -4,10 +4,11 @@
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
   import type { IGalleryItem } from '$lib/types/gallery.types';
-  import { fade } from 'svelte/transition';
   import RemoveButton from './RemoveButton.svelte';
   import ShowDetailsButton from './ShowDetailsButton.svelte';
   import CharacterPicture from './details/CharacterPicture.svelte';
+  import DownloadButton from './details/DownloadButton.svelte';
+  import EditCharacterButton from './details/EditCharacterButton.svelte';
 
   export let item: IGalleryItem;
   export let actionable: boolean;
@@ -58,6 +59,11 @@
             <LikeButton {item} />
           {/if}
         </div>
+
+        <svelte:fragment slot="bottom">
+          <EditCharacterButton bind:item />
+          <DownloadButton {item} />
+        </svelte:fragment>
       </Actions>
     {/if}
   </div>

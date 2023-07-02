@@ -23,8 +23,8 @@
   $: uploaded = data.library.uploaded;
   $: liked = data.library.liked;
 
-  let editor = { open: false } as {
-    open: boolean;
+  let editor = { isOpen: false } as {
+    isOpen: boolean;
     character: ICharacter;
     races: Map<string, IRace>;
     archetypes: Map<string, IArchetype>;
@@ -50,7 +50,7 @@
       const tags = new Map(tagsArray.map((tag) => [tag.id, tag]));
 
       const character = blankCharacter;
-      editor = { open: true, character, races, archetypes, backgrounds, tags };
+      editor = { isOpen: true, character, races, archetypes, backgrounds, tags };
     } catch (error) {
       report('create character', error);
       toastError(error);
@@ -144,7 +144,7 @@
   </section>
 </div>
 
-{#if editor.open}<CharacterEditorDialog {...editor} bind:isOpen={editor.open} />{/if}
+{#if editor.isOpen}<CharacterEditorDialog {...editor} bind:isOpen={editor.isOpen} />{/if}
 
 <style lang="scss">
   div.wrapper {
