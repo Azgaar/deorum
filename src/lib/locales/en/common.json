@@ -18,7 +18,9 @@
     "yes": "yes",
     "no": "no",
     "random": "random",
-    "download": "Download"
+    "download": "Download",
+    "report": "Report issue",
+    "send": "Send"
   },
   "dialog": {
     "confirmation": {
@@ -251,6 +253,17 @@
       "cardImage": "Card image",
       "text": "Text file",
       "json": "JSON file"
+    },
+    "report": {
+      "category": "Category",
+      "categories": {
+        "other": "Other issues",
+        "inappropriate": "Inappropriate content",
+        "portrait": "Bad portrait",
+        "biography": "Biography issues",
+        "improvement": "Suggestion"
+      },
+      "message": "Message"
     },
     "editor": {
       "edit": "Edit character",

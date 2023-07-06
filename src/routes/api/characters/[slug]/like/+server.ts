@@ -1,13 +1,11 @@
-import { error, json } from '@sveltejs/kit';
-
 import admin from '$lib/api/admin';
+import { authorize } from '$lib/api/auth';
+import { updateCache } from '$lib/cache/cacheInstance';
+import type { ICharacter } from '$lib/types/api.types';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
-import { updateCache } from '$lib/cache/cacheInstance';
-import { authorize } from '$lib/api/auth';
-
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
-import type { ICharacter } from '$lib/types/api.types';
 
 export const POST: RequestHandler = async ({ params, request }) => {
   try {

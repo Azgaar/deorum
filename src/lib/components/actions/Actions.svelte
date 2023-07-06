@@ -25,7 +25,7 @@
       border-radius: 20px;
       background: rgb($on-surface, 0.4);
       display: flex;
-      gap: 4px;
+      gap: 2px;
 
       &.top {
         top: 0.5rem;

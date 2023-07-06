@@ -18,7 +18,9 @@
     "yes": "да",
     "no": "нет",
     "random": "случайно",
-    "download": "Скачать"
+    "download": "Скачать",
+    "report": "Сообщить об ошибке",
+    "send": "Отправить"
   },
   "dialog": {
     "confirmation": {
@@ -252,6 +254,17 @@
       "cardImage": "Карточка",
       "text": "Текстовый файл",
       "json": "JSON файл"
+    },
+    "report": {
+      "category": "Категория",
+      "categories": {
+        "other": "Другое",
+        "inappropriate": "Неприемлемое содержание",
+        "portrait": "Проблемы с портретом",
+        "biography": "Проблемы с биографией",
+        "improvement": "Предложение улучшения"
+      },
+      "message": "Сообщение"
     },
     "editor": {
       "edit": "Изменить персонаж",

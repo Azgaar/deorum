@@ -9,6 +9,7 @@
   import CharacterPicture from './details/CharacterPicture.svelte';
   import DownloadButton from './details/DownloadButton.svelte';
   import EditCharacterButton from './details/EditCharacterButton.svelte';
+  import ReportButton from './details/ReportButton.svelte';
 
   export let item: IGalleryItem;
   export let actionable: boolean;
@@ -63,6 +64,7 @@
         <svelte:fragment slot="bottom">
           <EditCharacterButton bind:item />
           <DownloadButton {item} />
+          <ReportButton {item} />
         </svelte:fragment>
       </Actions>
     {/if}

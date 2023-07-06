@@ -6,6 +6,7 @@
   import CharacterPicture from './CharacterPicture.svelte';
   import DownloadButton from './DownloadButton.svelte';
   import EditCharacterButton from './EditCharacterButton.svelte';
+  import ReportButton from './ReportButton.svelte';
 
   export let item: IGalleryItem;
 </script>
@@ -25,6 +26,7 @@
     <svelte:fragment slot="bottom">
       <EditCharacterButton bind:item />
       <DownloadButton {item} />
+      <ReportButton {item} />
     </svelte:fragment>
   </Actions>
 </div>
