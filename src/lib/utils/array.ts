@@ -46,3 +46,14 @@ export const isSameArray = <T>(arr1: T[], arr2: T[]): boolean => {
 export const unique = <T>(arr: T[]): T[] => {
   return [...new Set(arr)];
 };
+
+export function splitToChunks<T>(arr: T[], chunkSize: number): T[][] {
+  const chunks = [];
+
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    const chunk = arr.slice(i, i + chunkSize);
+    chunks.push(chunk);
+  }
+
+  return chunks;
+}

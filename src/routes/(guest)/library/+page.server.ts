@@ -1,5 +1,6 @@
 import { KEYS, charactersConfig } from '$lib/config';
 import type { ICharacter, IPortrait } from '$lib/types/api.types';
+import { splitToChunks } from '$lib/utils/array';
 import { getGalleryItemData } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
@@ -42,13 +43,17 @@ export const load: PageServerLoad = async ({ parent, fetch, depends }) => {
   async function getLikedCharacters(ids: string[]) {
     if (!ids.length) return [];
 
-    const filter = ids.map((id) => `id="${id}"`).join('||');
-    const url = `/api/characters?filter=(${filter})&expand=${charactersConfig.expand}`;
-    const characters = await toJson<ICharacter[]>(fetch(url));
-    const items = characters
-      .map(getGalleryItemData)
-      .sort((a, b) => ids.indexOf(b.id) - ids.indexOf(a.id));
+    const CHUNK_SIZE = 30;
+    const idsChunks = splitToChunks(ids, CHUNK_SIZE);
+    const pages = await Promise.all(
+      idsChunks.map((ids) => {
+        const filter = ids.map((id) => `id="${id}"`).join('||');
+        const url = `/api/characters?filter=(${filter})&expand=${charactersConfig.expand}`;
+        return toJson<ICharacter[]>(fetch(url));
+      })
+    );
 
+    const items = pages.flat().map(getGalleryItemData);
     return items;
   }
 };
