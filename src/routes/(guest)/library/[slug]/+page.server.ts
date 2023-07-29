@@ -3,7 +3,7 @@ import type { ICharacter } from '$lib/types/api.types';
 import { getGalleryItemData } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
-import type { PageServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ parent, params, fetch, depends }) => {
   const parentData = await parent();

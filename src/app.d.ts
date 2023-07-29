@@ -1,4 +1,8 @@
-import { type Role } from '$lib/config';
+enum Role {
+  ADMIN = 'admin',
+  USER = 'user',
+  GUEST = 'guest'
+}
 
 declare global {
   // See https://kit.svelte.dev/docs/types#app
@@ -49,5 +53,3 @@ declare global {
     };
   }
 }
-
-export {};

@@ -28,6 +28,16 @@
 
 <svelte:head>
   <title>Deorum: fantasy characters creator by Azgaar</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BP26SDR8V6"></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-BP26SDR8V6');
+  </script>
 </svelte:head>
 
 <SigninContext>
