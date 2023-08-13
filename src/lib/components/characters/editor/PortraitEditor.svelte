@@ -92,14 +92,14 @@
   async function nextPortrait() {
     if (!isPortraitPoolLoaded) await loadPortraitsPool();
 
-    const portraits = character['@expand'].portraits;
-    if (portraits?.length) {
-      const [first, ...rest] = portraits;
+    const portraits = character['@expand'].portraits || [];
+    if (portraits.length > 1) {
+      const [first, second, ...rest] = portraits;
 
       character = {
         ...character,
-        portraits: [first.id],
-        '@expand': { ...character['@expand'], portraits: [...rest, first] }
+        portraits: [second.id],
+        '@expand': { ...character['@expand'], portraits: [second, ...rest, first] }
       };
     }
   }
