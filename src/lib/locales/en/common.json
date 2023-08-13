@@ -1,4 +1,14 @@
 {
+  "meta": {
+    "title": "Deorum | Fantasy characters gallery by Azgaar",
+    "description": "Your source for customizable unique fantasy characters for D&D and worldbuilding projects"
+  },
+  "landing": {
+    "slogan": "Embark on an epic journey with Deorum – your source for unique fantasy characters for D&D and worldbuilding projects",
+    "description1": "Discover over 1600 customizable characters, each featuring a stunning portrait and a detailed biography. Our images are rooted in a set of 120 beautifully hand-drawn portraits, multiplied to over 10000 variations through AI generation, and expertly curated for the highest quality.",
+    "description2": "Personalize your chosen character to your heart's desire and bring your stories to life. And the best part? All characters are free for non-commercial use, with a cheap commercial license available. Join the community and start your next adventure today!",
+    "openGallery": "Open Gallery"
+  },
   "controls": {
     "save": "Save",
     "cancel": "Cancel",
@@ -97,12 +107,6 @@
   "errors": {
     "unauthorized": "Please sign in as {{variable}} to access this page",
     "copy": "Copy failed. Please copy manually"
-  },
-  "landing": {
-    "slogan": "Embark on an epic journey with Deorum – your source for unique fantasy characters for D&D and worldbuilding projects",
-    "description1": "Discover over 1600 customizable characters, each featuring a stunning portrait and a detailed biography. Our images are rooted in a set of 120 beautifully hand-drawn portraits, multiplied to over 10000 variations through AI generation, and expertly curated for the highest quality.",
-    "description2": "Personalize your chosen character to your heart's desire and bring your stories to life. And the best part? All characters are free for non-commercial use, with a cheap commercial license available. Join the community and start your next adventure today!",
-    "openGallery": "Open Gallery"
   },
   "character": {
     "name": "Name",

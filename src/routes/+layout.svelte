@@ -8,6 +8,7 @@
   import '../theme/global.scss';
   import { beforeNavigate, goto } from '$app/navigation';
   import { pages } from '$lib/config/pages';
+  import { t } from '$lib/locales/translations';
 
   if (!dev) inject({ mode: 'production' });
 
@@ -24,10 +25,34 @@
       goto(to.url.pathname + `?${decodeURIComponent(fromSearch)}`);
     }
   });
+
+  const url = 'https://deorum.vercel.app';
+  const title = $t('common.meta.title');
+  const description = $t('common.meta.description');
+  const imageSrc = '/images/preview.jpg';
 </script>
 
 <svelte:head>
-  <title>Deorum: fantasy characters creator by Azgaar</title>
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content={url} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={imageSrc} />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content="deorum.vercel.app" />
+  <meta property="twitter:url" content={url} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageSrc} />
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BP26SDR8V6"></script>
 
   <script>
