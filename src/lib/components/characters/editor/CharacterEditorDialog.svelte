@@ -103,10 +103,10 @@
       } else {
         const createData = { ...patchData, creator: $page.data.userId, source: character.id };
         await request<ICharacter>('/api/custom', 'POST', createData);
-        await invalidate(KEYS.LIBRARY);
-        invalidate(KEYS.USER_DATA);
+        await invalidate(KEYS.USER_DATA);
       }
 
+      await invalidate(KEYS.LIBRARY);
       isOpen = false;
     } catch (error) {
       report('edit character', error, character);
