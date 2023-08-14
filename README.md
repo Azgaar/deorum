@@ -1,38 +1,27 @@
-# create-svelte
+# Deorum
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Deorum is your source for customizable unique fantasy characters for D&D and worldbuilding projects. Created and maintained by Azgaar and contributors.
 
-## Creating a project
+Link: [deorum.vercel.app](https://deorum.vercel.app/).
 
-If you're seeing this, you've probably already done this step. Congrats!
+![preview](https://repository-images.githubusercontent.com/537872766/d206c5de-b0f4-40b5-ad38-b0b6c9c03cae)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Join our [Discord server](https://discordapp.com/invite/X7E84HU) and [Reddit community](https://www.reddit.com/r/FantasyMapGenerator) to share your creations, discuss the Tool, suggest ideas and get the most recent updates.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Contact me via [email](mailto:azgaar.fmg@yandex.by) if you have non-public suggestions. For bug reports please use [GitHub issues](https://github.com/Azgaar/deorum/issues) or _#bugs_ channel on Discord.
 
-## Developing
+You can support the project on [Patreon](https://www.patreon.com/azgaar).
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## For developers
 
-```bash
-npm run dev
+The project is created using [SvelteKit](https://kit.svelte.dev/). Database is [Pocketbase](https://pocketbase.io).
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+Once you've cloned this repository and installed dependencies with `yarn`, start a development server:
 
 ```bash
-npm run build
+yarn dev
 ```
 
-You can preview the production build with `npm run preview`.
+Open you browser at [localhost:5173](http://localhost:5173). Edit a component file in `src/routes`, save it to see your changes.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Pull requests are highly welcomed.

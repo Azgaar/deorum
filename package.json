@@ -1,7 +1,8 @@
 {
   "name": "deorum",
-  "version": "0.6.0",
-  "description": "Procedural fantasy pantheon generator",
+  "version": "1.0.0",
+  "description": "Customizable fantasy characters gallery",
+  "author": "Azgaar <azgaar.fmg@yandex.com>",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -48,5 +49,21 @@
   "engines": {
     "node": "18.x"
   },
-  "type": "module"
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Azgaar/deorum.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Azgaar/deorum/issues"
+  },
+  "keywords": [
+    "fantasy",
+    "dnd",
+    "svelte",
+    "svelteKit",
+    "procedural-generation",
+    "ai"
+  ],
+  "license": "MIT"
 }
