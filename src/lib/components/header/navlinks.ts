@@ -42,6 +42,12 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
   '/(guest)/library': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
   ],
+  '/(guest)/(auth)/signin': () => [
+    { id: 'signup', key: 'common.auth.signup', to: '/signup', roles: [Role.GUEST] },
+  ],
+  '/(guest)/(auth)/signup': () => [
+    { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
+  ],
   'default': () => [
     { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
   ],
@@ -62,6 +68,7 @@ const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
 };
 
 const match = (type: 'quickAccess' | 'sidebar', routeId: string) => {
+  console.log(routeId);
   const generator = type === 'quickAccess' ? createQuickAccessLinks : createSidebarLinks;
   const match = Object.keys(generator).find((key) => routeId.startsWith(key)) || 'default';
   return generator[match];

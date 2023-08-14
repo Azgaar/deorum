@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-
-  import { toastError } from '$lib/stores';
-  import { t } from '$lib/locales/translations';
   import SigninForm from '$lib/components/auth/signin/SigninForm.svelte';
+  import Metatags from '$lib/components/metatags/Metatags.svelte';
+  import { t } from '$lib/locales/translations';
+  import { toastError } from '$lib/stores';
+  import { onMount } from 'svelte';
 
   onMount(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -19,6 +19,12 @@
     goto(to || '/', { invalidateAll: true });
   };
 </script>
+
+<Metatags
+  title={`${$t('common.meta.name')} | ${$t('common.auth.signin')}`}
+  description={$t('common.meta.description')}
+  imageSrc="/images/preview.jpg"
+/>
 
 <div class="form-wrapper">
   <SigninForm {onSuccess} />

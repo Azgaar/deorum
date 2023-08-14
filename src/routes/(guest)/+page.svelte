@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
   import { preloadData } from '$app/navigation';
+  import Metatags from '$lib/components/metatags/Metatags.svelte';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { galleryId } from '$lib/stores';
-  import { preloadImage, request } from '$lib/utils/requests';
-  import { report } from '$lib/utils/log';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import { report } from '$lib/utils/log';
+  import { preloadImage, request } from '$lib/utils/requests';
+  import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   // preload gallery data and images
   onMount(async () => {
@@ -26,6 +27,12 @@
     }
   });
 </script>
+
+<Metatags
+  title={`${$t('common.meta.name')} | ${$t('common.meta.title')}`}
+  description={$t('common.meta.description')}
+  imageSrc="/images/preview.jpg"
+/>
 
 <main aria-label="landing page" transition:fade>
   <div class="content">

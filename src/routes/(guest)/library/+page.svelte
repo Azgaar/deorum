@@ -7,6 +7,7 @@
   import CharacterEditorDialog from '$lib/components/characters/editor/CharacterEditorDialog.svelte';
   import { openGetCoinsDialog, requestConfirmation } from '$lib/components/dialog/provider';
   import Trash from '$lib/components/icons/Trash.svelte';
+  import Metatags from '$lib/components/metatags/Metatags.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
   import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { GENERATE_BIO_PRICE } from '$lib/config/coins';
@@ -71,6 +72,12 @@
     requestConfirmation({ onConfirm: removePortrait });
   };
 </script>
+
+<Metatags
+  title={`${$t('common.meta.name')} | ${$t('common.navigation.library')}`}
+  description={$t('common.meta.description')}
+  imageSrc="/images/preview.jpg"
+/>
 
 <div class="wrapper" aria-label="library content">
   <section aria-label="custom characters">

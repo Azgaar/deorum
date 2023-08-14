@@ -1,12 +1,15 @@
 <script lang="ts">
   import Card from '$lib/components/characters/Card.svelte';
   import type { Carousel } from '$lib/components/characters/carousel';
+  import Metatags from '$lib/components/metatags/Metatags.svelte';
+  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { toastInfo } from '$lib/stores';
+  import { trimText } from '$lib/utils/string';
   import { getContext, onMount } from 'svelte';
 
   const carousel = getContext<Carousel>('carousel');
-  const items = carousel.carousel;
+  const { carousel: items, currentItem: item } = carousel;
   const middleIndex = Math.floor($items.length / 2);
 
   onMount(() => {
@@ -20,6 +23,12 @@
     localStorage.setItem(storageKey, String(shownTimes + 1));
   });
 </script>
+
+<Metatags
+  title={`${$t('common.meta.name')} | ${$item.name}`}
+  description={trimText($item.bio, 250)}
+  imageSrc={`${PORTRAITS_IMAGE_PATH}/${$item.image}`}
+/>
 
 <div class="wrapper">
   <section class="carousel">

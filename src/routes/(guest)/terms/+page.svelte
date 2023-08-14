@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Metatags from '$lib/components/metatags/Metatags.svelte';
   import { t } from '$lib/locales/translations';
 
   const terms = {
@@ -46,6 +47,12 @@
     ]
   };
 </script>
+
+<Metatags
+  title={`${$t('common.meta.name')} | ${$t(terms.title)}`}
+  description={$t('common.meta.description')}
+  imageSrc="/images/preview.jpg"
+/>
 
 <main aria-label="terms of use page">
   <div class="content">
