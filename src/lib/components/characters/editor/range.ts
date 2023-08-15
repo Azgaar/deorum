@@ -2,26 +2,31 @@ import { blankRace } from '$lib/data/races';
 import type { IRace, TGender } from '$lib/types/api.types';
 
 export function getRange(gender: '' | TGender, raceId: string, races: Map<string, IRace>) {
-  function deviateByGenre(initial: number, genderDeviation: number) {
+  function deviateByGender(initial: number, genderDeviation: number) {
     if (gender === 'male') return initial + genderDeviation;
     if (gender === 'female') return initial - genderDeviation;
     return initial;
   }
 
-  const race = races.get(raceId) || blankRace;
+  const {
+    heightMean,
+    heightGenderDeviation,
+    heightDeviation,
+    weightMean,
+    weightGenderDeviation,
+    weightDeviation,
+    ageMin,
+    ageMax
+  } = races.get(raceId) || blankRace;
 
-  const heightMin =
-    deviateByGenre(race.heightMean, race.heightGenderDeviation) - race.heightDeviation;
-  const heightMax =
-    deviateByGenre(race.heightMean, race.heightGenderDeviation) + race.heightDeviation;
+  const heightMin = deviateByGender(heightMean, heightGenderDeviation) - heightDeviation;
+  const heightMax = deviateByGender(heightMean, heightGenderDeviation) + heightDeviation;
 
-  const weightMin =
-    deviateByGenre(race.weightMean, race.weightGenderDeviation) - race.weightDeviation;
-  const weightMax =
-    deviateByGenre(race.weightMean, race.weightGenderDeviation) + race.weightDeviation;
+  const weightMin = deviateByGender(weightMean, weightGenderDeviation) - weightDeviation;
+  const weightMax = deviateByGender(weightMean, weightGenderDeviation) + weightDeviation;
 
   return {
-    age: `${race.ageMin} – ${race.ageMax}`,
+    age: `${ageMin} – ${ageMax}`,
     height: `${heightMin} – ${heightMax}`,
     weight: `${weightMin} – ${weightMax}`
   };
