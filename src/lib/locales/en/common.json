@@ -31,7 +31,9 @@
     "random": "random",
     "download": "Download",
     "report": "Report issue",
-    "send": "Send"
+    "send": "Send",
+    "openPortraitEditor": "Open portrait editor",
+    "openCharacterEditor": "Open character editor"
   },
   "dialog": {
     "confirmation": {

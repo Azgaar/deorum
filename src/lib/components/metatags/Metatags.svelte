@@ -5,7 +5,6 @@
   export let description: string;
   export let imageSrc: string;
 
-  console.log('title', title);
   const url = $page.url.href;
 </script>
 

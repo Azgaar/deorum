@@ -31,7 +31,9 @@
     "random": "случайно",
     "download": "Скачать",
     "report": "Сообщить об ошибке",
-    "send": "Отправить"
+    "send": "Отправить",
+    "openPortraitEditor": "Открыть редактор портрета",
+    "openCharacterEditor": "Открыть редактор персонажа"
   },
   "dialog": {
     "confirmation": {

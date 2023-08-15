@@ -115,7 +115,7 @@
               />
 
               <Actions>
-                <div slot="top">
+                <div slot="top-right">
                   <ActionButton
                     onClick={() => handleRemoveUploaded(portrait.id)}
                     title={$t('common.library.uploaded.remove')}

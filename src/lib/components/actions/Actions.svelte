@@ -3,12 +3,20 @@
 </script>
 
 <div class="actions noprint" transition:fade>
-  <div class="pane top">
-    <slot name="top" />
+  <div class="pane top left">
+    <slot name="top-left" />
   </div>
 
-  <div class="pane bottom">
-    <slot name="bottom" />
+  <div class="pane top right">
+    <slot name="top-right" />
+  </div>
+
+  <div class="pane bottom left">
+    <slot name="bottom-left" />
+  </div>
+
+  <div class="pane bottom right">
+    <slot name="bottom-right" />
   </div>
 </div>
 
@@ -29,12 +37,18 @@
 
       &.top {
         top: 0.5rem;
+      }
+
+      &.right {
         right: 0.5rem;
       }
 
       &.bottom {
         bottom: 0.65rem;
-        right: 0.5rem;
+      }
+
+      &.left {
+        left: 0.5rem;
       }
     }
   }

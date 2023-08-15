@@ -68,7 +68,6 @@ const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
 };
 
 const match = (type: 'quickAccess' | 'sidebar', routeId: string) => {
-  console.log(routeId);
   const generator = type === 'quickAccess' ? createQuickAccessLinks : createSidebarLinks;
   const match = Object.keys(generator).find((key) => routeId.startsWith(key)) || 'default';
   return generator[match];
