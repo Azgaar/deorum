@@ -296,6 +296,7 @@
         pageSize: String(data.pageSize),
         sort: parseSorting(sorting)
       });
+      params.append('filter', 'user=""');
       parseFilters(filters).forEach((value) => params.append('filter', value));
       const { items, page, totalPages } = await request<IList<IPortrait>>(
         `/api/portraits?${params}`

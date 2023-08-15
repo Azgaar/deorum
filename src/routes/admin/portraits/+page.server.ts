@@ -27,6 +27,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
       pageSize: String(pageSize),
       sort: url.searchParams.get('sort') || DEFAULT_SORT
     });
+    params.append('filter', 'user=""');
     url.searchParams.getAll('filter').forEach((value) => params.append('filter', value));
 
     const [portraitsList, originals, tags, styles, colors, races, archetypes, backgrounds] =
