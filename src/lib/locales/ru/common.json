@@ -127,7 +127,10 @@
   "metrics": {
     "yearsOld": "",
     "cm": "см",
-    "kg": "кг"
+    "feetAndInches": "футов и дюймов",
+    "kg": "кг",
+    "lbs": "фунтов",
+    "range": "Диапазон"
   },
   "genders": {
     "male": "мужчина",

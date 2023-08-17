@@ -126,7 +126,10 @@
   "metrics": {
     "yearsOld": "years old",
     "cm": "cm",
-    "kg": "kg"
+    "feetAndInches": "feet and inches",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Possible range"
   },
   "genders": {
     "male": "male",

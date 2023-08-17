@@ -15,6 +15,7 @@
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import { KEYS } from '$lib/config';
   import { t } from '$lib/locales/translations';
+  import { tooltip } from '$lib/scripts/tooltip';
   import { hideLoadingOverlay, showLoadingOverlay, toastError, toastSuccess } from '$lib/stores';
   import type {
     IArchetype,
@@ -26,6 +27,7 @@
   } from '$lib/types/api.types';
   import { report } from '$lib/utils/log';
   import { request } from '$lib/utils/requests';
+  import { convertToImperialHeight, convertToImperialWeight } from '$lib/utils/units';
   import BiographyEditor from './BiographyEditor.svelte';
   import PortraitEditor from './PortraitEditor.svelte';
 
@@ -142,19 +144,39 @@
           <div class="element">
             <div>{$t('common.character.age')}:</div>
             <div>
-              <NumberInput bind:value={character.age} />
-              <span class="extent">{range?.age}</span>
-              <IconButton onClick={randomize.age} title={$t('common.details.editor.randomize.age')}
-                >🎲</IconButton
-              >
+              <div>
+                <NumberInput bind:value={character.age} />
+                <span class="padLeft small" use:tooltip title={$t(`common.metrics.range`)}>
+                  {range?.age}
+                </span>
+              </div>
+
+              <IconButton onClick={randomize.age} title={$t('common.details.editor.randomize.age')}>
+                🎲
+              </IconButton>
             </div>
           </div>
 
           <div class="element">
             <div>{$t('common.character.height')}:</div>
             <div>
-              <NumberInput bind:value={character.height} />
-              <span class="extent">{range?.height}</span>
+              <div
+                use:tooltip
+                title={$t('common.character.height') + ': ' + $t(`common.metrics.cm`)}
+              >
+                <NumberInput bind:value={character.height} />
+                <span
+                  class="small"
+                  use:tooltip
+                  title={$t('common.character.height') + ': ' + $t(`common.metrics.feetAndInches`)}
+                >
+                  {convertToImperialHeight(character.height)}
+                </span>
+              </div>
+
+              <span class="padLeft small" use:tooltip title={$t(`common.metrics.range`)}>
+                {range?.height}
+              </span>
               <IconButton
                 onClick={randomize.height}
                 title={$t('common.details.editor.randomize.height')}>🎲</IconButton
@@ -165,8 +187,23 @@
           <div class="element">
             <div>{$t('common.character.weight')}:</div>
             <div>
-              <NumberInput bind:value={character.weight} />
-              <span class="extent">{range?.weight}</span>
+              <div
+                use:tooltip
+                title={$t('common.character.weight') + ': ' + $t(`common.metrics.kg`)}
+              >
+                <NumberInput bind:value={character.weight} />
+                <span
+                  class="small"
+                  use:tooltip
+                  title={$t('common.character.weight') + ': ' + $t(`common.metrics.lbs`)}
+                >
+                  {convertToImperialWeight(character.weight)}
+                </span>
+              </div>
+
+              <span class="padLeft small" use:tooltip title={$t(`common.metrics.range`)}>
+                {range?.weight}
+              </span>
               <IconButton
                 onClick={randomize.weight}
                 title={$t('common.details.editor.randomize.weight')}>🎲</IconButton
@@ -250,17 +287,21 @@
 
         div.element {
           display: grid;
-          grid-template-columns: 1fr 2fr;
+          grid-template-columns: 1fr 3fr;
           align-items: center;
           gap: 4px;
 
           div {
             display: flex;
             align-items: center;
-            gap: 2px;
+            gap: 4px;
           }
 
-          span.extent {
+          span.padLeft {
+            padding-left: 4px;
+          }
+
+          span.small {
             font-size: small;
             white-space: nowrap;
           }

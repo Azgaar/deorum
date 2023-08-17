@@ -26,8 +26,8 @@ export function getRange(gender: '' | TGender, raceId: string, races: Map<string
   const weightMax = deviateByGender(weightMean, weightGenderDeviation) + weightDeviation;
 
   return {
-    age: `${ageMin} – ${ageMax}`,
-    height: `${heightMin} – ${heightMax}`,
-    weight: `${weightMin} – ${weightMax}`
+    age: `[${ageMin}–${ageMax}]`,
+    height: `[${heightMin}–${heightMax}]`,
+    weight: `[${weightMin}–${weightMax}]`
   };
 }

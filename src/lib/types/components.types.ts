@@ -9,3 +9,5 @@ export interface ILink {
   variable?: string;
   roles?: Role[];
 }
+
+export type TUnits = 'metric' | 'imperial';
