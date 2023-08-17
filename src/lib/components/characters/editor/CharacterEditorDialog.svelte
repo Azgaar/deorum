@@ -146,7 +146,7 @@
             <div>
               <div>
                 <NumberInput bind:value={character.age} />
-                <span class="padLeft small" use:tooltip title={$t(`common.metrics.range`)}>
+                <span class="padLeft small" use:tooltip title={$t('common.metrics.range')}>
                   {range?.age}
                 </span>
               </div>
@@ -174,7 +174,7 @@
                 </span>
               </div>
 
-              <span class="padLeft small" use:tooltip title={$t(`common.metrics.range`)}>
+              <span class="padLeft small" use:tooltip title={$t('common.metrics.range')}>
                 {range?.height}
               </span>
               <IconButton
@@ -189,19 +189,20 @@
             <div>
               <div
                 use:tooltip
-                title={$t('common.character.weight') + ': ' + $t(`common.metrics.kg`)}
+                title={$t('common.character.weight') + ': ' + $t('common.metrics.kg')}
               >
                 <NumberInput bind:value={character.weight} />
                 <span
                   class="small"
                   use:tooltip
-                  title={$t('common.character.weight') + ': ' + $t(`common.metrics.lbs`)}
+                  title={$t('common.character.weight') + ': ' + $t('common.metrics.lbs')}
                 >
                   {convertToImperialWeight(character.weight)}
+                  {$t('common.metrics.lbs')}
                 </span>
               </div>
 
-              <span class="padLeft small" use:tooltip title={$t(`common.metrics.range`)}>
+              <span class="padLeft small" use:tooltip title={$t('common.metrics.range')}>
                 {range?.weight}
               </span>
               <IconButton

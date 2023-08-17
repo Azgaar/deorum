@@ -10,6 +10,5 @@ export function convertToImperialHeight(height: number) {
 }
 
 export function convertToImperialWeight(weight: number) {
-  const pounds = Math.round(weight * POUNDS_PER_KG);
-  return `${pounds} lbs`;
+  return Math.round(weight * POUNDS_PER_KG);
 }

@@ -2,6 +2,7 @@
   import View from '$lib/components/mediaQuery/View.svelte';
   import { t } from '$lib/locales/translations';
   import type { IGalleryItem } from '$lib/types/gallery.types';
+  import { convertToImperialHeight, convertToImperialWeight } from '$lib/utils/units';
 
   export let item: IGalleryItem;
 
@@ -40,18 +41,28 @@
 
     <div class="item">
       <div>{$t('common.character.height')}</div>
-      <div>{item.height} {$t('common.metrics.cm')}</div>
+      <div class="pair">
+        <span>{item.height} {$t('common.metrics.cm')}</span>
+        <span>({convertToImperialHeight(item.height)})</span>
+      </div>
     </div>
 
     <div class="item">
       <div>{$t('common.character.weight')}</div>
-      <div>{item.weight} {$t('common.metrics.kg')}</div>
+      <div class="pair">
+        <span>{item.weight} {$t('common.metrics.kg')}</span>
+        <span>({convertToImperialWeight(item.weight)} {$t('common.metrics.lbs')})</span>
+      </div>
     </div>
   </div>
 
   <div slot="mobile">
     <div class="item">
-      <div><b>{item.name || $t('common.values.unnamed')}</b></div>
+      <div>
+        <span class="name">{item.name || $t('common.values.unnamed')}</span>,
+        {item.age}
+        {$t('common.metrics.yearsOld')}
+      </div>
       <div class="capitalize">
         <span>{tr('common.genders', item.gender)}</span>
         {tr('common.races', item.race)}
@@ -64,13 +75,16 @@
     </div>
 
     <div class="item">
-      <div>{$t('common.character.age')}: {item.age}</div>
       <div>
-        {$t('common.character.height')}: {item.height}
-        {$t('common.metrics.cm')}
-        {@html '&emsp;'}
-        {$t('common.character.weight')}: {item.weight}
-        {$t('common.metrics.kg')}
+        {$t('common.character.height')}:
+        <span>{item.height} {$t('common.metrics.cm')}</span>
+        <span>({convertToImperialHeight(item.height)})</span>
+      </div>
+
+      <div>
+        {$t('common.character.weight')}:
+        <span>{item.weight} {$t('common.metrics.kg')}</span>
+        <span>({convertToImperialWeight(item.weight)} {$t('common.metrics.lbs')})</span>
       </div>
     </div>
   </div>
@@ -100,6 +114,11 @@
 
     .name {
       font-weight: bold;
+    }
+
+    .pair {
+      display: flex;
+      gap: 4px;
     }
   }
 </style>
