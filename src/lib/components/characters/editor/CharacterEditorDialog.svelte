@@ -9,13 +9,11 @@
   import DialogBody from '$lib/components/dialog/DialogBody.svelte';
   import DialogFooter from '$lib/components/dialog/DialogFooter.svelte';
   import DialogHeader from '$lib/components/dialog/DialogHeader.svelte';
-  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
   import { KEYS } from '$lib/config';
-  import { CREATE_CHARACTER_PRICE } from '$lib/config/coins';
   import { t } from '$lib/locales/translations';
   import { hideLoadingOverlay, showLoadingOverlay, toastError, toastSuccess } from '$lib/stores';
   import type {
@@ -74,11 +72,6 @@
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
     const isUpdating = Boolean(character.creator);
-
-    if (!isUpdating) {
-      const coinsLeft = $page.data.coins;
-      if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return openGetCoinsDialog(coinsLeft);
-    }
 
     try {
       showLoadingOverlay();

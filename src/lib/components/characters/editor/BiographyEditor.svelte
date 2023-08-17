@@ -6,7 +6,7 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { KEYS } from '$lib/config';
-  import { CREATE_CHARACTER_PRICE, GENERATE_BIO_PRICE } from '$lib/config/coins';
+  import { GENERATE_BIO_PRICE } from '$lib/config/coins';
   import { models } from '$lib/config/story';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
@@ -42,7 +42,7 @@
 
   const generateBio = async () => {
     const coinsLeft = $page.data.coins;
-    if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) return openGetCoinsDialog(coinsLeft);
+    if (!coinsLeft || coinsLeft < GENERATE_BIO_PRICE) return openGetCoinsDialog(coinsLeft);
 
     try {
       isLoading = true;

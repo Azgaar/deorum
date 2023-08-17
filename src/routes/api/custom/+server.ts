@@ -1,14 +1,11 @@
-import { json, error } from '@sveltejs/kit';
-
-import { log, report } from '$lib/utils/log';
-import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
-import { createServerError } from '$lib/utils/errors';
-
-import type { ICharacter } from '$lib/types/api.types';
-import type { RequestHandler } from '../characters/$types';
 import admin from '$lib/api/admin';
 import { authorize } from '$lib/api/auth';
-import { CREATE_CHARACTER_PRICE } from '$lib/config/coins';
+import { getCachedList, getCachedPage, invalidateCache } from '$lib/cache/cacheInstance';
+import type { ICharacter } from '$lib/types/api.types';
+import { createServerError } from '$lib/utils/errors';
+import { log, report } from '$lib/utils/log';
+import { error, json } from '@sveltejs/kit';
+import type { RequestHandler } from '../characters/$types';
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
@@ -36,17 +33,11 @@ export const GET: RequestHandler = async ({ url }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
-    const { client, user } = await authorize(request);
+    const { user } = await authorize(request);
     if (!user) throw error(401, 'Unauthorized');
-
-    const coinsLeft = user.profile.coins;
-    if (!coinsLeft || coinsLeft < CREATE_CHARACTER_PRICE) throw error(403, 'Not enought coins');
 
     const data = await request.json();
     const customCharacter = await admin.records.create('custom', data);
-
-    const coins = coinsLeft - CREATE_CHARACTER_PRICE;
-    await client.records.update('profiles', user.profile.id, { coins });
 
     invalidateCache('custom', data.creator);
     log('custom', `Create custom character ${customCharacter.id}`, data);

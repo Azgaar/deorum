@@ -3,14 +3,14 @@
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
 
-  function formatCoints(coins: number) {
+  function formatCoins(coins: number) {
     if (coins > 999) return ((coins / 1000) | 0) + 'K';
     return coins | 0;
   }
 </script>
 
 <div class="coins" title={$t('common.coins.coinsLeft', { variable: $page.data.coins })} use:tooltip>
-  {formatCoints($page.data.coins)}
+  {formatCoins($page.data.coins)}
 </div>
 
 <style lang="scss">
