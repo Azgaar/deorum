@@ -74,8 +74,8 @@
 
         <svelte:fragment slot="bottom-right">
           <EditCharacterButton bind:item />
-          <DownloadButton {item} />
           <ReportButton {item} />
+          <DownloadButton {item} />
         </svelte:fragment>
       </Actions>
     {/if}
