@@ -49,6 +49,7 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
     { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
   ],
   'default': () => [
+    { id: 'howToUse', key: 'common.navigation.howToUse', to: 'https://www.youtube.com/watch?v=86VuBFaPZ18' },
     { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
   ],
 };
@@ -59,6 +60,7 @@ const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
     { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
     { id: `library`, key: 'common.navigation.library', to: '/library' },
     { id: 'match', key: 'common.navigation.match', to: '/match', roles: [Role.ADMIN] },
+    { id: 'howToUse', key: 'common.navigation.howToUse', to: 'https://www.youtube.com/watch?v=86VuBFaPZ18' },
     { id: 'terms', key: 'common.navigation.terms', to: '/terms' },
     { id: 'discord', key: 'common.navigation.discord', to: 'https://discordapp.com/invite/X7E84HU' },
     { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar', roles: [Role.GUEST, Role.USER] },

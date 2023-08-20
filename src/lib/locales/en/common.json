@@ -89,8 +89,9 @@
     "next": "Next",
     "library": "Library",
     "donate": "Donate",
-    "terms": "Terms of Use",
-    "discord": "Discord Server"
+    "howToUse": "How to use",
+    "terms": "Terms of use",
+    "discord": "Discord server"
   },
   "search": {
     "search": "Search",
