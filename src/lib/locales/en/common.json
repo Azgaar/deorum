@@ -329,5 +329,8 @@
       "gpt-4": "creative, slow, expensive",
       "gpt-3.5-turbo": "repetitive, fast, cheap"
     }
+  },
+  "encounter": {
+    "seeInDeorum": "See in Deorum"
   }
 }
