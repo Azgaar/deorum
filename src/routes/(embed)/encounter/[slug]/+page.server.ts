@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
   const item = getGalleryItemData(character);
   log('encounter', `Loading ${associatedId ? 'associated' : 'random'} character ${item.name}`, {
     id: character.id,
-    seed
+    seed: params.slug
   });
   return { item };
 };

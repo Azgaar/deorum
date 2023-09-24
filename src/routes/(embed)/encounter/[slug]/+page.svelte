@@ -10,7 +10,7 @@
   import type { PageData } from './$types';
 
   export let data: PageData;
-  $: item = data.item;
+  const item = data.item;
 </script>
 
 <Metatags
@@ -75,7 +75,7 @@
         display: grid;
         justify-items: center;
         grid-gap: 16px;
-        grid-template-columns: 320px minmax(500px, 1fr);
+        grid-template-columns: minmax(auto, 320px) auto;
 
         @media ($mobile) {
           grid-template-columns: 1fr;

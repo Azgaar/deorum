@@ -48,6 +48,20 @@ svg {
   }
 }
 
+@media ($desktop) {
+  *[slot='mobile'],
+  .mobile {
+    display: none !important;
+  }
+}
+
+@media ($mobile) {
+  *[slot='desktop'],
+  .desktop {
+    display: none !important;
+  }
+}
+
 body.noprint {
   .noprint {
     display: none;
@@ -57,12 +71,5 @@ body.noprint {
 @media print {
   .noprint {
     display: none;
-  }
-}
-
-*[slot='desktop'],
-.desktop {
-  @media ($mobile) {
-    display: none !important;
   }
 }

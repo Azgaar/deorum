@@ -3,6 +3,7 @@
   import type { Carousel } from '$lib/components/characters/carousel';
   import Metatags from '$lib/components/metatags/Metatags.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
+  import { MOBILE_LAYOUT_MAX_WIDTH } from '$lib/config/view';
   import { t } from '$lib/locales/translations';
   import { toastInfo } from '$lib/stores';
   import { trimText } from '$lib/utils/string';
@@ -17,7 +18,8 @@
     const shownTimes = Number(localStorage.getItem(storageKey));
     if (shownTimes > 20) return;
 
-    const isMobile = window.matchMedia('(max-width: 599px)').matches;
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_LAYOUT_MAX_WIDTH}px)`).matches;
+    console.log(isMobile);
     toastInfo(isMobile ? $t('common.gallery.mobileHint') : $t('common.gallery.desktopHint'));
 
     localStorage.setItem(storageKey, String(shownTimes + 1));
