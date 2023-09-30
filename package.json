@@ -47,6 +47,9 @@
     "workbox-routing": "^6.5.4",
     "workbox-strategies": "^6.5.4"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "type": "module",
   "repository": {
     "type": "git",
