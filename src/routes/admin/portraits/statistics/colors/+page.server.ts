@@ -9,7 +9,7 @@ interface IAggregatedData {
 
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, colors] = await Promise.all([
-    toJson<IPortrait[]>(fetch('/api/portraits')),
+    toJson<IPortrait[]>(fetch('/api/portraits?filter=user=""')),
     toJson<IColor[]>(fetch('/api/colors'))
   ]);
 

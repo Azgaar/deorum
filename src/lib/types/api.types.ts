@@ -11,7 +11,8 @@ export type TCollection =
   | 'quality'
   | 'races'
   | 'archetypes'
-  | 'backgrounds';
+  | 'backgrounds'
+  | 'profiles';
 
 export interface IList<T> {
   page: number;
@@ -139,12 +140,14 @@ export interface IUser {
   verified: boolean;
   lastResetSentAt: string;
   lastVerificationSentAt: string;
+  profile: IProfile;
+}
 
-  profile: IRecord & {
-    name: string;
-    role: Role;
-    lang: string;
-    liked: string[];
-    coins: number;
-  };
+export interface IProfile extends IRecord {
+  name: string;
+  role: Role;
+  lang: string;
+  liked: string[];
+  coins: number;
+  userId: string;
 }

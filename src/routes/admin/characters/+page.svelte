@@ -3,9 +3,10 @@
   import { goto } from '$app/navigation';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
-  import AdminMenu from '$lib/components/editor/AdminMenu.svelte';
+  import AdminMenu from '$lib/components/editor/sidebar/AdminMenu.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import CharacterEditor from '$lib/components/editor/sidebar/CharacterEditor.svelte';
+  import SidePane from '$lib/components/editor/sidebar/SidePane.svelte';
   import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
@@ -190,7 +191,7 @@
   {/if}
 </section>
 
-<aside class="pane">
+<SidePane>
   {#if model}
     <div class="paneHeader">
       <CharacterEditor
@@ -205,21 +206,25 @@
       />
     </div>
   {:else}
-    <AdminMenu>
+    <AdminMenu page="admin.menu.characters" hint="admin.menu.hint.characters">
+      <BasicButton href="./">
+        {$t('admin.menu.dashboard')}
+      </BasicButton>
+
+      <BasicButton href="./portraits">
+        {$t('admin.menu.portraits')}
+      </BasicButton>
+
       <BasicButton onClick={() => (isFilterDialogOpen = true)}>
         {$t('admin.menu.filter')}
       </BasicButton>
 
-      <BasicButton onClick={() => goto('./portraits')}>
-        {$t('admin.menu.portraits')}
-      </BasicButton>
-
-      <BasicButton onClick={() => goto(`./characters/statistics`)}>
+      <BasicButton href="./characters/statistics">
         {$t('admin.menu.statistics')}
       </BasicButton>
     </AdminMenu>
   {/if}
-</aside>
+</SidePane>
 
 {#if editCharacterDialogData.open}
   <AdminEditorDialog {...editCharacterDialogData} bind:isOpen={editCharacterDialogData.open} />
@@ -232,25 +237,8 @@
   @use 'sass:color';
 
   section.gallery {
-    grid-area: gallery;
+    grid-area: content;
     width: 100%;
     overflow: auto;
-  }
-
-  aside.pane {
-    grid-area: pane;
-    background-image: url('/images/menu.webp');
-    background-size: 100% 100%;
-    overflow: hidden;
-
-    display: flex;
-    justify-content: center;
-
-    @media ($mobile) {
-      display: flex;
-      justify-content: center;
-      padding: 1rem 2rem;
-      width: auto;
-    }
   }
 </style>
