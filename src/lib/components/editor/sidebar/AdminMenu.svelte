@@ -6,6 +6,9 @@
   import TextLogo from '$lib/components/logo/TextLogo.svelte';
   import { t } from '$lib/locales/translations';
 
+  export let page: string;
+  export let hint: string = '';
+
   const handleLogout = () => {
     logout();
     goto('/signin', { invalidateAll: true });
@@ -15,11 +18,13 @@
 <menu>
   <header>
     <TextLogo size={56} />
-    <Subtitle size={18}>{$t('admin.menu.subtitle')}</Subtitle>
+    <Subtitle size={18}>{$t('admin.menu.subtitle')}: {$t(page)}</Subtitle>
   </header>
 
   <main>
-    <div class="hint">{$t('admin.menu.hint')}</div>
+    {#if hint}
+      <div class="hint">{$t(hint)}</div>
+    {/if}
 
     <slot />
 

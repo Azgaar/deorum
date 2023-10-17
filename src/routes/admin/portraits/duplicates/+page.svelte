@@ -1,8 +1,9 @@
 <script lang="ts">
+  import SidePane from '$lib/components/editor/sidebar/SidePane.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import Grid from '../../Grid.svelte';
-  import Duplicates from './Duplicates.svelte';
   import type { PageData } from './$types';
+  import Duplicates from './Duplicates.svelte';
 
   type TPortrait = PageData['portraitData'][number];
   export let data: PageData;
@@ -42,9 +43,9 @@
   {/if}
 </section>
 
-<aside class="pane">
+<SidePane>
   <Duplicates {duplicates} />
-</aside>
+</SidePane>
 
 <style lang="scss">
   @use 'sass:color';
@@ -62,25 +63,6 @@
         width: 100%;
         height: 100%;
       }
-    }
-  }
-
-  aside.pane {
-    width: 100%;
-    overflow: auto;
-
-    grid-area: pane;
-    background-image: url('/images/menu.webp');
-    background-size: 100% 100%;
-
-    display: flex;
-    justify-content: center;
-
-    @media ($mobile) {
-      display: flex;
-      justify-content: center;
-      padding: 1rem 2rem;
-      width: auto;
     }
   }
 </style>

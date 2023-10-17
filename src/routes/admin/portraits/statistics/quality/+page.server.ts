@@ -5,7 +5,7 @@ import type { IStatistics } from '$lib/types/statistics.types';
 
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, quality] = await Promise.all([
-    toJson<IPortrait[]>(fetch('/api/portraits')),
+    toJson<IPortrait[]>(fetch('/api/portraits?filter=user=""')),
     toJson<IQuality[]>(fetch('/api/quality'))
   ]);
 

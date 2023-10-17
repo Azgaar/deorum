@@ -2,13 +2,26 @@
   export let variant: 'primary' | 'text' = 'primary';
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let onClick: ((event: MouseEvent) => void) | undefined = undefined;
+  export let href: string | undefined = undefined;
   export let disabled = false;
-  export let style = '';
+  export let style: string | undefined = undefined;
 </script>
 
-<button {type} {disabled} {style} class={variant} on:click={onClick}>
-  <slot />
-</button>
+{#if href}
+  <a
+    {href}
+    target={href.startsWith('http') ? '_blank' : undefined}
+    rel={href.startsWith('http') ? 'noopener' : undefined}
+  >
+    <button {type} {disabled} {style} class={variant}>
+      <slot />
+    </button>
+  </a>
+{:else}
+  <button {type} {disabled} {style} class={variant} on:click={onClick}>
+    <slot />
+  </button>
+{/if}
 
 <style lang="scss">
   @use 'sass:color';
@@ -28,6 +41,7 @@
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     &.primary {
+      width: 100%;
       height: 36px;
       font-size: 0.875rem;
       font-weight: 300;

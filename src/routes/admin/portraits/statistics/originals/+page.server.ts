@@ -29,7 +29,7 @@ function sortObject(obj: Record<string, number>, byKey = false) {
 
 export const load: import('./$types').PageServerLoad = async ({ fetch }) => {
   const [portraits, originals, tags, styles, colors, quality] = await Promise.all([
-    toJson<IPortrait[]>(fetch('/api/portraits')),
+    toJson<IPortrait[]>(fetch('/api/portraits?filter=user=""')),
     toJson<IOriginal[]>(fetch('/api/originals')),
     toJson<ITag[]>(fetch('/api/tags')),
     toJson<IStyle[]>(fetch('/api/styles')),

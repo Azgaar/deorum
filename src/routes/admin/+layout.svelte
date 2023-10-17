@@ -23,7 +23,7 @@
 
     display: grid;
     grid-template-columns: 3fr minmax(360px, 1fr);
-    grid-template-areas: 'gallery pane';
+    grid-template-areas: 'content pane';
 
     @media ($mobile) {
       grid-template-columns: 1fr;
