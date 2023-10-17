@@ -1,6 +1,10 @@
 export const models = [
-  { key: 'gpt-4', label: 'GPT-4', description: 'common.models.description.gpt-4' },
-  { key: 'gpt-3.5-turbo', label: 'GPT-3.5', description: 'common.models.description.gpt-3.5-turbo' }
+  {
+    key: 'gpt-3.5-turbo',
+    label: 'GPT-3.5',
+    description: 'common.models.description.gpt-3.5-turbo'
+  },
+  { key: 'gpt-4', label: 'GPT-4', description: 'common.models.description.gpt-4' }
 ];
 
 export const SYSTEM_PROMPT = `I want you to act as a novelist. Your aim is to write a creative fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes. Avoid cliches and typos. Write in present tense.`;
