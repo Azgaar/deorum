@@ -171,7 +171,14 @@
     "cat": "cat",
     "gargoyle": "gargoyle",
     "golem": "golem",
-    "lizard": "lizard"
+    "lizard": "lizard",
+    "noble elf": "noble elf",
+    "serpentide": "serpentide",
+    "raven": "raven",
+    "green fay": "green fay",
+    "owl": "owl",
+    "alien": "alien",
+    "kitty": "kitty"
   },
   "colors": {
     "red": "red",
