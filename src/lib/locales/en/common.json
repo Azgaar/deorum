@@ -33,7 +33,8 @@
     "report": "Report issue",
     "send": "Send",
     "openPortraitEditor": "Open portrait editor",
-    "openCharacterEditor": "Open character editor"
+    "openCharacterEditor": "Open character editor",
+    "embed": "Embed"
   },
   "dialog": {
     "confirmation": {

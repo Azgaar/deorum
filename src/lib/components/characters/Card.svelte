@@ -13,6 +13,7 @@
   import CharacterPicture from './details/CharacterPicture.svelte';
   import DownloadButton from './details/DownloadButton.svelte';
   import EditCharacterButton from './details/EditCharacterButton.svelte';
+  import EmbedButton from './details/EmbedButton.svelte';
   import ReportButton from './details/ReportButton.svelte';
 
   export let item: IGalleryItem;
@@ -75,6 +76,7 @@
         <svelte:fragment slot="bottom-right">
           <EditCharacterButton bind:item />
           <ReportButton {item} />
+          <EmbedButton {item} />
           <DownloadButton {item} />
         </svelte:fragment>
       </Actions>

@@ -33,7 +33,8 @@
     "report": "Сообщить об ошибке",
     "send": "Отправить",
     "openPortraitEditor": "Открыть редактор портрета",
-    "openCharacterEditor": "Открыть редактор персонажа"
+    "openCharacterEditor": "Открыть редактор персонажа",
+    "embed": "Встроить"
   },
   "dialog": {
     "confirmation": {
