@@ -81,7 +81,9 @@ function exportText(item: IGalleryItem) {
 }
 
 function exportJson(item: IGalleryItem) {
-  const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(item))}`;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { likes, creator, ...exportable } = item;
+  const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(exportable))}`;
   downloadFile(dataStr, `${item.name} - Deorum character ${item.id}.json`);
 }
 
