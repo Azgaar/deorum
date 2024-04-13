@@ -1,6 +1,6 @@
-import type { Page } from '@sveltejs/kit';
-import type { ILink } from '$lib/types/components.types';
 import { Role } from '$lib/config';
+import type { ILink } from '$lib/types/components.types';
+import type { Page } from '@sveltejs/kit';
 
 type TNavlinksData = {
   routeId?: string;
@@ -35,9 +35,6 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
   ],
   '/(guest)/(characters)/[slug]': (data) => [
     { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}` },
-  ],
-  '/(guest)/library/[slug]': () => [
-    { id: 'backToLibrary', key: 'common.navigation.back', to: '/library' },
   ],
   '/(guest)/library': (data) => [
     { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },

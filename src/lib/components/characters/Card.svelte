@@ -97,7 +97,7 @@
     </div>
 
     <div class="showDetails">
-      <ShowDetailsButton href={`${item.creator ? '/library' : ''}/${item.id}`} {actionable} />
+      <ShowDetailsButton href={`${item.creator ? '/custom' : ''}/${item.id}`} {actionable} />
     </div>
   </figcaption>
 </figure>

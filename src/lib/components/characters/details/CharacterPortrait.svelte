@@ -13,33 +13,39 @@
   import ReportButton from './ReportButton.svelte';
 
   export let item: IGalleryItem;
+
+  const isCustom = Boolean(item.creator);
+  const isAdmin = $page.data.role === Role.ADMIN;
+  const isCreator = item.creator === $page.data.userId;
 </script>
 
 <div class="imageContainer">
   <CharacterPicture {item} />
 
-  <Actions>
-    <svelte:fragment slot="top-left">
-      {#if $page.data.role === Role.ADMIN}
-        <AdminEditCharacterButton {item} />
-        <AdminEditPortraitButton {item} />
-      {/if}
-    </svelte:fragment>
+  {#if !isCustom || isCreator || isAdmin}
+    <Actions>
+      <svelte:fragment slot="top-left">
+        {#if $page.data.role === Role.ADMIN}
+          <AdminEditCharacterButton {item} />
+          <AdminEditPortraitButton {item} />
+        {/if}
+      </svelte:fragment>
 
-    <svelte:fragment slot="top-right">
-      {#if item.creator}
-        <RemoveButton {item} />
-      {:else}
-        <LikeButton {item} />
-      {/if}
-    </svelte:fragment>
+      <svelte:fragment slot="top-right">
+        {#if isCustom}
+          <RemoveButton {item} />
+        {:else}
+          <LikeButton {item} />
+        {/if}
+      </svelte:fragment>
 
-    <svelte:fragment slot="bottom-right">
-      <EditCharacterButton bind:item />
-      <ReportButton {item} />
-      <DownloadButton {item} />
-    </svelte:fragment>
-  </Actions>
+      <svelte:fragment slot="bottom-right">
+        <EditCharacterButton bind:item />
+        <ReportButton {item} />
+        <DownloadButton {item} />
+      </svelte:fragment>
+    </Actions>
+  {/if}
 </div>
 
 <style lang="scss">
