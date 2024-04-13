@@ -3,7 +3,7 @@
   import { galleryId } from '$lib/stores';
   import { fade } from 'svelte/transition';
   import Link from '../Link.svelte';
-  import { getLinks, getLinkKey } from '../navlinks';
+  import { getLinkKey, getLinks } from '../navlinks';
 
   $: links = getLinks('quickAccess', $page, $galleryId);
 </script>
@@ -20,12 +20,16 @@
   @use 'sass:color';
 
   nav {
+    @media ($mobile) {
+      display: none;
+    }
+
     ul {
       padding: 0;
+      gap: 8px;
 
       display: flex;
       align-items: center;
-      gap: 8px;
 
       li {
         list-style: none;

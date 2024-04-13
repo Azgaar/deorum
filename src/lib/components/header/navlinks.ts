@@ -9,8 +9,7 @@ type TNavlinksData = {
   nextId?: string;
 };
 
-// prettier-ignore
-const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
+const createQuickAccessLinks: { [key: string]: (data: TNavlinksData) => ILink[] } = {
   '/admin/portraits/statistics': () => [
     { id: 'originals', key: 'admin.editor.originals', to: './originals' },
     { id: 'tags', key: 'admin.editor.tags', to: './tags' },
@@ -31,24 +30,28 @@ const createQuickAccessLinks: {[key: string]: (data: TNavlinksData) => ILink[]} 
     { id: 'next', key: 'common.navigation.next', to: `./${data.nextId}` }
   ],
   '/(guest)/(characters)/gallery/[slug]': () => [
-    { id: `library`, key: 'common.navigation.library', to: '/library' },
+    { id: `library`, key: 'common.navigation.library', to: '/library' }
   ],
   '/(guest)/(characters)/[slug]': (data) => [
-    { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}` },
+    { id: 'backToGallery', key: 'common.navigation.back', to: `/gallery/${data.galleryId}` }
   ],
   '/(guest)/library': (data) => [
-    { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` },
+    { id: 'gallery', key: 'common.navigation.gallery', to: `/gallery/${data.galleryId || ''}` }
   ],
   '/(guest)/(auth)/signin': () => [
-    { id: 'signup', key: 'common.auth.signup', to: '/signup', roles: [Role.GUEST] },
+    { id: 'signup', key: 'common.auth.signup', to: '/signup', roles: [Role.GUEST] }
   ],
   '/(guest)/(auth)/signup': () => [
-    { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
+    { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] }
   ],
-  'default': () => [
-    { id: 'howToUse', key: 'common.navigation.howToUse', to: 'https://www.youtube.com/watch?v=86VuBFaPZ18' },
-    { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] },
-  ],
+  default: () => [
+    {
+      id: 'howToUse',
+      key: 'common.navigation.howToUse',
+      to: 'https://www.youtube.com/watch?v=86VuBFaPZ18'
+    },
+    { id: 'signin', key: 'common.auth.signin', to: '/signin', roles: [Role.GUEST] }
+  ]
 };
 
 // prettier-ignore
