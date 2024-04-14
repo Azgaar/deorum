@@ -112,10 +112,15 @@
 
       padding: 24px;
       max-width: 1000px;
-      background: linear-gradient(150deg, #160a05a4, #170904d9);
+      background: rgba($on-surface, 0.95);
       border-radius: 8px;
 
       font-size: 0.9em;
+
+      h1 {
+        font-size: 1.4em;
+        margin: 0 0 16px;
+      }
 
       ol {
         padding-left: 12px;

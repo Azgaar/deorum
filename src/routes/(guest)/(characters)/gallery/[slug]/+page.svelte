@@ -19,7 +19,6 @@
     if (shownTimes > 20) return;
 
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_LAYOUT_MAX_WIDTH}px)`).matches;
-    console.log(isMobile);
     toastInfo(isMobile ? $t('common.gallery.mobileHint') : $t('common.gallery.desktopHint'));
 
     localStorage.setItem(storageKey, String(shownTimes + 1));

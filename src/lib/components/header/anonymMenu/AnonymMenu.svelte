@@ -3,10 +3,15 @@
   import { galleryId } from '$lib/stores';
   import { fade } from 'svelte/transition';
   import Link from '../Link.svelte';
-  import { getLinks, getLinkKey } from '../navlinks';
+  import { getLinkKey, getLinks } from '../navlinks';
 
   let collapsed = true;
-  const toggleMenu = () => (collapsed = !collapsed);
+
+  const toggleMenu = () => {
+    console.log('toggleMenu');
+    collapsed = !collapsed;
+  };
+
   $: links = getLinks('sidebar', $page, $galleryId);
 </script>
 
@@ -38,11 +43,16 @@
       width: 40px;
       height: 40px;
       cursor: pointer;
+
+      @media ($mobile) {
+        margin-top: -6px;
+      }
     }
 
     .backdrop {
       position: absolute;
       inset: 0;
+      z-index: 1;
       background-color: rgb(black, 0.2);
 
       transition: 0.5s;

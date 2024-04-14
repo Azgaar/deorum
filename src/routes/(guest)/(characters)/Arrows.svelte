@@ -10,14 +10,12 @@
     <button aria-label="previous" on:click={prev}>
       <svg viewBox="0 0 5 20">
         <path d="M5 0 L0 10 L5 20 Z" />
-        <path class="outline" d="M4.75 0 L0 10 L4.75 20" />
       </svg>
     </button>
 
     <button aria-label="next" on:click={next}>
       <svg viewBox="0 0 5 20">
         <path d="M0 0 L5 10 L0 20 Z" />
-        <path class="outline" d="M0.25 0 L5 10 L0.25 20" />
       </svg>
     </button>
   </div>
@@ -58,13 +56,6 @@
 
         fill: currentColor;
         stroke-linecap: square;
-
-        .outline {
-          fill: none;
-          stroke: currentColor;
-          stroke-width: 0.5;
-          filter: brightness(0.7);
-        }
       }
     }
   }
