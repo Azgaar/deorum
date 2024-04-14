@@ -38,6 +38,7 @@
   menu {
     padding: 3rem 2rem;
     max-width: 400px;
+    width: 100%;
 
     @media ($mobile) {
       padding: 0 2rem;

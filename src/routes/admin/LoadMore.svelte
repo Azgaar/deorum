@@ -14,9 +14,7 @@
 <style lang="scss">
   div.loadMore {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -70px;
+    width: fit-content;
+    margin: -70px auto 0;
   }
 </style>
