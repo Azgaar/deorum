@@ -19,6 +19,11 @@
       data={characters.mostLiked}
     />
 
+    <CharactersBlock
+      header={$t('admin.dashboard.leastLikedCharacters')}
+      data={characters.leastLiked}
+    />
+
     <ChartBlock header={$t('admin.dashboard.profilesCreatedByDate')} data={profiles.createdByDate}>
       <div>{$t('admin.dashboard.averageRegistrationsPerDay')}: {profiles.averagePerDay}</div>
       <div>

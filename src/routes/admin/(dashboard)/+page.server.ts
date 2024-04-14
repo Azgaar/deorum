@@ -8,6 +8,7 @@ import type { PageServerLoad } from './$types';
 export const csr = false;
 
 const RELEASE_DATE = '2023-08-13';
+const LIKED_CHARACTERS_LIMIT = 36;
 
 export const load: PageServerLoad = async ({ fetch }) => {
   const [characters, profiles, customCharacters, uploadedPortraits] = await Promise.all([
@@ -17,7 +18,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
     toJson<IPortrait[]>(fetch(`/api/portraits?filter=created>="${RELEASE_DATE}"&&user@=""`))
   ]);
 
-  const charactersData = selectMostLikedCharacters(characters, 12);
+  const charactersData = selectMostLikedCharacters(characters, LIKED_CHARACTERS_LIMIT);
   const profileData = { ...aggregateRecordsCreation(profiles), ...aggregateCoinsSpend(profiles) };
   const customCharacterData = aggregateRecordsCreation(customCharacters);
   const uploadedPortraitsData = aggregateRecordsCreation(uploadedPortraits);
@@ -33,8 +34,9 @@ export const load: PageServerLoad = async ({ fetch }) => {
 function selectMostLikedCharacters(characters: ICharacter[], limit: number) {
   const sorted = characters.sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0));
   const mostLiked = sorted.slice(0, limit).map(getGalleryItemData);
+  const leastLiked = sorted.slice(-limit).map(getGalleryItemData);
 
-  return { mostLiked };
+  return { mostLiked, leastLiked };
 }
 
 function aggregateRecordsCreation(entries: IRecord[]) {

@@ -33,6 +33,7 @@
   },
   "dashboard": {
     "mostLikedCharacters": "Наиболее популярные персонажи",
+    "leastLikedCharacters": "Наименее популярные персонажи",
     "profilesCreatedByDate": "Профили созданные по дате",
     "averageRegistrationsPerDay": "Среднее количество регистраций в день после релиза",
     "averageRegistrationsPerDayLastWeek": "Среднее количество регистраций в день за последнюю неделю",

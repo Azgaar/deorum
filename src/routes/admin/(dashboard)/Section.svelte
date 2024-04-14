@@ -1,22 +1,20 @@
 <script lang="ts">
-  import Chart from './Chart.svelte';
-
   export let header: string;
 </script>
 
-<section>
-  <h1>{header}</h1>
-
+<details open>
+  <summary>{header}</summary>
   <slot />
-</section>
+</details>
 
 <style lang="scss">
-  section {
+  details {
     margin: 20px;
 
-    h1 {
+    summary {
       margin: 0 0 10px;
       font-size: 18px;
+      cursor: pointer;
     }
   }
 </style>

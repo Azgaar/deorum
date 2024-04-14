@@ -33,6 +33,7 @@
   },
   "dashboard": {
     "mostLikedCharacters": "Most liked characters",
+    "leastLikedCharacters": "Least liked characters",
     "profilesCreatedByDate": "Profiles created by date",
     "averageRegistrationsPerDay": "Average registrations per day",
     "averageRegistrationsPerDayLastWeek": "Average registrations per day last week",

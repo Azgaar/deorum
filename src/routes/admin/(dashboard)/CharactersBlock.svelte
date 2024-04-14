@@ -2,7 +2,6 @@
   import ActionButton from '$lib/components/actions/ActionButton.svelte';
   import Actions from '$lib/components/actions/Actions.svelte';
   import LikeButton from '$lib/components/characters/LikeButton.svelte';
-  import ShowDetailsButton from '$lib/components/characters/ShowDetailsButton.svelte';
   import CharacterPicture from '$lib/components/characters/details/CharacterPicture.svelte';
   import ArrowRight from '$lib/components/icons/ArrowRight.svelte';
   import type { IGalleryItem } from '$lib/types/gallery.types';
