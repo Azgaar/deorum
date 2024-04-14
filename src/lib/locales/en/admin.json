@@ -31,6 +31,20 @@
     "hasCharacters": "Has characters",
     "changePortrait": "Replace portrait"
   },
+  "dashboard": {
+    "mostLikedCharacters": "Most liked characters",
+    "profilesCreatedByDate": "Profiles created by date",
+    "averageRegistrationsPerDay": "Average registrations per day",
+    "averageRegistrationsPerDayLastWeek": "Average registrations per day last week",
+    "profilesSpendingCoins": "Profiles spending coins after release",
+    "profilesSpendingCoinsLastWeek": "Profiles spending coins last week",
+    "customCharactersCreatedByDate": "Custom characters created by date",
+    "averagCustomCharactersCreatedPerDay": "Average custom characters created per day after release",
+    "averagCustomCharactersCreatedPerDayLastWeek": "Average custom characters created per day last week",
+    "portraitsUploadedByUsersByDate": "Portraits uploaded by users by date",
+    "averagePortraitsUploadedPerDay": "Average portraits uploaded per day after release",
+    "averagePortraitsUploadedPerDayLastWeek": "Average portraits uploaded per day last week"
+  },
   "statistics": {
     "portraits": "Portraits",
     "averageQuality": "Mean quality",

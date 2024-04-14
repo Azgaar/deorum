@@ -31,6 +31,20 @@
     "hasCharacters": "С персонажами",
     "changePortrait": "Изменить портрет"
   },
+  "dashboard": {
+    "mostLikedCharacters": "Наиболее популярные персонажи",
+    "profilesCreatedByDate": "Профили созданные по дате",
+    "averageRegistrationsPerDay": "Среднее количество регистраций в день после релиза",
+    "averageRegistrationsPerDayLastWeek": "Среднее количество регистраций в день за последнюю неделю",
+    "profilesSpendingCoins": "Профили, тратящие монеты",
+    "profilesSpendingCoinsLastWeek": "Профили, тратящие монеты за последнюю неделю",
+    "customCharactersCreatedByDate": "Пользовательские персонажи созданные по дате",
+    "averagCustomCharactersCreatedPerDay": "Среднее количество пользовательских персонажей созданных в день после релиза",
+    "averagCustomCharactersCreatedPerDayLastWeek": "Среднее количество пользовательских персонажей созданных в день за последнюю неделю",
+    "portraitsUploadedByUsersByDate": "Портреты загруженные пользователями по дате",
+    "averagePortraitsUploadedPerDay": "Среднее количество портретов загруженных в день после релиза",
+    "averagePortraitsUploadedPerDayLastWeek": "Среднее количество портретов загруженных в день за последнюю неделю"
+  },
   "statistics": {
     "portraits": "Портреты",
     "averageQuality": "Качество",

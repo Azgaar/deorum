@@ -14,27 +14,44 @@
 
 <div class="dashboard">
   <div class="container">
-    <CharactersBlock header="Most liked characters" data={characters.mostLiked} />
+    <CharactersBlock
+      header={$t('admin.dashboard.mostLikedCharacters')}
+      data={characters.mostLiked}
+    />
 
-    <ChartBlock header="Profiles created by date" data={profiles.createdByDate}>
-      <div>Average registrations per day after release: {profiles.averagePerDay}</div>
-      <div>Average registrations per day last week: {profiles.averageLastWeek}</div>
-      <div>Profiles spending coins after release: {profiles.spendingCoins}%</div>
-      <div>Profiles spending coins last week: {profiles.spendingCoinsLastWeek}%</div>
-    </ChartBlock>
-
-    <ChartBlock header="Custom characters created by date" data={customCharacters.createdByDate}>
+    <ChartBlock header={$t('admin.dashboard.profilesCreatedByDate')} data={profiles.createdByDate}>
+      <div>{$t('admin.dashboard.averageRegistrationsPerDay')}: {profiles.averagePerDay}</div>
       <div>
-        Average custom characters created per day after release: {customCharacters.averagePerDay}
+        {$t('admin.dashboard.averageRegistrationsPerDayLastWeek')}: {profiles.averageLastWeek}
       </div>
+      <div>{$t('admin.dashboard.profilesSpendingCoins')}: {profiles.spendingCoins}%</div>
       <div>
-        Average custom characters created per day last week: {customCharacters.averageLastWeek}
+        {$t('admin.dashboard.profilesSpendingCoinsLastWeek')}: {profiles.spendingCoinsLastWeek}%
       </div>
     </ChartBlock>
 
-    <ChartBlock header="Portraits uploaded by users by date" data={uploadedPortraits.createdByDate}>
-      <div>Average portraits uploaded per day after release: {uploadedPortraits.averagePerDay}</div>
-      <div>Average portraits uploaded per day last week: {uploadedPortraits.averageLastWeek}</div>
+    <ChartBlock
+      header={$t('admin.dashboard.customCharactersCreatedByDate')}
+      data={customCharacters.createdByDate}
+    >
+      <div>
+        {$t('admin.dashboard.averagCustomCharactersCreatedPerDay')}: {customCharacters.averagePerDay}
+      </div>
+      <div>
+        {$t('admin.dashboard.averagCustomCharactersCreatedPerDayLastWeek')}: {customCharacters.averageLastWeek}
+      </div>
+    </ChartBlock>
+
+    <ChartBlock
+      header={$t('admin.dashboard.portraitsUploadedByUsersByDate')}
+      data={uploadedPortraits.createdByDate}
+    >
+      <div>
+        {$t('admin.dashboard.averagePortraitsUploadedPerDay')}: {uploadedPortraits.averagePerDay}
+      </div>
+      <div>
+        {$t('admin.dashboard.averagePortraitsUploadedPerDayLastWeek')}: {uploadedPortraits.averageLastWeek}
+      </div>
     </ChartBlock>
   </div>
 </div>
