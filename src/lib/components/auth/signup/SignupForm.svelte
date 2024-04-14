@@ -118,21 +118,27 @@
     .terms {
       font-size: 13px;
       font-weight: 300;
-      color: rgb($text, 0.5);
+      color: rgb($text, 0.9);
+      letter-spacing: 0.1px;
     }
 
     .haveAccount {
       font-size: 13px;
       font-weight: 300;
-      color: rgb($text, 0.5);
+      letter-spacing: 0.1px;
 
       position: absolute;
       left: 0;
-      top: 5px;
+      top: -3px;
     }
 
     a {
-      color: rgb($text, 0.8);
+      color: rgb($text, 0.9);
+      transition: color 0.2s;
+
+      &:hover {
+        color: rgb($text, 1);
+      }
     }
   }
 </style>

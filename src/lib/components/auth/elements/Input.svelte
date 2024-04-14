@@ -1,6 +1,6 @@
 <script lang="ts">
-  import EyeOpen from '$lib/components/icons/EyeOpen.svelte';
   import EyeClosed from '$lib/components/icons/EyeClosed.svelte';
+  import EyeOpen from '$lib/components/icons/EyeOpen.svelte';
 
   export let label: string;
   export let type: 'text' | 'email' | 'password';
@@ -77,6 +77,13 @@
 
       cursor: pointer;
       user-select: none;
+
+      color: rgb($text, 0.4);
+      transition: color 0.2s;
+
+      &:hover {
+        color: rgb($text, 1);
+      }
     }
   }
 </style>
