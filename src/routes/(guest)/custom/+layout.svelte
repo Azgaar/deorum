@@ -1,4 +1,8 @@
-<main>
+<script lang="ts">
+  import { fade } from 'svelte/transition';
+</script>
+
+<main aria-label="custom character layout" transition:fade>
   <slot />
 </main>
 

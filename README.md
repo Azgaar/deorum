@@ -1,6 +1,6 @@
 # Deorum
 
-Deorum is your source for customizable unique fantasy characters for D&D and worldbuilding projects. Created and maintained by Azgaar and contributors.
+Deorum is a source for customizable fantasy characters for D&D and worldbuilding projects. Created and maintained by Azgaar and contributors.
 
 Link: [deorum.vercel.app](https://deorum.vercel.app/).
 

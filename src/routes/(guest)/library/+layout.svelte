@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition';
 </script>
 
-<main transition:fade>
+<main aria-label="library layout" transition:fade>
   <slot />
 </main>
 

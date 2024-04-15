@@ -63,6 +63,7 @@ const createSidebarLinks: {[key: string]: (data: TNavlinksData) => ILink[]} = {
     { id: 'howToUse', key: 'common.navigation.howToUse', to: 'https://www.youtube.com/watch?v=86VuBFaPZ18' },
     { id: 'terms', key: 'common.navigation.terms', to: '/terms' },
     { id: 'discord', key: 'common.navigation.discord', to: 'https://discordapp.com/invite/X7E84HU' },
+    { id: 'github', key: 'common.navigation.github', to: 'https://github.com/Azgaar/deorum' },
     { id: 'donate', key: 'common.navigation.donate', to: 'https://www.patreon.com/azgaar', roles: [Role.GUEST, Role.USER] },
     { id: 'admin', key: 'common.navigation.admin', to: '/admin/portraits', roles: [Role.ADMIN] },
     { id: 'logout', key: 'common.auth.logout', to: '/logout', roles: [Role.USER, Role.ADMIN] }
