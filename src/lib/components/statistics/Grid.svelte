@@ -19,6 +19,9 @@
     | 'archetypes'
     | 'backgrounds';
   export let module: 'admin' | 'common' = 'admin';
+
+  const total = data.statistics.reduce((acc, stats) => acc + stats.count, 0);
+  const countPercentage = (value: number) => ((value / total) * 100).toFixed(1);
 </script>
 
 <div class="container">
@@ -26,7 +29,7 @@
     <div class="item">
       {#if stats.name}<div class="name">{$t(`${module}.${type}.${stats.name}`)}</div>{/if}
       {#if stats.image}<img src={stats.image} alt={stats.name} />{/if}
-      <div>{stats.count}</div>
+      <div>{stats.count} <small>({countPercentage(stats.count)}%)</small></div>
     </div>
   {/each}
 </div>
@@ -58,6 +61,10 @@
       img {
         width: 40%;
         aspect-ratio: 1;
+      }
+
+      small {
+        font-size: 0.6em;
       }
     }
   }
