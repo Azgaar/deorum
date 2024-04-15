@@ -99,6 +99,7 @@
       font-size: 13px;
       font-weight: 300;
       letter-spacing: 0.1px;
+      color: rgb($text, 0.9);
 
       position: absolute;
       left: 0;
