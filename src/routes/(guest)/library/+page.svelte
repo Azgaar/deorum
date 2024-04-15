@@ -80,85 +80,93 @@
 />
 
 <div class="wrapper" aria-label="library content">
-  <section aria-label="custom characters">
-    <header>
-      <h2>{$t('common.library.custom.title')} ({custom.length})</h2>
-      <button on:click={handleCreate}>
-        {$t('common.library.custom.create')}
-      </button>
-    </header>
-
-    {#if custom.length === 0}
-      <p class="empty">{$t('common.library.custom.empty')}</p>
-    {:else}
-      <div class="grid">
-        {#each custom as item (item.id)}
-          <Card {item} actionable />
-        {/each}
-      </div>
-    {/if}
-  </section>
-
-  {#if uploaded.length > 0}
-    <section aria-label="uploaded characters">
+  <div class="content">
+    <section aria-label="custom characters">
       <header>
-        <h2>{$t('common.library.uploaded.title')} ({uploaded.length})</h2>
+        <h2>{$t('common.library.custom.title')} <small>({custom.length})</small></h2>
+        <button on:click={handleCreate}>
+          {$t('common.library.custom.create')}
+        </button>
       </header>
 
-      <div class="grid">
-        {#each uploaded as portrait (portrait.id)}
-          <figure class="uploadedPortrait">
-            <div>
-              <Picture
-                src={`${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}`}
-                alt="Uploaded portrait"
-              />
-
-              <Actions>
-                <div slot="top-right">
-                  <ActionButton
-                    onClick={() => handleRemoveUploaded(portrait.id)}
-                    title={$t('common.library.uploaded.remove')}
-                  >
-                    <Trash width={26} />
-                  </ActionButton>
-                </div>
-              </Actions>
-            </div>
-          </figure>
-        {/each}
-      </div>
+      {#if custom.length === 0}
+        <p class="empty">{$t('common.library.custom.empty')}</p>
+      {:else}
+        <div class="grid">
+          {#each custom as item (item.id)}
+            <Card {item} actionable />
+          {/each}
+        </div>
+      {/if}
     </section>
-  {/if}
 
-  <section aria-label="liked characters">
-    <header>
-      <h2>{$t('common.library.liked.title')} ({liked.length})</h2>
-      <a href="/gallery" data-sveltekit-preload-data={'hover'}>
-        {$t('common.library.liked.goToGallery')}
-      </a>
-    </header>
+    {#if uploaded.length > 0}
+      <section aria-label="uploaded characters">
+        <header>
+          <h2>{$t('common.library.uploaded.title')} <small>({uploaded.length})</small></h2>
+        </header>
 
-    {#if liked.length === 0}
-      <p class="empty">{$t('common.library.liked.empty')}</p>
-    {:else}
-      <div class="grid">
-        {#each liked as item (item.id)}
-          <Card {item} actionable />
-        {/each}
-      </div>
+        <div class="grid">
+          {#each uploaded as portrait (portrait.id)}
+            <figure class="uploadedPortrait">
+              <div>
+                <Picture
+                  src={`${PORTRAITS_IMAGE_PATH}/${portrait.id}/${portrait.image}`}
+                  alt="Uploaded portrait"
+                />
+
+                <Actions>
+                  <div slot="top-right">
+                    <ActionButton
+                      onClick={() => handleRemoveUploaded(portrait.id)}
+                      title={$t('common.library.uploaded.remove')}
+                    >
+                      <Trash width={26} />
+                    </ActionButton>
+                  </div>
+                </Actions>
+              </div>
+            </figure>
+          {/each}
+        </div>
+      </section>
     {/if}
-  </section>
+
+    <section aria-label="liked characters">
+      <header>
+        <h2>{$t('common.library.liked.title')} <small>({liked.length})</small></h2>
+        <a href="/gallery" data-sveltekit-preload-data={'hover'}>
+          {$t('common.library.liked.goToGallery')}
+        </a>
+      </header>
+
+      {#if liked.length === 0}
+        <p class="empty">{$t('common.library.liked.empty')}</p>
+      {:else}
+        <div class="grid">
+          {#each liked as item (item.id)}
+            <Card {item} actionable />
+          {/each}
+        </div>
+      {/if}
+    </section>
+  </div>
 </div>
 
 {#if editor.isOpen}<CharacterEditorDialog {...editor} bind:isOpen={editor.isOpen} />{/if}
 
 <style lang="scss">
   div.wrapper {
-    padding: 16px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    padding: 8px 24px;
+
+    div.content {
+      padding: 8px;
+      background: rgba($on-surface, 0.7);
+
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
     header {
       display: flex;
@@ -173,6 +181,10 @@
         font-weight: 400;
         text-shadow: 0px 0px 6px black;
         margin: 0;
+
+        small {
+          font-size: 0.6em;
+        }
       }
 
       button,
