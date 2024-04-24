@@ -10,6 +10,7 @@ export const deriveCharacterLabel = (character: ICharacter): string => {
 
   const elements = {
     name: name || t.get('common.character.unnamed'),
+    likes: (character.likes?.length || 0) + '❤️',
     race: race?.name ? t.get(`common.races.${race.name}`) : null,
     gender: gender ? t.get(`common.genders.${gender}`) : null,
     archetype: archetype ? t.get(`common.archetypes.${archetype.name}`) : null,
@@ -17,9 +18,7 @@ export const deriveCharacterLabel = (character: ICharacter): string => {
     age: age || null
   };
 
-  return Object.values(elements)
-    .filter((value) => value)
-    .join(', ');
+  return Object.values(elements).filter(Boolean).join(' ');
 };
 
 const file = (issue: string) => {
