@@ -8,7 +8,8 @@
   export let item: IGalleryItem;
 
   const handleEmbedClick = () => {
-    const url = `${window.location.origin}/embed/${item.id}`;
+    const isCustom = Boolean(item.creator);
+    const url = `${window.location.origin}/embed/${isCustom ? 'custom/' : ''}${item.id}`;
     const frame = `<iframe src="${url}" width="375" height="600" frameborder="0"></iframe>`;
 
     navigator.clipboard.writeText(frame).then(
