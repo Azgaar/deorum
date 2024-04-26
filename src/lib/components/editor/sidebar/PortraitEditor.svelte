@@ -58,6 +58,7 @@
 
   $: isConvertable = isConvertableFormat(image);
   $: originalName = originals.get(current.original)?.name;
+  $: originalImage = originals.get(current.original)?.image;
   let characters: ICharacter[] = [];
 
   const fetchCharacters = async (characterIds: string[]) => {
@@ -266,7 +267,12 @@
       <div>{$t('admin.editor.original')}:</div>
       <div class="grid column2">
         {#key originalName}
-          <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
+          <div class="flex">
+            <a href={originalImage} target="_blank">
+              <img src={originalImage} alt="original" />
+            </a>
+            <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
+          </div>
         {/key}
         <EditButton onClick={handleOriginalChange} />
       </div>
@@ -472,6 +478,23 @@
 
         div.column2 {
           grid-template-columns: 3fr 2fr;
+        }
+
+        div.flex {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          a {
+            height: 20px;
+            width: 20px;
+
+            img {
+              border-radius: 50%;
+              height: 20px;
+              width: 20px;
+            }
+          }
         }
 
         div.loadingPlaceholder {
