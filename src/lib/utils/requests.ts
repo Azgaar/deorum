@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
-import type { HttpMethod } from '@sveltejs/kit/types/private';
+import type { HttpMethod } from '@sveltejs/kit';
+import { readDataStream } from 'ai';
 
 const defaultHeaders = {
   'content-type': 'application/json',
@@ -42,10 +43,12 @@ export const stream = async (
   onData: (dataChunk: string) => void,
   onComplete: () => void
 ) => {
+  const abortController = new AbortController();
   const options: RequestInit = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    signal: abortController.signal
   };
 
   const res = await fetch(url, options);
@@ -55,21 +58,17 @@ export const stream = async (
   if (!body) return null;
 
   const reader = body.getReader();
-  const decoder = new TextDecoder();
 
-  const read = async () => {
-    const { value, done } = await reader.read();
-    if (done) {
-      onComplete();
-      return;
+  for await (const { type, value } of readDataStream(reader)) {
+    if (type === 'error') {
+      abortController.abort();
+      return false;
     }
+    if (abortController.signal.aborted) return false;
+    if (type === 'text') onData(value);
+  }
 
-    const chunkValue = decoder.decode(value);
-    onData(chunkValue);
-    read();
-  };
-  await read();
-
+  onComplete();
   return true;
 };
 

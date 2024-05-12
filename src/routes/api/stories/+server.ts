@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({ request }) => {
     await client.records.update('profiles', user.profile.id, { coins: coinsLeft - price });
 
     log('story', 'Generating story', { model, prompt });
-    return new StreamingTextResponse(result.textStream);
+    return new StreamingTextResponse(result.toAIStream());
   } catch (err) {
     report('story', err);
     throw createServerError(err);
