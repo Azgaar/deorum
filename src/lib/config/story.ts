@@ -1,13 +1,61 @@
-export const models = [
-  {
-    key: 'gpt-3.5-turbo',
-    label: 'GPT-3.5',
-    description: 'common.models.description.gpt-3.5-turbo'
-  },
-  { key: 'gpt-4', label: 'GPT-4', description: 'common.models.description.gpt-4' }
-];
+export type Model =
+  | 'gpt-3.5-turbo'
+  | 'gpt-4-turbo'
+  | 'gpt-4'
+  | 'claude-3-sonnet-20240229'
+  | 'claude-3-opus-20240229'
+  | 'llama3-70b-8192';
 
-export const SYSTEM_PROMPT = `I want you to act as a novelist. Your aim is to write a creative fantasy story that has an outstanding plotline, engaging characters and unexpected climaxes. Avoid cliches and typos. Write in present tense.`;
+type ModelConfig = {
+  provider: 'openai' | 'anthropic' | 'groq';
+  label: string;
+  description: string;
+  price: number;
+};
+
+export const models: Record<Model, ModelConfig> = {
+  'gpt-3.5-turbo': {
+    provider: 'openai',
+    label: 'GPT-3.5',
+    description: 'common.models.description.gpt-3.5-turbo',
+    price: 1
+  },
+  'gpt-4-turbo': {
+    provider: 'openai',
+    label: 'GPT-4 Turbo',
+    description: 'common.models.description.gpt-4-turbo',
+    price: 10
+  },
+  'gpt-4': {
+    provider: 'openai',
+    label: 'GPT-4',
+    description: 'common.models.description.gpt-4',
+    price: 20
+  },
+  'claude-3-sonnet-20240229': {
+    provider: 'anthropic',
+    label: 'Claude 3 Sonnet',
+    description: 'common.models.description.claude-3-sonnet',
+    price: 5
+  },
+  'claude-3-opus-20240229': {
+    provider: 'anthropic',
+    label: 'Claude 3 Opus',
+    description: 'common.models.description.claude-3-opus',
+    price: 25
+  },
+  'llama3-70b-8192': {
+    provider: 'groq',
+    label: 'Llama 3 70B Groq',
+    description: 'common.models.description.llama-3-70b',
+    price: 0
+  }
+};
+
+export const DEFAULT_MODEL: Model = 'gpt-3.5-turbo';
+
+export const SYSTEM_PROMPT =
+  'Act as a fantasy writer. Your aim is to write a creative story that has an outstanding plotline and unexpected climaxes. Avoid cliches and typos. Invent details, names and places as you want. Make each character unique. Write in present tense.';
 
 export const sections = [
   { name: 'family origin', chance: 0.5, excludes: ['unusual family origin'] },

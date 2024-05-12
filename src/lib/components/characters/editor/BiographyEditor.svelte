@@ -6,8 +6,7 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { KEYS } from '$lib/config';
-  import { GENERATE_BIO_PRICE } from '$lib/config/coins';
-  import { models } from '$lib/config/story';
+  import { DEFAULT_MODEL, models, type Model } from '$lib/config/story';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
   import type { ICharacter } from '$lib/types/api.types';
@@ -21,7 +20,8 @@
   let isLoading = false;
   let showPrompt = false;
   let prompt = '';
-  let model = models[0].key;
+  let model = (localStorage?.getItem('deorum-bio-model') || DEFAULT_MODEL) as Model;
+  $: price = models[model].price;
 
   const togglePrompt = () => {
     if (showPrompt) {
@@ -40,9 +40,14 @@
     );
   };
 
+  const handleModelChange = (value: string) => {
+    model = value;
+    localStorage.setItem('deorum-bio-model', value);
+  };
+
   const generateBio = async () => {
     const coinsLeft = $page.data.coins;
-    if (!coinsLeft || coinsLeft < GENERATE_BIO_PRICE) return openGetCoinsDialog(coinsLeft);
+    if (!coinsLeft || coinsLeft < price) return openGetCoinsDialog(coinsLeft);
 
     try {
       isLoading = true;
@@ -85,8 +90,7 @@
       {:else}
         <IconButton
           onClick={generateBio}
-          title={$t('common.details.editor.bio.generate', { variable: GENERATE_BIO_PRICE })}
-          >🎲</IconButton
+          title={$t('common.details.editor.bio.generate', { variable: price })}>🎲</IconButton
         >
       {/if}
     </div>
@@ -96,13 +100,17 @@
     {#if showPrompt}
       <div>
         <textarea bind:value={prompt} />
-        <div class="modelSelect">
+        <div style="flex: 0;">
           <Select
-            bind:value={model}
-            options={models.map(({ key, label, description }) => [
+            value={model}
+            options={Object.entries(models).map(([key, { label, price, description }]) => [
               key,
-              `${label} (${$t(description)})`
+              `${label}. ${$t(description)}. ${$t('common.details.editor.bio.price', {
+                variable: price
+              })}`
             ])}
+            onChange={handleModelChange}
+            style="border-radius: 4px;"
           />
         </div>
       </div>
@@ -148,6 +156,7 @@
         position: relative;
         display: flex;
         flex-direction: column;
+        gap: 4px;
 
         textArea {
           flex: 1;
@@ -162,12 +171,6 @@
           font-size: 14px;
           color: #dee7ea;
           line-height: 1.3;
-        }
-
-        .modelSelect {
-          position: absolute;
-          bottom: 0;
-          width: 100%;
         }
       }
     }

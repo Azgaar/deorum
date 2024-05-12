@@ -10,7 +10,7 @@
   import Metatags from '$lib/components/metatags/Metatags.svelte';
   import Picture from '$lib/components/picture/Picture.svelte';
   import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { GENERATE_BIO_PRICE } from '$lib/config/coins';
+  import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
   import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
@@ -35,7 +35,7 @@
 
   const handleCreate = async () => {
     const coinsLeft = $page.data.coins;
-    if (!coinsLeft || coinsLeft < GENERATE_BIO_PRICE) return openGetCoinsDialog(coinsLeft);
+    if (!coinsLeft || coinsLeft < UPLOAD_PORTRAIT_PRICE) return openGetCoinsDialog(coinsLeft);
 
     try {
       const [racesArray, archetypesArray, backgroundsArray, tagsArray] = await Promise.all([

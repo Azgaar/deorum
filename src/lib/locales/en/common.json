@@ -294,6 +294,7 @@
       },
       "bio": {
         "copy": "Copy biography",
+        "price": "Generation price: {{ variable }} coins",
         "generate": "Generate biography. Price: {{ variable }} coins",
         "configurePrompt": "Configure generation prompt"
       },
@@ -328,8 +329,12 @@
   },
   "models": {
     "description": {
-      "gpt-4": "creative, slow, expensive",
-      "gpt-3.5-turbo": "repetitive, fast, cheap"
+      "gpt-3.5-turbo": "Effective OpenAI model with a good balance of quality and speed",
+      "gpt-4-turbo": "Upgraded OpenAI model with a better quality and speed",
+      "gpt-4": "The latest OpenAI model with the best quality, but slower than the others",
+      "claude-3-sonnet": "Fast Anthropic model with a good quality",
+      "claude-3-opus": "Top-notch Anthropic model with the best quality",
+      "llama-3-70b": "Very fast open source model by Facebook, API is provided for free by Groq"
     }
   },
   "encounter": {

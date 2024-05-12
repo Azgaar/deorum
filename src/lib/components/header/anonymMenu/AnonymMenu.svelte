@@ -8,7 +8,6 @@
   let collapsed = true;
 
   const toggleMenu = () => {
-    console.log('toggleMenu');
     collapsed = !collapsed;
   };
 

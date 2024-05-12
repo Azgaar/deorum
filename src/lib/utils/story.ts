@@ -34,17 +34,17 @@ export const createBasicPrompt = (character: ICharacter, tags: Map<string, { nam
   const tagList = getTags(character, tags);
   const sections = selectSections().join(', ');
 
-  const intro = 'Write a realistic biography of a living character';
+  const intro = 'Write a realistic biography of a living fantasy character';
   const specie = `${d.gender} ${d.race}`.trim();
   const part1 = [specie, d.age].filter((v) => v).join(', ');
   const part2 = [d.name, d.archetype, d.background].filter((v) => v).join('. ');
   const tag = tagList.length ? `Tags: ${tagList.join(', ')}` : '';
-  const section = `Possible sections (don't follow strictly): ${sections}. Remove section titles, and other sections on your choice`;
-  const outro = `Detailed factual description of a ${d.race} character.`;
+  const section = `Sections example: ${sections}. Remove section titles, and other sections on your choice`;
+  const outro = `Detailed dry and factual description of a ${d.race} character.`;
 
   const prompt = [intro, part1, part2, tag, section, outro]
-    .filter((v) => v)
-    .map((part) => capitalize(part))
+    .filter(Boolean)
+    .map(capitalize)
     .join('. ');
 
   return prompt;
