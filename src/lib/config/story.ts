@@ -1,10 +1,13 @@
 export type Model =
+  | 'gpt-4o'
   | 'gpt-3.5-turbo'
   | 'gpt-4-turbo'
   | 'gpt-4'
   | 'claude-3-sonnet-20240229'
   | 'claude-3-opus-20240229'
   | 'llama3-70b-8192';
+
+export const DEFAULT_MODEL: Model = 'gpt-3.5-turbo';
 
 type ModelConfig = {
   provider: 'openai' | 'anthropic' | 'groq';
@@ -14,11 +17,11 @@ type ModelConfig = {
 };
 
 export const models: Record<Model, ModelConfig> = {
-  'gpt-3.5-turbo': {
+  'gpt-4o': {
     provider: 'openai',
-    label: 'GPT-3.5',
-    description: 'common.models.description.gpt-3.5-turbo',
-    price: 1
+    label: 'GPT-4o',
+    description: 'common.models.description.gpt-4o',
+    price: 5
   },
   'gpt-4-turbo': {
     provider: 'openai',
@@ -31,6 +34,12 @@ export const models: Record<Model, ModelConfig> = {
     label: 'GPT-4',
     description: 'common.models.description.gpt-4',
     price: 20
+  },
+  'gpt-3.5-turbo': {
+    provider: 'openai',
+    label: 'GPT-3.5',
+    description: 'common.models.description.gpt-3.5-turbo',
+    price: 1
   },
   'claude-3-sonnet-20240229': {
     provider: 'anthropic',
@@ -51,8 +60,6 @@ export const models: Record<Model, ModelConfig> = {
     price: 0
   }
 };
-
-export const DEFAULT_MODEL: Model = 'gpt-3.5-turbo';
 
 export const SYSTEM_PROMPT =
   'Act as a fantasy writer. Your aim is to write a creative story that has an outstanding plotline and unexpected climaxes. Avoid cliches and typos. Invent details, names and places as you want. Make each character unique. Write in present tense.';
