@@ -1,12 +1,11 @@
 import { authorize } from '$lib/api/auth';
-import { getFullList } from '$lib/api/getData';
+import { getCachedList } from '$lib/cache/cacheInstance';
 import { Role } from '$lib/config';
+import type { IProfile } from '$lib/types/api.types';
 import { createServerError } from '$lib/utils/errors';
 import { report } from '$lib/utils/log';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import type { IProfile } from '$lib/types/api.types';
-import { getCachedList } from '$lib/cache/cacheInstance';
 
 export const GET: RequestHandler = async ({ url, request }) => {
   try {

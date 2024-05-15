@@ -1,12 +1,11 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { goto } from '$app/navigation';
   import BasicButton from '$lib/components/buttons/BasicButton.svelte';
   import AdminEditorDialog from '$lib/components/characters/editor/admin/AdminEditorDialog.svelte';
   import SelectCharacterDialog from '$lib/components/characters/editor/admin/SelectCharacterDialog.svelte';
-  import AdminMenu from '$lib/components/editor/sidebar/AdminMenu.svelte';
   import GenericDialog from '$lib/components/editor/genericDialog/GenericDialog.svelte';
   import OriginalsDialog from '$lib/components/editor/originalsDialog/OriginalsDialog.svelte';
+  import AdminMenu from '$lib/components/editor/sidebar/AdminMenu.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import SidePane from '$lib/components/editor/sidebar/SidePane.svelte';
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
@@ -320,6 +319,8 @@
 
 <section
   class="gallery"
+  role="button"
+  tabindex="0"
   on:click={handleClick}
   on:keydown={handleClick}
   on:mousedown={() => (isMouseDown = true)}
@@ -372,7 +373,7 @@
         {$t('admin.menu.dashboard')}
       </BasicButton>
 
-      <BasicButton href="./characters" }>
+      <BasicButton href="./characters">
         {$t('admin.menu.characters')}
       </BasicButton>
 

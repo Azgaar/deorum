@@ -24,12 +24,14 @@
     "colors": "Цвета",
     "tags": "Ярлыки",
     "styles": "Стили",
+    "description": "Описание",
     "characters": "Персонажи",
     "character": "персонаж",
     "loadMore": "Загрузить ещё",
     "convertImage": "Оптимизировать",
     "hasCharacters": "С персонажами",
-    "changePortrait": "Изменить портрет"
+    "changePortrait": "Изменить портрет",
+    "generate": "Сгенерировать"
   },
   "dashboard": {
     "mostLikedCharacters": "Наиболее популярные персонажи",

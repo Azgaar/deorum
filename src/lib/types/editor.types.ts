@@ -29,7 +29,8 @@ export const changeableKeys = [
   'styles',
   'colors',
   'tags',
-  'characters'
+  'characters',
+  'description'
 ] as const;
 export type TChangeableKey = (typeof changeableKeys)[number];
 

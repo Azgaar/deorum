@@ -42,6 +42,7 @@ export interface IPortrait extends IRecord {
   colors: string[];
   quality: number;
   characters: string[];
+  description?: string;
 
   '@expand': {
     original?: IOriginal;

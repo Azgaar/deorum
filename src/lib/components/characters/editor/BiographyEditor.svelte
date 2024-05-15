@@ -41,7 +41,7 @@
   };
 
   const handleModelChange = (value: string) => {
-    model = value;
+    model = value as Model;
     localStorage.setItem('deorum-bio-model', value);
   };
 

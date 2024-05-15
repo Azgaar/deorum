@@ -1,8 +1,8 @@
-import webp from 'webp-converter';
 import type { RequestHandler } from '@sveltejs/kit';
+import webp from 'webp-converter';
 
-import { log, report } from '$lib/utils/log';
 import { createServerError } from '$lib/utils/errors';
+import { log, report } from '$lib/utils/log';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const percent = Math.round((newSize / oldSize) * 100);
 
     log(
-      'images',
+      'convert',
       `Converted ${imageType} to webp. Size reduced from ${oldSize.toFixed(2)} to ${newSize.toFixed(
         2
       )} kb (${percent}%)`
@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     return new Response(output, { headers: { 'Content-Type': 'image/webp' } });
   } catch (err) {
-    report('images', err);
+    report('convert', err);
     throw createServerError(err);
   }
 };

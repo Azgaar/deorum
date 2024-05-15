@@ -23,13 +23,15 @@
     "quality": "Quality",
     "colors": "Colors",
     "tags": "Tags",
+    "description": "Description",
     "styles": "Styles",
     "characters": "Characters",
     "character": "character",
     "loadMore": "Load More",
     "convertImage": "Optimize image",
     "hasCharacters": "Has characters",
-    "changePortrait": "Replace portrait"
+    "changePortrait": "Replace portrait",
+    "generate": "Generate"
   },
   "dashboard": {
     "mostLikedCharacters": "Most liked characters",

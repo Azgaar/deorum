@@ -13,7 +13,7 @@
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
   import { getChanges } from '$lib/utils/portraits';
-  import { request, sendFormData } from '$lib/utils/requests';
+  import { request, sendFormData, stream } from '$lib/utils/requests';
   import EditButton from '../EditButton.svelte';
 
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
@@ -113,11 +113,19 @@
       characters = characters.filter(({ id }) => id !== characterId);
     };
 
-    if (characterToEdit) openEditCharacterDialog(characterToEdit, onSubmit, onDelete);
-    else {
-      const character = makePOJO(blankCharacter);
-      character.tags = current.tags;
-      openEditCharacterDialog(character, onSubmit, onDelete);
+    if (characterToEdit) {
+      openEditCharacterDialog(characterToEdit, onSubmit, onDelete);
+    } else {
+      const newCharacter = {
+        ...blankCharacter,
+        tags: current.tags,
+        portraits: [current.id],
+        '@expand': {
+          portraits: [current]
+        }
+      };
+      console.log('characterToEdit', newCharacter);
+      openEditCharacterDialog(newCharacter, onSubmit, onDelete);
     }
   };
 
@@ -136,9 +144,35 @@
 
   const handleValueChange = (attribute: TChangeableKey) => (value: number | string) => {
     if (value !== current[attribute]) {
-      (current[attribute] as string | number) = value;
+      current[attribute] = value as never;
       isChanged = true;
     }
+  };
+
+  const handleDescriptionChange = (event: Event) => {
+    const input = event.target as HTMLTextAreaElement;
+    if (input.value !== current.description) {
+      current.description = input.value;
+      isChanged = true;
+    }
+  };
+
+  const handleDescriptionGeneration = async () => {
+    current.description = '';
+
+    const onData = (dataChunk: string) => {
+      current.description += dataChunk;
+    };
+
+    const onComplete = () => {
+      isChanged = true;
+      current.description = (current.description as string)
+        .trim()
+        .replace(/\.$/, '')
+        .replace(/^./, (c) => c.toLowerCase());
+    };
+
+    await stream('/api/images/describe', { url: image }, onData, onComplete);
   };
 
   const handleListEdit =
@@ -263,6 +297,18 @@
   </header>
 
   <main class="editor">
+    <div class="description">
+      <div>
+        <span>{$t('admin.editor.description')}:</span>
+        <EditButton
+          onClick={handleDescriptionGeneration}
+          label={$t('admin.editor.generate')}
+          icon="⚙️"
+        />
+      </div>
+      <textarea value={current.description} on:input={handleDescriptionChange} rows="5" />
+    </div>
+
     <div class="element">
       <div>{$t('admin.editor.original')}:</div>
       <div class="grid column2">
@@ -447,6 +493,7 @@
     }
 
     main {
+      flex: 1;
       overflow: auto;
       display: flex;
       flex-direction: column;
@@ -513,6 +560,27 @@
         align-items: baseline;
       }
 
+      div.description {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        div {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        textarea {
+          resize: vertical;
+          width: 100%;
+          padding: 0.4em;
+          background: rgba($secondary, 0.6);
+          border: 0;
+          border-radius: 16px;
+          outline: none;
+        }
+      }
+
       div.controls {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -538,10 +606,10 @@
     }
 
     footer {
+      flex: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      flex: 1;
       align-items: end;
     }
   }
