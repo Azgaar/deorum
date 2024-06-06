@@ -29,7 +29,7 @@ function exportPortrait(item: IGalleryItem) {
 async function exportCardImage(item: IGalleryItem) {
   let node = document.getElementById('characterCard');
   if (!node) {
-    await goto(`${item.creator ? '/library' : ''}/${item.id}`);
+    await goto(`${item.creator ? '/custom' : ''}/${item.id}`);
     node = document.getElementById('characterCard');
   }
   if (!node) throw new Error('Could not find character card node');
