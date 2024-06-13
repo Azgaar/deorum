@@ -52,6 +52,14 @@ export const isConvertableFormat = (src: string) => {
   return convertableMimeTypes.includes(type);
 };
 
+export const shouldBeResized = (src: string, size: number) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => resolve(img.width === size && img.height === size);
+  });
+};
+
 function fileToArrayBuffer(file: File): Promise<ArrayBuffer> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

@@ -10,6 +10,7 @@
     "findIssues": "Find Issues",
     "duplicates": "Duplicates",
     "misfits": "Misfits",
+    "unoptimized": "Unoptimized",
     "searchHint": "Scroll portraits to search for issues",
     "notFound": "not found",
     "openFound": "Open found",
@@ -32,6 +33,7 @@
     "character": "character",
     "loadMore": "Load More",
     "convertImage": "Optimize image",
+    "resizeImage": "Resize image",
     "hasCharacters": "Has characters",
     "changePortrait": "Replace portrait",
     "generate": "Generate"
@@ -323,7 +325,7 @@
     "uploaded": "Successfully uploaded",
     "changesSaved": "Changes are saved",
     "deleted": "Successfully deleted",
-    "converted": "Successfully optimized"
+    "updated": "Successfully updated"
   },
   "errors": {
     "selectOriginal": "Please select original image",

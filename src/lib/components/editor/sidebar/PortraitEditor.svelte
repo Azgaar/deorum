@@ -9,10 +9,15 @@
   import { toastError, toastSuccess } from '$lib/stores';
   import { isSameArray } from '$lib/utils/array';
   import { deriveCharacterLabel } from '$lib/utils/characters';
-  import { convertFile, convertImageUrl, isConvertableFormat } from '$lib/utils/images';
+  import {
+    convertFile,
+    convertImageUrl,
+    isConvertableFormat,
+    shouldBeResized
+  } from '$lib/utils/images';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
-  import { getChanges, resizeImageFile } from '$lib/utils/portraits';
+  import { getChanges, resizeImageFile, resizeImageUrl } from '$lib/utils/portraits';
   import { request, sendFormData, stream } from '$lib/utils/requests';
   import EditButton from '../EditButton.svelte';
 
@@ -56,7 +61,6 @@
   let isLoading = false;
   let isDeleteInitiated = false;
 
-  $: isConvertable = isConvertableFormat(image);
   $: originalName = originals.get(current.original)?.name;
   $: originalImage = originals.get(current.original)?.image;
   let characters: ICharacter[] = [];
@@ -255,17 +259,27 @@
 
       model.image = result.image;
       image = `${PORTRAITS_IMAGE_PATH}/${current.id}/${result.image}`;
-      toastSuccess($t('admin.success.converted'));
+      toastSuccess($t('admin.success.updated'));
     } catch (err) {
       report('editor', err, current);
       toastError(err);
     }
   };
 
-  const convertImage = async () => {
+  const handleConvertImage = async () => {
     try {
       const convertedFile = await convertImageUrl(image);
       await updateImage(convertedFile);
+    } catch (err) {
+      report('editor', err, current);
+      toastError(err);
+    }
+  };
+
+  const handleImageResize = async () => {
+    try {
+      const resizedFile = await resizeImageUrl(image, PORTRAIT_SIZE);
+      await updateImage(resizedFile);
     } catch (err) {
       report('editor', err, current);
       toastError(err);
@@ -301,6 +315,46 @@
   </header>
 
   <main class="editor">
+    {#if !isUploading}
+      <div class="controls">
+        {#if isConvertableFormat(image)}
+          <button on:click={handleConvertImage}>
+            {$t('admin.editor.convertImage')}
+          </button>
+        {/if}
+
+        {#await shouldBeResized(image, PORTRAIT_SIZE) then haveExpectedSize}
+          {#if !haveExpectedSize}
+            <button on:click={handleImageResize}>
+              {$t('admin.editor.resizeImage')}
+            </button>
+          {/if}
+        {/await}
+
+        <button on:click={() => document.getElementById('uploadPortraitInput')?.click()}>
+          {$t('admin.editor.changePortrait')}
+        </button>
+
+        <input
+          on:change={handlePortraitChange}
+          hidden
+          id="uploadPortraitInput"
+          type="file"
+          accept="image/webp, image/jpg, image/jpeg, image/png"
+        />
+
+        <button on:click={initiateDeletion}>
+          {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
+        </button>
+
+        {#if isDeleteInitiated}
+          <button on:click={triggerDeletion}>
+            {$t('common.controls.confirmDeletion', { variable: selectedImages })}
+          </button>
+        {/if}
+      </div>
+    {/if}
+
     <div class="description">
       <div>
         <span>{$t('admin.editor.description')}:</span>
@@ -310,20 +364,22 @@
           icon="⚙️"
         />
       </div>
-      <textarea value={current.description} on:input={handleDescriptionChange} rows="5" />
+      <textarea value={current.description || ''} on:input={handleDescriptionChange} rows="5" />
     </div>
 
     <div class="element">
       <div>{$t('admin.editor.original')}:</div>
       <div class="grid column2">
-        {#key originalName}
-          <div class="flex">
-            <a href={originalImage} target="_blank">
-              <img src={originalImage} alt="original" />
-            </a>
-            <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
-          </div>
-        {/key}
+        {#if originalImage}
+          {#key originalName}
+            <div class="flex">
+              <a href={originalImage} target="_blank">
+                <img src={originalImage} alt="original" />
+              </a>
+              <Label maxWidth="125px" label={{ name: originalName }} type="originals" />
+            </div>
+          {/key}
+        {/if}
         <EditButton onClick={handleOriginalChange} />
       </div>
     </div>
@@ -398,39 +454,6 @@
         <EditButton onClick={handleListEdit('styles', styles)} />
       </div>
     </div>
-
-    {#if !isUploading}
-      <div class="controls">
-        {#if isConvertable}
-          <button on:click={convertImage}>
-            {$t('admin.editor.convertImage')}
-          </button>
-        {/if}
-
-        <button on:click={() => document.getElementById('uploadPortraitInput')?.click()}>
-          {$t('admin.editor.changePortrait')}
-        </button>
-
-        <input
-          on:change={handlePortraitChange}
-          hidden
-          id="uploadPortraitInput"
-          type="file"
-          accept="image/webp, image/jpg, image/jpeg, image/png"
-        />
-
-        <button on:click={initiateDeletion}>
-          {isDeleteInitiated ? $t('common.controls.cancel') : $t('common.controls.delete')}
-        </button>
-
-        <button
-          on:click={triggerDeletion}
-          style={`visibility: ${isDeleteInitiated ? 'visible' : 'hidden'};`}
-        >
-          {$t('common.controls.confirmDeletion', { variable: selectedImages })}
-        </button>
-      </div>
-    {/if}
   </main>
 
   <footer>

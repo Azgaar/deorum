@@ -45,6 +45,12 @@ export function resizeImageFile(file: File, size: number) {
   });
 }
 
+export const resizeImageUrl = async (src: string, size: number) => {
+  const blob = await fetch(src).then((res) => res.blob());
+  const file = new File([blob], src.split('/').pop() as string, { type: blob.type });
+  return resizeImageFile(file, size);
+};
+
 export function getPatchData(changes: IChange[], portrait: IPortrait) {
   const tempItem = makePOJO(portrait);
 
