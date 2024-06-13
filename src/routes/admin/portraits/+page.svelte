@@ -395,8 +395,8 @@
         {$t('admin.menu.upload')}
       </BasicButton>
 
-      <BasicButton href="./portraits/duplicates">
-        {$t('admin.menu.duplicates')}
+      <BasicButton href="./portraits/analysis">
+        {$t('admin.menu.findIssues')}
       </BasicButton>
 
       <BasicButton href="./portraits/statistics">

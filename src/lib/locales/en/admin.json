@@ -7,9 +7,12 @@
     "portraits": "Portraits",
     "upload": "Upload Images",
     "statistics": "Statistics",
-    "duplicates": "Find duplicates",
-    "duplicatesHint": "Scroll portraits to search for duplicates",
-    "openDuplicates": "Open duplicates",
+    "findIssues": "Find Issues",
+    "duplicates": "Duplicates",
+    "misfits": "Misfits",
+    "searchHint": "Scroll portraits to search",
+    "notFound": "not found",
+    "openFound": "Open found",
     "hint": {
       "portraits": "Select a portrait to edit it. Drag to select multiple portraits",
       "characters": "Select a character to edit it. Drag to select multiple characters"
