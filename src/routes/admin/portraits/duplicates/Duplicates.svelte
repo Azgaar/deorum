@@ -5,10 +5,7 @@
   import { PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { t } from '$lib/locales/translations';
 
-  export let duplicates: {
-    id: string;
-    image: string;
-  }[];
+  export let duplicates: { id: string; image: string }[];
 
   const openDuplicates = () => {
     const duplicateIds = duplicates.map(({ id }) => `id="${id}"`).join(' || ');
@@ -30,7 +27,7 @@
 
   <main class="grid">
     {#each duplicates as { id, image } (id)}
-      <figure>
+      <figure data-id={id}>
         <img loading="lazy" alt={id} src={getSrc(id, image)} />
       </figure>
     {/each}

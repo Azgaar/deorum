@@ -10,20 +10,27 @@
 
   let { portraitData } = data;
   let duplicates: TPortrait[] = [];
-  const sizeMap: { [key: number]: TPortrait[] } = {};
+  const hashMap: { [hash: string]: TPortrait[] } = {};
 
   const handleLoad = (portrait: TPortrait) => async (event: Event) => {
     const src = (event.target as HTMLImageElement)?.src;
     const res = await fetch(src);
-    const contentLength = res.headers.get('content-length');
-    const size = contentLength ? parseInt(contentLength, 10) : null;
-    if (!size) return;
+    const image = await res.blob();
 
-    sizeMap[size] = [...(sizeMap[size] || []), portrait];
+    const hashBuffer = await crypto.subtle.digest('SHA-256', await image.arrayBuffer());
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+    console.info('Image', portrait.image, hashHex);
 
-    const sameSizePortraits = sizeMap[size];
-    if (sameSizePortraits.length === 2) duplicates = [...duplicates, ...sizeMap[size]];
-    else if (sameSizePortraits.length > 2) duplicates = [...duplicates, portrait];
+    if (hashMap[hashHex]) {
+      hashMap[hashHex].push(portrait);
+
+      duplicates = Object.values(hashMap)
+        .filter((portraits) => portraits.length > 1)
+        .flat();
+    } else {
+      hashMap[hashHex] = [portrait];
+    }
   };
 
   const getSrc = (id: string, image: string) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
