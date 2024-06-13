@@ -3,7 +3,7 @@
   import Chip from '$lib/components/editor/chips/Chip.svelte';
   import QualityInput from '$lib/components/inputs/QualityInput.svelte';
   import Label from '$lib/components/label/Label.svelte';
-  import { PORTRAITS_IMAGE_PATH, charactersConfig } from '$lib/config';
+  import { PORTRAITS_IMAGE_PATH, PORTRAIT_SIZE, charactersConfig } from '$lib/config';
   import { blankCharacter } from '$lib/data/characters';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
@@ -12,7 +12,7 @@
   import { convertFile, convertImageUrl, isConvertableFormat } from '$lib/utils/images';
   import { log, report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
-  import { getChanges } from '$lib/utils/portraits';
+  import { getChanges, resizeImageFile } from '$lib/utils/portraits';
   import { request, sendFormData, stream } from '$lib/utils/requests';
   import EditButton from '../EditButton.svelte';
 
@@ -264,27 +264,31 @@
 
   const convertImage = async () => {
     try {
-      const imageFile = await convertImageUrl(image);
-      updateImage(imageFile);
+      const convertedFile = await convertImageUrl(image);
+      await updateImage(convertedFile);
     } catch (err) {
       report('editor', err, current);
       toastError(err);
     }
   };
 
-  const handlePortraitChange = (event: Event) => {
-    const input = event.target as HTMLInputElement;
-    if (!input.files) return;
-    const file = input.files[0];
+  const handlePortraitChange = async (event: Event) => {
+    try {
+      const input = event.target as HTMLInputElement;
+      if (!input.files) return;
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const imageFile = await convertFile(file);
-      await updateImage(imageFile);
+      const file = input.files[0];
+      if (!file.type.startsWith('image/'))
+        throw new Error('Invalid file type, only images are allowed');
+
+      const resizedFile = await resizeImageFile(file, PORTRAIT_SIZE);
+      const convertedFile = await convertFile(resizedFile);
+      await updateImage(convertedFile);
       handleClearSelection();
-    };
-
-    reader.readAsDataURL(file);
+    } catch (err) {
+      report('editor', err, current);
+      toastError(err);
+    }
   };
 </script>
 

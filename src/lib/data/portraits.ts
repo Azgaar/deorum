@@ -1,6 +1,6 @@
 import type { IPortrait } from '$lib/types/api.types';
 
-export const blackPortrait: IPortrait = {
+export const blankPortrait: IPortrait = {
   id: '',
   image: '',
   original: '',

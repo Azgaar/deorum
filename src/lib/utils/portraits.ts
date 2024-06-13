@@ -1,8 +1,8 @@
 import { unique } from '$lib/utils/array';
 import { makePOJO } from '$lib/utils/object';
 
-import { changeableKeys, type IChange, type TEditorData } from '$lib/types/editor.types';
 import type { IPortrait } from '$lib/types/api.types';
+import { changeableKeys, type IChange, type TEditorData } from '$lib/types/editor.types';
 
 export function createFormData(editorData: TEditorData) {
   const formData = new FormData();
@@ -17,6 +17,32 @@ export function createFormData(editorData: TEditorData) {
   }
 
   return formData;
+}
+
+export function resizeImageFile(file: File, size: number) {
+  return new Promise<File>((resolve) => {
+    const image = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+    image.onload = () => {
+      if (image.width === size && image.height === size) {
+        resolve(file);
+        return;
+      }
+
+      canvas.width = size;
+      canvas.height = size;
+
+      ctx.drawImage(image, 0, 0, size, size);
+      canvas.toBlob((blob) => {
+        const resizedFile = new File([blob as Blob], file.name, { type: file.type });
+        resolve(resizedFile);
+      }, file.type);
+    };
+
+    image.src = URL.createObjectURL(file);
+  });
 }
 
 export function getPatchData(changes: IChange[], portrait: IPortrait) {

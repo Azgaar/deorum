@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
   import Spinner from '$lib/components/spinner/Spinner.svelte';
+  import { PORTRAIT_SIZE } from '$lib/config';
+  import { fade } from 'svelte/transition';
 
   export let src: string;
   export let alt: string;
@@ -24,8 +25,8 @@
 </script>
 
 <div class="picture">
-  <svg class="placeholder" width="100%" viewBox="0 0 512 512">
-    <rect width="512" height="512" />
+  <svg class="placeholder" width="100%" viewBox={`0 0 ${PORTRAIT_SIZE} ${PORTRAIT_SIZE}`}>
+    <rect width={PORTRAIT_SIZE} height={PORTRAIT_SIZE} />
   </svg>
 
   {#key src}

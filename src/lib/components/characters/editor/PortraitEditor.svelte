@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { t } from '$lib/locales/translations';
+  import { invalidate } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import IconButton from '$lib/components/editor/IconButton.svelte';
+  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
+  import { KEYS, PORTRAITS_IMAGE_PATH, PORTRAIT_SIZE } from '$lib/config';
+  import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
+  import { t } from '$lib/locales/translations';
+  import { toastError } from '$lib/stores';
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
-  import { KEYS, PORTRAITS_IMAGE_PATH } from '$lib/config';
   import { getCharacterImage } from '$lib/utils/characters';
   import { convertImageFile } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
-  import { toastError } from '$lib/stores';
   import { sendFormData } from '$lib/utils/requests';
-  import { page } from '$app/stores';
-  import { invalidate } from '$app/navigation';
-  import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
-  import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import { fetchSimilar } from './loadSimilarPortraits';
-  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
 
   export let character: ICharacter;
   export let isPortraitPoolLoaded: boolean;
@@ -63,13 +63,17 @@
 
   async function uploadPortrait(file: File) {
     try {
+      if (!file.type.startsWith('image/'))
+        throw new Error('Invalid file type, only images are allowed');
+
       const { userId, coins } = $page.data;
       if (!userId) throw new Error('User not logged in');
       if (!coins || coins < UPLOAD_PORTRAIT_PRICE) return openGetCoinsDialog(coins);
 
       isLoading = true;
-      const formData = new FormData();
+
       const convertedImage = await convertImageFile(file);
+      const formData = new FormData();
       formData.set('user', userId);
       formData.set('image', convertedImage);
       const portrait = await sendFormData<IPortrait>('/api/portraits', formData, 'POST');
@@ -105,9 +109,9 @@
   }
 </script>
 
-<div class="portrait" on:drop={handleDrop} on:dragover={handleDragover}>
-  <svg class="placeholder" width="100%" viewBox="0 0 512 512">
-    <rect width="512" height="512" />
+<figure class="portrait" on:drop={handleDrop} on:dragover={handleDragover}>
+  <svg class="placeholder" width="100%" viewBox={`0 0 ${PORTRAIT_SIZE} ${PORTRAIT_SIZE}`}>
+    <rect width={PORTRAIT_SIZE} height={PORTRAIT_SIZE} />
   </svg>
 
   {#if src}
@@ -136,10 +140,10 @@
       </IconButton>
     {/if}
   </div>
-</div>
+</figure>
 
 <style lang="scss">
-  div.portrait {
+  figure.portrait {
     position: relative;
 
     svg.placeholder {

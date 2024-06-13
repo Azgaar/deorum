@@ -2,6 +2,7 @@ export const DESKTOP_LAYOUT_MIN_WIDTH = 600;
 
 export const URL = 'https://deorum.fly.dev';
 export const PORTRAITS_IMAGE_PATH = `${URL}/api/files/ovnifljz2gtnz5u`;
+export const PORTRAIT_SIZE = 512;
 
 export enum Role {
   ADMIN = 'admin',

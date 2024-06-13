@@ -8,8 +8,8 @@
   import AdminMenu from '$lib/components/editor/sidebar/AdminMenu.svelte';
   import PortraitEditor from '$lib/components/editor/sidebar/PortraitEditor.svelte';
   import SidePane from '$lib/components/editor/sidebar/SidePane.svelte';
-  import { PORTRAITS_IMAGE_PATH } from '$lib/config';
-  import { blackPortrait } from '$lib/data/portraits';
+  import { PORTRAITS_IMAGE_PATH, PORTRAIT_SIZE } from '$lib/config';
+  import { blankPortrait } from '$lib/data/portraits';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IList, IPortrait } from '$lib/types/api.types';
@@ -34,7 +34,7 @@
   import { debounce } from '$lib/utils/funtional';
   import { convertImageFile } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
-  import { createFormData, getPatchData } from '$lib/utils/portraits';
+  import { createFormData, getPatchData, resizeImageFile } from '$lib/utils/portraits';
   import { request, sendFormData } from '$lib/utils/requests';
   import GalleryImage from '../GalleryImage.svelte';
   import Grid from '../Grid.svelte';
@@ -86,14 +86,22 @@
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
 
-    uploaded = Array.from(input.files).map((file) => {
-      const id = Math.random().toString(36).slice(2, 9);
-      const src = URL.createObjectURL(file);
-      return { ...blackPortrait, id, file, src };
-    });
+    try {
+      uploaded = Array.from(input.files).map((file) => {
+        if (!file.type.startsWith('image/'))
+          throw new Error('Invalid file type, only images are allowed');
 
-    selected = uploaded.map((file) => file.id);
-    input.value = '';
+        const id = Math.random().toString(36).slice(2, 9);
+        const src = URL.createObjectURL(file);
+        return { ...blankPortrait, id, file, src };
+      });
+
+      selected = uploaded.map((file) => file.id);
+    } catch (err) {
+      toastError(err);
+    } finally {
+      input.value = '';
+    }
   };
 
   const handleClick = (e: Event) => {
@@ -260,9 +268,11 @@
   const createPostHandler = (): TPostHandler => async (editorData: TEditorData) => {
     try {
       const promises = uploaded.map(async ({ file }) => {
+        const resizedFile = await resizeImageFile(file, PORTRAIT_SIZE);
+        const convertedFile = await convertImageFile(resizedFile);
+
         const formData = createFormData(editorData);
-        const convertedImage = await convertImageFile(file);
-        formData.set('image', convertedImage);
+        formData.set('image', convertedFile);
         return sendFormData<IPortrait>('/api/portraits', formData, 'POST');
       });
 
