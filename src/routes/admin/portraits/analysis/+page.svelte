@@ -19,6 +19,7 @@
   let misfits: TPortrait[] = [];
 
   const handleLoad = (portrait: TPortrait) => async (event: Event) => {
+    console.info('Loaded image', portrait.id);
     const src = (event.target as HTMLImageElement)?.src;
     const res = await fetch(src);
     const image = await res.blob();
@@ -46,7 +47,9 @@
     }
   };
 
-  const getSrc = (id: string, image: string) => `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
+  const getSrc = (id: string, image: string) => {
+    return `${PORTRAITS_IMAGE_PATH}/${id}/${image}`;
+  };
 
   const handleOpenFound = (found: { id: string }[]) => {
     const ids = found.map(({ id }) => `id="${id}"`).join(' || ');
