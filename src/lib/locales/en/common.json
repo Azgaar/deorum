@@ -329,7 +329,8 @@
   },
   "models": {
     "description": {
-      "gpt-4o": "The newest OpenAI model with the best quality and very fast response",
+      "gpt-4o-mini": "The newest cheap OpenAI model with the best response speed",
+      "gpt-4o": "OpenAI model with the best quality and very fast response",
       "gpt-3.5-turbo": "Effective OpenAI model with a good balance of quality and speed",
       "gpt-4-turbo": "Upgraded OpenAI model with a better quality and speed",
       "gpt-4": "OpenAI model with the best quality, but slower than the others",

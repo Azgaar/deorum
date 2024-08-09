@@ -1,4 +1,5 @@
 export type Model =
+  | 'gpt-4o-mini'
   | 'gpt-4o'
   | 'gpt-3.5-turbo'
   | 'gpt-4-turbo'
@@ -7,7 +8,7 @@ export type Model =
   | 'claude-3-opus-20240229'
   | 'llama3-70b-8192';
 
-export const DEFAULT_MODEL: Model = 'gpt-3.5-turbo';
+export const DEFAULT_MODEL: Model = 'gpt-4o-mini';
 
 type ModelConfig = {
   provider: 'openai' | 'anthropic' | 'groq';
@@ -17,29 +18,35 @@ type ModelConfig = {
 };
 
 export const models: Record<Model, ModelConfig> = {
+  'gpt-4o-mini': {
+    provider: 'openai',
+    label: 'GPT-4o mini',
+    description: 'common.models.description.gpt-4o-mini',
+    price: 1 // 0.15$/1M tokens
+  },
   'gpt-4o': {
     provider: 'openai',
     label: 'GPT-4o',
     description: 'common.models.description.gpt-4o',
-    price: 5
+    price: 5 // 5$/1M tokens
   },
   'gpt-4-turbo': {
     provider: 'openai',
     label: 'GPT-4 Turbo',
     description: 'common.models.description.gpt-4-turbo',
-    price: 10
+    price: 10 // 10$/1M tokens
   },
   'gpt-4': {
     provider: 'openai',
     label: 'GPT-4',
     description: 'common.models.description.gpt-4',
-    price: 20
+    price: 30 // 10$/1M tokens
   },
   'gpt-3.5-turbo': {
     provider: 'openai',
     label: 'GPT-3.5',
     description: 'common.models.description.gpt-3.5-turbo',
-    price: 1
+    price: 1 // 3$/1M tokens
   },
   'claude-3-sonnet-20240229': {
     provider: 'anthropic',
