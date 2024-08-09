@@ -145,6 +145,7 @@
 <style lang="scss">
   figure.portrait {
     position: relative;
+    margin: 0;
 
     svg.placeholder {
       fill: $secondary;
