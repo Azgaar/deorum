@@ -402,6 +402,12 @@
       <BasicButton href="./portraits/statistics">
         {$t('admin.menu.statistics')}
       </BasicButton>
+
+      <BasicButton
+        href="https://deorum.fly.dev/_/#/collections?collectionId=ovnifljz2gtnz5u&filter=&sort=-created"
+      >
+        {$t('admin.menu.datatase')}
+      </BasicButton>
     </AdminMenu>
   {/if}
 
