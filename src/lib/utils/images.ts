@@ -1,4 +1,5 @@
 import { convertableMimeTypes, defaultFileName } from '$lib/config';
+import type { ICharacter } from '$lib/types/api.types';
 
 export const convertImageFile = async (file: File) => {
   if (!convertableMimeTypes.includes(file.type)) return file;
@@ -68,3 +69,21 @@ function fileToArrayBuffer(file: File): Promise<ArrayBuffer> {
     reader.readAsArrayBuffer(file);
   });
 }
+
+export const createImagePrompt = (character: ICharacter) => {
+  const { name, gender, age } = character;
+  const { race, archetype, background } = character['@expand'];
+
+  const data = [
+    name || null,
+    gender || null,
+    race ? race.name : '',
+    age ? `${age} years old` : null,
+    archetype ? `archetype: ${archetype.name}` : null,
+    background ? `background: ${background.name}` : null
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  return `Portrait of a fantasy character: ${data}. Azgaar style. Digital painting, centered, intricate, top quality, 4K`;
+};

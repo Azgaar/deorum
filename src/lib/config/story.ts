@@ -1,4 +1,4 @@
-export type Model =
+export type StoryModel =
   | 'gpt-4o-mini'
   | 'gpt-4o'
   | 'gpt-3.5-turbo'
@@ -8,7 +8,7 @@ export type Model =
   | 'claude-3-opus-20240229'
   | 'llama3-70b-8192';
 
-export const DEFAULT_MODEL: Model = 'gpt-4o-mini';
+export const DEFAULT_MODEL: StoryModel = 'gpt-4o-mini';
 
 type ModelConfig = {
   provider: 'openai' | 'anthropic' | 'groq';
@@ -17,7 +17,7 @@ type ModelConfig = {
   price: number;
 };
 
-export const models: Record<Model, ModelConfig> = {
+export const models: Record<StoryModel, ModelConfig> = {
   'gpt-4o-mini': {
     provider: 'openai',
     label: 'GPT-4o mini',

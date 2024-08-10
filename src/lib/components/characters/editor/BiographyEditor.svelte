@@ -6,7 +6,7 @@
   import Select from '$lib/components/inputs/Select.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { KEYS } from '$lib/config';
-  import { DEFAULT_MODEL, models, type Model } from '$lib/config/story';
+  import { DEFAULT_MODEL, models, type StoryModel } from '$lib/config/story';
   import { t } from '$lib/locales/translations';
   import { toastError, toastSuccess } from '$lib/stores';
   import type { ICharacter } from '$lib/types/api.types';
@@ -20,7 +20,7 @@
   let isLoading = false;
   let showPrompt = false;
   let prompt = '';
-  let model = (localStorage?.getItem('deorum-bio-model') || DEFAULT_MODEL) as Model;
+  let model = (localStorage?.getItem('deorum-bio-model') || DEFAULT_MODEL) as StoryModel;
   $: price = models[model].price;
 
   const togglePrompt = () => {
@@ -41,7 +41,7 @@
   };
 
   const handleModelChange = (value: string) => {
-    model = value as Model;
+    model = value as StoryModel;
     localStorage.setItem('deorum-bio-model', value);
   };
 

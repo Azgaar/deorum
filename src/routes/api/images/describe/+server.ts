@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { StreamingTextResponse, streamText } from 'ai';
 
-import { getModel } from '$lib/api/ai';
+import { getStoryModel } from '$lib/api/ai';
 import { authorize } from '$lib/api/auth';
 import { Role } from '$lib/config';
 import { createServerError } from '$lib/utils/errors';
@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!user || user.profile.role !== Role.ADMIN) throw error(401, 'Unauthorized');
 
     const result = await streamText({
-      model: getModel(MODEL),
+      model: getStoryModel(MODEL),
       messages: [
         {
           role: 'user',

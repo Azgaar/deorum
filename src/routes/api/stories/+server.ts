@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit';
 import { StreamingTextResponse, streamText } from 'ai';
 
-import { getModel } from '$lib/api/ai';
+import { getStoryModel } from '$lib/api/ai';
 import { authorize } from '$lib/api/auth';
-import { SYSTEM_PROMPT, models, type Model } from '$lib/config/story';
+import { SYSTEM_PROMPT, models, type StoryModel } from '$lib/config/story';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 import type { RequestHandler } from './$types';
@@ -14,7 +14,7 @@ export const config: import('@sveltejs/adapter-vercel').Config = {
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
-    const { prompt, model } = (await request.json()) as { prompt: string; model: Model };
+    const { prompt, model } = (await request.json()) as { prompt: string; model: StoryModel };
     if (!prompt) throw new Error('No prompt provided');
 
     const { client, user } = await authorize(request);
@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!coinsLeft || coinsLeft < price) throw error(403, 'Not enought coins');
 
     const result = await streamText({
-      model: getModel(model),
+      model: getStoryModel(model),
       system: SYSTEM_PROMPT,
       prompt,
       temperature: 1

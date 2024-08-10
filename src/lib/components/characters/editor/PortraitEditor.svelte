@@ -4,15 +4,16 @@
   import { openGetCoinsDialog } from '$lib/components/dialog/provider';
   import IconButton from '$lib/components/editor/IconButton.svelte';
   import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
-  import { KEYS, PORTRAITS_IMAGE_PATH, PORTRAIT_SIZE } from '$lib/config';
+  import { KEYS, PORTRAITS_IMAGE_PATH, PORTRAIT_SIZE, Role } from '$lib/config';
   import { UPLOAD_PORTRAIT_PRICE } from '$lib/config/coins';
+  import { IMAGE_GENERATION_PRICE } from '$lib/config/image';
   import { t } from '$lib/locales/translations';
   import { toastError } from '$lib/stores';
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
   import { getCharacterImage } from '$lib/utils/characters';
-  import { convertImageFile } from '$lib/utils/images';
+  import { convertImageFile, createImagePrompt } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
-  import { sendFormData } from '$lib/utils/requests';
+  import { request, sendFormData } from '$lib/utils/requests';
   import { fetchSimilar } from './loadSimilarPortraits';
 
   export let character: ICharacter;
@@ -24,6 +25,7 @@
 
   let uploadInput: HTMLInputElement;
   let isLoading = false;
+  const isAdmin = $page.data.role === Role.ADMIN;
 
   function handleUpload() {
     if (!uploadInput.files) return;
@@ -93,7 +95,7 @@
     }
   }
 
-  async function nextPortrait() {
+  async function selectNextPortaitFromPool() {
     if (!isPortraitPoolLoaded) await loadPortraitsPool();
 
     const portraits = character['@expand'].portraits || [];
@@ -106,6 +108,23 @@
         '@expand': { ...character['@expand'], portraits: [second, ...rest, first] }
       };
     }
+  }
+
+  async function generatePortrait() {
+    const { userId, coins } = $page.data;
+    if (!userId) throw new Error('User not logged in');
+    if (!coins || coins < IMAGE_GENERATION_PRICE) return openGetCoinsDialog(coins);
+
+    isLoading = true;
+
+    const prompt = createImagePrompt(character);
+    const imageUrl = await request<{}>('/api/images/generate', 'POST', {
+      prompt
+    });
+    console.log(imageUrl);
+    await invalidate(KEYS.USER_DATA);
+
+    isLoading = false;
   }
 </script>
 
@@ -123,21 +142,34 @@
   {/if}
 
   <div class="controls">
-    <IconButton
-      onClick={() => uploadInput.click()}
-      title={$t('common.details.editor.portrait.upload', { variable: UPLOAD_PORTRAIT_PRICE })}
-    >
-      <input type="file" accept="image/*" bind:this={uploadInput} on:change={handleUpload} />📁
-    </IconButton>
-
     {#if isLoading}
       <IconButton disabled>
         <CircularSpinner size={16} />
       </IconButton>
     {:else}
-      <IconButton onClick={nextPortrait} title={$t('common.details.editor.portrait.randomize')}>
+      <IconButton
+        onClick={() => uploadInput.click()}
+        title={$t('common.details.editor.portrait.upload', { variable: UPLOAD_PORTRAIT_PRICE })}
+      >
+        <input type="file" accept="image/*" bind:this={uploadInput} on:change={handleUpload} />📁
+      </IconButton>
+
+      <IconButton
+        onClick={selectNextPortaitFromPool}
+        title={$t('common.details.editor.portrait.randomize')}
+      >
         🎲
       </IconButton>
+      {#if isAdmin}
+        <IconButton
+          onClick={generatePortrait}
+          title={$t('common.details.editor.portrait.generate', {
+            variable: IMAGE_GENERATION_PRICE
+          })}
+        >
+          🤖
+        </IconButton>
+      {/if}
     {/if}
   </div>
 </figure>

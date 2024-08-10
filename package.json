@@ -29,6 +29,7 @@
     "dom-to-image": "^2.6.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.3.0",
+    "openai": "^4.55.3",
     "pocketbase": "^0.7.1",
     "prettier": "^2.6.2",
     "prettier-plugin-svelte": "^2.7.0",
