@@ -16,6 +16,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^0.0.11",
     "@ai-sdk/openai": "^0.0.10",
+    "@fal-ai/serverless-client": "^0.14.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@sveltejs/adapter-vercel": "^2.3.1",
@@ -29,7 +30,6 @@
     "dom-to-image": "^2.6.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.3.0",
-    "openai": "^4.55.3",
     "pocketbase": "^0.7.1",
     "prettier": "^2.6.2",
     "prettier-plugin-svelte": "^2.7.0",

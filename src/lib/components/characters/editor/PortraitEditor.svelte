@@ -111,20 +111,27 @@
   }
 
   async function generatePortrait() {
-    const { userId, coins } = $page.data;
-    if (!userId) throw new Error('User not logged in');
-    if (!coins || coins < IMAGE_GENERATION_PRICE) return openGetCoinsDialog(coins);
+    try {
+      const { userId, coins } = $page.data;
+      if (!userId) throw new Error('User not logged in');
+      if (!coins || coins < IMAGE_GENERATION_PRICE) return openGetCoinsDialog(coins);
 
-    isLoading = true;
+      isLoading = true;
 
-    const prompt = createImagePrompt(character);
-    const imageUrl = await request<{}>('/api/images/generate', 'POST', {
-      prompt
-    });
-    console.log(imageUrl);
-    await invalidate(KEYS.USER_DATA);
+      const prompt = createImagePrompt(character);
+      const { url } = await request<{ url: string }>('/api/images/generate', 'POST', {
+        prompt
+      });
+      console.log(url);
+      await invalidate(KEYS.USER_DATA);
 
-    isLoading = false;
+      isLoading = false;
+    } catch (err) {
+      report('generate portrait', err);
+      toastError(err);
+    } finally {
+      isLoading = false;
+    }
   }
 </script>
 
@@ -151,7 +158,13 @@
         onClick={() => uploadInput.click()}
         title={$t('common.details.editor.portrait.upload', { variable: UPLOAD_PORTRAIT_PRICE })}
       >
-        <input type="file" accept="image/*" bind:this={uploadInput} on:change={handleUpload} />📁
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          bind:this={uploadInput}
+          on:change={handleUpload}
+        />📁
       </IconButton>
 
       <IconButton

@@ -290,7 +290,7 @@
       "portrait": {
         "drop": "Drop image here",
         "upload": "Upload portrait. Price: {{ variable }} coin",
-        "generate": "Generate portrait. Price: {{ variable }} coins",
+        "generate": "Generate portrait from scratch using AI. Price: {{ variable }} coins",
         "randomize": "Randomize portrait (select from pre-generated gallery)"
       },
       "bio": {
