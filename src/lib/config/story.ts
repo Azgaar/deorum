@@ -3,7 +3,7 @@ export type StoryModel =
   | 'gpt-4o'
   | 'gpt-4-turbo'
   | 'gpt-4'
-  | 'claude-3-sonnet-20240229'
+  | 'claude-3-5-sonnet-20240620'
   | 'claude-3-opus-20240229'
   | 'llama-3.2-90b-text-preview'
   | 'llama3-70b-8192';
@@ -42,10 +42,10 @@ export const models: Record<StoryModel, ModelConfig> = {
     description: 'common.models.description.gpt-4',
     price: 30 // 10$/1M tokens
   },
-  'claude-3-sonnet-20240229': {
+  'claude-3-5-sonnet-20240620': {
     provider: 'anthropic',
-    label: 'Claude 3 Sonnet',
-    description: 'common.models.description.claude-3-sonnet',
+    label: 'Claude 3.5 Sonnet',
+    description: 'common.models.description.claude-3.5-sonnet',
     price: 5
   },
   'claude-3-opus-20240229': {

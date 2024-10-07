@@ -335,7 +335,7 @@
       "gpt-3.5-turbo": "Effective OpenAI model with a good balance of quality and speed",
       "gpt-4-turbo": "Upgraded OpenAI model with a better quality and speed",
       "gpt-4": "OpenAI model with the best quality, but slower than the others",
-      "claude-3-sonnet": "Fast Anthropic model with a good quality",
+      "claude-3.5-sonnet": "Fast Anthropic model with a good quality",
       "claude-3-opus": "Top-notch Anthropic model with the best quality",
       "llama-3.2-90b": "Very fast open source model by Facebook, API is provided for free by Groq",
       "llama-3-70b": "Older fast open source model by Facebook, API is provided for free by Groq"
