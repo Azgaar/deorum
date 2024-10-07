@@ -1,11 +1,11 @@
 export type StoryModel =
   | 'gpt-4o-mini'
   | 'gpt-4o'
-  | 'gpt-3.5-turbo'
   | 'gpt-4-turbo'
   | 'gpt-4'
   | 'claude-3-sonnet-20240229'
   | 'claude-3-opus-20240229'
+  | 'llama-3.2-90b-text-preview'
   | 'llama3-70b-8192';
 
 export const DEFAULT_MODEL: StoryModel = 'gpt-4o-mini';
@@ -22,13 +22,13 @@ export const models: Record<StoryModel, ModelConfig> = {
     provider: 'openai',
     label: 'GPT-4o mini',
     description: 'common.models.description.gpt-4o-mini',
-    price: 1 // 0.15$/1M tokens
+    price: 1 // 0.6$/1M tokens
   },
   'gpt-4o': {
     provider: 'openai',
     label: 'GPT-4o',
     description: 'common.models.description.gpt-4o',
-    price: 5 // 5$/1M tokens
+    price: 5 // 10$/1M tokens
   },
   'gpt-4-turbo': {
     provider: 'openai',
@@ -42,12 +42,6 @@ export const models: Record<StoryModel, ModelConfig> = {
     description: 'common.models.description.gpt-4',
     price: 30 // 10$/1M tokens
   },
-  'gpt-3.5-turbo': {
-    provider: 'openai',
-    label: 'GPT-3.5',
-    description: 'common.models.description.gpt-3.5-turbo',
-    price: 1 // 3$/1M tokens
-  },
   'claude-3-sonnet-20240229': {
     provider: 'anthropic',
     label: 'Claude 3 Sonnet',
@@ -59,6 +53,12 @@ export const models: Record<StoryModel, ModelConfig> = {
     label: 'Claude 3 Opus',
     description: 'common.models.description.claude-3-opus',
     price: 25
+  },
+  'llama-3.2-90b-text-preview': {
+    provider: 'groq',
+    label: 'Llama 3.2 90B Vision Preview',
+    description: 'common.models.description.llama-3.2-90b',
+    price: 0
   },
   'llama3-70b-8192': {
     provider: 'groq',
