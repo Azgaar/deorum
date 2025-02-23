@@ -1,21 +1,20 @@
+import Cache from '$lib/cache/cache.js';
 import { charactersConfig } from '$lib/config';
 import type { ICharacter } from '$lib/types/api.types';
 import { getGalleryItemData } from '$lib/utils/characters';
 import { log } from '$lib/utils/log';
 import { toJson } from '$lib/utils/requests';
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
 import crypto from 'crypto';
-import { createClient } from '@vercel/kv';
-import { KV_REST_API_TOKEN, KV_REST_API_URL } from '$env/static/private';
+import type { PageServerLoad } from './$types';
 
 export const csr = false;
 
-const kv = createClient({ url: KV_REST_API_URL, token: KV_REST_API_TOKEN });
+const encountersCache = new Cache({ debug: false });
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
-  const seed = `encounter-${params.slug}`;
-  const associatedId = await kv.get<string>(seed); // check if seed is associated with id in KV
+  const key = `encounter-${params.slug}`;
+  const associatedId = encountersCache.get(key);
   const searchParams = new URLSearchParams({ expand: charactersConfig.expand });
   let character: ICharacter;
 
@@ -25,10 +24,10 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
   } else {
     const allCharacters = await toJson<ICharacter[]>(fetch(`/api/characters?${searchParams}`));
     if (!allCharacters?.length) throw error(500, 'No characters returned');
-    const index = mapSeedToIndex(seed, allCharacters.length);
+    const index = mapSeedToIndex(key, allCharacters.length);
     character = allCharacters[index];
 
-    kv.set(seed, character.id); // associate seed with character id and store in KV
+    encountersCache.put(key, character.id); // associate key with character id
   }
 
   const item = getGalleryItemData(character);
