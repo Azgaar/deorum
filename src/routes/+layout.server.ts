@@ -3,9 +3,6 @@ import { KEYS, Role } from '$lib/config';
 import { locales } from '$lib/locales/translations';
 
 import type { IUser } from '$lib/types/api.types';
-import type { Config } from '@sveltejs/adapter-vercel';
-
-export const config: Config = { runtime: 'nodejs20.x' };
 
 const getLocale = (request: Request, user: IUser | null) => {
   if (user?.profile?.lang) return user.profile.lang;
