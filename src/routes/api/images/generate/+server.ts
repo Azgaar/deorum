@@ -2,7 +2,7 @@ import * as fal from '@fal-ai/serverless-client';
 import type { RequestHandler } from '@sveltejs/kit';
 import { error, json } from '@sveltejs/kit';
 
-import { FAL_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { authorize } from '$lib/api/auth';
 import { IMAGE_GENERATION_PRICE } from '$lib/config/image';
 import { createServerError } from '$lib/utils/errors';
@@ -12,7 +12,7 @@ export const config: import('@sveltejs/adapter-vercel').Config = {
   runtime: 'edge'
 };
 
-fal.config({ credentials: FAL_KEY });
+fal.config({ credentials: env.FAL_KEY || '' });
 
 type Input = {
   prompt: string;

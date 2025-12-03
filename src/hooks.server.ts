@@ -1,7 +1,7 @@
-import { sequence } from '@sveltejs/kit/hooks';
 import { json, type Cookies } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
 
-import { ADMIN_USERNAME, ADMIN_PASSWORD } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import admin from '$lib/api/admin';
 import { authorize, isSignedIn } from '$lib/api/auth';
 import { COOKIE_NAME, Role } from '$lib/config';
@@ -55,7 +55,9 @@ const protectRoutes: import('@sveltejs/kit').Handle = async ({ event, resolve })
 
 // login as evergreen admin user to run PocketBase requests on guest user behalf
 const loginAsExecuter: import('@sveltejs/kit').Handle = async ({ event, resolve }) => {
-  if (!isSignedIn(admin)) await admin.users.authViaEmail(ADMIN_USERNAME, ADMIN_PASSWORD);
+  if (!isSignedIn(admin) && env.ADMIN_USERNAME && env.ADMIN_PASSWORD) {
+    await admin.users.authViaEmail(env.ADMIN_USERNAME, env.ADMIN_PASSWORD);
+  }
   return resolve(event);
 };
 

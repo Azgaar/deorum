@@ -1,13 +1,13 @@
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
 
-import { ANTHROPIC_API_KEY, GROQ_API_KEY, OPENAI_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { models, type StoryModel } from '$lib/config/story';
 
 const providers = {
-  openai: createOpenAI({ apiKey: OPENAI_API_KEY }),
-  anthropic: createAnthropic({ apiKey: ANTHROPIC_API_KEY }),
-  groq: createOpenAI({ baseURL: 'https://api.groq.com/openai/v1', apiKey: GROQ_API_KEY })
+  openai: createOpenAI({ apiKey: env.OPENAI_API_KEY || '' }),
+  anthropic: createAnthropic({ apiKey: env.ANTHROPIC_API_KEY || '' }),
+  groq: createOpenAI({ baseURL: 'https://api.groq.com/openai/v1', apiKey: env.GROQ_API_KEY || '' })
 };
 
 export function getStoryModel(modelKey: StoryModel) {

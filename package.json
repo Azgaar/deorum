@@ -19,7 +19,7 @@
     "@fal-ai/serverless-client": "^0.14.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
-    "@sveltejs/adapter-vercel": "^6.2.0",
+    "@sveltejs/adapter-vercel": "3.1.0",
     "@sveltejs/kit": "^1.5.0",
     "@types/dom-to-image": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
@@ -51,7 +51,7 @@
     "zod": "^3.23.8"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "20.x"
   },
   "type": "module",
   "repository": {
