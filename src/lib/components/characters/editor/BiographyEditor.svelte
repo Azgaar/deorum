@@ -20,7 +20,9 @@
   let isLoading = false;
   let showPrompt = false;
   let prompt = '';
-  let model = (localStorage?.getItem('deorum-bio-model') || DEFAULT_MODEL) as StoryModel;
+
+  const storedModel = localStorage?.getItem('deorum-bio-model') as StoryModel | null;
+  let model = (storedModel && storedModel in models ? storedModel : DEFAULT_MODEL) as StoryModel;
   $: price = models[model].price;
 
   const togglePrompt = () => {
