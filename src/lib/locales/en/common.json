@@ -330,15 +330,14 @@
   },
   "models": {
     "description": {
-      "gpt-4o-mini": "The newest cheap OpenAI model with the best response speed",
-      "gpt-4o": "OpenAI model with the best quality and very fast response",
-      "gpt-3.5-turbo": "Effective OpenAI model with a good balance of quality and speed",
-      "gpt-4-turbo": "Upgraded OpenAI model with a better quality and speed",
-      "gpt-4": "OpenAI model with the best quality, but slower than the others",
-      "claude-3.5-sonnet": "Fast Anthropic model with a good quality",
-      "claude-3-opus": "Top-notch Anthropic model with the best quality",
-      "llama-3.2-90b": "Very fast open source model by Facebook, API is provided for free by Groq",
-      "llama-3-70b": "Older fast open source model by Facebook, API is provided for free by Groq"
+      "gpt-5.1": "Complex reasoning, broad world knowledge, and code-heavy or multi-step agentic tasks",
+      "gpt-5-mini": "Cost-optimized reasoning and chat; balances speed, cost, and capability",
+      "gpt-5-nano": "High-throughput tasks, especially simple instruction-following or classification",
+      "claude-opus-4-5": "Anthropic premium model combining maximum intelligence with practical performance",
+      "claude-sonnet-4-5": "Anthropic smartest model for complex agents and coding",
+      "claude-haiku-4-5": "Anthropic fastest model with near-frontier intelligence",
+      "llama-3.3-70b-versatile": "The fast open source model by Meta, API is provided by Groq",
+      "llama-3.1-8b-instant": "The fast open source model by Meta, API is provided by Groq"
     }
   },
   "encounter": {

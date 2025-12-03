@@ -1,14 +1,14 @@
 export type StoryModel =
-  | 'gpt-4o-mini'
-  | 'gpt-4o'
-  | 'gpt-4-turbo'
-  | 'gpt-4'
-  | 'claude-3-5-sonnet-20240620'
-  | 'claude-3-opus-20240229'
-  | 'llama-3.2-90b-text-preview'
-  | 'llama3-70b-8192';
+  | 'gpt-5.1'
+  | 'gpt-5-mini'
+  | 'gpt-5-nano'
+  | 'claude-opus-4-5'
+  | 'claude-sonnet-4-5'
+  | 'claude-haiku-4-5'
+  | 'llama-3.3-70b-versatile'
+  | 'llama-3.1-8b-instant';
 
-export const DEFAULT_MODEL: StoryModel = 'gpt-4o-mini';
+export const DEFAULT_MODEL: StoryModel = 'gpt-5-mini';
 
 type ModelConfig = {
   provider: 'openai' | 'anthropic' | 'groq';
@@ -18,53 +18,53 @@ type ModelConfig = {
 };
 
 export const models: Record<StoryModel, ModelConfig> = {
-  'gpt-4o-mini': {
+  'gpt-5.1': {
     provider: 'openai',
-    label: 'GPT-4o mini',
-    description: 'common.models.description.gpt-4o-mini',
-    price: 1 // 0.6$/1M tokens
+    label: 'GPT-5.1',
+    description: 'common.models.description.gpt-5.1',
+    price: 2 // 1.25$/1M tokens
   },
-  'gpt-4o': {
+  'gpt-5-mini': {
     provider: 'openai',
-    label: 'GPT-4o',
-    description: 'common.models.description.gpt-4o',
-    price: 5 // 10$/1M tokens
+    label: 'GPT-5 Mini',
+    description: 'common.models.description.gpt-5-mini',
+    price: 1 // 0.25$/1M tokens
   },
-  'gpt-4-turbo': {
+  'gpt-5-nano': {
     provider: 'openai',
-    label: 'GPT-4 Turbo',
-    description: 'common.models.description.gpt-4-turbo',
-    price: 10 // 10$/1M tokens
+    label: 'GPT-5 Nano',
+    description: 'common.models.description.gpt-5-nano',
+    price: 1 // 0.05$/1M tokens
   },
-  'gpt-4': {
-    provider: 'openai',
-    label: 'GPT-4',
-    description: 'common.models.description.gpt-4',
-    price: 30 // 10$/1M tokens
-  },
-  'claude-3-5-sonnet-20240620': {
+  'claude-opus-4-5': {
     provider: 'anthropic',
-    label: 'Claude 3.5 Sonnet',
-    description: 'common.models.description.claude-3.5-sonnet',
-    price: 5
+    label: 'Claude Opus 4.5',
+    description: 'common.models.description.claude-opus-4-5',
+    price: 6 // 5$/1M tokens
   },
-  'claude-3-opus-20240229': {
+  'claude-sonnet-4-5': {
     provider: 'anthropic',
-    label: 'Claude 3 Opus',
-    description: 'common.models.description.claude-3-opus',
-    price: 25
+    label: 'Claude Sonnet 4.5',
+    description: 'common.models.description.claude-sonnet-4-5',
+    price: 4 // 3$/1M tokens
   },
-  'llama-3.2-90b-text-preview': {
-    provider: 'groq',
-    label: 'Llama 3.2 90B Vision Preview',
-    description: 'common.models.description.llama-3.2-90b',
-    price: 0
+  'claude-haiku-4-5': {
+    provider: 'anthropic',
+    label: 'Claude Haiku 4.5',
+    description: 'common.models.description.claude-haiku-4-5',
+    price: 1 // 1$/1M tokens
   },
-  'llama3-70b-8192': {
+  'llama-3.3-70b-versatile': {
     provider: 'groq',
-    label: 'Llama 3 70B Groq',
-    description: 'common.models.description.llama-3-70b',
-    price: 0
+    label: 'Llama 3.3 70B',
+    description: 'common.models.description.llama-3.3-70b',
+    price: 1
+  },
+  'llama-3.1-8b-instant': {
+    provider: 'groq',
+    label: 'Llama 3.1 8B',
+    description: 'common.models.description.llama-3.1-8b-instant',
+    price: 1
   }
 };
 
