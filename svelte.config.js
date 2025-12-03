@@ -7,7 +7,9 @@ const config = {
     scss: { prependData: '@use "src/theme/variables.scss" as *;' }
   }),
   kit: {
-    adapter: adapter()
+    adapter: adapter({
+      runtime: 'nodejs20.x'
+    })
   },
   files: {
     lib: 'src/lib'
