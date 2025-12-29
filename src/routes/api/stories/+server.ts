@@ -9,7 +9,7 @@ import { log, report } from '$lib/utils/log';
 import type { RequestHandler } from './$types';
 
 export const config: import('@sveltejs/adapter-vercel').Config = {
-  maxDuration: 90,
+  maxDuration: 60,
   runtime: 'nodejs20.x'
 };
 
