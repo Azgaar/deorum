@@ -7,6 +7,7 @@ export type StoryModel =
   | 'claude-haiku-4-5';
 
 export const DEFAULT_MODEL: StoryModel = 'gpt-5-mini';
+export const NAME_GENERATOR_MODEL: StoryModel = 'gpt-5-nano';
 
 type ModelConfig = {
   provider: 'openai' | 'anthropic';

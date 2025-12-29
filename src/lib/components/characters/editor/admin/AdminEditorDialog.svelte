@@ -16,10 +16,10 @@
   import type { TOpenEditorDialog } from '$lib/types/editor.types';
   import { report } from '$lib/utils/log';
   import { makePOJO } from '$lib/utils/object';
+  import { createRandomizer } from '$lib/utils/randomize';
   import { request } from '$lib/utils/requests';
   import BiographyEditor from '../BiographyEditor.svelte';
   import { createOptions } from '../options';
-  import { createRandomizer } from '../randomize';
   import { getRange } from '../range';
   import Portraits from './portraits/Portraits.svelte';
   import TagsEditor from './tags/TagsEditor.svelte';
@@ -41,9 +41,23 @@
   let isLoading = false;
 
   $: range = getRange(current.gender, current.race, races);
-  $: randomize = createRandomizer(current, (updated: ICharacter) => (current = updated), races);
+  $: randomize = createRandomizer(
+    current,
+    (updated: ICharacter) => (current = updated),
+    races,
+    archetypes,
+    backgrounds
+  );
 
   const options = createOptions(races, archetypes, backgrounds);
+
+  let isNameRandomizing: boolean = false;
+
+  const handleNameRandomize = async () => {
+    isNameRandomizing = true;
+    await randomize.name();
+    isNameRandomizing = false;
+  };
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
@@ -136,7 +150,17 @@
               <div>{$t('common.character.name')}:</div>
               <div>
                 <TextInput bind:value={current.name} />
-                <IconButton onClick={randomize.name}>🎲</IconButton>
+
+                {#if isNameRandomizing}
+                  <IconButton disabled>
+                    <CircularSpinner size={16} />
+                  </IconButton>
+                {:else}
+                  <IconButton
+                    onClick={handleNameRandomize}
+                    title={$t('common.details.editor.randomize.name')}>🎲</IconButton
+                  >
+                {/if}
               </div>
             </div>
 

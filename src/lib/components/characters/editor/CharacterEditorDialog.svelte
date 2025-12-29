@@ -2,7 +2,6 @@
   import { invalidate } from '$app/navigation';
   import { page } from '$app/stores';
   import { createOptions } from '$lib/components/characters/editor/options';
-  import { createRandomizer } from '$lib/components/characters/editor/randomize';
   import { getRange } from '$lib/components/characters/editor/range';
   import Dialog from '$lib/components/dialog/Dialog.svelte';
   import DialogAction from '$lib/components/dialog/DialogAction.svelte';
@@ -13,6 +12,7 @@
   import NumberInput from '$lib/components/inputs/NumberInput.svelte';
   import Select from '$lib/components/inputs/Select.svelte';
   import TextInput from '$lib/components/inputs/TextInput.svelte';
+  import CircularSpinner from '$lib/components/spinner/CircularSpinner.svelte';
   import { KEYS } from '$lib/config';
   import { t } from '$lib/locales/translations';
   import { tooltip } from '$lib/scripts/tooltip';
@@ -26,6 +26,7 @@
     TGender
   } from '$lib/types/api.types';
   import { report } from '$lib/utils/log';
+  import { createRandomizer } from '$lib/utils/randomize';
   import { request } from '$lib/utils/requests';
   import { convertToImperialHeight, convertToImperialWeight } from '$lib/utils/units';
   import BiographyEditor from './BiographyEditor.svelte';
@@ -40,10 +41,23 @@
   export let tags: Map<string, ITag>;
 
   $: range = getRange(character.gender, character.race, races);
-  $: randomize = createRandomizer(character, (updated: ICharacter) => (character = updated), races);
+  $: randomize = createRandomizer(
+    character,
+    (updated: ICharacter) => (character = updated),
+    races,
+    archetypes,
+    backgrounds
+  );
 
   const options = createOptions(races, archetypes, backgrounds);
   let isPortraitPoolLoaded: boolean;
+  let isNameRandomizing: boolean = false;
+
+  const handleNameRandomize = async () => {
+    isNameRandomizing = true;
+    await randomize.name();
+    isNameRandomizing = false;
+  };
 
   const handleGenderChange = (value: string) => {
     character.gender = value as TGender;
@@ -134,10 +148,17 @@
             <div>{$t('common.character.name')}:</div>
             <div>
               <TextInput bind:value={character.name} />
-              <IconButton
-                onClick={randomize.name}
-                title={$t('common.details.editor.randomize.name')}>🎲</IconButton
-              >
+
+              {#if isNameRandomizing}
+                <IconButton disabled>
+                  <CircularSpinner size={16} />
+                </IconButton>
+              {:else}
+                <IconButton
+                  onClick={handleNameRandomize}
+                  title={$t('common.details.editor.randomize.name')}>🎲</IconButton
+                >
+              {/if}
             </div>
           </div>
 

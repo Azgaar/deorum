@@ -1,19 +1,22 @@
+import { NAME_GENERATOR_MODEL } from '$lib/config/story';
+import { blankRace } from '$lib/data/races';
 import { toastError } from '$lib/stores';
 import { report } from '$lib/utils/log';
-import { request } from '$lib/utils/requests';
 import { getRandomNumber } from '$lib/utils/probability';
-import { blankRace } from '$lib/data/races';
+import { request } from '$lib/utils/requests';
 
 import type { ICharacter, IRace, TGender } from '$lib/types/api.types';
 
 export const createRandomizer = (
   character: ICharacter,
   setItem: (updatedCharacter: ICharacter) => void,
-  races: Map<string, IRace>
+  races: Map<string, IRace>,
+  archetypes: Map<string, { name: string }>,
+  backgrounds: Map<string, { name: string }>
 ) => {
   const randomize = {
     name: async () => {
-      const name = await getRandomName(character, races);
+      const name = await generateRandomName(character, races, archetypes, backgrounds);
       setItem({ ...character, name });
     },
 
@@ -46,15 +49,26 @@ export const createRandomizer = (
   return randomize;
 };
 
-async function getRandomName(
-  { race, gender }: { race: string; gender: string },
-  races: Map<string, IRace>
-) {
+async function generateRandomName(
+  character: ICharacter,
+  races: Map<string, IRace>,
+  archetypes: Map<string, { name: string }>,
+  backgrounds: Map<string, { name: string }>
+): Promise<string> {
   try {
-    const raceName = races.get(race)?.name || '';
-    const url = `/api/names/ironarachne?quantity=1&race=${raceName}&type=${gender}`;
-    const names = await request<string[]>(url);
-    return names[0] || '';
+    const race = races.get(character.race)?.name || '';
+    const gender = character.gender || '';
+    const archetype = archetypes.get(character.archetype)?.name || '';
+    const background = backgrounds.get(character.background)?.name || '';
+
+    const response = await request<{ name: string }>('/api/names/generate', 'POST', {
+      race,
+      gender,
+      archetype,
+      background,
+      model: NAME_GENERATOR_MODEL
+    });
+    return response.name || character.name || '';
   } catch (err) {
     report('character editor', err);
     toastError(err);

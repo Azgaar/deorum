@@ -72,7 +72,7 @@ function fileToArrayBuffer(file: File): Promise<ArrayBuffer> {
 }
 
 export const createImagePrompt = (character: ICharacter) => {
-  const { name, gender, age } = character;
+  const { gender, age } = character;
   const { race, archetype, background } = character['@expand'];
   const data = [
     [gender ? capitalize(gender) : null, race ? race.name : ''],
