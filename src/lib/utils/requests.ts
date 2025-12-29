@@ -2,11 +2,6 @@ import { browser } from '$app/environment';
 import type { HttpMethod } from '@sveltejs/kit';
 import { readDataStream } from 'ai';
 
-const defaultHeaders = {
-  'content-type': 'application/json',
-  accept: 'application/json'
-};
-
 export let controller: AbortController | null = null;
 
 // json requests only
@@ -16,12 +11,23 @@ export const request = async <T>(
   data?: Record<string, unknown>
 ): Promise<T> => {
   controller = new AbortController();
-  const options: RequestInit = { method, headers: defaultHeaders, signal: controller.signal };
+  const options: RequestInit = {
+    method,
+    headers: {
+      'content-type': 'application/json',
+      accept: 'application/json'
+    },
+    signal: controller.signal
+  };
   if (data) options.body = JSON.stringify(data);
   const res = await fetch(url, options);
+  if (!res.ok) {
+    const error = await readError(res);
+    throw new Error(error.message || res.statusText);
+  }
+
   const body = await res.json();
-  if (!res.ok) throw new Error(body.message || res.statusText);
-  return body;
+  return body as T;
 };
 
 // form data requests only
@@ -31,9 +37,13 @@ export const sendFormData = async <T>(
   method: 'POST' | 'PATCH' | 'PUT'
 ): Promise<T> => {
   const res = await fetch(url, { method, body: formData });
+  if (!res.ok) {
+    const error = await readError(res);
+    throw new Error(error.message || res.statusText);
+  }
+
   const body = await res.json();
-  if (!res.ok) throw new Error(body.message || res.statusText);
-  return body;
+  return body as T;
 };
 
 // stream requests only
@@ -52,13 +62,15 @@ export const stream = async (
   };
 
   const res = await fetch(url, options);
-  if (!res.ok) throw new Error((await res.json()).message || res.statusText);
+  if (!res.ok) {
+    const error = await readError(res);
+    throw new Error(error.message || res.statusText);
+  }
 
   const body = res.body;
   if (!body) return null;
 
   const reader = body.getReader();
-
   for await (const { type, value } of readDataStream(reader)) {
     if (type === 'error') {
       abortController.abort();
@@ -83,4 +95,13 @@ export function preloadImage(src: string) {
 export async function toJson<T>(promise: Promise<Response>) {
   const response = await promise;
   return <T>response.json();
+}
+
+export async function readError(response: Response): Promise<{ message: string }> {
+  try {
+    return await response.json();
+  } catch (error) {
+    const message = await response.text();
+    return { message };
+  }
 }

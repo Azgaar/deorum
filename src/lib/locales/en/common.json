@@ -335,9 +335,7 @@
       "gpt-5-nano": "High-throughput tasks, especially simple instruction-following or classification",
       "claude-opus-4-5": "Anthropic premium model combining maximum intelligence with practical performance",
       "claude-sonnet-4-5": "Anthropic smartest model for complex agents and coding",
-      "claude-haiku-4-5": "Anthropic fastest model with near-frontier intelligence",
-      "llama-3.3-70b-versatile": "The fast open source model by Meta, API is provided by Groq",
-      "llama-3.1-8b-instant": "The fast open source model by Meta, API is provided by Groq"
+      "claude-haiku-4-5": "Anthropic fastest model with near-frontier intelligence"
     }
   },
   "encounter": {

@@ -6,8 +6,7 @@ import { models, type StoryModel } from '$lib/config/story';
 
 const providers = {
   openai: createOpenAI({ apiKey: env.OPENAI_API_KEY || '' }),
-  anthropic: createAnthropic({ apiKey: env.ANTHROPIC_API_KEY || '' }),
-  groq: createOpenAI({ baseURL: 'https://api.groq.com/openai/v1', apiKey: env.GROQ_API_KEY || '' })
+  anthropic: createAnthropic({ apiKey: env.ANTHROPIC_API_KEY || '' })
 };
 
 export function getStoryModel(modelKey: StoryModel) {

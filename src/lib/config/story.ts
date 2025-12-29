@@ -4,14 +4,12 @@ export type StoryModel =
   | 'gpt-5-nano'
   | 'claude-opus-4-5'
   | 'claude-sonnet-4-5'
-  | 'claude-haiku-4-5'
-  | 'llama-3.3-70b-versatile'
-  | 'llama-3.1-8b-instant';
+  | 'claude-haiku-4-5';
 
 export const DEFAULT_MODEL: StoryModel = 'gpt-5-mini';
 
 type ModelConfig = {
-  provider: 'openai' | 'anthropic' | 'groq';
+  provider: 'openai' | 'anthropic';
   label: string;
   description: string;
   price: number;
@@ -53,18 +51,6 @@ export const models: Record<StoryModel, ModelConfig> = {
     label: 'Claude Haiku 4.5',
     description: 'common.models.description.claude-haiku-4-5',
     price: 1 // 1$/1M tokens
-  },
-  'llama-3.3-70b-versatile': {
-    provider: 'groq',
-    label: 'Llama 3.3 70B',
-    description: 'common.models.description.llama-3.3-70b',
-    price: 1
-  },
-  'llama-3.1-8b-instant': {
-    provider: 'groq',
-    label: 'Llama 3.1 8B',
-    description: 'common.models.description.llama-3.1-8b-instant',
-    price: 1
   }
 };
 
