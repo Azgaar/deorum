@@ -324,7 +324,7 @@
       "remove": "Remove custom character"
     },
     "uploaded": {
-      "title": "Uploaded portraits",
+      "title": "Uploaded and generated portraits",
       "remove": "Remove portrait"
     }
   },

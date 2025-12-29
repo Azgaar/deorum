@@ -11,7 +11,7 @@
   import { toastError } from '$lib/stores';
   import type { ICharacter, IPortrait } from '$lib/types/api.types';
   import { getCharacterImage } from '$lib/utils/characters';
-  import { convertImageFile, createImagePrompt } from '$lib/utils/images';
+  import { convertImageFile, convertImageUrl, createImagePrompt } from '$lib/utils/images';
   import { report } from '$lib/utils/log';
   import { request, sendFormData } from '$lib/utils/requests';
   import { fetchSimilar } from './loadSimilarPortraits';
@@ -122,10 +122,20 @@
       const { url } = await request<{ url: string }>('/api/images/generate', 'POST', {
         prompt
       });
-      console.log(url);
+
+      const convertedImage = await convertImageUrl(url);
+      const formData = new FormData();
+      formData.set('user', userId);
+      formData.set('image', convertedImage);
+      const portrait = await sendFormData<IPortrait>('/api/portraits', formData, 'POST');
       await invalidate(KEYS.USER_DATA);
 
-      isLoading = false;
+      const portraits = character['@expand'].portraits || [];
+      character = {
+        ...character,
+        portraits: [portrait.id],
+        '@expand': { ...character['@expand'], portraits: [portrait, ...portraits] }
+      };
     } catch (err) {
       report('generate portrait', err);
       toastError(err);

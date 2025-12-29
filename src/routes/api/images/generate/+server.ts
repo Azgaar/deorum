@@ -4,7 +4,7 @@ import { error, json } from '@sveltejs/kit';
 
 import { env } from '$env/dynamic/private';
 import { authorize } from '$lib/api/auth';
-import { IMAGE_GENERATION_PRICE } from '$lib/config/image';
+import { DEFAULT_IMAGE_MODEL, IMAGE_GENERATION_PRICE } from '$lib/config/image';
 import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 
@@ -27,16 +27,6 @@ type Output = {
   prompt: string;
 };
 
-enum Models {
-  FLUX_PRO = 'fal-ai/flux-pro',
-  FLUX_GENERAL = 'fal-ai/flux-general',
-  FLUX_DEV = 'fal-ai/flux/dev',
-  FLUX_SCHNELL = 'fal-ai/flux/schnell',
-  SDXL_LIGHTNING = 'fal-ai/fast-lightning-sdxl',
-  AURA_FLOW = 'fal-ai/aura-flow',
-  FLUX_SCHNELL_IMG_2_IMG = 'fal-ai/flux/dev/image-to-image'
-}
-
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const { prompt } = (await request.json()) as { prompt: string };
@@ -48,7 +38,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const coinsLeft = user.profile.coins;
     if (!coinsLeft || coinsLeft < IMAGE_GENERATION_PRICE) throw error(403, 'Not enought coins');
 
-    const result = await fal.subscribe<Input, Output>(Models.FLUX_SCHNELL, {
+    const result = await fal.subscribe<Input, Output>(DEFAULT_IMAGE_MODEL, {
       input: {
         prompt,
         image_size: 'square_hd',

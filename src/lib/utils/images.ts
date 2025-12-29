@@ -78,12 +78,11 @@ export const createImagePrompt = (character: ICharacter) => {
     [gender ? capitalize(gender) : null, race ? race.name : ''],
     [age ? `${age} years old` : null],
     [archetype ? `archetype: ${archetype.name}` : null],
-    [background ? `origin: ${background.name}` : null],
-    [name ? `name: ${name}` : null]
+    [background ? `origin: ${background.name}` : null]
   ]
     .map((array) => array.join(' '))
     .filter(Boolean)
     .join(', ');
 
-  return `Portrait of a fantasy character. ${data}. Best style. Wide square high-fantasy frame around. Pen painting, colored, manual brush drawing. Intricate single-color geometrical-lined background. Centered, top quality, 4K`;
+  return `Portrait of a fantasy character. ${data}. Best style. Wide square high-fantasy frame around. Pen painting, colored, manual brush drawing. Intricate single-color geometrical-lined background. Centered, top quality, 4K.`;
 };
