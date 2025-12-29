@@ -98,10 +98,11 @@ export async function toJson<T>(promise: Promise<Response>) {
 }
 
 export async function readError(response: Response): Promise<{ message: string }> {
+  const text = await response.text();
   try {
-    return await response.json();
+    const json = JSON.parse(text);
+    return json;
   } catch (error) {
-    const message = await response.text();
-    return { message };
+    return { message: text };
   }
 }
