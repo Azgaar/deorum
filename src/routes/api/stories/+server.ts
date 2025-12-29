@@ -8,6 +8,11 @@ import { createServerError } from '$lib/utils/errors';
 import { log, report } from '$lib/utils/log';
 import type { RequestHandler } from './$types';
 
+export const config: import('@sveltejs/adapter-vercel').Config = {
+  maxDuration: 90,
+  runtime: 'nodejs20.x'
+};
+
 export const POST: RequestHandler = async ({ request }) => {
   try {
     const { prompt, model } = (await request.json()) as { prompt: string; model: StoryModel };
