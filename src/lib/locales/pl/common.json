@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Galeria postaci fantasy Azgaara",
+    "description": "Twoje źródło unikalnych, konfigurowalnych postaci fantasy do D&D i projektów tworzenia światów"
+  },
+  "landing": {
+    "slogan": "Wyrusz w epicką podróż z Deorum – twoim źródłem unikalnych postaci fantasy do D&D i projektów tworzenia światów",
+    "description1": "Odkryj ponad 1600 konfigurowalnych postaci, z których każda posiada niesamowity portret i szczegółową biografię. Nasze obrazy opierają się na zestawie 132 ręcznie rysowanych portretów, powielonych do ponad 10000 wariantów dzięki generowaniu AI i starannie wyselekcjonowanych dla najwyższej jakości.",
+    "description2": "Spersonalizuj wybraną postać według własnego uznania i ożyw swoje historie. A najlepsza część? Wszystkie postacie są darmowe do użytku niekomercyjnego, a tania licencja komercyjna jest dostępna. Dołącz do społeczności i zacznij swoją następną przygodę już dziś!",
+    "openGallery": "Otwórz galerię"
+  },
+  "controls": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "confirmDeletion": "Usuń ({{variable}})",
+    "add": "Dodaj",
+    "create": "Utwórz",
+    "edit": "Edytuj",
+    "search": "Szukaj",
+    "clear": "Wyczyść",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "apply": "Zastosuj",
+    "select": "Wybierz",
+    "close": "Zamknij",
+    "confirm": "Potwierdź",
+    "yes": "tak",
+    "no": "nie",
+    "random": "losowo",
+    "download": "Pobierz",
+    "report": "Zgłoś problem",
+    "send": "Wyślij",
+    "openPortraitEditor": "Otwórz edytor portretów",
+    "openCharacterEditor": "Otwórz edytor postaci",
+    "embed": "Osadź"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Potwierdzenie",
+      "body": "Czy na pewno chcesz kontynuować?",
+      "confirm": "tak",
+      "cancel": "nie"
+    }
+  },
+  "values": {
+    "undefined": "nieokreślony",
+    "all": "wszystkie",
+    "any": "dowolny",
+    "unnamed": "Bez nazwy"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "W budowie"
+  },
+  "auth": {
+    "signup": "Zarejestruj się",
+    "signin": "Zaloguj się",
+    "signinTitle": "Zaloguj się do swojego konta",
+    "signupTitle": "Utwórz nowe konto",
+    "logout": "Wyloguj się",
+    "email": "E-mail",
+    "emailPlaceholder": "Wprowadź swój e-mail",
+    "name": "Imię",
+    "namePlaceholder": "Wprowadź swoje imię",
+    "password": "Hasło",
+    "passwordPlaceholder": "Wprowadź swoje hasło",
+    "agreeToTerms": "Rejestrując się, zgadzasz się na nasze",
+    "terms": "Warunki użytkowania",
+    "haveAccount": "Masz już konto?",
+    "noAccount": "Nie masz konta?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} monet",
+    "getCoins": "Zdobądź monety",
+    "openPatreon": "Otwórz Patreon",
+    "description": {
+      "1": "Monety to wirtualna waluta używana do dostępu do określonych działań w aplikacji. Domyślnie każdy użytkownik otrzymuje {{variable}} monet za darmo, które można wykorzystać do tworzenia postaci, przesyłania obrazów i generowania biografii z pomocą GPT.",
+      "2": "Ponieważ bezpośrednie płatności nie są jeszcze dostępne, wymyśliliśmy tymczasowe rozwiązanie, aby podziękować naszym wspierającym na Patreon. Aby odebrać swoje monety, wyślij wiadomość bezpośrednią do <i>Azgaara</i> ze swojej strony Patreon. Za każde </b>${{variable}}</b> przekazane pledgem otrzymasz jedną monetę jako wyraz wdzięczności za Twoje wsparcie.",
+      "3": "Dziękujemy za wsparcie projektu! Mamy nadzieję, że będziesz się cieszyć tworzeniem niesamowitych postaci fantasy i odkrywaniem nieskończonych możliwości naszego narzędzia opartego na AI. Chcemy zapewnić jak najlepsze wrażenia wszystkim użytkownikom, a dzięki monetom ograniczającym dostęp do niektórych działań dbamy o zrównoważony rozwój aplikacji."
+    }
+  },
+  "navigation": {
+    "back": "Wstecz",
+    "gallery": "Galeria",
+    "match": "Dopasowanie",
+    "tags": "Tagi",
+    "admin": "Admin",
+    "next": "Dalej",
+    "library": "Biblioteka",
+    "donate": "Wesprzyj",
+    "howToUse": "Jak używać",
+    "terms": "Warunki użytkowania",
+    "discord": "Serwer Discord",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Szukaj",
+    "title": "Szukaj postaci",
+    "sorting": {
+      "asc": "Sortuj rosnąco",
+      "desc": "Sortuj malejąco",
+      "no": "Nie sortuj"
+    },
+    "foundItems": "Znalezione elementy: {{variable}}",
+    "noResults": "Nie znaleziono postaci, zmień kryteria wyszukiwania i spróbuj ponownie",
+    "openGallery": "Otwórz Galerię"
+  },
+  "success": {
+    "copied": "Skopiowano do schowka"
+  },
+  "errors": {
+    "unauthorized": "Zaloguj się jako {{variable}}, aby uzyskać dostęp do tej strony",
+    "copy": "Kopiowanie nie powiodło się. Skopiuj ręcznie"
+  },
+  "character": {
+    "name": "Imię",
+    "unnamed": "Bez nazwy",
+    "age": "Wiek",
+    "gender": "Płeć",
+    "race": "Rasa",
+    "archetype": "Archetyp",
+    "background": "Przeszłość",
+    "height": "Wzrost",
+    "weight": "Waga",
+    "bio": "Biografia"
+  },
+  "metrics": {
+    "yearsOld": "lat",
+    "cm": "cm",
+    "feetAndInches": "stopy i cale",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Możliwy zakres"
+  },
+  "genders": {
+    "male": "męski",
+    "female": "żeński",
+    "non-binary": "niebinarny"
+  },
+  "races": {
+    "human": "człowiek",
+    "elf": "elf",
+    "half-elf": "półelf",
+    "dwarf": "krasnolud",
+    "gnome": "gnom",
+    "orc": "ork",
+    "half-orc": "półork",
+    "goblin": "goblin",
+    "ogre": "ogr",
+    "draconid": "drakonid",
+    "beastman": "człowiek-bestia",
+    "felinid": "felinid",
+    "lizardman": "jaszczuroczłowiek",
+    "firbolg": "firbolg",
+    "pixie": "piksi",
+    "demon": "demon",
+    "angel": "anioł",
+    "spirit": "duch",
+    "jinn": "dżinn",
+    "undead": "nieumarły",
+    "siren": "syrena",
+    "gargoyle": "gargulec",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "półbóg",
+    "birdman": "człowiek-ptak",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "owadoczłowiek",
+    "centaur": "centaur",
+    "satyr": "satyr"
+  },
+  "archetypes": {
+    "warrior": "wojownik",
+    "mage": "mag",
+    "rogue": "łotr",
+    "cleric": "kleryk",
+    "ruler": "władca",
+    "lover": "kochanek",
+    "druid": "druid",
+    "destroyer": "niszczyciel",
+    "seeker": "poszukiwacz",
+    "soothsayer": "wróżbita",
+    "sage": "mędrzec",
+    "trickster": "psotnik",
+    "creator": "twórca",
+    "merchant": "kupiec",
+    "companion": "towarzysz",
+    "villain": "złoczyńca",
+    "damsel": "dama",
+    "outcast": "wygnaniec",
+    "chosen one": "wybrany",
+    "rebel": "buntownik",
+    "wanderer": "wędrowiec",
+    "mentor": "mentor",
+    "minion": "poplecznik"
+  },
+  "backgrounds": {
+    "knight": "rycerz",
+    "gladiator": "gladiator",
+    "soldier": "żołnierz",
+    "mercenary": "najemnik",
+    "berserker": "berserker",
+    "sailor": "marynarz",
+    "pirate": "pirat",
+    "watchman": "strażnik",
+    "investigator": "śledczy",
+    "bounty hunter": "łowca nagród",
+    "spy": "szpieg",
+    "noble": "szlachcic",
+    "ruler": "władca",
+    "inheritor": "dziedzic",
+    "courtier": "dworak",
+    "scholar": "uczony",
+    "student": "student",
+    "sage": "mędrzec",
+    "hermit": "pustelnik",
+    "traveler": "podróżnik",
+    "outlander": "przybysz",
+    "urchin": "ulicznik",
+    "preacher": "kaznodzieja",
+    "acolyte": "akolita",
+    "monk": "mnich",
+    "chaplain": "kapelan",
+    "charlatan": "szarlatan",
+    "criminal": "przestępca",
+    "entertainer": "artysta",
+    "doctor": "lekarz",
+    "artisan": "rzemieślnik",
+    "merchant": "kupiec",
+    "hunter": "myśliwy",
+    "fisher": "rybak",
+    "herbalist": "zielarz",
+    "battle mage": "mag bojowy",
+    "soothsayer": "wróżbita",
+    "surgeon": "chirurg",
+    "necromancer": "nekromanta",
+    "paladin": "paladyn",
+    "slave": "niewolnik",
+    "concubine": "konkubina",
+    "cook": "kucharz",
+    "prisoner": "więzień",
+    "beggar": "żebrak",
+    "mason": "murarz",
+    "miller": "młynarz",
+    "farmer": "rolnik",
+    "caravaneer": "karawaniarz",
+    "slaver": "handlarz niewolników",
+    "witch": "czarownica",
+    "shaman": "szaman",
+    "ranger": "zwiadowca",
+    "eunuch": "eunuch"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portret",
+      "details": "Szczegóły",
+      "bio": "Biografia"
+    },
+    "export": {
+      "export": "Eksportuj",
+      "portrait": "Obraz portretu",
+      "cardImage": "Obraz karty",
+      "text": "Plik tekstowy",
+      "json": "Plik JSON"
+    },
+    "report": {
+      "category": "Kategoria",
+      "categories": {
+        "other": "Inne problemy",
+        "inappropriate": "Nieodpowiednia treść",
+        "portrait": "Zły portret",
+        "biography": "Problemy z biografią",
+        "improvement": "Sugestia"
+      },
+      "message": "Wiadomość"
+    },
+    "editor": {
+      "edit": "Edytuj postać",
+      "create": "Utwórz postać",
+      "randomize": {
+        "name": "Losowe imię",
+        "age": "Losowy wiek",
+        "height": "Losowy wzrost",
+        "weight": "Losowa waga"
+      },
+      "portrait": {
+        "drop": "Upuść obraz tutaj",
+        "upload": "Prześlij portret. Cena: {{ variable }} moneta",
+        "generate": "Wygeneruj portret od zera za pomocą AI. Cena: {{ variable }} monet",
+        "randomize": "Losowy portret (wybierz z wstępnie wygenerowanej galerii)"
+      },
+      "bio": {
+        "copy": "Kopiuj biografię",
+        "price": "Cena generowania: {{ variable }} monet",
+        "generate": "Wygeneruj biografię. Cena: {{ variable }} monet",
+        "configurePrompt": "Skonfiguruj prompt generowania"
+      },
+      "success": {
+        "edit": "Postać zaktualizowana",
+        "create": "Postać utworzona i dodana do Biblioteki"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Pokaż pełną kartę",
+    "favorite": "Dodaj do Biblioteki",
+    "mobileHint": "Przesuń w lewo lub w prawo, aby obrócić galerię",
+    "desktopHint": "Użyj strzałek, aby obrócić galerię"
+  },
+  "library": {
+    "liked": {
+      "title": "Ulubione postacie",
+      "empty": "Nie polubiłeś jeszcze żadnych postaci. Użyj ikony serca po prawej stronie karty postaci, aby dodać ją do ulubionych.",
+      "goToGallery": "Otwórz Galerię"
+    },
+    "custom": {
+      "title": "Własne postacie",
+      "empty": "Nie utworzyłeś jeszcze żadnych własnych postaci. Użyj przycisku po prawej stronie, aby stworzyć ją od zera lub edytować istniejącą postać.",
+      "create": "Utwórz postać",
+      "remove": "Usuń własną postać"
+    },
+    "uploaded": {
+      "title": "Przesłane i wygenerowane portrety",
+      "remove": "Usuń portret"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Najpotężniejszy GPT-5.4; doskonały w zaawansowanym rozumowaniu, badaniach i złożonych wieloetapowych zadaniach",
+      "gpt-5.4-mini": "Zrównoważony wariant GPT-5.4; solidne rozumowanie z poprawioną szybkością i niższymi kosztami",
+      "gpt-5.4-nano": "Lekki wariant GPT-5.4; szybki i ekonomiczny dla prostych zadań o dużej objętości",
+      "gpt-5.1": "Złożone rozumowanie, szeroka wiedza o świecie oraz zadania agentyczne z dużą ilością kodu lub wieloetapowe",
+      "gpt-5-mini": "Rozumowanie i czat zoptymalizowane kosztowo; balansuje szybkość, koszt i możliwości",
+      "gpt-5-nano": "Zadania o dużej objętości, szczególnie proste śledzenie instrukcji lub klasyfikacja",
+      "claude-opus-4-6": "Flagowy model Anthropic łączący maksymalną inteligencję z praktyczną wydajnością",
+      "claude-sonnet-4-6": "Najmądrzejszy model Anthropic dla złożonych agentów i programowania",
+      "claude-haiku-4-5": "Najszybszy model Anthropic z inteligencją bliską levelowi czołowemu"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Zobacz w Deorum"
+  }
+}
