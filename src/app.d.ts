@@ -6,8 +6,10 @@ enum Role {
 
 declare global {
   // See https://kit.svelte.dev/docs/types#app
-  declare namespace App {
-    // interface Locals {}
+  namespace App {
+    interface Locals {
+      lang: string;
+    }
     interface PageData {
       params?: {
         slug: string;
@@ -53,3 +55,5 @@ declare global {
     };
   }
 }
+
+export {};

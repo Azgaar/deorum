@@ -1,30 +1,16 @@
-import { json, type Cookies } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
 import { env } from '$env/dynamic/private';
 import admin from '$lib/api/admin';
 import { authorize, isSignedIn } from '$lib/api/auth';
-import { COOKIE_NAME, Role } from '$lib/config';
-import { report } from '$lib/utils/log';
+import { Role } from '$lib/config';
 
 const protectedPaths = [
   { path: 'admin', roles: [Role.ADMIN] },
   { path: 'library', roles: [Role.USER, Role.ADMIN] },
   { path: 'match', roles: [Role.USER, Role.ADMIN] }
 ];
-
-const getPageLanguage = (cookies: Cookies) => {
-  const cookie = cookies.get(COOKIE_NAME);
-  if (!cookie) return 'auto';
-
-  try {
-    const parsed = JSON.parse(cookie);
-    return parsed.model.profile.lang;
-  } catch (error) {
-    report('cookie', error);
-    return 'auto';
-  }
-};
 
 const abortRequest = (sourceUrl: string, role: Role) => {
   const isApiCall = sourceUrl.includes('/api/');
@@ -63,7 +49,7 @@ const loginAsExecuter: import('@sveltejs/kit').Handle = async ({ event, resolve 
 
 const setPageLanguage: import('@sveltejs/kit').Handle = async ({ event, resolve }) => {
   return resolve(event, {
-    transformPageChunk: ({ html }) => html.replace('%lang%', getPageLanguage(event.cookies))
+    transformPageChunk: ({ html }) => html.replace('%lang%', event.locals.lang ?? 'en')
   });
 };
 

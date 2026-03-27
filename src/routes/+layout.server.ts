@@ -16,10 +16,11 @@ const getLocale = (request: Request, user: IUser | null) => {
   return 'en'; // fallback
 };
 
-export const load: import('./$types').LayoutServerLoad = async ({ request, depends }) => {
+export const load: import('./$types').LayoutServerLoad = async ({ request, depends, locals }) => {
   const { user } = await authorize(request);
 
   const lang = getLocale(request, user);
+  locals.lang = lang;
   const userId = user?.id || null;
   const name = user?.profile.name || '';
   const email = user?.email || '';
