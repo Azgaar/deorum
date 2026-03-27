@@ -4,6 +4,7 @@
   import { t } from '$lib/locales/translations';
   import { galleryId } from '$lib/stores';
   import Button from '../Button.svelte';
+  import LanguageSwitcher from '../LanguageSwitcher.svelte';
   import Link from '../Link.svelte';
   import { getLinkKey, getLinks } from '../navlinks';
 
@@ -26,6 +27,10 @@
       <Button onClick={() => openGetCoinsDialog($page.data.coins)}>
         {$t('common.coins.getCoins')}
       </Button>
+    </section>
+
+    <section>
+      <LanguageSwitcher />
     </section>
 
     <nav>

@@ -4,8 +4,9 @@ import { locales } from '$lib/locales/translations';
 
 import type { IUser } from '$lib/types/api.types';
 
-const getLocale = (request: Request, user: IUser | null) => {
-  if (user?.profile?.lang) return user.profile.lang;
+const getLocale = (request: Request, user: IUser | null, cookieLang: string | undefined) => {
+  if (cookieLang && locales.includes(cookieLang)) return cookieLang;
+  if (user?.profile?.lang && locales.includes(user.profile.lang)) return user.profile.lang;
 
   const accepted = request.headers.get('accept-language');
   const primary = accepted?.split(',')[0];
@@ -16,10 +17,10 @@ const getLocale = (request: Request, user: IUser | null) => {
   return 'en'; // fallback
 };
 
-export const load: import('./$types').LayoutServerLoad = async ({ request, depends, locals }) => {
+export const load: import('./$types').LayoutServerLoad = async ({ request, depends, locals, cookies }) => {
   const { user } = await authorize(request);
 
-  const lang = getLocale(request, user);
+  const lang = getLocale(request, user, cookies.get('lang'));
   locals.lang = lang;
   const userId = user?.id || null;
   const name = user?.profile.name || '';

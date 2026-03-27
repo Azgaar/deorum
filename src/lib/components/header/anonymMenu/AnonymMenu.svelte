@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import { galleryId } from '$lib/stores';
   import { fade } from 'svelte/transition';
+  import LanguageSwitcher from '../LanguageSwitcher.svelte';
   import Link from '../Link.svelte';
   import { getLinkKey, getLinks } from '../navlinks';
 
@@ -21,6 +22,8 @@
 
   <aside class:collapsed on:click={toggleMenu} on:keydown={toggleMenu}>
     <ul>
+      <LanguageSwitcher />
+
       {#each links as link (getLinkKey(link))}
         <li><Link {link} /></li>
       {/each}
