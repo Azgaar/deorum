@@ -1,0 +1,48 @@
+{
+  "title": "Gebruiksvoorwaarden",
+  "intro": "Bedankt voor het gebruik van Deorum, een webapplicatie gemaakt door Azgaar en het Team. Lees de volgende gebruiksvoorwaarden zorgvuldig door.",
+  "sections": {
+    "section1": {
+      "title": "Licentie",
+      "clauses": {
+        "clause1": {
+          "title": "Vooraf aangemaakte personages",
+          "content": "Deorum biedt vooraf aangemaakte fantasiepersonages gemaakt door Azgaar en het Team. U bent vrij om de vooraf aangemaakte personages te gebruiken en te bewerken voor niet-commerciële doeleinden onder de voorwaarden van de <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0 licentie</a>.",
+          "subclauses": {
+            "subclause1": "Alle karakterportretten in Deorum zijn vooraf aangemaakt met behulp van gecureerde Stable Diffusion beeld-naar-beeld AI-generatie. De generatie is gebaseerd op een set handgetekende unieke portretten gemaakt door Azgaar en het Team, dus alle gegenereerde portretten zijn afgeleiden van de bronafbeeldingen. Als zodanig behoudt Azgaar alle rechten op de bronafbeeldingen. De afgeleide werken van deze portretten (de vooraf aangemaakte karakterportretten van Deorum) zijn echter gratis beschikbaar voor niet-commercieel gebruik.",
+            "subclause2": "De karakterbiografieën in Deorum zijn gegenereerd met behulp van OpenAI GPT-3 en GPT-4-modellen, die vervolgens handmatig zijn afgestemd door Azgaar en het Team. Alle tekstinhoud, inclusief karakterbiografieën en andere karaktergerelateerde informatie, is ook gratis beschikbaar voor niet-commercieel gebruik.",
+            "subclause3": "Voor <strong>commercieel gebruik</strong> van vooraf aangemaakte personages of hun onderdelen, neem contact op met Azgaar via e-mail op <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. We verlenen graag toestemming voor commercieel gebruik aan onze supporters."
+          }
+        },
+        "clause2": {
+          "title": "Aangepaste personages",
+          "content": "U behoudt alle rechten op de personages die u handmatig in Deorum hebt aangemaakt. Geüploade portretten vallen onder hun oorspronkelijke licentie. Toegevoegde biografieën en andere tekstinhoud zijn ook onderworpen aan hun oorspronkelijke licentie."
+        },
+        "clause3": {
+          "title": "Code-eigenaarschap",
+          "content": "Deorum is een open-source applicatie verspreid onder de <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT-licentie</a>. De broncode voor de applicatie is te vinden op <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Gebruikersverantwoordelijkheden",
+      "content": "Door Deorum te gebruiken, stemt u ermee in alle toepasselijke wetten en voorschriften na te leven. U bent verantwoordelijk voor het gebruik van de applicatie op een wettige, ethische en respectvolle manier, zonder inbreuk te maken op de rechten van anderen. Meld eventuele overtredingen of ongeoorloofd gebruik van Deorum aan Azgaar. Als u zich niet aan deze verantwoordelijkheden houdt, kan dit leiden tot beëindiging van uw toegang tot de applicatie."
+    },
+    "section3": {
+      "title": "Disclaimer en beperking van aansprakelijkheid",
+      "content": "Deorum wordt geleverd op een 'as is' en 'as available' basis zonder enige garanties, uitdrukkelijk of impliciet. Azgaar en het Team wijzen alle garanties af, inclusief maar niet beperkt tot impliciete garanties van verkoopbaarheid, geschiktheid voor een bepaald doel en niet-inbreuk. Het gebruik van Deorum is op eigen risico. Azgaar en het Team zijn niet aansprakelijk voor directe, indirecte, incidentele, speciale of gevolgschade die voortvloeit uit of verband houdt met het gebruik van Deorum of het onvermogen om het te gebruiken. U stemt ermee in Azgaar en het Team te vrijwaren van claims, schade of verliezen die voortvloeien uit uw gebruik van Deorum of een schending van deze gebruiksvoorwaarden."
+    },
+    "section4": {
+      "title": "Inhoud- en privacybeleid",
+      "content": "We verzamelen en slaan beperkte gebruikersgegevens op, inclusief namen en e-mailadressen, uitsluitend voor de functionaliteit van de site. Wachtwoorden worden versleuteld en noch Azgaar noch het Team heeft er toegang toe. We streven ernaar de persoonlijke informatie van onze gebruikers te beschermen en delen deze niet met derden. Houd er rekening mee dat hoewel we redelijke maatregelen nemen om gebruikersgegevens te beschermen, geen enkele transmissie- of opslagmethode via internet volledig veilig is. We kunnen analyses en gebruiksgegevens verzamelen als geaggregeerde informatie zonder persoonlijk identificeerbare informatie op te nemen. Alle inhoud die door gebruikers wordt geüpload, inclusief portretten, biografieën en andere materialen, is echter hun eigen verantwoordelijkheid."
+    },
+    "section5": {
+      "title": "Contactinformatie",
+      "content": "Als u vragen of opmerkingen heeft over de gebruiksvoorwaarden of de Deorum-applicatie, neem dan contact op met Azgaar via e-mail op <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Contactinformatie",
+      "content": "Als u vragen of opmerkingen heeft over de gebruiksvoorwaarden of de Deorum-applicatie, neem dan contact op met Azgaar via e-mail op <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

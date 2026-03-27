@@ -1,0 +1,48 @@
+{
+  "title": "Használati feltételek",
+  "intro": "Köszönjük, hogy a Deorumot használja, az Azgaar és a Csapat által készített webalkalmazást. Kérjük, olvassa el az alábbi használati feltételeket.",
+  "sections": {
+    "section1": {
+      "title": "Licenc",
+      "clauses": {
+        "clause1": {
+          "title": "Előre elkészített karakterek",
+          "content": "A Deorum előre elkészített fantasy karaktereket kínál, amelyeket Azgaar és a Csapat hozott létre. Az előre elkészített karaktereket szabadon felhasználhatja és szerkesztheti nem kereskedelmi célokra a <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0 licenc</a> feltételei szerint.",
+          "subclauses": {
+            "subclause1": "A Deorumban lévő összes karakterportré előre elkészítve a Stable Diffusion képektől képekig AI generálás segítségével. A generálás az Azgaar és a Csapat által kézzel rajzolt egyedi portrék készletén alapul, így az összes generált portré a forrásképek derivátuma. Emiatt Azgaar megtartja a forrásképek minden jogát. A portrék derivátumai (amelyek a Deorum előre elkészített karakterportrái) azonban ingyenesen elérhetők nem kereskedelmi felhasználásra.",
+            "subclause2": "A Deorumban lévő karakteréletrajzokat az OpenAI GPT-3 és GPT-4 modellek segítségével generálják, amelyeket aztán Azgaar és a Csapat manuálisan finomít. Az összes szöveges tartalom, beleértve a karakteréletrajzokat és egyéb karakterrel kapcsolatos információkat, szintén ingyenesen elérhető nem kereskedelmi felhasználásra.",
+            "subclause3": "Az előre elkészített karakterek vagy részeik <strong>kereskedelmi felhasználásához</strong> lépjen kapcsolatba Azgaarral e-mailben a következő címen: <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Örömmel adunk engedélyt a kereskedelmi felhasználáshoz támogatóink számára."
+          }
+        },
+        "clause2": {
+          "title": "Egyéni karakterek",
+          "content": "Megtartod az összes jogot a Deorumban manuálisan létrehozott karaktereidhez. A feltöltött portrék az eredeti licencüket követik. A hozzáadott életrajzok és egyéb szöveges tartalmak szintén az eredeti licencük hatálya alá tartoznak."
+        },
+        "clause3": {
+          "title": "Kód tulajdonjoga",
+          "content": "A Deorum egy nyílt forráskódú alkalmazás, amelyet az <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT licenc</a> alatt terjesztenek. Az alkalmazás forráskódja megtalálható a <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHubon</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Felhasználói felelősségek",
+      "content": "A Deorum használatával elfogadja, hogy betartja az összes vonatkozó törvényt és szabályozást. Ön felelős az alkalmazás jogszerű, etikus és tiszteletteljes módon való használatáért, mások jogainak megsértése nélkül. Jelentse a Deorum minden jogsértését vagy jogosulatlan felhasználását Azgaarnak. Ezen felelősségek be nem tartása az alkalmazáshoz való hozzáférés megszüntetéséhez vezethet."
+    },
+    "section3": {
+      "title": "Felelősségkizárás és felelősségkorlátozás",
+      "content": "A Deorumot 'adott állapotban' és 'elérhetőség szerint' biztosítják, bármiféle garanciák nélkül, kifejezett vagy vélelmezett. Azgaar és a Csapat elutasít minden garanciát, beleértve, de nem kizárólag az eladhatóságra, egy adott célra való alkalmasságra és a nem jogsértésre vonatkozó vélelmezett garanciákat. A Deorum használata saját felelősségre történik. Azgaar és a Csapat nem vállal felelősséget a Deorum használatából vagy használhatatlanságából eredő közvetlen, közvetett, esetvéletlen, különleges vagy következményes károkért. Elfogadja, hogy kártalanítja Azgaart és a Csapatot a Deorum használatából vagy a jelen Használati feltételek megsértéséből eredő követelésektől, károktól vagy veszteségektől."
+    },
+    "section4": {
+      "title": "Tartalom- és adatvédelmi irányelvek",
+      "content": "Korlátozott felhasználói adatokat gyűjtünk és tárolunk, beleértve neveket és e-mail-címeket, kizárólag az oldal működéséhez szükséges célból. A jelszavak titkosítva vannak, és sem Azgaarnak, sem a Csapatnak nincs hozzáférése hozzájuk. Elkötelezettünk felhasználóink személyes adatainak védelme iránt, és nem osztjuk meg azokat harmadik felekkel. Kérjük, vegye figyelembe, hogy bár ésszerű intézkedéseket teszünk a felhasználói adatok védelme érdekében, az interneten cross átvitt vagy tárolt adatok soha nem teljesen biztonságosak. Analitikai és használati adatokat gyűjthetünk aggregált információként, személyazonosításra alkalmas adatok nélkül. Fontos azonban megérteni, hogy a felhasználók által feltöltött összes tartalom, beleértve a portrékat, életrajzokat és egyéb anyagokat, saját felelősségük."
+    },
+    "section5": {
+      "title": "Kapcsolatfelvételi adatok",
+      "content": "Ha kérdései vagy aggályai vannak a használati feltételekkel vagy a Deorum alkalmazással kapcsolatban, lépjen kapcsolatba Azgaarral e-mailben a következő címen: <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Kapcsolatfelvételi adatok",
+      "content": "Ha kérdései vagy aggályai vannak a használati feltételekkel vagy a Deorum alkalmazással kapcsolatban, lépjen kapcsolatba Azgaarral e-mailben a következő címen: <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

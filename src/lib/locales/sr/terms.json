@@ -1,0 +1,48 @@
+{
+  "title": "Uslovi korištenja",
+  "intro": "Hvala što koristite Deorum, web aplikaciju koju je stvorio Azgaar i Tim. Molimo vas da pregledate sljedeće uslove korištenja.",
+  "sections": {
+    "section1": {
+      "title": "Licenca",
+      "clauses": {
+        "clause1": {
+          "title": "Unaprijed stvoreni likovi",
+          "content": "Deorum pruža unaprijed stvorene fantasy likove koje su kreirali Azgaar i Tim. Slobodni ste koristiti i uređivati unaprijed stvorene likove za nekomercijalne svrhe prema uslovima <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0 licence</a>.",
+          "subclauses": {
+            "subclause1": "Svi portreti likova u Deorumu su unaprijed stvoreni korištenjem odabranog Stable Diffusion AI generisanja slika iz slika. Generisanje se zasniva na skupu ručno nacrtanih jedinstvenih portreta koje su kreirali Azgaar i Tim, stoga su svi generisani portreti derivati izvornih slika. Kao takav, Azgaar zadržava sva prava na izvorne slike. Međutim, derivati ovih portreta (koji su unaprijed stvoreni portreti likova Deoruma) dostupni su besplatno za nekomercijalno korištenje.",
+            "subclause2": "Biografije likova u Deorumu generisane su korištenjem OpenAI GPT-3 i GPT-4 modela, koje je potom ručno prilagodio Azgaar i Tim. Sav tekstualni sadržaj, uključujući biografije likova i druge informacije vezane za likove, dostupan je i besplatno za nekomercijalno korištenje.",
+            "subclause3": "Za <strong>komercijalno korištenje</strong> unaprijed stvorenih likova ili njihovih dijelova, kontaktirajte Azgaara putem e-maila na <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Rado ćemo dati dozvole za komercijalno korištenje našim pokroviteljima."
+          }
+        },
+        "clause2": {
+          "title": "Prilagođeni likovi",
+          "content": "Zadržavate sva prava na likove koje ste ručno kreirali u Deorumu. Učitani portreti pridržavaju se svojih početnih licenci. Dodane biografije i drugi tekstualni sadržaj također su predmet njihove početne licence."
+        },
+        "clause3": {
+          "title": "Vlasništvo nad kodom",
+          "content": "Deorum je aplikacija otvorenog koda distribuirana pod <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT licencom</a>. Izvorni kod aplikacije može se naći na <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHubu</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Odgovornosti korisnika",
+      "content": "Korištenjem Deoruma slažete se da ćete poštovati sve primjenljive zakone i propise. Odgovorni ste za korištenje aplikacije na zakonit, etičan i uljudan način bez kršenja prava drugih. Prijavite svako kršenje ili neovlašteno korištenje Deoruma Azgaaru. Nepoštivanje ovih odgovornosti može dovesti do prestanka vašeg pristupa aplikaciji."
+    },
+    "section3": {
+      "title": "Odricanje odgovornosti i ograničenje odgovornosti",
+      "content": "Deorum se pruža na osnovi 'kakav jeste' i 'kako je dostupan' bez ikakvih garancija, izričitih ili podrazumijevanih. Azgaar i Tim odriču sve garancije, uključujući ali ne ograničavajući se na podrazumijevane garancije o prodajnosti, prikladnosti za određenu svrhu i nekršenju. Korištenje Deoruma je na vlastiti rizik. Azgaar i Tim neće biti odgovorni za nikakve direktne, indirektne, slučajne, posebne ili posljedične štete koje nastaju iz ili su na bilo koji način vezane za korištenje Deoruma ili nemogućnost korištenja istog. Slažete se da ćete obeštetiti i zaštititi Azgaara i Tim od bilo kakvih tužbi, šteta ili gubitaka koji nastanu iz vašeg korištenja Deoruma ili kršenja ovih Uslova korištenja."
+    },
+    "section4": {
+      "title": "Politika sadržaja i privatnosti",
+      "content": "Prikupljamo i čuvamo ograničene korisničke podatke, uključujući imena i e-mail adrese, isključivo u svrhu funkcionalnosti stranice. Lozinke su šifrirane i ni Azgaar ni Tim nemaju pristup njima. Posvećeni smo zaštiti osobnih informacija naših korisnika i nećemo ih dijeliti s trećim stranama. Imajte na umu da, iako poduzimamo razumne mjere za zaštitu podataka korisnika, nijedna metoda prijenosa ili pohrane putem interneta nije potpuno sigurna. Možemo prikupljati analitičke i podatke o korištenju kao agregirane informacije bez uključivanja osobno prepoznatljivih informacija. Međutim, važno je razumjeti da je za sav sadržaj koji korisnici učitavaju, uključujući portrete, biografije i druge materijale, odgovornost korisnika."
+    },
+    "section5": {
+      "title": "Kontakt informacije",
+      "content": "Ako imate pitanja ili nedoumice u vezi s uslovima korištenja ili aplikacijom Deorum, kontaktirajte Azgaara putem e-maila na <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Kontakt informacije",
+      "content": "Ako imate pitanja ili nedoumice u vezi s uslovima korištenja ili aplikacijom Deorum, kontaktirajte Azgaara putem e-maila na <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

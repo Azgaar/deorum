@@ -1,0 +1,48 @@
+{
+  "title": "Kullanım Şartları",
+  "intro": "Azgaar ve Ekip tarafından oluşturulan bir web uygulaması olan Deorum'u kullandığınız için teşekkürler. Lütfen aşağıdaki kullanım şartlarını inceleyin.",
+  "sections": {
+    "section1": {
+      "title": "Lisans",
+      "clauses": {
+        "clause1": {
+          "title": "Önceden Oluşturulmuş Karakterler",
+          "content": "Deorum, Azgaar ve Ekip tarafından oluşturulan önceden oluşturulmuş fantezi karakterler sunar. Önceden oluşturulmuş karakterleri <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0 lisansı</a> koşulları altında ticari olmayan amaçlar için serbestçe kullanabilir ve düzenleyebilirsiniz.",
+          "subclauses": {
+            "subclause1": "Deorum'daki tüm karakter portreleri, seçilmiş Stable Diffusion görüntüden görüntüye yapay zeka üretimi kullanılarak önceden oluşturulmuştur. Üretim, Azgaar ve Ekip tarafından oluşturulan el çizimi benzersiz portrelere dayandığından, tüm üretilen portreler kaynak görüntülerin türevleridir. Bu nedenle Azgaar, kaynak görüntüler üzerindeki tüm hakları elinde bulundurur. Ancak bu portrelerin türevleri (Deorum'un önceden oluşturulmuş karakter portreleri) ticari olmayan kullanım için ücretsiz olarak mevcuttur.",
+            "subclause2": "Deorum'daki karakter biyografileri, OpenAI GPT-3 ve GPT-4 modelleri kullanılarak oluşturulur ve ardından Azgaar ve Ekip tarafından manuel olarak ayarlanır. Karakter biyografileri ve diğer karakterle ilgili bilgiler dahil tüm metin içeriği, ticari olmayan kullanım için de ücretsiz olarak mevcuttur.",
+            "subclause3": "Önceden oluşturulmuş karakterlerin veya bunların parçalarının <strong>ticari kullanımı</strong> için lütfen Azgaar ile <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a> adresinden e-posta yoluyla iletişime geçin. Destekçilerimiz için ticari kullanım izinleri vermekten memnuniyet duyarız."
+          }
+        },
+        "clause2": {
+          "title": "Özel Karakterler",
+          "content": "Deorum'da sizin tarafınızdan manuel olarak oluşturulan karakterler üzerindeki tüm hakları saklı tutarsınız. Yüklenen portreler orijinal lisanslarına tabidir. Eklenen biyografiler ve diğer metin içerikleri de orijinal lisanslarına tabidir."
+        },
+        "clause3": {
+          "title": "Kod Sahipliği",
+          "content": "Deorum, <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT lisansı</a> altında dağıtılan açık kaynaklı bir uygulamadır. Uygulamanın kaynak kodu <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>'da bulunabilir."
+        }
+      }
+    },
+    "section2": {
+      "title": "Kullanıcı Sorumlulukları",
+      "content": "Deorum'u kullanarak tüm geçerli yasa ve yönetmeliklere uymayı kabul edersiniz. Uygulamayı başkalarının haklarını ihlal etmeden yasal, etik ve saygılı bir şekilde kullanmaktan siz sorumlusunuz. Deorum'daki herhangi bir ihlali veya yetkisiz kullanımı Azgaar'a bildirin. Bu sorumluluklara uyulmaması, uygulamaya erişiminizin sonlandırılmasına yol açabilir."
+    },
+    "section3": {
+      "title": "Sorumluluk Reddi ve Sorumluluk Sınırlaması",
+      "content": "Deorum, açık veya zımni hiçbir garanti olmaksızın 'olduğu gibi' ve 'mevcut olduğu şekilde' sağlanmaktadır. Azgaar ve Ekip, satılabilirlik, belirli bir amaca uygunluk ve ihlal etmeme zımni garantileri dahil ancak bunlarla sınırlı olmamak üzere tüm garantileri reddeder. Deorum'u kullanmak tamamen kendi sorumluluğunuzdadır. Azgaar ve Ekip, Deorum'un kullanımından veya kullanılamamasından kaynaklanan doğrudan, dolaylı, tesadüfi, özel veya sonuçsal zararlardan sorumlu olmayacaktır. Deorum kullanımınızdan veya bu Kullanım Şartlarının herhangi bir ihlalinden kaynaklanan tüm talep, zarar veya kayıplardan Azgaar ve Ekibi koruyacağınızı kabul edersiniz."
+    },
+    "section4": {
+      "title": "İçerik ve Gizlilik Politikası",
+      "content": "Site işlevselliği amacıyla yalnızca isimler ve e-posta adresleri dahil sınırlı kullanıcı verilerini topluyoruz ve saklıyoruz. Şifreler şifrelenir ve ne Azgaar ne de Ekip bunlara erişemez. Kullanıcılarımızın kişisel bilgilerini korumaya kararlıyız ve bunları üçüncü şahıslarla paylaşmayacağız. İnternet üzerinden iletim veya depolama yöntemlerinin tamamen güvenli olmadığını lütfen unutmayın. Kişisel olarak tanımlanabilir bilgiler içermeden toplu bilgi olarak analitik ve kullanım verileri toplayabiliriz. Ancak, portreler, biyografiler ve diğer materyaller dahil kullanıcılar tarafından yüklenen tüm içeriğin kendi sorumlulukları olduğunu anlamak önemlidir."
+    },
+    "section5": {
+      "title": "İletişim Bilgileri",
+      "content": "Kullanım şartları veya Deorum uygulaması hakkında herhangi bir sorunuz veya endişeniz varsa, lütfen Azgaar ile <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a> adresinden e-posta yoluyla iletişime geçin."
+    },
+    "section6": {
+      "title": "İletişim Bilgileri",
+      "content": "Kullanım şartları veya Deorum uygulaması hakkında herhangi bir sorunuz veya endişeniz varsa, lütfen Azgaar ile <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a> adresinden e-posta yoluyla iletişime geçin."
+    }
+  }
+}

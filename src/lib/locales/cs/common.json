@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Galerie fantasy postav od Azgaara",
+    "description": "Váš zdroj přizpůsobitelných unikátních fantasy postav pro projekty D&D a budování světů"
+  },
+  "landing": {
+    "slogan": "Vydejte se na epickou cestu s Deorum – vaším zdrojem unikátních fantasy postav pro projekty D&D a budování světů",
+    "description1": "Objevte přes 1600 přizpůsobitelných postav, každou s ohromujícím portrétem a podrobnou biografií. Naše obrázky vycházejí ze sady 132 krásně ručně nakreslených portrétů, rozmnožených na více než 10000 variací pomocí generování AI, a odborně vybraných pro nejvyšší kvalitu.",
+    "description2": "Přizpůsobte si vybranou postavu podle svého přání a oživte své příběhy. A nejlepší část? Všechny postavy jsou zdarma pro nekomerční použití, s dostupnou levnou komerční licencí. Připojte se ke komunitě a začněte své příští dobrodružství ještě dnes!",
+    "openGallery": "Otevřít galerii"
+  },
+  "controls": {
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "delete": "Smazat",
+    "confirmDeletion": "Smazat ({{variable}})",
+    "add": "Přidat",
+    "create": "Vytvořit",
+    "edit": "Upravit",
+    "search": "Hledat",
+    "clear": "Vymazat",
+    "back": "Zpět",
+    "next": "Další",
+    "apply": "Použít",
+    "select": "Vybrat",
+    "close": "Zavřít",
+    "confirm": "Potvrdit",
+    "yes": "ano",
+    "no": "ne",
+    "random": "náhodné",
+    "download": "Stáhnout",
+    "report": "Nahlásit problém",
+    "send": "Odeslat",
+    "openPortraitEditor": "Otevřít editor portrétů",
+    "openCharacterEditor": "Otevřít editor postav",
+    "embed": "Vložit"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Potvrzení",
+      "body": "Opravdu chcete pokračovat?",
+      "confirm": "ano",
+      "cancel": "ne"
+    }
+  },
+  "values": {
+    "undefined": "nedefinováno",
+    "all": "vše",
+    "any": "libovolné",
+    "unnamed": "Bezejmenný"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "Ve výstavbě"
+  },
+  "auth": {
+    "signup": "Registrovat se",
+    "signin": "Přihlásit se",
+    "signinTitle": "Přihlásit se ke svému účtu",
+    "signupTitle": "Vytvořit nový účet",
+    "logout": "Odhlásit se",
+    "email": "E-mail",
+    "emailPlaceholder": "Zadejte svůj e-mail",
+    "name": "Jméno",
+    "namePlaceholder": "Zadejte své jméno",
+    "password": "Heslo",
+    "passwordPlaceholder": "Zadejte své heslo",
+    "agreeToTerms": "Registrací souhlasíte s našimi",
+    "terms": "Podmínkami použití",
+    "haveAccount": "Již máte účet?",
+    "noAccount": "Nemáte účet?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} mincí zbývá",
+    "getCoins": "Získat mince",
+    "openPatreon": "Otevřít Patreon",
+    "description": {
+      "1": "Mince jsou virtuální měna používaná pro přístup k určitým akcím v aplikaci. Ve výchozím nastavení dostane každý uživatel {{variable}} mincí zdarma, které lze použít k vytváření postav, nahrávání obrázků a generování biografií pomocí GPT.",
+      "2": "Protože přímé platby zatím nejsou dostupné, přišli jsme s dočasným řešením pro poděkování našim podporovatelům na Patreonu. Pro získání mincí pošlete přímou zprávu <i>Azgaarovi</i> ze své stránky Patreon. Za každých </b>${{variable}}</b> přislíbených obdržíte jednu minci jako projev vděku za vaši podporu.",
+      "3": "Děkujeme za podporu projektu! Doufáme, že si užijete vytváření úžasných fantasy postav a prozkoumávání nekonečných možností s naším AI nástrojem. Chceme zajistit, abychom mohli poskytnout nejlepší možný zážitek všem uživatelům, a používáním mincí k omezení přístupu k určitým akcím zajišťujeme udržitelnost aplikace."
+    }
+  },
+  "navigation": {
+    "back": "Zpět",
+    "gallery": "Galerie",
+    "match": "Shoda",
+    "tags": "Štítky",
+    "admin": "Admin",
+    "next": "Další",
+    "library": "Knihovna",
+    "donate": "Přispět",
+    "howToUse": "Jak používat",
+    "terms": "Podmínky použití",
+    "discord": "Discord server",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Hledat",
+    "title": "Hledat postavy",
+    "sorting": {
+      "asc": "Seřadit vzestupně",
+      "desc": "Seřadit sestupně",
+      "no": "Neřadit"
+    },
+    "foundItems": "Nalezené položky: {{variable}}",
+    "noResults": "Žádné postavy nenalezeny, změňte prosím kritéria vyhledávání a zkuste to znovu",
+    "openGallery": "Otevřít galerii"
+  },
+  "success": {
+    "copied": "Zkopírováno do schránky"
+  },
+  "errors": {
+    "unauthorized": "Pro přístup na tuto stránku se přihlaste jako {{variable}}",
+    "copy": "Kopírování selhalo. Zkopírujte ručně"
+  },
+  "character": {
+    "name": "Jméno",
+    "unnamed": "Bezejmenný",
+    "age": "Věk",
+    "gender": "Pohlaví",
+    "race": "Rasa",
+    "archetype": "Archetyp",
+    "background": "Zázemí",
+    "height": "Výška",
+    "weight": "Váha",
+    "bio": "Biografie"
+  },
+  "metrics": {
+    "yearsOld": "let",
+    "cm": "cm",
+    "feetAndInches": "stopy a palce",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Možný rozsah"
+  },
+  "genders": {
+    "male": "mužský",
+    "female": "ženský",
+    "non-binary": "nebinární"
+  },
+  "races": {
+    "human": "člověk",
+    "elf": "elf",
+    "half-elf": "půlelf",
+    "dwarf": "trpaslík",
+    "gnome": "gnóm",
+    "orc": "ork",
+    "half-orc": "půlork",
+    "goblin": "goblin",
+    "ogre": "obr",
+    "draconid": "drakonid",
+    "beastman": "zvěřák",
+    "felinid": "felinid",
+    "lizardman": "ještěref",
+    "firbolg": "firbolg",
+    "pixie": "pixi",
+    "demon": "démon",
+    "angel": "anděl",
+    "spirit": "duch",
+    "jinn": "džin",
+    "undead": "nemrtvý",
+    "siren": "siréna",
+    "gargoyle": "chrlič",
+    "golem": "golem",
+    "cyborg": "kyborg",
+    "triton": "triton",
+    "demigod": "polobůh",
+    "birdman": "ptáčí člověk",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "hmyzoid",
+    "centaur": "kentaur",
+    "satyr": "satyr"
+  },
+  "archetypes": {
+    "warrior": "válečník",
+    "mage": "mág",
+    "rogue": "zloděj",
+    "cleric": "klerik",
+    "ruler": "vládce",
+    "lover": "milenec",
+    "druid": "druid",
+    "destroyer": "ničitel",
+    "seeker": "hledač",
+    "soothsayer": "věštec",
+    "sage": "mudrc",
+    "trickster": "šibal",
+    "creator": "tvůrce",
+    "merchant": "obchodník",
+    "companion": "společník",
+    "villain": "padouch",
+    "damsel": "dívka v nouzi",
+    "outcast": "vyhnanec",
+    "chosen one": "vyvolený",
+    "rebel": "rebel",
+    "wanderer": "tulák",
+    "mentor": "mentor",
+    "minion": "posluha"
+  },
+  "backgrounds": {
+    "knight": "rytíř",
+    "gladiator": "gladiátor",
+    "soldier": "voják",
+    "mercenary": "žoldák",
+    "berserker": "berserk",
+    "sailor": "námořník",
+    "pirate": "pirát",
+    "watchman": "strážný",
+    "investigator": "vyšetřovatel",
+    "bounty hunter": "lovec odměn",
+    "spy": "špion",
+    "noble": "šlechtic",
+    "ruler": "vládce",
+    "inheritor": "dědic",
+    "courtier": "dvořan",
+    "scholar": "učenec",
+    "student": "student",
+    "sage": "mudrc",
+    "hermit": "poustevník",
+    "traveler": "cestovatel",
+    "outlander": "cizinec",
+    "urchin": "ulicník",
+    "preacher": "kazatel",
+    "acolyte": "ministrant",
+    "monk": "mnich",
+    "chaplain": "kaplan",
+    "charlatan": "šarlatán",
+    "criminal": "zločinec",
+    "entertainer": "bavič",
+    "doctor": "doktor",
+    "artisan": "řemeslník",
+    "merchant": "obchodník",
+    "hunter": "lovec",
+    "fisher": "rybář",
+    "herbalist": "bylinkář",
+    "battle mage": "válečný mág",
+    "soothsayer": "věštec",
+    "surgeon": "chirurg",
+    "necromancer": "nekromant",
+    "paladin": "paladin",
+    "slave": "otrok",
+    "concubine": "konkubína",
+    "cook": "kuchař",
+    "prisoner": "vězeň",
+    "beggar": "žebrák",
+    "mason": "zedník",
+    "miller": "mlynář",
+    "farmer": "zemědělec",
+    "caravaneer": "karavanista",
+    "slaver": "obchodník s otroky",
+    "witch": "čarodějnice",
+    "shaman": "šaman",
+    "ranger": "průzkumník",
+    "eunuch": "eunuch"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portrét",
+      "details": "Podrobnosti",
+      "bio": "Biografie"
+    },
+    "export": {
+      "export": "Exportovat",
+      "portrait": "Obrázek portrétu",
+      "cardImage": "Obrázek karty",
+      "text": "Textový soubor",
+      "json": "Soubor JSON"
+    },
+    "report": {
+      "category": "Kategorie",
+      "categories": {
+        "other": "Jiné problémy",
+        "inappropriate": "Nevhodný obsah",
+        "portrait": "Špatný portrét",
+        "biography": "Problémy s biografií",
+        "improvement": "Návrh"
+      },
+      "message": "Zpráva"
+    },
+    "editor": {
+      "edit": "Upravit postavu",
+      "create": "Vytvořit postavu",
+      "randomize": {
+        "name": "Náhodné jméno",
+        "age": "Náhodný věk",
+        "height": "Náhodná výška",
+        "weight": "Náhodná váha"
+      },
+      "portrait": {
+        "drop": "Přetáhněte obrázek sem",
+        "upload": "Nahrát portrét. Cena: {{ variable }} mince",
+        "generate": "Generovat portrét pomocí AI. Cena: {{ variable }} mincí",
+        "randomize": "Náhodný portrét (vyberte z předgenerované galerie)"
+      },
+      "bio": {
+        "copy": "Zkopírovat biografii",
+        "price": "Cena generování: {{ variable }} mincí",
+        "generate": "Generovat biografii. Cena: {{ variable }} mincí",
+        "configurePrompt": "Konfigurovat prompt generování"
+      },
+      "success": {
+        "edit": "Postava byla aktualizována",
+        "create": "Postava byla vytvořena a přidána do Knihovny"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Zobrazit celou kartu",
+    "favorite": "Přidat do Knihovny",
+    "mobileHint": "Přejeďte doleva nebo doprava pro otočení galerie",
+    "desktopHint": "Používejte šipky pro otočení galerie"
+  },
+  "library": {
+    "liked": {
+      "title": "Oblíbené postavy",
+      "empty": "Zatím jste nelíbili žádné postavy. Používejte ikonu srdce na pravé straně karty postavy pro přidání do oblíbených.",
+      "goToGallery": "Otevřít galerii"
+    },
+    "custom": {
+      "title": "Vlastní postavy",
+      "empty": "Zatím jste nevytvořili žádné vlastní postavy. Používejte tlačítko na pravé straně pro vytvoření od základu nebo úpravu existující postavy.",
+      "create": "Vytvořit postavu",
+      "remove": "Odstranit vlastní postavu"
+    },
+    "uploaded": {
+      "title": "Nahrané a vygenerované portréty",
+      "remove": "Odstranit portrét"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Nejvýkonnější GPT-5.4; vyniká v pokročilém uvažování, výzkumu a komplexních vícekrokových úkolech",
+      "gpt-5.4-mini": "Vyvážená varianta GPT-5.4; silné uvažování s vylepšenou rychlostí a nižšími náklady",
+      "gpt-5.4-nano": "Lehká varianta GPT-5.4; rychlá a nákladově efektivní pro jednoduché úkoly s vysokým objemem",
+      "gpt-5.1": "Komplexní uvažování, široké světové znalosti a na kód zaměřené nebo vícekrokové agentní úkoly",
+      "gpt-5-mini": "Nákladově optimalizované uvažování a chat; vyvažuje rychlost, náklady a schopnosti",
+      "gpt-5-nano": "Úkoly s vysokou propustností, zejména jednoduché sledování instrukcí nebo klasifikace",
+      "claude-opus-4-6": "Prémiový model Anthropic kombinující maximální inteligenci s praktickým výkonem",
+      "claude-sonnet-4-6": "Nejchytřejší model Anthropic pro komplexní agenty a kódování",
+      "claude-haiku-4-5": "Nejrychlejší model Anthropic s téměř frontálovou inteligencí"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Zobrazit v Deorum"
+  }
+}

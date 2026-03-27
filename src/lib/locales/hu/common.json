@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Fantasy karaktergaléria Azgaartól",
+    "description": "Az Ön forrása testreszabható egyedi fantasy karakterekhez D&D és világépítési projektekhez"
+  },
+  "landing": {
+    "slogan": "Kezdjen el egy epikus utazást a Deorummal – az Ön forrása egyedi fantasy karakterekhez D&D és világépítési projektekhez",
+    "description1": "Fedezzen fel több mint 1600 testreszabható karaktert, mindegyik lenyűgöző portréval és részletes életrajzzal. Képeink 132 gyönyörűen kézzel rajzolt portré készletén alapulnak, amelyeket AI generálással több mint 10000 variációra sokszoroztak, és a legmagasabb minőség érdekében gondosan válogattak.",
+    "description2": "Személyre szabja a választott karaktert szíve szerint, és keltsé életre történeteit. És a legjobb rész? Minden karakter ingyenes nem kereskedelmi felhasználásra, olcsó kereskedelmi licenccel elérhető. Csatlakozzon a közösséghez, és kezdje el a következő kalandját még ma!",
+    "openGallery": "Galéria megnyitása"
+  },
+  "controls": {
+    "save": "Mentés",
+    "cancel": "Mégse",
+    "delete": "Törlés",
+    "confirmDeletion": "Törlés ({{variable}})",
+    "add": "Hozzáadás",
+    "create": "Létrehozás",
+    "edit": "Szerkesztés",
+    "search": "Keresés",
+    "clear": "Törlés",
+    "back": "Vissza",
+    "next": "Következő",
+    "apply": "Alkalmaz",
+    "select": "Kiválasztás",
+    "close": "Bezárás",
+    "confirm": "Megerősítés",
+    "yes": "igen",
+    "no": "nem",
+    "random": "véletlenszerű",
+    "download": "Letöltés",
+    "report": "Probléma jelentése",
+    "send": "Küldés",
+    "openPortraitEditor": "Portrészerkesztő megnyitása",
+    "openCharacterEditor": "Karakterszerkesztő megnyitása",
+    "embed": "Beágyazás"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Megerősítés",
+      "body": "Biztosan folytatni kívánja?",
+      "confirm": "igen",
+      "cancel": "nem"
+    }
+  },
+  "values": {
+    "undefined": "meghatározatlan",
+    "all": "mind",
+    "any": "bármelyik",
+    "unnamed": "Névtelen"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "Építés alatt"
+  },
+  "auth": {
+    "signup": "Regisztráció",
+    "signin": "Bejelentkezés",
+    "signinTitle": "Bejelentkezés a fiókjába",
+    "signupTitle": "Új fiók létrehozása",
+    "logout": "Kijelentkezés",
+    "email": "E-mail",
+    "emailPlaceholder": "Adja meg e-mail címét",
+    "name": "Név",
+    "namePlaceholder": "Adja meg nevét",
+    "password": "Jelszó",
+    "passwordPlaceholder": "Adja meg jelszavát",
+    "agreeToTerms": "A regisztrációval elfogadja",
+    "terms": "Felhasználási feltételeinket",
+    "haveAccount": "Már van fiókja?",
+    "noAccount": "Nincs fiókja?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} érme maradt",
+    "getCoins": "Érmék szerzése",
+    "openPatreon": "Patreon megnyitása",
+    "description": {
+      "1": "Az érmék virtuális pénznem, amelyet az alkalmazáson belüli bizonyos műveletek eléréséhez használnak. Alapértelmezés szerint minden felhasználó {{variable}} érmét kap ingyen, amelyeket karakterek létrehozásához, képek feltöltéséhez és életrajzok generálásához lehet felhasználni GPT segítségével.",
+      "2": "Mivel a közvetlen fizetések még nem elérhetők, ideiglenes megoldást dolgoztunk ki a Patreonon lévő támogatóink megköszönésére. Az érmék igényléséhez küldjön közvetlen üzenetet <i>Azgaarnak</i> a Patreon oldaláról. Minden egyes </b>${{variable}}</b> felajánlásért cserébe kap egy érmét a támogatása elismeréseként.",
+      "3": "Köszönjük a projekt támogatását! Reméljük, hogy élvezi majd a csodálatos fantasy karakterek létrehozását és a végtelen lehetőségek felfedezését AI-alapú eszközünkkel. Szeretnénk biztosítani, hogy a lehető legjobb élményt nyújthassuk minden felhasználónak, és azzal, hogy érméket használunk bizonyos műveletek elérésének korlátozásához, biztosítjuk az alkalmazás fenntarthatóságát."
+    }
+  },
+  "navigation": {
+    "back": "Vissza",
+    "gallery": "Galéria",
+    "match": "Egyezés",
+    "tags": "Címkék",
+    "admin": "Admin",
+    "next": "Következő",
+    "library": "Könyvtár",
+    "donate": "Adományozás",
+    "howToUse": "Hogyan kell használni",
+    "terms": "Felhasználási feltételek",
+    "discord": "Discord szerver",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Keresés",
+    "title": "Karakterek keresése",
+    "sorting": {
+      "asc": "Növekvő rendezés",
+      "desc": "Csökkenő rendezés",
+      "no": "Nincs rendezés"
+    },
+    "foundItems": "Talált elemek: {{variable}}",
+    "noResults": "Nem találhatók karakterek, kérjük változtassa meg a keresési feltételeket és próbálja újra",
+    "openGallery": "Galéria megnyitása"
+  },
+  "success": {
+    "copied": "Vágólapra másolva"
+  },
+  "errors": {
+    "unauthorized": "Kérjük, jelentkezzen be mint {{variable}} az oldal eléréséhez",
+    "copy": "Másolás sikertelen. Kérjük, másolja manuálisan"
+  },
+  "character": {
+    "name": "Név",
+    "unnamed": "Névtelen",
+    "age": "Kor",
+    "gender": "Nem",
+    "race": "Faj",
+    "archetype": "Archetípus",
+    "background": "Háttér",
+    "height": "Magasság",
+    "weight": "Súly",
+    "bio": "Életrajz"
+  },
+  "metrics": {
+    "yearsOld": "éves",
+    "cm": "cm",
+    "feetAndInches": "láb és hüvelyk",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Lehetséges tartomány"
+  },
+  "genders": {
+    "male": "férfi",
+    "female": "nő",
+    "non-binary": "nem bináris"
+  },
+  "races": {
+    "human": "ember",
+    "elf": "tündér",
+    "half-elf": "féltündér",
+    "dwarf": "törpe",
+    "gnome": "gnóm",
+    "orc": "ork",
+    "half-orc": "félork",
+    "goblin": "goblin",
+    "ogre": "óriás",
+    "draconid": "drakonid",
+    "beastman": "fenevadember",
+    "felinid": "macskoid",
+    "lizardman": "gyíkember",
+    "firbolg": "firbolg",
+    "pixie": "tündérke",
+    "demon": "démon",
+    "angel": "angyal",
+    "spirit": "szellem",
+    "jinn": "dzsinn",
+    "undead": "élőhalott",
+    "siren": "szirén",
+    "gargoyle": "kőszörny",
+    "golem": "gólem",
+    "cyborg": "kiborg",
+    "triton": "triton",
+    "demigod": "félisten",
+    "birdman": "madárember",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "rovarszerű",
+    "centaur": "kentaur",
+    "satyr": "szatír"
+  },
+  "archetypes": {
+    "warrior": "harcos",
+    "mage": "mágus",
+    "rogue": "gazember",
+    "cleric": "pap",
+    "ruler": "uralkodó",
+    "lover": "szerető",
+    "druid": "druida",
+    "destroyer": "pusztító",
+    "seeker": "kereső",
+    "soothsayer": "jós",
+    "sage": "bölcs",
+    "trickster": "csirkefogó",
+    "creator": "alkotó",
+    "merchant": "kereskedő",
+    "companion": "társ",
+    "villain": "gonosztevő",
+    "damsel": "kisasszony",
+    "outcast": "száműzött",
+    "chosen one": "kiválasztott",
+    "rebel": "lázadó",
+    "wanderer": "vándor",
+    "mentor": "mentor",
+    "minion": "szolga"
+  },
+  "backgrounds": {
+    "knight": "lovag",
+    "gladiator": "gladiátor",
+    "soldier": "katona",
+    "mercenary": "zsoldos",
+    "berserker": "berserk",
+    "sailor": "tengerész",
+    "pirate": "kalóz",
+    "watchman": "őr",
+    "investigator": "nyomozó",
+    "bounty hunter": "fejvadász",
+    "spy": "kém",
+    "noble": "nemes",
+    "ruler": "uralkodó",
+    "inheritor": "örökös",
+    "courtier": "udvari ember",
+    "scholar": "tudós",
+    "student": "diák",
+    "sage": "bölcs",
+    "hermit": "remete",
+    "traveler": "utazó",
+    "outlander": "idegen",
+    "urchin": "utcagyerek",
+    "preacher": "prédikátor",
+    "acolyte": "sekrestyés",
+    "monk": "szerzetes",
+    "chaplain": "tábori pap",
+    "charlatan": "sarlatán",
+    "criminal": "bűnöző",
+    "entertainer": "szórakoztató",
+    "doctor": "orvos",
+    "artisan": "kézműves",
+    "merchant": "kereskedő",
+    "hunter": "vadász",
+    "fisher": "halász",
+    "herbalist": "gyógynövényes",
+    "battle mage": "harci mágus",
+    "soothsayer": "jós",
+    "surgeon": "sebész",
+    "necromancer": "nekromanta",
+    "paladin": "paladin",
+    "slave": "rabszolga",
+    "concubine": "ágyasa",
+    "cook": "szakács",
+    "prisoner": "fogoly",
+    "beggar": "koldus",
+    "mason": "kőműves",
+    "miller": "molnár",
+    "farmer": "gazda",
+    "caravaneer": "karavánvezető",
+    "slaver": "rabszolgakereskedő",
+    "witch": "boszorkány",
+    "shaman": "sámán",
+    "ranger": "erdőőr",
+    "eunuch": "eunuch"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portré",
+      "details": "Részletek",
+      "bio": "Életrajz"
+    },
+    "export": {
+      "export": "Exportálás",
+      "portrait": "Portré kép",
+      "cardImage": "Kártya kép",
+      "text": "Szövegfájl",
+      "json": "JSON fájl"
+    },
+    "report": {
+      "category": "Kategória",
+      "categories": {
+        "other": "Egyéb problémák",
+        "inappropriate": "Nem megfelelő tartalom",
+        "portrait": "Rossz portré",
+        "biography": "Életrajzi problémák",
+        "improvement": "Javaslat"
+      },
+      "message": "Üzenet"
+    },
+    "editor": {
+      "edit": "Karakter szerkesztése",
+      "create": "Karakter létrehozása",
+      "randomize": {
+        "name": "Véletlenszerű név",
+        "age": "Véletlenszerű kor",
+        "height": "Véletlenszerű magasság",
+        "weight": "Véletlenszerű súly"
+      },
+      "portrait": {
+        "drop": "Húzza ide a képet",
+        "upload": "Portré feltöltése. Ár: {{ variable }} érme",
+        "generate": "Portré generálása AI segítségével. Ár: {{ variable }} érme",
+        "randomize": "Véletlenszerű portré (válasszon az előre generált galériából)"
+      },
+      "bio": {
+        "copy": "Életrajz másolása",
+        "price": "Generálási ár: {{ variable }} érme",
+        "generate": "Életrajz generálása. Ár: {{ variable }} érme",
+        "configurePrompt": "Generálási prompt konfigurálása"
+      },
+      "success": {
+        "edit": "A karakter frissítve lett",
+        "create": "A karakter létrehozva és hozzáadva a Könyvtárhoz"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Teljes kártya megjelenítése",
+    "favorite": "Hozzáadás a Könyvtárhoz",
+    "mobileHint": "Csúsztasson balra vagy jobbra a galéria forgatásához",
+    "desktopHint": "Használja a nyilakat a galéria forgatásához"
+  },
+  "library": {
+    "liked": {
+      "title": "Kedvelt karakterek",
+      "empty": "Még nem kedvelt egyetlen karaktert sem. Használja a karakter kártya jobb oldalán lévő szív ikont, hogy hozzáadja a kedvencekhez.",
+      "goToGallery": "Galéria megnyitása"
+    },
+    "custom": {
+      "title": "Egyéni karakterek",
+      "empty": "Még nem hozott létre egyéni karaktereket. Használja a jobb oldali gombot egy új karakter létrehozásához vagy egy meglévő szerkesztéséhez.",
+      "create": "Karakter létrehozása",
+      "remove": "Egyéni karakter eltávolítása"
+    },
+    "uploaded": {
+      "title": "Feltöltött és generált portrék",
+      "remove": "Portré eltávolítása"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Legerősebb GPT-5.4; kiváló a fejlett okfejtésben, kutatásban és összetett többlépéses feladatokban",
+      "gpt-5.4-mini": "Kiegyensúlyozott GPT-5.4 változat; erős okfejtés javított sebességgel és alacsonyabb költséggel",
+      "gpt-5.4-nano": "Könnyű GPT-5.4 változat; gyors és költséghatékony nagy mennyiségű egyszerű feladatokhoz",
+      "gpt-5.1": "Összetett okfejtés, széleskörű tudás és kód-intenzív vagy többlépéses ügynök feladatok",
+      "gpt-5-mini": "Költségoptimalizált okfejtés és csevegés; egyensúlyozza a sebességet, a költséget és a képességeket",
+      "gpt-5-nano": "Nagy áteresztőképességű feladatok, különösen egyszerű utasításkövetés vagy osztályozás",
+      "claude-opus-4-6": "Anthropic prémium modell, amely kombinál a maximális intelligenciát a gyakorlati teljesítménnyel",
+      "claude-sonnet-4-6": "Az Anthropic legokosabb modellje összetett ügynökök és kódoláshoz",
+      "claude-haiku-4-5": "Az Anthropic leggyorsabb modellje közel-határos intelligenciával"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Megtekintés Deorumban"
+  }
+}

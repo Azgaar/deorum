@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Bộ sưu tập nhân vật kỳ ảo của Azgaar",
+    "description": "Nguồn nhân vật kỳ ảo độc đáo có thể tùy chỉnh dành cho các dự án D&D và xây dựng thế giới"
+  },
+  "landing": {
+    "slogan": "Khởi đầu cuộc hành trình huyền thoại với Deorum – nguồn nhân vật kỳ ảo độc đáo cho các dự án D&D và xây dựng thế giới của bạn",
+    "description1": "Khám phá hơn 1600 nhân vật có thể tùy chỉnh, mỗi nhân vật có chân dung tuyệt đẹp và tiểu sử chi tiết. Hình ảnh của chúng tôi dựa trên bộ 132 chân dung vẽ tay đẹp, được nhân lên thành hơn 10000 biến thể thông qua tạo sinh AI và được tuyển chọn kỹ lưỡng cho chất lượng cao nhất.",
+    "description2": "Cá nhân hóa nhân vật đã chọn theo ý muốn và mang câu chuyện của bạn vào cuộc sống. Và phần tuyệt nhất? Tất cả nhân vật đều miễn phí cho sử dụng phi thương mại, với giấy phép thương mại giá rẻ sẵn có. Tham gia cộng đồng và bắt đầu cuộc phiêu lưu tiếp theo của bạn ngay hôm nay!",
+    "openGallery": "Mở thư viện ảnh"
+  },
+  "controls": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "confirmDeletion": "Xóa ({{variable}})",
+    "add": "Thêm",
+    "create": "Tạo",
+    "edit": "Chỉnh sửa",
+    "search": "Tìm kiếm",
+    "clear": "Xóa sạch",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "apply": "Áp dụng",
+    "select": "Chọn",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "yes": "có",
+    "no": "không",
+    "random": "ngẫu nhiên",
+    "download": "Tải xuống",
+    "report": "Báo cáo vấn đề",
+    "send": "Gửi",
+    "openPortraitEditor": "Mở trình chỉnh sửa chân dung",
+    "openCharacterEditor": "Mở trình chỉnh sửa nhân vật",
+    "embed": "Nhúng"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Xác nhận",
+      "body": "Bạn có chắc chắn muốn tiếp tục không?",
+      "confirm": "có",
+      "cancel": "không"
+    }
+  },
+  "values": {
+    "undefined": "không xác định",
+    "all": "tất cả",
+    "any": "bất kỳ",
+    "unnamed": "Chưa đặt tên"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "Đang xây dựng"
+  },
+  "auth": {
+    "signup": "Đăng ký",
+    "signin": "Đăng nhập",
+    "signinTitle": "Đăng nhập vào tài khoản của bạn",
+    "signupTitle": "Tạo tài khoản mới",
+    "logout": "Đăng xuất",
+    "email": "Email",
+    "emailPlaceholder": "Nhập email của bạn",
+    "name": "Tên",
+    "namePlaceholder": "Nhập tên của bạn",
+    "password": "Mật khẩu",
+    "passwordPlaceholder": "Nhập mật khẩu của bạn",
+    "agreeToTerms": "Bằng cách đăng ký, bạn đồng ý với",
+    "terms": "Điều khoản sử dụng",
+    "haveAccount": "Đã có tài khoản?",
+    "noAccount": "Chưa có tài khoản?"
+  },
+  "coins": {
+    "coinsLeft": "Còn {{variable}} xu",
+    "getCoins": "Lấy xu",
+    "openPatreon": "Mở Patreon",
+    "description": {
+      "1": "Xu là tiền tệ ảo được sử dụng để truy cập các hành động nhất định trong ứng dụng. Theo mặc định, mỗi người dùng nhận được {{variable}} xu miễn phí, có thể sử dụng để tạo nhân vật, tải lên hình ảnh và tạo tiểu sử với sự trợ giúp của GPT.",
+      "2": "Vì thanh toán trực tiếp chưa có sẵn, chúng tôi đã nghĩ ra giải pháp tạm thời để cảm ơn những người ủng hộ trên Patreon. Để nhận xu, hãy gửi tin nhắn trực tiếp đến <i>Azgaar</i> từ trang Patreon của bạn. Với mỗi </b>${{variable}}</b> cam kết, bạn sẽ nhận được một xu như biểu hiện đánh giá cao sự ủng hộ của bạn.",
+      "3": "Cảm ơn bạn đã hỗ trợ dự án! Chúng tôi hy vọng bạn thích tạo ra những nhân vật kỳ ảo tuyệt vời và khám phá những khả năng vô tận với công cụ hỗ trợ AI của chúng tôi. Chúng tôi muốn đảm bảo cung cấp trải nghiệm tốt nhất cho tất cả người dùng, và bằng cách dùng xu để giới hạn quyền truy cập vào một số hành động, chúng tôi đảm bảo ứng dụng bền vững."
+    }
+  },
+  "navigation": {
+    "back": "Quay lại",
+    "gallery": "Thư viện ảnh",
+    "match": "Đối sánh",
+    "tags": "Thẻ",
+    "admin": "Quản trị",
+    "next": "Tiếp theo",
+    "library": "Thư viện",
+    "donate": "Quyên góp",
+    "howToUse": "Cách sử dụng",
+    "terms": "Điều khoản sử dụng",
+    "discord": "Máy chủ Discord",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Tìm kiếm",
+    "title": "Tìm kiếm nhân vật",
+    "sorting": {
+      "asc": "Sắp xếp tăng dần",
+      "desc": "Sắp xếp giảm dần",
+      "no": "Không sắp xếp"
+    },
+    "foundItems": "Kết quả tìm thấy: {{variable}}",
+    "noResults": "Không tìm thấy nhân vật, vui lòng thay đổi tiêu chí tìm kiếm và thử lại",
+    "openGallery": "Mở thư viện ảnh"
+  },
+  "success": {
+    "copied": "Đã sao chép vào clipboard"
+  },
+  "errors": {
+    "unauthorized": "Vui lòng đăng nhập với tư cách {{variable}} để truy cập trang này",
+    "copy": "Sao chép thất bại. Vui lòng sao chép thủ công"
+  },
+  "character": {
+    "name": "Tên",
+    "unnamed": "Chưa đặt tên",
+    "age": "Tuổi",
+    "gender": "Giới tính",
+    "race": "Chủng tộc",
+    "archetype": "Nguyên mẫu",
+    "background": "Lý lịch",
+    "height": "Chiều cao",
+    "weight": "Cân nặng",
+    "bio": "Tiểu sử"
+  },
+  "metrics": {
+    "yearsOld": "tuổi",
+    "cm": "cm",
+    "feetAndInches": "feet và inch",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Phạm vi khả dĩ"
+  },
+  "genders": {
+    "male": "nam",
+    "female": "nữ",
+    "non-binary": "phi nhị phân"
+  },
+  "races": {
+    "human": "người",
+    "elf": "tiên tộc",
+    "half-elf": "lai tiên",
+    "dwarf": "người lùn",
+    "gnome": "gnome",
+    "orc": "orc",
+    "half-orc": "lai orc",
+    "goblin": "goblin",
+    "ogre": "khổng lồ",
+    "draconid": "draconid",
+    "beastman": "người thú",
+    "felinid": "felinid",
+    "lizardman": "người thằn lằn",
+    "firbolg": "firbolg",
+    "pixie": "pixie",
+    "demon": "ác quỷ",
+    "angel": "thiên thần",
+    "spirit": "linh hồn",
+    "jinn": "thần jinn",
+    "undead": "xác sống",
+    "siren": "siren",
+    "gargoyle": "gargoyle",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "bán thần",
+    "birdman": "chim người",
+    "humanoid": "người máy",
+    "ent": "ent",
+    "insectoid": "côn trùng người",
+    "centaur": "nhân mã",
+    "satyr": "satyr"
+  },
+  "archetypes": {
+    "warrior": "chiến binh",
+    "mage": "pháp sư",
+    "rogue": "tặc khách",
+    "cleric": "tăng lữ",
+    "ruler": "nhà cai trị",
+    "lover": "người yêu",
+    "druid": "phù thủy rừng",
+    "destroyer": "kẻ hủy diệt",
+    "seeker": "người tìm kiếm",
+    "soothsayer": "thầy bói",
+    "sage": "hiền nhân",
+    "trickster": "kẻ lừa đảo",
+    "creator": "nhà sáng tạo",
+    "merchant": "thương nhân",
+    "companion": "người bạn đồng hành",
+    "villain": "kẻ phản diện",
+    "damsel": "thiếu nữ",
+    "outcast": "kẻ bị ruồng bỏ",
+    "chosen one": "người được chọn",
+    "rebel": "kẻ nổi loạn",
+    "wanderer": "kẻ lang thang",
+    "mentor": "người hướng dẫn",
+    "minion": "tay sai"
+  },
+  "backgrounds": {
+    "knight": "hiệp sĩ",
+    "gladiator": "đấu sĩ",
+    "soldier": "chiến binh",
+    "mercenary": "lính đánh thuê",
+    "berserker": "berserker",
+    "sailor": "thủy thủ",
+    "pirate": "cướp biển",
+    "watchman": "người canh gác",
+    "investigator": "điều tra viên",
+    "bounty hunter": "thợ săn tiền thưởng",
+    "spy": "gián điệp",
+    "noble": "quý tộc",
+    "ruler": "nhà cai trị",
+    "inheritor": "người thừa kế",
+    "courtier": "cận thần",
+    "scholar": "học giả",
+    "student": "học sinh",
+    "sage": "hiền nhân",
+    "hermit": "ẩn sĩ",
+    "traveler": "lữ khách",
+    "outlander": "người ngoại bang",
+    "urchin": "trẻ đường phố",
+    "preacher": "nhà thuyết giáo",
+    "acolyte": "trợ tế",
+    "monk": "tu sĩ",
+    "chaplain": "tuyên úy",
+    "charlatan": "kẻ lừa đảo",
+    "criminal": "tội phạm",
+    "entertainer": "người giải trí",
+    "doctor": "bác sĩ",
+    "artisan": "thợ thủ công",
+    "merchant": "thương nhân",
+    "hunter": "thợ săn",
+    "fisher": "ngư dân",
+    "herbalist": "thầy thuốc thảo dược",
+    "battle mage": "chiến pháp sư",
+    "soothsayer": "thầy bói",
+    "surgeon": "phẫu thuật viên",
+    "necromancer": "pháp sư xác sống",
+    "paladin": "paladin",
+    "slave": "nô lệ",
+    "concubine": "thê thiếp",
+    "cook": "đầu bếp",
+    "prisoner": "tù nhân",
+    "beggar": "người ăn xin",
+    "mason": "thợ xây",
+    "miller": "thợ xay",
+    "farmer": "nông dân",
+    "caravaneer": "người lái đoàn lữ hành",
+    "slaver": "buôn nô lệ",
+    "witch": "phù thủy",
+    "shaman": "shaman",
+    "ranger": "thám hiểm",
+    "eunuch": "thái giám"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Chân dung",
+      "details": "Chi tiết",
+      "bio": "Tiểu sử"
+    },
+    "export": {
+      "export": "Xuất",
+      "portrait": "Ảnh chân dung",
+      "cardImage": "Ảnh thẻ",
+      "text": "Tệp văn bản",
+      "json": "Tệp JSON"
+    },
+    "report": {
+      "category": "Danh mục",
+      "categories": {
+        "other": "Vấn đề khác",
+        "inappropriate": "Nội dung không phù hợp",
+        "portrait": "Chân dung kém",
+        "biography": "Vấn đề tiểu sử",
+        "improvement": "Gợi ý"
+      },
+      "message": "Tin nhắn"
+    },
+    "editor": {
+      "edit": "Chỉnh sửa nhân vật",
+      "create": "Tạo nhân vật",
+      "randomize": {
+        "name": "Tên ngẫu nhiên",
+        "age": "Tuổi ngẫu nhiên",
+        "height": "Chiều cao ngẫu nhiên",
+        "weight": "Cân nặng ngẫu nhiên"
+      },
+      "portrait": {
+        "drop": "Thả ảnh vào đây",
+        "upload": "Tải lên chân dung. Giá: {{ variable }} xu",
+        "generate": "Tạo chân dung bằng AI. Giá: {{ variable }} xu",
+        "randomize": "Chân dung ngẫu nhiên (chọn từ thư viện đã tạo sẵn)"
+      },
+      "bio": {
+        "copy": "Sao chép tiểu sử",
+        "price": "Giá tạo sinh: {{ variable }} xu",
+        "generate": "Tạo tiểu sử. Giá: {{ variable }} xu",
+        "configurePrompt": "Cấu hình lời nhắc tạo sinh"
+      },
+      "success": {
+        "edit": "Nhân vật đã được cập nhật",
+        "create": "Nhân vật đã được tạo và thêm vào Thư viện"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Hiển thị thẻ đầy đủ",
+    "favorite": "Thêm vào Thư viện",
+    "mobileHint": "Vuốt trái hoặc phải để xoay thư viện ảnh",
+    "desktopHint": "Dùng mũi tên để xoay thư viện ảnh"
+  },
+  "library": {
+    "liked": {
+      "title": "Nhân vật yêu thích",
+      "empty": "Bạn chưa thích nhân vật nào. Dùng biểu tượng trái tim ở bên phải thẻ nhân vật để thêm vào mục yêu thích.",
+      "goToGallery": "Mở thư viện ảnh"
+    },
+    "custom": {
+      "title": "Nhân vật tùy chỉnh",
+      "empty": "Bạn chưa tạo nhân vật tùy chỉnh nào. Dùng nút ở bên phải để tạo từ đầu hoặc chỉnh sửa nhân vật hiện có.",
+      "create": "Tạo nhân vật",
+      "remove": "Xóa nhân vật tùy chỉnh"
+    },
+    "uploaded": {
+      "title": "Chân dung đã tải lên và tạo ra",
+      "remove": "Xóa chân dung"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "GPT-5.4 mạnh nhất; xuất sắc trong suy luận nâng cao, nghiên cứu và các tác vụ phức tạp nhiều bước",
+      "gpt-5.4-mini": "Biến thể GPT-5.4 cân bằng; suy luận mạnh với tốc độ cải thiện và chi phí thấp hơn",
+      "gpt-5.4-nano": "Biến thể GPT-5.4 nhẹ; nhanh và tiết kiệm chi phí cho các tác vụ đơn giản khối lượng lớn",
+      "gpt-5.1": "Suy luận phức tạp, kiến thức thế giới rộng và các tác vụ agent nhiều bước nặng về mã",
+      "gpt-5-mini": "Suy luận và trò chuyện tối ưu chi phí; cân bằng tốc độ, chi phí và khả năng",
+      "gpt-5-nano": "Tác vụ thông lượng cao, đặc biệt là tuân thủ hướng dẫn đơn giản hoặc phân loại",
+      "claude-opus-4-6": "Mô hình cao cấp của Anthropic kết hợp trí tuệ tối đa với hiệu suất thực tế",
+      "claude-sonnet-4-6": "Mô hình thông minh nhất của Anthropic dành cho các agent phức tạp và lập trình",
+      "claude-haiku-4-5": "Mô hình nhanh nhất của Anthropic với trí tuệ gần đỉnh"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Xem trong Deorum"
+  }
+}

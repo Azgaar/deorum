@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Galerija fantastičnih likova od Azgaara",
+    "description": "Vaš izvor prilagodljivih jedinstvenih fantastičnih likova za D&D i projekte izgradnje svjetova"
+  },
+  "landing": {
+    "slogan": "Krenite na epsko putovanje s Deorumom – vašim izvorom jedinstvenih fantastičnih likova za D&D i projekte izgradnje svjetova",
+    "description1": "Otkrijte više od 1600 prilagodljivih likova, svaki s impresivnim portretom i detaljnom biografijom. Naše slike temelje se na skupu od 132 lijepo ručno nacrtana portreta, umnožena na više od 10000 varijacija kroz AI generiranje, i pažljivo odabrana za najvišu kvalitetu.",
+    "description2": "Personalizirajte odabranog lika prema svojoj želji i oživite svoje priče. I najbolji dio? Svi su likovi besplatni za nekomercijalnu upotrebu, s dostupnom jeftinom komercijalnom licencijom. Pridružite se zajednici i započnite svoju sljedeću avanturu danas!",
+    "openGallery": "Otvori galeriju"
+  },
+  "controls": {
+    "save": "Spremi",
+    "cancel": "Odustani",
+    "delete": "Obriši",
+    "confirmDeletion": "Obriši ({{variable}})",
+    "add": "Dodaj",
+    "create": "Stvori",
+    "edit": "Uredi",
+    "search": "Pretraži",
+    "clear": "Očisti",
+    "back": "Natrag",
+    "next": "Sljedeće",
+    "apply": "Primijeni",
+    "select": "Odaberi",
+    "close": "Zatvori",
+    "confirm": "Potvrdi",
+    "yes": "da",
+    "no": "ne",
+    "random": "nasumično",
+    "download": "Preuzmi",
+    "report": "Prijavi problem",
+    "send": "Pošalji",
+    "openPortraitEditor": "Otvori uređivač portreta",
+    "openCharacterEditor": "Otvori uređivač likova",
+    "embed": "Ugradi"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Potvrda",
+      "body": "Jeste li sigurni da želite nastaviti?",
+      "confirm": "da",
+      "cancel": "ne"
+    }
+  },
+  "values": {
+    "undefined": "nedefinirano",
+    "all": "sve",
+    "any": "bilo koje",
+    "unnamed": "Bezimeni"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "U izgradnji"
+  },
+  "auth": {
+    "signup": "Registracija",
+    "signin": "Prijava",
+    "signinTitle": "Prijavite se na vaš račun",
+    "signupTitle": "Stvorite novi račun",
+    "logout": "Odjava",
+    "email": "E-pošta",
+    "emailPlaceholder": "Unesite svoju e-poštu",
+    "name": "Ime",
+    "namePlaceholder": "Unesite svoje ime",
+    "password": "Lozinka",
+    "passwordPlaceholder": "Unesite svoju lozinku",
+    "agreeToTerms": "Registracijom se slažete s našim",
+    "terms": "Uvjetima korištenja",
+    "haveAccount": "Već imate račun?",
+    "noAccount": "Nemate račun?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} kovanica preostalo",
+    "getCoins": "Dobavi kovanice",
+    "openPatreon": "Otvori Patreon",
+    "description": {
+      "1": "Kovanice su virtualna valuta koja se koristi za pristup određenim radnjama unutar aplikacije. Prema zadanim postavkama, svaki korisnik dobiva {{variable}} kovanica besplatno, koje se mogu koristiti za stvaranje likova, učitavanje slika i generiranje biografija uz pomoć GPT-a.",
+      "2": "Budući da izravna plaćanja još nisu dostupna, osmislili smo privremeno rješenje za zahvaljivanje našim podržavateljima na Patreonu. Za preuzimanje kovanica pošaljite izravnu poruku <i>Azgaaru</i> s vaše Patreon stranice. Za svaki </b>${{variable}}</b> obećan, dobit ćete jednu kovanicu kao znak zahvalnosti za vašu podršku.",
+      "3": "Hvala vam na podršci projektu! Nadamo se da ćete uživati u stvaranju nevjerojatnih fantastičnih likova i istraživanju beskonačnih mogućnosti s našim AI alatom. Želimo osigurati da svim korisnicima pružimo što bolje iskustvo, a korištenjem kovanica za ograničavanje pristupa određenim radnjama osiguravamo održivost aplikacije."
+    }
+  },
+  "navigation": {
+    "back": "Natrag",
+    "gallery": "Galerija",
+    "match": "Podudaranje",
+    "tags": "Oznake",
+    "admin": "Admin",
+    "next": "Sljedeće",
+    "library": "Knjižnica",
+    "donate": "Doniraj",
+    "howToUse": "Kako koristiti",
+    "terms": "Uvjeti korištenja",
+    "discord": "Discord poslužitelj",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Pretraga",
+    "title": "Pretraži likove",
+    "sorting": {
+      "asc": "Uzlazno sortiranje",
+      "desc": "Silazno sortiranje",
+      "no": "Ne sortiraj"
+    },
+    "foundItems": "Pronađene stavke: {{variable}}",
+    "noResults": "Nisu pronađeni likovi, promijenite kriterije pretrage i pokušajte ponovo",
+    "openGallery": "Otvori galeriju"
+  },
+  "success": {
+    "copied": "Kopirano u međuspremnik"
+  },
+  "errors": {
+    "unauthorized": "Prijavite se kao {{variable}} za pristup ovoj stranici",
+    "copy": "Kopiranje nije uspjelo. Molimo kopirajte ručno"
+  },
+  "character": {
+    "name": "Ime",
+    "unnamed": "Bezimeni",
+    "age": "Dob",
+    "gender": "Spol",
+    "race": "Rasa",
+    "archetype": "Arhetip",
+    "background": "Pozadina",
+    "height": "Visina",
+    "weight": "Težina",
+    "bio": "Biografija"
+  },
+  "metrics": {
+    "yearsOld": "godina",
+    "cm": "cm",
+    "feetAndInches": "stope i inči",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Mogući raspon"
+  },
+  "genders": {
+    "male": "muški",
+    "female": "ženski",
+    "non-binary": "nebinarni"
+  },
+  "races": {
+    "human": "čovjek",
+    "elf": "vilenjak",
+    "half-elf": "polu-vilenjak",
+    "dwarf": "patuljak",
+    "gnome": "gnom",
+    "orc": "ork",
+    "half-orc": "polu-ork",
+    "goblin": "goblin",
+    "ogre": "ogr",
+    "draconid": "drakonid",
+    "beastman": "zvijer-čovjek",
+    "felinid": "felinid",
+    "lizardman": "gušteran",
+    "firbolg": "firbolg",
+    "pixie": "piksi",
+    "demon": "demon",
+    "angel": "anđeo",
+    "spirit": "duh",
+    "jinn": "džin",
+    "undead": "nemrtvi",
+    "siren": "sirena",
+    "gargoyle": "gargoyle",
+    "golem": "golem",
+    "cyborg": "sajborg",
+    "triton": "triton",
+    "demigod": "polubog",
+    "birdman": "ptica-čovjek",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "insektoid",
+    "centaur": "kentaur",
+    "satyr": "satir"
+  },
+  "archetypes": {
+    "warrior": "ratnik",
+    "mage": "čarobnjak",
+    "rogue": "lopov",
+    "cleric": "klerik",
+    "ruler": "vladar",
+    "lover": "ljubavnik",
+    "druid": "druid",
+    "destroyer": "uništavač",
+    "seeker": "tragač",
+    "soothsayer": "vidovnjak",
+    "sage": "mudrac",
+    "trickster": "varalica",
+    "creator": "tvorac",
+    "merchant": "trgovac",
+    "companion": "pratilac",
+    "villain": "zlikovac",
+    "damsel": "djevica",
+    "outcast": "izgnanik",
+    "chosen one": "izabranik",
+    "rebel": "pobunjenik",
+    "wanderer": "lutalica",
+    "mentor": "mentor",
+    "minion": "sluga"
+  },
+  "backgrounds": {
+    "knight": "vitez",
+    "gladiator": "gladijator",
+    "soldier": "vojnik",
+    "mercenary": "plaćenik",
+    "berserker": "berserker",
+    "sailor": "mornar",
+    "pirate": "pirat",
+    "watchman": "čuvar",
+    "investigator": "istražitelj",
+    "bounty hunter": "lovac na nagradu",
+    "spy": "uhoda",
+    "noble": "plemić",
+    "ruler": "vladar",
+    "inheritor": "nasljednik",
+    "courtier": "dvorjanin",
+    "scholar": "učenjak",
+    "student": "učenik",
+    "sage": "mudrac",
+    "hermit": "pustinjak",
+    "traveler": "putnik",
+    "outlander": "stranac",
+    "urchin": "uličar",
+    "preacher": "propovjednik",
+    "acolyte": "akolit",
+    "monk": "redovnik",
+    "chaplain": "kapelan",
+    "charlatan": "šarlatan",
+    "criminal": "kriminalac",
+    "entertainer": "zabavljač",
+    "doctor": "liječnik",
+    "artisan": "obrtnik",
+    "merchant": "trgovac",
+    "hunter": "lovac",
+    "fisher": "ribar",
+    "herbalist": "ljekarnik bilja",
+    "battle mage": "bojni čarobnjak",
+    "soothsayer": "vidovnjak",
+    "surgeon": "kirurg",
+    "necromancer": "nekromant",
+    "paladin": "paladin",
+    "slave": "rob",
+    "concubine": "priležnica",
+    "cook": "kuhar",
+    "prisoner": "zatvorenik",
+    "beggar": "prosjak",
+    "mason": "zidar",
+    "miller": "mlinar",
+    "farmer": "farmer",
+    "caravaneer": "karavanist",
+    "slaver": "trgovac robljem",
+    "witch": "vještica",
+    "shaman": "šaman",
+    "ranger": "izviđač",
+    "eunuch": "eunuh"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portret",
+      "details": "Detalji",
+      "bio": "Biografija"
+    },
+    "export": {
+      "export": "Izvezi",
+      "portrait": "Slika portreta",
+      "cardImage": "Slika kartice",
+      "text": "Tekstualna datoteka",
+      "json": "JSON datoteka"
+    },
+    "report": {
+      "category": "Kategorija",
+      "categories": {
+        "other": "Ostali problemi",
+        "inappropriate": "Neprimjeren sadržaj",
+        "portrait": "Loš portret",
+        "biography": "Problemi s biografijom",
+        "improvement": "Prijedlog"
+      },
+      "message": "Poruka"
+    },
+    "editor": {
+      "edit": "Uredi lik",
+      "create": "Stvori lik",
+      "randomize": {
+        "name": "Nasumično ime",
+        "age": "Nasumična dob",
+        "height": "Nasumična visina",
+        "weight": "Nasumična težina"
+      },
+      "portrait": {
+        "drop": "Povucite sliku ovdje",
+        "upload": "Učitaj portret. Cijena: {{ variable }} kovanica",
+        "generate": "Generiraj portret pomoću AI-a. Cijena: {{ variable }} kovanica",
+        "randomize": "Nasumični portret (odabir iz unaprijed generirane galerije)"
+      },
+      "bio": {
+        "copy": "Kopiraj biografiju",
+        "price": "Cijena generiranja: {{ variable }} kovanica",
+        "generate": "Generiraj biografiju. Cijena: {{ variable }} kovanica",
+        "configurePrompt": "Konfiguriraj prompt generiranja"
+      },
+      "success": {
+        "edit": "Lik je ažuriran",
+        "create": "Lik je stvoren i dodan u Knjižnicu"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Prikaži punu karticu",
+    "favorite": "Dodaj u Knjižnicu",
+    "mobileHint": "Prevucite lijevo ili desno za rotaciju galerije",
+    "desktopHint": "Koristite strelice za rotaciju galerije"
+  },
+  "library": {
+    "liked": {
+      "title": "Omiljeni likovi",
+      "empty": "Još niste lajkali nijedan lik. Koristite ikonu srca na desnoj strani kartice lika da ga dodate u favorite.",
+      "goToGallery": "Otvori galeriju"
+    },
+    "custom": {
+      "title": "Prilagođeni likovi",
+      "empty": "Još niste stvorili prilagođene likove. Koristite gumb na desnoj strani za stvaranje od nule ili uređivanje postojećeg lika.",
+      "create": "Stvori lik",
+      "remove": "Ukloni prilagođeni lik"
+    },
+    "uploaded": {
+      "title": "Učitani i generirani portreti",
+      "remove": "Ukloni portret"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Najmoćniji GPT-5.4; izvrsno u naprednom rezoniranju, istraživanju i složenim višekoračnim zadacima",
+      "gpt-5.4-mini": "Uravnotežena varijanta GPT-5.4; snažno rezoniranje s poboljšanom brzinom i nižim troškovima",
+      "gpt-5.4-nano": "Lagana varijanta GPT-5.4; brza i isplativa za jednostavne zadatke visokog volumena",
+      "gpt-5.1": "Složeno rezoniranje, široko znanje o svijetu i agentski zadaci s intenzivnim kodom ili više koraka",
+      "gpt-5-mini": "Rezoniranje i razgovor optimizirani za troškove; uravnotežuje brzinu, troškove i mogućnosti",
+      "gpt-5-nano": "Zadaci visokog propusnog opsega, posebno jednostavno praćenje uputa ili klasifikacija",
+      "claude-opus-4-6": "Anthropic premium model koji kombinira maksimalnu inteligenciju s praktičnom izvedbom",
+      "claude-sonnet-4-6": "Najinteligentniji Anthropic model za složene agente i kodiranje",
+      "claude-haiku-4-5": "Najbrži Anthropic model s inteligencijom blizu granice"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Pogledaj u Deorumu"
+  }
+}

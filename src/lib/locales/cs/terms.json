@@ -1,0 +1,48 @@
+{
+  "title": "Podmínky použití",
+  "intro": "Děkujeme, že používáte Deorum, webovou aplikaci vytvořenou Azgaarem a týmem. Přečtěte si prosím následující podmínky použití.",
+  "sections": {
+    "section1": {
+      "title": "Licence",
+      "clauses": {
+        "clause1": {
+          "title": "Předem vytvořené postavy",
+          "content": "Deorum poskytuje předem vytvořené fantasy postavy vytvořené Azgaarem a týmem. Předem vytvořené postavy můžete svobodně používat a upravovat pro nekomerční účely za podmínek <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>licence CC BY-NC 4.0</a>.",
+          "subclauses": {
+            "subclause1": "Všechny portréty postav v Deorum jsou předem vytvořeny pomocí vybraného Stable Diffusion obrazového AI generování. Generování je založeno na sadě ručně kreslených jedinečných portrétů vytvořených Azgaarem a týmem, takže všechny generované portréty jsou odvozeny od zdrojových obrázků. Azgaar si tím pádem zachovává veškerá práva ke zdrojovým obrázkům. Odvozená díla těchto portrétů (což jsou předem vytvořené portréty postav Deorum) jsou však dostupná zdarma pro nekomerční použití.",
+            "subclause2": "Biografie postav v Deorum jsou generovány pomocí modelů OpenAI GPT-3 a GPT-4, které jsou poté manuálně upraveny Azgaarem a týmem. Veškerý textový obsah, včetně biografií postav a dalších informací o postavách, je také dostupný zdarma pro nekomerční použití.",
+            "subclause3": "Pro <strong>komerční použití</strong> předem vytvořených postav nebo jejich částí kontaktujte Azgaara e-mailem na <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Rádi udělíme oprávnění k komerčnímu použití našim podporovatelům."
+          }
+        },
+        "clause2": {
+          "title": "Vlastní postavy",
+          "content": "Veškerá práva k postavám vytvořeným manuálně vámi v Deorum si zachováváte vy. Nahrané portréty se řídí jejich původní licencí. Přidané biografie a další textový obsah jsou také předmětem jejich původní licence."
+        },
+        "clause3": {
+          "title": "Vlastnictví kódu",
+          "content": "Deorum je open-source aplikace distribuovaná pod <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>licencí MIT</a>. Zdrojový kód aplikace lze nalézt na <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHubu</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Odpovědnost uživatele",
+      "content": "Používáním Deorum souhlasíte s dodržováním všech platných zákonů a předpisů. Jste odpovědní za používání aplikace zákonným, etickým a úctivým způsobem, aniž byste porušovali práva ostatních. Nahlaste jakékoli porušení nebo neoprávněné použití Deorum Azgaarovi. Nedodržení těchto povinností může vést k ukončení vašeho přístupu k aplikaci."
+    },
+    "section3": {
+      "title": "Odmítnutí odpovědnosti a omezení odpovědnosti",
+      "content": "Deorum je poskytován ve stavu 'tak jak je' a 'jak je k dispozici' bez záruk jakéhokoli druhu, výslovných nebo předpokládaných. Azgaar a tým odmítají veškeré záruky, mimo jiné včetně předpokládaných záruk obchodovatelnosti, vhodnosti pro konkrétní účel a neporušování. Používání Deorum je na vlastní nebezpečí. Azgaar a tým nejsou odpovědní za přímé, nepřímé, náhodné, zvláštní nebo následné škody vyplývající z nebo jakýmkoli způsobem spojené s používáním Deorum nebo nemožností jej používat. Souhlasíte s tím, že odškodníte Azgaara a tým od jakýchkoli nároků, škod nebo ztrát vyplývajících z vašeho používání Deorum nebo porušení těchto podmínek použití."
+    },
+    "section4": {
+      "title": "Zásady obsahu a ochrany soukromí",
+      "content": "Shromažďujeme a ukládáme omezené uživatelské údaje, včetně jmen a e-mailových adres, výhradně pro účely funkčnosti webu. Hesla jsou šifrována a ani Azgaar ani tým k nim nemají přístup. Jsme odhodláni chránit osobní informace našich uživatelů a nebudeme je sdílet s třetími stranami. Upozorňujeme, že i přestože přijímáme přiměřená opatření k ochraně uživatelských dat, žádná metoda přenosu nebo ukládání dat přes internet není zcela bezpečná. Můžeme shromažďovat analytické a statistické údaje jako agregované informace bez zahrnutí osobně identifikovatelných informací. Je však důležité pochopit, že veškerý obsah nahraný uživateli, včetně portrétů, biografií a dalších materiálů, je jejich vlastní odpovědností."
+    },
+    "section5": {
+      "title": "Kontaktní informace",
+      "content": "Pokud máte jakékoli dotazy nebo obavy ohledně podmínek použití nebo aplikace Deorum, kontaktujte Azgaara e-mailem na <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Kontaktní informace",
+      "content": "Pokud máte jakékoli dotazy nebo obavy ohledně podmínek použití nebo aplikace Deorum, kontaktujte Azgaara e-mailem na <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

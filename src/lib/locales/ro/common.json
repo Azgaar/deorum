@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Galeria de personaje fantastice de Azgaar",
+    "description": "Sursa ta pentru personaje fantastice unice și personalizabile pentru proiecte D&D și worldbuilding"
+  },
+  "landing": {
+    "slogan": "Pornește într-o călătorie epică cu Deorum – sursa ta pentru personaje fantastice unice pentru proiecte D&D și worldbuilding",
+    "description1": "Descoperă peste 1600 de personaje personalizabile, fiecare cu un portret uimitor și o biografie detaliată. Imaginile noastre se bazează pe un set de 132 de portrete desenate manual, multiplicate la peste 10000 de variații prin generare AI și selectate cu atenție pentru cea mai înaltă calitate.",
+    "description2": "Personalizează personajul ales după bunul tău plac și dă viață poveștilor tale. Și cel mai bun lucru? Toate personajele sunt gratuite pentru uz necomercial, cu o licență comercială ieftină disponibilă. Alătură-te comunității și începe-ți următoarea aventură astăzi!",
+    "openGallery": "Deschide galeria"
+  },
+  "controls": {
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "confirmDeletion": "Șterge ({{variable}})",
+    "add": "Adaugă",
+    "create": "Creează",
+    "edit": "Editează",
+    "search": "Caută",
+    "clear": "Șterge",
+    "back": "Înapoi",
+    "next": "Următor",
+    "apply": "Aplică",
+    "select": "Selectează",
+    "close": "Închide",
+    "confirm": "Confirmă",
+    "yes": "da",
+    "no": "nu",
+    "random": "aleatoriu",
+    "download": "Descarcă",
+    "report": "Raportează problemă",
+    "send": "Trimite",
+    "openPortraitEditor": "Deschide editorul de portrete",
+    "openCharacterEditor": "Deschide editorul de personaje",
+    "embed": "Încorporează"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Confirmare",
+      "body": "Ești sigur că vrei să continui?",
+      "confirm": "da",
+      "cancel": "nu"
+    }
+  },
+  "values": {
+    "undefined": "nedefinit",
+    "all": "toate",
+    "any": "oricare",
+    "unnamed": "Fără nume"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "În construcție"
+  },
+  "auth": {
+    "signup": "Înregistrare",
+    "signin": "Conectare",
+    "signinTitle": "Conectează-te la contul tău",
+    "signupTitle": "Creează un cont nou",
+    "logout": "Deconectare",
+    "email": "E-mail",
+    "emailPlaceholder": "Introdu adresa de e-mail",
+    "name": "Nume",
+    "namePlaceholder": "Introdu numele tău",
+    "password": "Parolă",
+    "passwordPlaceholder": "Introdu parola",
+    "agreeToTerms": "Prin înregistrare, ești de acord cu",
+    "terms": "Termenii de utilizare",
+    "haveAccount": "Ai deja un cont?",
+    "noAccount": "Nu ai un cont?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} monede rămase",
+    "getCoins": "Obține monede",
+    "openPatreon": "Deschide Patreon",
+    "description": {
+      "1": "Monedele sunt o monedă virtuală utilizată pentru a accesa anumite acțiuni din aplicație. În mod implicit, fiecare utilizator primește {{variable}} monede gratuit, care pot fi utilizate pentru a crea personaje, a încărca imagini și a genera biografii cu ajutorul GPT.",
+      "2": "Deoarece plățile directe nu sunt încă disponibile, am găsit o soluție temporară pentru a-i mulțumi susținătorilor noștri pe Patreon. Pentru a-ți revendica monedele, trimite un mesaj direct lui <i>Azgaar</i> de pe pagina ta de Patreon. Pentru fiecare </b>${{variable}}</b> promis, vei primi o monedă ca semn de apreciere pentru sprijinul tău.",
+      "3": "Mulțumim pentru sprijinul acordat proiectului! Sperăm că te vei bucura să creezi personaje fantastice uimitoare și să explorezi posibilități nesfârșite cu instrumentul nostru bazat pe AI. Vrem să ne asigurăm că putem oferi cea mai bună experiență posibilă tuturor utilizatorilor, iar prin utilizarea monedelor pentru a limita accesul la anumite acțiuni, ne asigurăm că aplicația este sustenabilă."
+    }
+  },
+  "navigation": {
+    "back": "Înapoi",
+    "gallery": "Galerie",
+    "match": "Potrivire",
+    "tags": "Etichete",
+    "admin": "Admin",
+    "next": "Următor",
+    "library": "Bibliotecă",
+    "donate": "Donează",
+    "howToUse": "Cum se folosește",
+    "terms": "Termeni de utilizare",
+    "discord": "Server Discord",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Caută",
+    "title": "Caută personaje",
+    "sorting": {
+      "asc": "Sortare crescătoare",
+      "desc": "Sortare descrescătoare",
+      "no": "Nu sorta"
+    },
+    "foundItems": "Elemente găsite: {{variable}}",
+    "noResults": "Nu au fost găsite personaje, schimbă criteriile de căutare și încearcă din nou",
+    "openGallery": "Deschide galeria"
+  },
+  "success": {
+    "copied": "Copiat în clipboard"
+  },
+  "errors": {
+    "unauthorized": "Conectează-te ca {{variable}} pentru a accesa această pagină",
+    "copy": "Copierea a eșuat. Te rugăm să copiezi manual"
+  },
+  "character": {
+    "name": "Nume",
+    "unnamed": "Fără nume",
+    "age": "Vârstă",
+    "gender": "Gen",
+    "race": "Rasă",
+    "archetype": "Arhetip",
+    "background": "Fundal",
+    "height": "Înălțime",
+    "weight": "Greutate",
+    "bio": "Biografie"
+  },
+  "metrics": {
+    "yearsOld": "ani",
+    "cm": "cm",
+    "feetAndInches": "picioare și inci",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Interval posibil"
+  },
+  "genders": {
+    "male": "masculin",
+    "female": "feminin",
+    "non-binary": "non-binar"
+  },
+  "races": {
+    "human": "uman",
+    "elf": "elf",
+    "half-elf": "semi-elf",
+    "dwarf": "pitic",
+    "gnome": "gnom",
+    "orc": "orc",
+    "half-orc": "semi-orc",
+    "goblin": "goblin",
+    "ogre": "ogru",
+    "draconid": "draconid",
+    "beastman": "om-bestie",
+    "felinid": "felinid",
+    "lizardman": "om-șopârlă",
+    "firbolg": "firbolg",
+    "pixie": "pixie",
+    "demon": "demon",
+    "angel": "înger",
+    "spirit": "spirit",
+    "jinn": "djinn",
+    "undead": "nemoritor",
+    "siren": "sirenă",
+    "gargoyle": "gargoylă",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "semizeu",
+    "birdman": "om-pasăre",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "insectoid",
+    "centaur": "centaur",
+    "satyr": "satir"
+  },
+  "archetypes": {
+    "warrior": "războinic",
+    "mage": "mag",
+    "rogue": "hoț",
+    "cleric": "cleric",
+    "ruler": "conducător",
+    "lover": "iubit",
+    "druid": "druid",
+    "destroyer": "distrugător",
+    "seeker": "căutător",
+    "soothsayer": "prezicător",
+    "sage": "înțelept",
+    "trickster": "șarlatan",
+    "creator": "creator",
+    "merchant": "negustor",
+    "companion": "tovarăș",
+    "villain": "răufăcător",
+    "damsel": "fată în primejdie",
+    "outcast": "proscris",
+    "chosen one": "ales",
+    "rebel": "rebel",
+    "wanderer": "rătăcitor",
+    "mentor": "mentor",
+    "minion": "slujitor"
+  },
+  "backgrounds": {
+    "knight": "cavaler",
+    "gladiator": "gladiator",
+    "soldier": "soldat",
+    "mercenary": "mercenar",
+    "berserker": "berserker",
+    "sailor": "marinar",
+    "pirate": "pirat",
+    "watchman": "paznic",
+    "investigator": "investigator",
+    "bounty hunter": "vânător de recompense",
+    "spy": "spion",
+    "noble": "nobil",
+    "ruler": "conducător",
+    "inheritor": "moștenitor",
+    "courtier": "curtean",
+    "scholar": "savant",
+    "student": "student",
+    "sage": "înțelept",
+    "hermit": "pustnic",
+    "traveler": "călător",
+    "outlander": "străin",
+    "urchin": "copil al străzii",
+    "preacher": "predicator",
+    "acolyte": "acolit",
+    "monk": "călugăr",
+    "chaplain": "capellan",
+    "charlatan": "charlatan",
+    "criminal": "criminal",
+    "entertainer": "entertainer",
+    "doctor": "doctor",
+    "artisan": "artizan",
+    "merchant": "negustor",
+    "hunter": "vânător",
+    "fisher": "pescar",
+    "herbalist": "herborist",
+    "battle mage": "mag de luptă",
+    "soothsayer": "prezicător",
+    "surgeon": "chirurg",
+    "necromancer": "necromant",
+    "paladin": "paladin",
+    "slave": "sclav",
+    "concubine": "concubină",
+    "cook": "bucătar",
+    "prisoner": "prizonier",
+    "beggar": "cerșetor",
+    "mason": "zidar",
+    "miller": "morar",
+    "farmer": "fermier",
+    "caravaneer": "caravagiu",
+    "slaver": "negustor de sclavi",
+    "witch": "vrăjitoare",
+    "shaman": "șaman",
+    "ranger": "explorator",
+    "eunuch": "eunuc"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portret",
+      "details": "Detalii",
+      "bio": "Biografie"
+    },
+    "export": {
+      "export": "Exportă",
+      "portrait": "Imagine portret",
+      "cardImage": "Imagine card",
+      "text": "Fișier text",
+      "json": "Fișier JSON"
+    },
+    "report": {
+      "category": "Categorie",
+      "categories": {
+        "other": "Alte probleme",
+        "inappropriate": "Conținut inadecvat",
+        "portrait": "Portret slab",
+        "biography": "Probleme cu biografia",
+        "improvement": "Sugestie"
+      },
+      "message": "Mesaj"
+    },
+    "editor": {
+      "edit": "Editează personaj",
+      "create": "Creează personaj",
+      "randomize": {
+        "name": "Nume aleatoriu",
+        "age": "Vârstă aleatorie",
+        "height": "Înălțime aleatorie",
+        "weight": "Greutate aleatorie"
+      },
+      "portrait": {
+        "drop": "Trage imaginea aici",
+        "upload": "Încarcă portret. Preț: {{ variable }} monedă",
+        "generate": "Generează portret cu AI. Preț: {{ variable }} monede",
+        "randomize": "Portret aleatoriu (selectează din galeria pregenerată)"
+      },
+      "bio": {
+        "copy": "Copiază biografia",
+        "price": "Prețul generării: {{ variable }} monede",
+        "generate": "Generează biografie. Preț: {{ variable }} monede",
+        "configurePrompt": "Configurează promptul de generare"
+      },
+      "success": {
+        "edit": "Personajul a fost actualizat",
+        "create": "Personajul a fost creat și adăugat în Bibliotecă"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Arată cardul complet",
+    "favorite": "Adaugă în Bibliotecă",
+    "mobileHint": "Glisează la stânga sau la dreapta pentru a roti galeria",
+    "desktopHint": "Folosește săgețile pentru a roti galeria"
+  },
+  "library": {
+    "liked": {
+      "title": "Personaje favorite",
+      "empty": "Nu ai adăugat încă niciun personaj la favorite. Folosește iconița inimii din dreapta cardului de personaj pentru a-l adăuga la favorite.",
+      "goToGallery": "Deschide galeria"
+    },
+    "custom": {
+      "title": "Personaje personalizate",
+      "empty": "Nu ai creat încă niciun personaj personalizat. Folosește butonul din dreapta pentru a crea unul de la zero sau pentru a edita un personaj existent.",
+      "create": "Creează personaj",
+      "remove": "Elimină personajul personalizat"
+    },
+    "uploaded": {
+      "title": "Portrete încărcate și generate",
+      "remove": "Elimină portretul"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Cel mai puternic GPT-5.4; excelează în raționament avansat, cercetare și sarcini complexe cu mai mulți pași",
+      "gpt-5.4-mini": "Variantă GPT-5.4 echilibrată; raționament puternic cu viteză îmbunătățită și cost mai mic",
+      "gpt-5.4-nano": "Variantă GPT-5.4 ușoară; rapidă și eficientă din punct de vedere al costurilor pentru sarcini simple cu volum mare",
+      "gpt-5.1": "Raționament complex, cunoștințe largi despre lume și sarcini agentic cu cod intens sau mai mulți pași",
+      "gpt-5-mini": "Raționament și chat optimizat ca cost; echilibrează viteza, costul și capacitatea",
+      "gpt-5-nano": "Sarcini cu debit mare, în special urmarea simplă a instrucțiunilor sau clasificare",
+      "claude-opus-4-6": "Model premium Anthropic care combină inteligența maximă cu performanța practică",
+      "claude-sonnet-4-6": "Cel mai inteligent model Anthropic pentru agenți complecși și codare",
+      "claude-haiku-4-5": "Cel mai rapid model Anthropic cu inteligență aproape de frontieră"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Vezi în Deorum"
+  }
+}

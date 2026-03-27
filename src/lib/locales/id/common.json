@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Galeri karakter fantasi oleh Azgaar",
+    "description": "Sumber karakter fantasi unik yang dapat disesuaikan untuk proyek D&D dan pembangunan dunia"
+  },
+  "landing": {
+    "slogan": "Mulailah perjalanan epis dengan Deorum – sumber karakter fantasi unik untuk proyek D&D dan pembangunan dunia Anda",
+    "description1": "Temukan lebih dari 1600 karakter yang dapat disesuaikan, masing-masing dilengkapi potret menakjubkan dan biografi terperinci. Gambar kami berasal dari kumpulan 132 potret gambar tangan yang indah, dikalikan menjadi lebih dari 10.000 variasi melalui generasi AI, dan dikurasi dengan cermat untuk kualitas tertinggi.",
+    "description2": "Personalisasikan karakter pilihan Anda sesuai keinginan dan hidupkan cerita Anda. Dan bagian terbaiknya? Semua karakter gratis untuk penggunaan non-komersial, dengan lisensi komersial murah tersedia. Bergabunglah dengan komunitas dan mulai petualangan berikutnya hari ini!",
+    "openGallery": "Buka Galeri"
+  },
+  "controls": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "confirmDeletion": "Hapus ({{variable}})",
+    "add": "Tambah",
+    "create": "Buat",
+    "edit": "Edit",
+    "search": "Cari",
+    "clear": "Bersihkan",
+    "back": "Kembali",
+    "next": "Berikutnya",
+    "apply": "Terapkan",
+    "select": "Pilih",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "yes": "ya",
+    "no": "tidak",
+    "random": "acak",
+    "download": "Unduh",
+    "report": "Laporkan masalah",
+    "send": "Kirim",
+    "openPortraitEditor": "Buka editor potret",
+    "openCharacterEditor": "Buka editor karakter",
+    "embed": "Sematkan"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Konfirmasi",
+      "body": "Apakah Anda yakin ingin melanjutkan?",
+      "confirm": "ya",
+      "cancel": "tidak"
+    }
+  },
+  "values": {
+    "undefined": "tidak terdefinisi",
+    "all": "semua",
+    "any": "sembarang",
+    "unnamed": "Tanpa nama"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "Dalam pembangunan"
+  },
+  "auth": {
+    "signup": "Daftar",
+    "signin": "Masuk",
+    "signinTitle": "Masuk ke akun Anda",
+    "signupTitle": "Buat akun baru",
+    "logout": "Keluar",
+    "email": "Email",
+    "emailPlaceholder": "Masukkan email Anda",
+    "name": "Nama",
+    "namePlaceholder": "Masukkan nama Anda",
+    "password": "Kata sandi",
+    "passwordPlaceholder": "Masukkan kata sandi Anda",
+    "agreeToTerms": "Dengan mendaftar, Anda menyetujui",
+    "terms": "Syarat Penggunaan",
+    "haveAccount": "Sudah punya akun?",
+    "noAccount": "Belum punya akun?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} koin tersisa",
+    "getCoins": "Dapatkan koin",
+    "openPatreon": "Buka Patreon",
+    "description": {
+      "1": "Koin adalah mata uang virtual yang digunakan untuk mengakses tindakan tertentu dalam aplikasi. Secara default, setiap pengguna mendapatkan {{variable}} koin secara gratis, yang dapat digunakan untuk membuat karakter, mengunggah gambar, dan menghasilkan biografi dengan bantuan GPT.",
+      "2": "Karena pembayaran langsung belum tersedia, kami telah menyiapkan solusi sementara untuk berterima kasih kepada pendukung kami di Patreon. Untuk mengklaim koin Anda, kirim pesan langsung ke <i>Azgaar</i> dari halaman Patreon Anda. Untuk setiap </b>${{variable}}</b> yang dijanjikan, Anda akan menerima satu koin sebagai tanda apresiasi atas dukungan Anda.",
+      "3": "Terima kasih telah mendukung proyek ini! Kami berharap Anda menikmati membuat karakter fantasi yang luar biasa dan menjelajahi kemungkinan tak terbatas dengan alat bertenaga AI kami. Kami ingin memastikan bahwa kami dapat memberikan pengalaman terbaik kepada semua pengguna, dan dengan menggunakan koin untuk membatasi akses ke tindakan tertentu, kami memastikan aplikasi ini berkelanjutan."
+    }
+  },
+  "navigation": {
+    "back": "Kembali",
+    "gallery": "Galeri",
+    "match": "Cocokkan",
+    "tags": "Tag",
+    "admin": "Admin",
+    "next": "Berikutnya",
+    "library": "Perpustakaan",
+    "donate": "Donasi",
+    "howToUse": "Cara menggunakan",
+    "terms": "Syarat penggunaan",
+    "discord": "Server Discord",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Cari",
+    "title": "Cari karakter",
+    "sorting": {
+      "asc": "Urutkan naik",
+      "desc": "Urutkan turun",
+      "no": "Jangan urutkan"
+    },
+    "foundItems": "Item ditemukan: {{variable}}",
+    "noResults": "Tidak ada karakter ditemukan, silakan ubah kriteria pencarian dan coba lagi",
+    "openGallery": "Buka Galeri"
+  },
+  "success": {
+    "copied": "Disalin ke clipboard"
+  },
+  "errors": {
+    "unauthorized": "Silakan masuk sebagai {{variable}} untuk mengakses halaman ini",
+    "copy": "Penyalinan gagal. Silakan salin secara manual"
+  },
+  "character": {
+    "name": "Nama",
+    "unnamed": "Tanpa nama",
+    "age": "Usia",
+    "gender": "Jenis kelamin",
+    "race": "Ras",
+    "archetype": "Arketipe",
+    "background": "Latar belakang",
+    "height": "Tinggi",
+    "weight": "Berat",
+    "bio": "Biografi"
+  },
+  "metrics": {
+    "yearsOld": "tahun",
+    "cm": "cm",
+    "feetAndInches": "kaki dan inci",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Rentang yang mungkin"
+  },
+  "genders": {
+    "male": "laki-laki",
+    "female": "perempuan",
+    "non-binary": "non-biner"
+  },
+  "races": {
+    "human": "manusia",
+    "elf": "elf",
+    "half-elf": "setengah elf",
+    "dwarf": "kurcaci",
+    "gnome": "gnome",
+    "orc": "orc",
+    "half-orc": "setengah orc",
+    "goblin": "goblin",
+    "ogre": "raksasa",
+    "draconid": "drakonid",
+    "beastman": "manusia-binatang",
+    "felinid": "felinid",
+    "lizardman": "manusia-kadal",
+    "firbolg": "firbolg",
+    "pixie": "peri",
+    "demon": "iblis",
+    "angel": "malaikat",
+    "spirit": "roh",
+    "jinn": "jin",
+    "undead": "mayat hidup",
+    "siren": "sirene",
+    "gargoyle": "gargoyle",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "setengah dewa",
+    "birdman": "manusia-burung",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "seranggoid",
+    "centaur": "centaur",
+    "satyr": "satir"
+  },
+  "archetypes": {
+    "warrior": "pejuang",
+    "mage": "penyihir",
+    "rogue": "pencuri",
+    "cleric": "pendeta",
+    "ruler": "penguasa",
+    "lover": "kekasih",
+    "druid": "druid",
+    "destroyer": "perusak",
+    "seeker": "pencari",
+    "soothsayer": "peramal",
+    "sage": "orang bijak",
+    "trickster": "penipu",
+    "creator": "pencipta",
+    "merchant": "pedagang",
+    "companion": "teman",
+    "villain": "penjahat",
+    "damsel": "gadis muda",
+    "outcast": "orang buangan",
+    "chosen one": "yang terpilih",
+    "rebel": "pemberontak",
+    "wanderer": "pengembara",
+    "mentor": "mentor",
+    "minion": "antek"
+  },
+  "backgrounds": {
+    "knight": "ksatria",
+    "gladiator": "gladiator",
+    "soldier": "tentara",
+    "mercenary": "tentara bayaran",
+    "berserker": "berserker",
+    "sailor": "pelaut",
+    "pirate": "bajak laut",
+    "watchman": "penjaga",
+    "investigator": "penyelidik",
+    "bounty hunter": "pemburu hadiah",
+    "spy": "mata-mata",
+    "noble": "bangsawan",
+    "ruler": "penguasa",
+    "inheritor": "pewaris",
+    "courtier": "pengawal kerajaan",
+    "scholar": "cendekiawan",
+    "student": "pelajar",
+    "sage": "orang bijak",
+    "hermit": "pertapa",
+    "traveler": "musafir",
+    "outlander": "orang asing",
+    "urchin": "anak jalanan",
+    "preacher": "pengkhotbah",
+    "acolyte": "asisten pendeta",
+    "monk": "biksu",
+    "chaplain": "pendeta militer",
+    "charlatan": "penipu",
+    "criminal": "kriminal",
+    "entertainer": "penghibur",
+    "doctor": "dokter",
+    "artisan": "pengrajin",
+    "merchant": "pedagang",
+    "hunter": "pemburu",
+    "fisher": "nelayan",
+    "herbalist": "ahli herbal",
+    "battle mage": "penyihir tempur",
+    "soothsayer": "peramal",
+    "surgeon": "dokter bedah",
+    "necromancer": "nekromancer",
+    "paladin": "paladin",
+    "slave": "budak",
+    "concubine": "selir",
+    "cook": "juru masak",
+    "prisoner": "tahanan",
+    "beggar": "pengemis",
+    "mason": "tukang batu",
+    "miller": "tukang gilingan",
+    "farmer": "petani",
+    "caravaneer": "pemimpin kafilah",
+    "slaver": "pedagang budak",
+    "witch": "penyihir",
+    "shaman": "dukun",
+    "ranger": "penjelajah",
+    "eunuch": "kasim"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Potret",
+      "details": "Detail",
+      "bio": "Biografi"
+    },
+    "export": {
+      "export": "Ekspor",
+      "portrait": "Gambar potret",
+      "cardImage": "Gambar kartu",
+      "text": "File teks",
+      "json": "File JSON"
+    },
+    "report": {
+      "category": "Kategori",
+      "categories": {
+        "other": "Masalah lain",
+        "inappropriate": "Konten tidak pantas",
+        "portrait": "Potret buruk",
+        "biography": "Masalah biografi",
+        "improvement": "Saran"
+      },
+      "message": "Pesan"
+    },
+    "editor": {
+      "edit": "Edit karakter",
+      "create": "Buat karakter",
+      "randomize": {
+        "name": "Nama acak",
+        "age": "Usia acak",
+        "height": "Tinggi acak",
+        "weight": "Berat acak"
+      },
+      "portrait": {
+        "drop": "Jatuhkan gambar di sini",
+        "upload": "Unggah potret. Harga: {{ variable }} koin",
+        "generate": "Hasilkan potret dengan AI. Harga: {{ variable }} koin",
+        "randomize": "Potret acak (pilih dari galeri yang sudah digenerate)"
+      },
+      "bio": {
+        "copy": "Salin biografi",
+        "price": "Harga generasi: {{ variable }} koin",
+        "generate": "Hasilkan biografi. Harga: {{ variable }} koin",
+        "configurePrompt": "Konfigurasikan prompt generasi"
+      },
+      "success": {
+        "edit": "Karakter telah diperbarui",
+        "create": "Karakter telah dibuat dan ditambahkan ke Perpustakaan"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Tampilkan kartu lengkap",
+    "favorite": "Tambahkan ke Perpustakaan",
+    "mobileHint": "Geser kiri atau kanan untuk memutar galeri",
+    "desktopHint": "Gunakan panah untuk memutar galeri"
+  },
+  "library": {
+    "liked": {
+      "title": "Karakter favorit",
+      "empty": "Anda belum menyukai karakter apa pun. Gunakan ikon hati di sisi kanan kartu karakter untuk menambahkannya ke favorit.",
+      "goToGallery": "Buka Galeri"
+    },
+    "custom": {
+      "title": "Karakter kustom",
+      "empty": "Anda belum membuat karakter kustom. Gunakan tombol di sisi kanan untuk membuat dari awal atau mengedit karakter yang ada.",
+      "create": "Buat karakter",
+      "remove": "Hapus karakter kustom"
+    },
+    "uploaded": {
+      "title": "Potret yang diunggah dan dihasilkan",
+      "remove": "Hapus potret"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "GPT-5.4 paling powerful; unggul dalam penalaran canggih, riset, dan tugas multi-langkah yang kompleks",
+      "gpt-5.4-mini": "Varian GPT-5.4 seimbang; penalaran kuat dengan kecepatan lebih baik dan biaya lebih rendah",
+      "gpt-5.4-nano": "Varian GPT-5.4 ringan; cepat dan hemat biaya untuk tugas sederhana volume tinggi",
+      "gpt-5.1": "Penalaran kompleks, pengetahuan dunia luas, dan tugas agen multi-langkah yang sarat kode",
+      "gpt-5-mini": "Penalaran dan obrolan yang dioptimalkan biaya; menyeimbangkan kecepatan, biaya, dan kemampuan",
+      "gpt-5-nano": "Tugas throughput tinggi, terutama mengikuti instruksi sederhana atau klasifikasi",
+      "claude-opus-4-6": "Model premium Anthropic yang menggabungkan kecerdasan maksimal dengan kinerja praktis",
+      "claude-sonnet-4-6": "Model Anthropic paling cerdas untuk agen kompleks dan pemrograman",
+      "claude-haiku-4-5": "Model Anthropic tercepat dengan kecerdasan mendekati batas"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Lihat di Deorum"
+  }
+}

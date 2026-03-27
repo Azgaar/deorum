@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Fantasiekaraktergalerij door Azgaar",
+    "description": "Jouw bron voor aanpasbare unieke fantasiekarakters voor D&D en worldbuilding-projecten"
+  },
+  "landing": {
+    "slogan": "Begin een epische reis met Deorum – jouw bron voor unieke fantasiekarakters voor D&D en worldbuilding-projecten",
+    "description1": "Ontdek meer dan 1600 aanpasbare karakters, elk met een prachtig portret en een gedetailleerde biografie. Onze afbeeldingen zijn gebaseerd op een set van 132 prachtig handgetekende portretten, vermenigvuldigd tot meer dan 10000 variaties door AI-generatie, en vakkundig geselecteerd voor de hoogste kwaliteit.",
+    "description2": "Personaliseer je gekozen karakter naar hartenlust en breng je verhalen tot leven. En het beste deel? Alle karakters zijn gratis voor niet-commercieel gebruik, met een goedkope commerciële licentie beschikbaar. Sluit je aan bij de gemeenschap en begin vandaag nog je volgende avontuur!",
+    "openGallery": "Galerij openen"
+  },
+  "controls": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "confirmDeletion": "Verwijderen ({{variable}})",
+    "add": "Toevoegen",
+    "create": "Aanmaken",
+    "edit": "Bewerken",
+    "search": "Zoeken",
+    "clear": "Wissen",
+    "back": "Terug",
+    "next": "Volgende",
+    "apply": "Toepassen",
+    "select": "Selecteren",
+    "close": "Sluiten",
+    "confirm": "Bevestigen",
+    "yes": "ja",
+    "no": "nee",
+    "random": "willekeurig",
+    "download": "Downloaden",
+    "report": "Probleem melden",
+    "send": "Verzenden",
+    "openPortraitEditor": "Portreteditor openen",
+    "openCharacterEditor": "Karaktereditor openen",
+    "embed": "Insluiten"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Bevestiging",
+      "body": "Weet je zeker dat je wilt doorgaan?",
+      "confirm": "ja",
+      "cancel": "nee"
+    }
+  },
+  "values": {
+    "undefined": "ongedefinieerd",
+    "all": "alles",
+    "any": "elk",
+    "unnamed": "Naamloos"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "In aanbouw"
+  },
+  "auth": {
+    "signup": "Registreren",
+    "signin": "Inloggen",
+    "signinTitle": "Inloggen op je account",
+    "signupTitle": "Een nieuw account aanmaken",
+    "logout": "Uitloggen",
+    "email": "E-mail",
+    "emailPlaceholder": "Voer je e-mailadres in",
+    "name": "Naam",
+    "namePlaceholder": "Voer je naam in",
+    "password": "Wachtwoord",
+    "passwordPlaceholder": "Voer je wachtwoord in",
+    "agreeToTerms": "Door je te registreren, ga je akkoord met onze",
+    "terms": "Gebruiksvoorwaarden",
+    "haveAccount": "Al een account?",
+    "noAccount": "Geen account?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} munten over",
+    "getCoins": "Munten verkrijgen",
+    "openPatreon": "Patreon openen",
+    "description": {
+      "1": "Munten zijn een virtuele valuta die wordt gebruikt om toegang te krijgen tot bepaalde acties binnen de app. Standaard krijgt elke gebruiker {{variable}} munten gratis, die kunnen worden gebruikt om karakters te maken, afbeeldingen te uploaden en biografieën te genereren met behulp van GPT.",
+      "2": "Omdat directe betalingen nog niet beschikbaar zijn, hebben we een tijdelijke oplossing bedacht om onze supporters op Patreon te bedanken. Stuur een direct bericht aan <i>Azgaar</i> vanaf je Patreon-pagina om je munten op te eisen. Voor elke </b>${{variable}}</b> toegezegd, ontvang je één munt als waardering voor je steun.",
+      "3": "Bedankt voor het steunen van het project! We hopen dat je ervan geniet om geweldige fantasiekarakters te maken en eindeloze mogelijkheden te verkennen met ons AI-aangedreven hulpmiddel. We willen ervoor zorgen dat we de best mogelijke ervaring bieden aan alle gebruikers, en door munten te gebruiken om toegang tot bepaalde acties te beperken, zorgen we ervoor dat de app houdbaar blijft."
+    }
+  },
+  "navigation": {
+    "back": "Terug",
+    "gallery": "Galerij",
+    "match": "Koppelen",
+    "tags": "Tags",
+    "admin": "Beheerder",
+    "next": "Volgende",
+    "library": "Bibliotheek",
+    "donate": "Doneren",
+    "howToUse": "Hoe te gebruiken",
+    "terms": "Gebruiksvoorwaarden",
+    "discord": "Discord-server",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Zoeken",
+    "title": "Karakters zoeken",
+    "sorting": {
+      "asc": "Oplopend sorteren",
+      "desc": "Aflopend sorteren",
+      "no": "Niet sorteren"
+    },
+    "foundItems": "Gevonden items: {{variable}}",
+    "noResults": "Geen karakters gevonden, wijzig de zoekcriteria en probeer het opnieuw",
+    "openGallery": "Galerij openen"
+  },
+  "success": {
+    "copied": "Gekopieerd naar klembord"
+  },
+  "errors": {
+    "unauthorized": "Log in als {{variable}} om toegang te krijgen tot deze pagina",
+    "copy": "Kopiëren mislukt. Kopieer handmatig"
+  },
+  "character": {
+    "name": "Naam",
+    "unnamed": "Naamloos",
+    "age": "Leeftijd",
+    "gender": "Geslacht",
+    "race": "Ras",
+    "archetype": "Archetype",
+    "background": "Achtergrond",
+    "height": "Lengte",
+    "weight": "Gewicht",
+    "bio": "Biografie"
+  },
+  "metrics": {
+    "yearsOld": "jaar oud",
+    "cm": "cm",
+    "feetAndInches": "voet en inches",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Mogelijk bereik"
+  },
+  "genders": {
+    "male": "mannelijk",
+    "female": "vrouwelijk",
+    "non-binary": "non-binair"
+  },
+  "races": {
+    "human": "mens",
+    "elf": "elf",
+    "half-elf": "halve elf",
+    "dwarf": "dwerg",
+    "gnome": "gnoom",
+    "orc": "ork",
+    "half-orc": "halve ork",
+    "goblin": "goblin",
+    "ogre": "ogre",
+    "draconid": "draconide",
+    "beastman": "beestmens",
+    "felinid": "felinide",
+    "lizardman": "hagedismens",
+    "firbolg": "firbolg",
+    "pixie": "pixie",
+    "demon": "demon",
+    "angel": "engel",
+    "spirit": "geest",
+    "jinn": "djinn",
+    "undead": "ongedode",
+    "siren": "sirene",
+    "gargoyle": "waterspuwer",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "halfgod",
+    "birdman": "vogelmensch",
+    "humanoid": "humanoïde",
+    "ent": "ent",
+    "insectoid": "insectoïde",
+    "centaur": "centaur",
+    "satyr": "sater"
+  },
+  "archetypes": {
+    "warrior": "krijger",
+    "mage": "magiër",
+    "rogue": "schurk",
+    "cleric": "priester",
+    "ruler": "heerser",
+    "lover": "minnaar",
+    "druid": "druïde",
+    "destroyer": "vernietiger",
+    "seeker": "zoeker",
+    "soothsayer": "waarzegger",
+    "sage": "wijze",
+    "trickster": "bedrieger",
+    "creator": "schepper",
+    "merchant": "koopman",
+    "companion": "metgezel",
+    "villain": "schurk",
+    "damsel": "jonkvrouw",
+    "outcast": "verstoteling",
+    "chosen one": "uitverkorene",
+    "rebel": "rebel",
+    "wanderer": "zwerver",
+    "mentor": "mentor",
+    "minion": "handlanger"
+  },
+  "backgrounds": {
+    "knight": "ridder",
+    "gladiator": "gladiator",
+    "soldier": "soldaat",
+    "mercenary": "huurling",
+    "berserker": "berserker",
+    "sailor": "zeeman",
+    "pirate": "piraat",
+    "watchman": "wachter",
+    "investigator": "onderzoeker",
+    "bounty hunter": "premiejager",
+    "spy": "spion",
+    "noble": "edelman",
+    "ruler": "heerser",
+    "inheritor": "erfgenaam",
+    "courtier": "hoveling",
+    "scholar": "geleerde",
+    "student": "student",
+    "sage": "wijze",
+    "hermit": "kluizenaar",
+    "traveler": "reiziger",
+    "outlander": "buitenstaander",
+    "urchin": "straatkind",
+    "preacher": "prediker",
+    "acolyte": "acoliet",
+    "monk": "monnik",
+    "chaplain": "kapelaan",
+    "charlatan": "charlatan",
+    "criminal": "crimineel",
+    "entertainer": "entertainer",
+    "doctor": "dokter",
+    "artisan": "ambachtsman",
+    "merchant": "koopman",
+    "hunter": "jager",
+    "fisher": "visser",
+    "herbalist": "kruidenkenner",
+    "battle mage": "gevechtsmagiër",
+    "soothsayer": "waarzegger",
+    "surgeon": "chirurg",
+    "necromancer": "necromant",
+    "paladin": "paladin",
+    "slave": "slaaf",
+    "concubine": "bijvrouw",
+    "cook": "kok",
+    "prisoner": "gevangene",
+    "beggar": "bedelaar",
+    "mason": "metselaar",
+    "miller": "molenaar",
+    "farmer": "boer",
+    "caravaneer": "karavaanleider",
+    "slaver": "slavenhandelaar",
+    "witch": "heks",
+    "shaman": "sjamaan",
+    "ranger": "woudloper",
+    "eunuch": "eunuch"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portret",
+      "details": "Details",
+      "bio": "Biografie"
+    },
+    "export": {
+      "export": "Exporteren",
+      "portrait": "Portretafbeelding",
+      "cardImage": "Kaartafbeelding",
+      "text": "Tekstbestand",
+      "json": "JSON-bestand"
+    },
+    "report": {
+      "category": "Categorie",
+      "categories": {
+        "other": "Overige problemen",
+        "inappropriate": "Ongepaste inhoud",
+        "portrait": "Slecht portret",
+        "biography": "Biografieproblemen",
+        "improvement": "Suggestie"
+      },
+      "message": "Bericht"
+    },
+    "editor": {
+      "edit": "Karakter bewerken",
+      "create": "Karakter aanmaken",
+      "randomize": {
+        "name": "Naam willekeurig maken",
+        "age": "Leeftijd willekeurig maken",
+        "height": "Lengte willekeurig maken",
+        "weight": "Gewicht willekeurig maken"
+      },
+      "portrait": {
+        "drop": "Afbeelding hier neerzetten",
+        "upload": "Portret uploaden. Prijs: {{ variable }} munt",
+        "generate": "Portret genereren met AI. Prijs: {{ variable }} munten",
+        "randomize": "Portret willekeurig maken (selecteer uit vooraf gegenereerde galerij)"
+      },
+      "bio": {
+        "copy": "Biografie kopiëren",
+        "price": "Generatieprijs: {{ variable }} munten",
+        "generate": "Biografie genereren. Prijs: {{ variable }} munten",
+        "configurePrompt": "Generatie-prompt configureren"
+      },
+      "success": {
+        "edit": "Karakter is bijgewerkt",
+        "create": "Karakter is aangemaakt en toegevoegd aan de Bibliotheek"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Volledige kaart tonen",
+    "favorite": "Toevoegen aan de Bibliotheek",
+    "mobileHint": "Veeg links of rechts om de galerij te roteren",
+    "desktopHint": "Gebruik de pijlen om de galerij te roteren"
+  },
+  "library": {
+    "liked": {
+      "title": "Favoriete karakters",
+      "empty": "Je hebt nog geen karakters geliked. Gebruik het hartpictogram aan de rechterkant van de karakterkaart om het toe te voegen aan je favorieten.",
+      "goToGallery": "Galerij openen"
+    },
+    "custom": {
+      "title": "Aangepaste karakters",
+      "empty": "Je hebt nog geen aangepaste karakters aangemaakt. Gebruik de knop aan de rechterkant om er een vanaf nul te maken of een bestaand karakter te bewerken.",
+      "create": "Karakter aanmaken",
+      "remove": "Aangepast karakter verwijderen"
+    },
+    "uploaded": {
+      "title": "Geüploade en gegenereerde portretten",
+      "remove": "Portret verwijderen"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Krachtigste GPT-5.4; uitstekend in geavanceerd redeneren, onderzoek en complexe meerstappentaken",
+      "gpt-5.4-mini": "Gebalanceerde GPT-5.4 variant; sterk redeneren met verbeterde snelheid en lagere kosten",
+      "gpt-5.4-nano": "Lichtgewicht GPT-5.4 variant; snel en kostenefficiënt voor eenvoudige taken met hoog volume",
+      "gpt-5.1": "Complex redeneren, brede wereldkennis en code-intensieve of meerstappige agentiale taken",
+      "gpt-5-mini": "Kostengeoptimaliseerd redeneren en chatten; balanceert snelheid, kosten en capaciteit",
+      "gpt-5-nano": "Taken met hoge doorvoer, vooral eenvoudige instructieopvolging of classificatie",
+      "claude-opus-4-6": "Anthropic premium model dat maximale intelligentie combineert met praktische prestaties",
+      "claude-sonnet-4-6": "Slimste Anthropic model voor complexe agenten en codering",
+      "claude-haiku-4-5": "Snelste Anthropic model met near-frontier intelligentie"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Bekijk in Deorum"
+  }
+}

@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Azgaar tarafından fantezi karakter galerisi",
+    "description": "D&D ve dünya inşası projeleri için özelleştirilebilir benzersiz fantezi karakterlerin kaynağı"
+  },
+  "landing": {
+    "slogan": "Deorum ile destansı bir yolculuğa çıkın – D&D ve dünya inşası projeleri için benzersiz fantezi karakterlerin kaynağınız",
+    "description1": "Her biri çarpıcı bir portre ve ayrıntılı bir biyografi içeren 1600'den fazla özelleştirilebilir karakter keşfedin. Görüntülerimiz, 132 güzel el çizimi portrenin AI üretimiyle 10000'den fazla varyasyona çoğaltıldığı ve en yüksek kalite için özenle seçildiği bir setten oluşmaktadır.",
+    "description2": "Seçtiğiniz karakteri istediğiniz gibi kişiselleştirin ve hikayelerinize hayat verin. Ve en iyi kısım? Tüm karakterler ticari olmayan kullanım için ücretsizdir, ucuz bir ticari lisans mevcuttur. Topluluğa katılın ve bir sonraki maceranıza bugün başlayın!",
+    "openGallery": "Galeriyi aç"
+  },
+  "controls": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "confirmDeletion": "Sil ({{variable}})",
+    "add": "Ekle",
+    "create": "Oluştur",
+    "edit": "Düzenle",
+    "search": "Ara",
+    "clear": "Temizle",
+    "back": "Geri",
+    "next": "İleri",
+    "apply": "Uygula",
+    "select": "Seç",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "yes": "evet",
+    "no": "hayır",
+    "random": "rastgele",
+    "download": "İndir",
+    "report": "Sorun bildir",
+    "send": "Gönder",
+    "openPortraitEditor": "Portre düzenleyiciyi aç",
+    "openCharacterEditor": "Karakter düzenleyiciyi aç",
+    "embed": "Göm"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Onay",
+      "body": "Devam etmek istediğinizden emin misiniz?",
+      "confirm": "evet",
+      "cancel": "hayır"
+    }
+  },
+  "values": {
+    "undefined": "tanımsız",
+    "all": "tümü",
+    "any": "herhangi",
+    "unnamed": "İsimsiz"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "Yapım aşamasında"
+  },
+  "auth": {
+    "signup": "Kayıt ol",
+    "signin": "Giriş yap",
+    "signinTitle": "Hesabınıza giriş yapın",
+    "signupTitle": "Yeni hesap oluşturun",
+    "logout": "Çıkış yap",
+    "email": "E-posta",
+    "emailPlaceholder": "E-posta adresinizi girin",
+    "name": "Ad",
+    "namePlaceholder": "Adınızı girin",
+    "password": "Şifre",
+    "passwordPlaceholder": "Şifrenizi girin",
+    "agreeToTerms": "Kayıt olarak şunları kabul etmiş olursunuz:",
+    "terms": "Kullanım Koşulları",
+    "haveAccount": "Zaten bir hesabınız var mı?",
+    "noAccount": "Hesabınız yok mu?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} jeton kaldı",
+    "getCoins": "Jeton edin",
+    "openPatreon": "Patreon'u aç",
+    "description": {
+      "1": "Jetonlar, uygulama içindeki belirli eylemlere erişmek için kullanılan sanal bir para birimidir. Varsayılan olarak, her kullanıcı GPT yardımıyla karakter oluşturmak, görüntü yüklemek ve biyografi oluşturmak için kullanılabilecek {{variable}} jeton ücretsiz alır.",
+      "2": "Doğrudan ödemeler henüz mevcut olmadığından, Patreon'daki destekçilerimize teşekkür etmek için geçici bir çözüm bulduk. Jetonlarınızı talep etmek için Patreon sayfanızdan <i>Azgaar'a</i> doğrudan mesaj gönderin. Her </b>${{variable}}</b> taahhüt için, desteğinizin bir takdiri olarak bir jeton alacaksınız.",
+      "3": "Projeyi desteklediğiniz için teşekkürler! AI destekli aracımızla muhteşem fantezi karakterler oluşturmanın ve sonsuz olasılıkları keşfetmenin tadını çıkarmanızı umuyoruz. Tüm kullanıcılara mümkün olan en iyi deneyimi sunabilmek istiyoruz ve belirli eylemlere erişimi sınırlamak için jeton kullanarak uygulamanın sürdürülebilir olmasını sağlıyoruz."
+    }
+  },
+  "navigation": {
+    "back": "Geri",
+    "gallery": "Galeri",
+    "match": "Eşleşme",
+    "tags": "Etiketler",
+    "admin": "Yönetici",
+    "next": "İleri",
+    "library": "Kütüphane",
+    "donate": "Bağış yap",
+    "howToUse": "Nasıl kullanılır",
+    "terms": "Kullanım koşulları",
+    "discord": "Discord sunucusu",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Ara",
+    "title": "Karakter ara",
+    "sorting": {
+      "asc": "Artan sıralama",
+      "desc": "Azalan sıralama",
+      "no": "Sıralama yapma"
+    },
+    "foundItems": "Bulunan öğeler: {{variable}}",
+    "noResults": "Karakter bulunamadı, lütfen arama kriterlerini değiştirin ve tekrar deneyin",
+    "openGallery": "Galeriyi aç"
+  },
+  "success": {
+    "copied": "Panoya kopyalandı"
+  },
+  "errors": {
+    "unauthorized": "Bu sayfaya erişmek için {{variable}} olarak giriş yapın",
+    "copy": "Kopyalama başarısız. Lütfen manuel olarak kopyalayın"
+  },
+  "character": {
+    "name": "Ad",
+    "unnamed": "İsimsiz",
+    "age": "Yaş",
+    "gender": "Cinsiyet",
+    "race": "Irk",
+    "archetype": "Arketip",
+    "background": "Geçmiş",
+    "height": "Boy",
+    "weight": "Kilo",
+    "bio": "Biyografi"
+  },
+  "metrics": {
+    "yearsOld": "yaşında",
+    "cm": "cm",
+    "feetAndInches": "fit ve inç",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Olası aralık"
+  },
+  "genders": {
+    "male": "erkek",
+    "female": "kadın",
+    "non-binary": "ikili olmayan"
+  },
+  "races": {
+    "human": "insan",
+    "elf": "elf",
+    "half-elf": "yarı elf",
+    "dwarf": "cüce",
+    "gnome": "gnome",
+    "orc": "ork",
+    "half-orc": "yarı ork",
+    "goblin": "goblin",
+    "ogre": "ogr",
+    "draconid": "drakonid",
+    "beastman": "canavar-adam",
+    "felinid": "felinid",
+    "lizardman": "kertenkele-adam",
+    "firbolg": "firbolg",
+    "pixie": "peri",
+    "demon": "iblis",
+    "angel": "melek",
+    "spirit": "ruh",
+    "jinn": "cin",
+    "undead": "ölümsüz",
+    "siren": "deniz kızı",
+    "gargoyle": "gargoyle",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "yarı tanrı",
+    "birdman": "kuş-adam",
+    "humanoid": "insansı",
+    "ent": "ent",
+    "insectoid": "böceksoid",
+    "centaur": "kentaur",
+    "satyr": "satir"
+  },
+  "archetypes": {
+    "warrior": "savaşçı",
+    "mage": "büyücü",
+    "rogue": "haydut",
+    "cleric": "din adamı",
+    "ruler": "hükümdar",
+    "lover": "sevgili",
+    "druid": "druid",
+    "destroyer": "yıkıcı",
+    "seeker": "arayıcı",
+    "soothsayer": "kahin",
+    "sage": "bilge",
+    "trickster": "hileci",
+    "creator": "yaratıcı",
+    "merchant": "tüccar",
+    "companion": "yoldaş",
+    "villain": "kötü adam",
+    "damsel": "genç kadın",
+    "outcast": "sürgün",
+    "chosen one": "seçilmiş",
+    "rebel": "isyancı",
+    "wanderer": "gezgin",
+    "mentor": "mentor",
+    "minion": "uşak"
+  },
+  "backgrounds": {
+    "knight": "şövalye",
+    "gladiator": "gladyatör",
+    "soldier": "asker",
+    "mercenary": "paralı asker",
+    "berserker": "berserker",
+    "sailor": "denizci",
+    "pirate": "korsan",
+    "watchman": "bekçi",
+    "investigator": "soruşturmacı",
+    "bounty hunter": "ödül avcısı",
+    "spy": "casus",
+    "noble": "soylu",
+    "ruler": "hükümdar",
+    "inheritor": "mirasçı",
+    "courtier": "saray mensubu",
+    "scholar": "âlim",
+    "student": "öğrenci",
+    "sage": "bilge",
+    "hermit": "münzevi",
+    "traveler": "gezgin",
+    "outlander": "yabancı",
+    "urchin": "sokak çocuğu",
+    "preacher": "vaiz",
+    "acolyte": "yardımcı",
+    "monk": "keşiş",
+    "chaplain": "askeri papaz",
+    "charlatan": "şarlatan",
+    "criminal": "suçlu",
+    "entertainer": "eğlendirici",
+    "doctor": "doktor",
+    "artisan": "zanaatkâr",
+    "merchant": "tüccar",
+    "hunter": "avcı",
+    "fisher": "balıkçı",
+    "herbalist": "otacı",
+    "battle mage": "savaş büyücüsü",
+    "soothsayer": "kahin",
+    "surgeon": "cerrah",
+    "necromancer": "nekromancer",
+    "paladin": "paladin",
+    "slave": "köle",
+    "concubine": "cariye",
+    "cook": "aşçı",
+    "prisoner": "mahkûm",
+    "beggar": "dilenci",
+    "mason": "duvarcı",
+    "miller": "değirmenci",
+    "farmer": "çiftçi",
+    "caravaneer": "kervan başı",
+    "slaver": "köle tüccarı",
+    "witch": "cadı",
+    "shaman": "şaman",
+    "ranger": "ranger",
+    "eunuch": "hadım"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Portre",
+      "details": "Detaylar",
+      "bio": "Biyografi"
+    },
+    "export": {
+      "export": "Dışa aktar",
+      "portrait": "Portre görseli",
+      "cardImage": "Kart görseli",
+      "text": "Metin dosyası",
+      "json": "JSON dosyası"
+    },
+    "report": {
+      "category": "Kategori",
+      "categories": {
+        "other": "Diğer sorunlar",
+        "inappropriate": "Uygunsuz içerik",
+        "portrait": "Kötü portre",
+        "biography": "Biyografi sorunları",
+        "improvement": "Öneri"
+      },
+      "message": "Mesaj"
+    },
+    "editor": {
+      "edit": "Karakter düzenle",
+      "create": "Karakter oluştur",
+      "randomize": {
+        "name": "Rastgele ad",
+        "age": "Rastgele yaş",
+        "height": "Rastgele boy",
+        "weight": "Rastgele kilo"
+      },
+      "portrait": {
+        "drop": "Görseli buraya bırakın",
+        "upload": "Portre yükle. Fiyat: {{ variable }} jeton",
+        "generate": "AI ile portre oluştur. Fiyat: {{ variable }} jeton",
+        "randomize": "Rastgele portre (önceden oluşturulmuş galeriden seç)"
+      },
+      "bio": {
+        "copy": "Biyografiyi kopyala",
+        "price": "Oluşturma fiyatı: {{ variable }} jeton",
+        "generate": "Biyografi oluştur. Fiyat: {{ variable }} jeton",
+        "configurePrompt": "Oluşturma istemini yapılandır"
+      },
+      "success": {
+        "edit": "Karakter güncellendi",
+        "create": "Karakter oluşturuldu ve Kütüphaneye eklendi"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Tam kartı göster",
+    "favorite": "Kütüphaneye ekle",
+    "mobileHint": "Galeriyi döndürmek için sola veya sağa kaydırın",
+    "desktopHint": "Galeriyi döndürmek için okları kullanın"
+  },
+  "library": {
+    "liked": {
+      "title": "Beğenilen karakterler",
+      "empty": "Henüz hiçbir karakteri beğenmediniz. Favorilerinize eklemek için karakter kartının sağ tarafındaki kalp simgesini kullanın.",
+      "goToGallery": "Galeriyi aç"
+    },
+    "custom": {
+      "title": "Özel karakterler",
+      "empty": "Henüz özel karakter oluşturmadınız. Sıfırdan bir tane oluşturmak veya mevcut bir karakteri düzenlemek için sağ taraftaki düğmeyi kullanın.",
+      "create": "Karakter oluştur",
+      "remove": "Özel karakteri kaldır"
+    },
+    "uploaded": {
+      "title": "Yüklenen ve oluşturulan portreler",
+      "remove": "Portreyi kaldır"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "En güçlü GPT-5.4; gelişmiş akıl yürütme, araştırma ve karmaşık çok adımlı görevlerde mükemmel",
+      "gpt-5.4-mini": "Dengeli GPT-5.4 varyantı; geliştirilmiş hız ve daha düşük maliyetle güçlü akıl yürütme",
+      "gpt-5.4-nano": "Hafif GPT-5.4 varyantı; yüksek hacimli basit görevler için hızlı ve uygun maliyetli",
+      "gpt-5.1": "Karmaşık akıl yürütme, geniş dünya bilgisi ve kod yoğun veya çok adımlı ajan görevleri",
+      "gpt-5-mini": "Maliyet optimize edilmiş akıl yürütme ve sohbet; hız, maliyet ve yeteneği dengeler",
+      "gpt-5-nano": "Yüksek verimli görevler, özellikle basit talimat takibi veya sınıflandırma",
+      "claude-opus-4-6": "Maksimum zekayı pratik performansla birleştiren Anthropic premium modeli",
+      "claude-sonnet-4-6": "Karmaşık ajanlar ve kodlama için Anthropic'in en akıllı modeli",
+      "claude-haiku-4-5": "Sınıra yakın zekaya sahip Anthropic'in en hızlı modeli"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Deorum'da görüntüle"
+  }
+}

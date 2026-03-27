@@ -1,0 +1,48 @@
+{
+  "title": "Điều khoản sử dụng",
+  "intro": "Cảm ơn bạn đã sử dụng Deorum, một ứng dụng web được tạo bởi Azgaar và Nhóm. Vui lòng xem lại các điều khoản sử dụng sau đây.",
+  "sections": {
+    "section1": {
+      "title": "Giấy phép",
+      "clauses": {
+        "clause1": {
+          "title": "Nhân vật được tạo sẵn",
+          "content": "Deorum cung cấp các nhân vật giả tưởng được tạo sẵn bởi Azgaar và Nhóm. Bạn được tự do sử dụng và chỉnh sửa các nhân vật được tạo sẵn cho mục đích phi thương mại theo các điều khoản của <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>giấy phép CC BY-NC 4.0</a>.",
+          "subclauses": {
+            "subclause1": "Tất cả chân dung nhân vật trong Deorum được tạo sẵn bằng cách sử dụng Stable Diffusion AI tạo ảnh từ ảnh. Quá trình tạo dựa trên một bộ chân dung độc đáo được vẽ tay bởi Azgaar và Nhóm, vì vậy tất cả chân dung được tạo ra là các tác phẩm phái sinh của ảnh gốc. Vì vậy, Azgaar giữ tất cả quyền đối với ảnh gốc. Tuy nhiên, các tác phẩm phái sinh của những chân dung này (là các chân dung nhân vật được tạo sẵn của Deorum) có sẵn miễn phí để sử dụng phi thương mại.",
+            "subclause2": "Tiểu sử nhân vật trong Deorum được tạo bằng cách sử dụng các mô hình OpenAI GPT-3 và GPT-4, sau đó được Azgaar và Nhóm tinh chỉnh thủ công. Tất cả nội dung văn bản, bao gồm tiểu sử nhân vật và thông tin liên quan đến nhân vật khác, cũng có sẵn miễn phí để sử dụng phi thương mại.",
+            "subclause3": "Để <strong>sử dụng thương mại</strong> các nhân vật được tạo sẵn hoặc các phần của chúng, vui lòng liên hệ với Azgaar qua email tại <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Chúng tôi sẵn lòng cấp phép sử dụng thương mại cho những người ủng hộ chúng tôi."
+          }
+        },
+        "clause2": {
+          "title": "Nhân vật tùy chỉnh",
+          "content": "Bạn giữ tất cả quyền đối với các nhân vật do bạn tạo thủ công trong Deorum. Chân dung được tải lên tuân theo giấy phép ban đầu của chúng. Tiểu sử được thêm vào và nội dung văn bản khác cũng tuân theo giấy phép ban đầu của chúng."
+        },
+        "clause3": {
+          "title": "Quyền sở hữu mã",
+          "content": "Deorum là ứng dụng mã nguồn mở được phân phối theo <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>giấy phép MIT</a>. Mã nguồn của ứng dụng có thể được tìm thấy trên <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Trách nhiệm người dùng",
+      "content": "Bằng cách sử dụng Deorum, bạn đồng ý tuân thủ tất cả các luật và quy định hiện hành. Bạn chịu trách nhiệm sử dụng ứng dụng một cách hợp pháp, đạo đức và tôn trọng, không vi phạm quyền của người khác. Báo cáo bất kỳ vi phạm hoặc sử dụng trái phép nào của Deorum cho Azgaar. Không tuân thủ các trách nhiệm này có thể dẫn đến việc chấm dứt quyền truy cập của bạn vào ứng dụng."
+    },
+    "section3": {
+      "title": "Tuyên bố miễn trách nhiệm và giới hạn trách nhiệm",
+      "content": "Deorum được cung cấp trên cơ sở 'như hiện có' và 'như có sẵn' mà không có bảo đảm dưới bất kỳ hình thức nào, rõ ràng hay ngụ ý. Azgaar và Nhóm từ chối tất cả bảo đảm, bao gồm nhưng không giới hạn ở các bảo đảm ngụ ý về khả năng bán hàng, phù hợp cho mục đích cụ thể và không vi phạm. Việc sử dụng Deorum là hoàn toàn do rủi ro của bạn. Azgaar và Nhóm sẽ không chịu trách nhiệm về bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên, đặc biệt hoặc hậu quả nào phát sinh từ hoặc liên quan đến việc sử dụng hoặc không thể sử dụng Deorum. Bạn đồng ý bồi thường và giữ Azgaar và Nhóm vô hại khỏi bất kỳ khiếu nại, thiệt hại hoặc tổn thất nào phát sinh từ việc sử dụng Deorum của bạn hoặc vi phạm các Điều khoản sử dụng này."
+    },
+    "section4": {
+      "title": "Chính sách nội dung và quyền riêng tư",
+      "content": "Chúng tôi thu thập và lưu trữ dữ liệu người dùng hạn chế, bao gồm tên và địa chỉ email, chỉ cho mục đích chức năng của trang web. Mật khẩu được mã hóa và cả Azgaar lẫn Nhóm đều không có quyền truy cập vào chúng. Chúng tôi cam kết bảo vệ thông tin cá nhân của người dùng và sẽ không chia sẻ với bên thứ ba. Xin lưu ý rằng mặc dù chúng tôi thực hiện các biện pháp hợp lý để bảo vệ dữ liệu người dùng, không có phương pháp truyền tải hoặc lưu trữ nào qua internet là hoàn toàn an toàn. Chúng tôi có thể thu thập dữ liệu phân tích và sử dụng dưới dạng thông tin tổng hợp mà không bao gồm thông tin nhận dạng cá nhân. Tuy nhiên, điều quan trọng cần hiểu là tất cả nội dung do người dùng tải lên, bao gồm chân dung, tiểu sử và các tài liệu khác, là trách nhiệm của chính họ."
+    },
+    "section5": {
+      "title": "Thông tin liên hệ",
+      "content": "Nếu bạn có bất kỳ câu hỏi hoặc lo ngại nào về các điều khoản sử dụng hoặc ứng dụng Deorum, vui lòng liên hệ với Azgaar qua email tại <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Thông tin liên hệ",
+      "content": "Nếu bạn có bất kỳ câu hỏi hoặc lo ngại nào về các điều khoản sử dụng hoặc ứng dụng Deorum, vui lòng liên hệ với Azgaar qua email tại <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

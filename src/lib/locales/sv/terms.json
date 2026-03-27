@@ -1,0 +1,48 @@
+{
+  "title": "Användarvillkor",
+  "intro": "Tack för att du använder Deorum, en webbapplikation skapad av Azgaar och teamet. Läs igenom följande användarvillkor.",
+  "sections": {
+    "section1": {
+      "title": "Licens",
+      "clauses": {
+        "clause1": {
+          "title": "Färdigskapade karaktärer",
+          "content": "Deorum tillhandahåller färdigskapade fantasikaraktärer skapade av Azgaar och teamet. Du är fri att använda och redigera de färdigskapade karaktärerna för icke-kommersiella ändamål enligt villkoren i <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0-licensen</a>.",
+          "subclauses": {
+            "subclause1": "Alla karaktärsporträtt i Deorum är färdigskapade med hjälp av kurerad Stable Diffusion bild-till-bild AI-generering. Genereringen baseras på en uppsättning handritade unika porträtt skapade av Azgaar och teamet, så alla genererade porträtt är derivat av källbilderna. Som sådant behåller Azgaar alla rättigheter till källbilderna. Derivaten av dessa porträtt (som är Deorums färdigskapade karaktärsporträtt) är dock tillgängliga gratis för icke-kommersiellt bruk.",
+            "subclause2": "Karaktärsbiografierna i Deorum genereras med hjälp av OpenAI GPT-3 och GPT-4-modeller, som sedan manuellt justeras av Azgaar och teamet. Allt textinnehåll, inklusive karaktärsbiografier och annan karaktärsrelaterad information, är också tillgänglig gratis för icke-kommersiellt bruk.",
+            "subclause3": "För <strong>kommersiellt bruk</strong> av färdigskapade karaktärer eller deras delar, kontakta Azgaar via e-post på <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Vi är glada att bevilja tillstånd för kommersiell användning för våra supportrar."
+          }
+        },
+        "clause2": {
+          "title": "Anpassade karaktärer",
+          "content": "Du behåller alla rättigheter till karaktärerna som skapats manuellt av dig i Deorum. Uppladdade porträtt följer sin ursprungliga licens. Tillagda biografier och annat textinnehåll omfattas också av sin ursprungliga licens."
+        },
+        "clause3": {
+          "title": "Kodägarskap",
+          "content": "Deorum är en öppen källkodsapplikation distribuerad under <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT-licensen</a>. Källkoden för applikationen finns på <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Användaransvar",
+      "content": "Genom att använda Deorum godkänner du att följa alla tillämpliga lagar och förordningar. Du ansvarar för att använda applikationen på ett lagligt, etiskt och respektfullt sätt utan att kränka andras rättigheter. Rapportera eventuella överträdelser eller obehörig användning av Deorum till Azgaar. Underlåtenhet att följa dessa ansvar kan leda till att din åtkomst till applikationen avslutas."
+    },
+    "section3": {
+      "title": "Ansvarsfriskrivning och ansvarsbegränsning",
+      "content": "Deorum tillhandahålls i befintligt skick och som tillgängligt utan garantier av något slag, uttryckliga eller underförstådda. Azgaar och teamet frånsäger sig alla garantier, inklusive men inte begränsat till underförstådda garantier om säljbarhet, lämplighet för ett visst ändamål och icke-intrång. Användningen av Deorum sker på egen risk. Azgaar och teamet ska inte hållas ansvariga för direkta, indirekta, tillfälliga, speciella eller följdskador som uppstår ur eller i samband med användningen av Deorum eller oförmågan att använda det. Du godkänner att hålla Azgaar och teamet skadelösa från anspråk, skador eller förluster som uppstår ur din användning av Deorum eller brott mot dessa användarvillkor."
+    },
+    "section4": {
+      "title": "Innehålls- och integritetspolicy",
+      "content": "Vi samlar in och lagrar begränsade användardata, inklusive namn och e-postadresser, enbart för webbplatsens funktionalitet. Lösenord krypteras och varken Azgaar eller teamet har tillgång till dem. Vi är engagerade i att skydda våra användares personliga information och delar den inte med tredje part. Observera att även om vi vidtar rimliga åtgärder för att skydda användardata är ingen överförings- eller lagringsmetod via internet helt säker. Vi kan samla in analys- och användningsdata som aggregerad information utan att inkludera personligt identifierbar information. Det är dock viktigt att förstå att allt innehåll som laddas upp av användare, inklusive porträtt, biografier och annat material, är deras eget ansvar."
+    },
+    "section5": {
+      "title": "Kontaktinformation",
+      "content": "Om du har några frågor eller funderingar angående användarvillkoren eller Deorum-applikationen, kontakta Azgaar via e-post på <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Kontaktinformation",
+      "content": "Om du har några frågor eller funderingar angående användarvillkoren eller Deorum-applikationen, kontakta Azgaar via e-post på <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

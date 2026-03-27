@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Fantasikaraktergalleri av Azgaar",
+    "description": "Din källa för anpassningsbara unika fantasikaraktärer för D&D och världsbyggnadsprojekt"
+  },
+  "landing": {
+    "slogan": "Ge dig ut på en episk resa med Deorum – din källa för unika fantasikaraktärer för D&D och världsbyggnadsprojekt",
+    "description1": "Utforska över 1600 anpassningsbara karaktärer, var och en med ett fantastiskt porträtt och en detaljerad biografi. Våra bilder är baserade på en samling av 132 vackert handritade porträtt, multiplicerade till över 10000 variationer genom AI-generering, och noggrant utvalda för högsta kvalitet.",
+    "description2": "Anpassa din valda karaktär efter hjärtats lust och ge dina berättelser liv. Och det bästa? Alla karaktärer är gratis för icke-kommersiellt bruk, med en billig kommersiell licens tillgänglig. Gå med i gemenskapen och börja ditt nästa äventyr idag!",
+    "openGallery": "Öppna galleri"
+  },
+  "controls": {
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "confirmDeletion": "Ta bort ({{variable}})",
+    "add": "Lägg till",
+    "create": "Skapa",
+    "edit": "Redigera",
+    "search": "Sök",
+    "clear": "Rensa",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "apply": "Tillämpa",
+    "select": "Välj",
+    "close": "Stäng",
+    "confirm": "Bekräfta",
+    "yes": "ja",
+    "no": "nej",
+    "random": "slumpmässig",
+    "download": "Ladda ner",
+    "report": "Rapportera problem",
+    "send": "Skicka",
+    "openPortraitEditor": "Öppna porträttredigerare",
+    "openCharacterEditor": "Öppna karaktärsredigerare",
+    "embed": "Bädda in"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "Bekräftelse",
+      "body": "Är du säker på att du vill fortsätta?",
+      "confirm": "ja",
+      "cancel": "nej"
+    }
+  },
+  "values": {
+    "undefined": "odefinierad",
+    "all": "alla",
+    "any": "valfri",
+    "unnamed": "Namnlös"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "Under konstruktion"
+  },
+  "auth": {
+    "signup": "Registrera",
+    "signin": "Logga in",
+    "signinTitle": "Logga in på ditt konto",
+    "signupTitle": "Skapa ett nytt konto",
+    "logout": "Logga ut",
+    "email": "E-post",
+    "emailPlaceholder": "Ange din e-postadress",
+    "name": "Namn",
+    "namePlaceholder": "Ange ditt namn",
+    "password": "Lösenord",
+    "passwordPlaceholder": "Ange ditt lösenord",
+    "agreeToTerms": "Genom att registrera dig godkänner du våra",
+    "terms": "Användarvillkor",
+    "haveAccount": "Har du redan ett konto?",
+    "noAccount": "Har du inget konto?"
+  },
+  "coins": {
+    "coinsLeft": "{{variable}} mynt kvar",
+    "getCoins": "Hämta mynt",
+    "openPatreon": "Öppna Patreon",
+    "description": {
+      "1": "Mynt är en virtuell valuta som används för att komma åt vissa åtgärder i appen. Som standard får varje användare {{variable}} mynt gratis, som kan användas för att skapa karaktärer, ladda upp bilder och generera biografier med hjälp av GPT.",
+      "2": "Eftersom direkta betalningar ännu inte är tillgängliga har vi kommit på en tillfällig lösning för att tacka våra supporters på Patreon. För att hämta dina mynt, skicka ett direktmeddelande till <i>Azgaar</i> från din Patreon-sida. För varje </b>${{variable}}</b> som pantas, får du ett mynt som ett tecken på uppskattning för ditt stöd.",
+      "3": "Tack för att du stödjer projektet! Vi hoppas att du njuter av att skapa fantastiska fantasikaraktärer och utforska oändliga möjligheter med vårt AI-drivna verktyg. Vi vill se till att vi kan erbjuda den bästa möjliga upplevelsen till alla användare, och genom att använda mynt för att begränsa tillgången till vissa åtgärder säkerställer vi att appen är hållbar."
+    }
+  },
+  "navigation": {
+    "back": "Tillbaka",
+    "gallery": "Galleri",
+    "match": "Matchning",
+    "tags": "Taggar",
+    "admin": "Admin",
+    "next": "Nästa",
+    "library": "Bibliotek",
+    "donate": "Donera",
+    "howToUse": "Hur man använder",
+    "terms": "Användarvillkor",
+    "discord": "Discord-server",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "Sök",
+    "title": "Sök karaktärer",
+    "sorting": {
+      "asc": "Sortera stigande",
+      "desc": "Sortera fallande",
+      "no": "Sortera inte"
+    },
+    "foundItems": "Hittade objekt: {{variable}}",
+    "noResults": "Inga karaktärer hittades, ändra sökkriterierna och försök igen",
+    "openGallery": "Öppna galleri"
+  },
+  "success": {
+    "copied": "Kopierat till urklipp"
+  },
+  "errors": {
+    "unauthorized": "Logga in som {{variable}} för att komma åt den här sidan",
+    "copy": "Kopiering misslyckades. Kopiera manuellt"
+  },
+  "character": {
+    "name": "Namn",
+    "unnamed": "Namnlös",
+    "age": "Ålder",
+    "gender": "Kön",
+    "race": "Ras",
+    "archetype": "Arketyp",
+    "background": "Bakgrund",
+    "height": "Längd",
+    "weight": "Vikt",
+    "bio": "Biografi"
+  },
+  "metrics": {
+    "yearsOld": "år gammal",
+    "cm": "cm",
+    "feetAndInches": "fot och tum",
+    "kg": "kg",
+    "lbs": "lbs",
+    "range": "Möjligt intervall"
+  },
+  "genders": {
+    "male": "manlig",
+    "female": "kvinnlig",
+    "non-binary": "icke-binär"
+  },
+  "races": {
+    "human": "människa",
+    "elf": "alv",
+    "half-elf": "halvalv",
+    "dwarf": "dvärg",
+    "gnome": "gnome",
+    "orc": "ork",
+    "half-orc": "halvork",
+    "goblin": "goblin",
+    "ogre": "jätte",
+    "draconid": "drakonid",
+    "beastman": "djurman",
+    "felinid": "felinid",
+    "lizardman": "ödlaman",
+    "firbolg": "firbolg",
+    "pixie": "pixie",
+    "demon": "demon",
+    "angel": "ängel",
+    "spirit": "ande",
+    "jinn": "djinn",
+    "undead": "odöd",
+    "siren": "sjöjungfru",
+    "gargoyle": "gargoyle",
+    "golem": "golem",
+    "cyborg": "cyborg",
+    "triton": "triton",
+    "demigod": "halvgud",
+    "birdman": "fågelvarelse",
+    "humanoid": "humanoid",
+    "ent": "ent",
+    "insectoid": "insektoid",
+    "centaur": "kentaur",
+    "satyr": "satyr"
+  },
+  "archetypes": {
+    "warrior": "krigare",
+    "mage": "magiker",
+    "rogue": "skurk",
+    "cleric": "präst",
+    "ruler": "härskare",
+    "lover": "älskare",
+    "druid": "druid",
+    "destroyer": "förstörare",
+    "seeker": "sökare",
+    "soothsayer": "spåman",
+    "sage": "vis man",
+    "trickster": "bedragare",
+    "creator": "skapare",
+    "merchant": "köpman",
+    "companion": "följeslagare",
+    "villain": "skurk",
+    "damsel": "jungfru",
+    "outcast": "utstött",
+    "chosen one": "utvald",
+    "rebel": "rebell",
+    "wanderer": "vandrare",
+    "mentor": "mentor",
+    "minion": "hantlangare"
+  },
+  "backgrounds": {
+    "knight": "riddare",
+    "gladiator": "gladiator",
+    "soldier": "soldat",
+    "mercenary": "legosoldat",
+    "berserker": "bärsärk",
+    "sailor": "sjöman",
+    "pirate": "pirat",
+    "watchman": "väktare",
+    "investigator": "utredare",
+    "bounty hunter": "prisjägare",
+    "spy": "spion",
+    "noble": "adelsman",
+    "ruler": "härskare",
+    "inheritor": "arvinge",
+    "courtier": "hovman",
+    "scholar": "lärare",
+    "student": "student",
+    "sage": "vis man",
+    "hermit": "eremit",
+    "traveler": "resenär",
+    "outlander": "utlänning",
+    "urchin": "gatubarn",
+    "preacher": "predikant",
+    "acolyte": "akolyt",
+    "monk": "munk",
+    "chaplain": "kapellmästare",
+    "charlatan": "charlatan",
+    "criminal": "brottsling",
+    "entertainer": "underhållare",
+    "doctor": "läkare",
+    "artisan": "hantverkare",
+    "merchant": "köpman",
+    "hunter": "jägare",
+    "fisher": "fiskare",
+    "herbalist": "örtläkare",
+    "battle mage": "stridsmage",
+    "soothsayer": "spåman",
+    "surgeon": "kirurg",
+    "necromancer": "nekromant",
+    "paladin": "paladin",
+    "slave": "slav",
+    "concubine": "konkubin",
+    "cook": "kock",
+    "prisoner": "fånge",
+    "beggar": "tiggare",
+    "mason": "murare",
+    "miller": "mjölnare",
+    "farmer": "bonde",
+    "caravaneer": "karavanledare",
+    "slaver": "slavhandlare",
+    "witch": "häxa",
+    "shaman": "shaman",
+    "ranger": "skogsväktare",
+    "eunuch": "eunuck"
+  },
+  "details": {
+    "edit": {
+      "portrait": "Porträtt",
+      "details": "Detaljer",
+      "bio": "Biografi"
+    },
+    "export": {
+      "export": "Exportera",
+      "portrait": "Porträttbild",
+      "cardImage": "Kortbild",
+      "text": "Textfil",
+      "json": "JSON-fil"
+    },
+    "report": {
+      "category": "Kategori",
+      "categories": {
+        "other": "Andra problem",
+        "inappropriate": "Olämpligt innehåll",
+        "portrait": "Dåligt porträtt",
+        "biography": "Biografiproblem",
+        "improvement": "Förslag"
+      },
+      "message": "Meddelande"
+    },
+    "editor": {
+      "edit": "Redigera karaktär",
+      "create": "Skapa karaktär",
+      "randomize": {
+        "name": "Slumpmässigt namn",
+        "age": "Slumpmässig ålder",
+        "height": "Slumpmässig längd",
+        "weight": "Slumpmässig vikt"
+      },
+      "portrait": {
+        "drop": "Släpp bild här",
+        "upload": "Ladda upp porträtt. Pris: {{ variable }} mynt",
+        "generate": "Generera porträtt med AI. Pris: {{ variable }} mynt",
+        "randomize": "Slumpa porträtt (välj från förgenrerat galleri)"
+      },
+      "bio": {
+        "copy": "Kopiera biografi",
+        "price": "Genereringspris: {{ variable }} mynt",
+        "generate": "Generera biografi. Pris: {{ variable }} mynt",
+        "configurePrompt": "Konfigurera genereringsprompt"
+      },
+      "success": {
+        "edit": "Karaktären är uppdaterad",
+        "create": "Karaktären är skapad och tillagd i Biblioteket"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "Visa hela kortet",
+    "favorite": "Lägg till i Biblioteket",
+    "mobileHint": "Svep vänster eller höger för att rotera galleriet",
+    "desktopHint": "Använd pilarna för att rotera galleriet"
+  },
+  "library": {
+    "liked": {
+      "title": "Gillade karaktärer",
+      "empty": "Du har inte gillat några karaktärer ännu. Använd hjärtikonen på höger sida av karaktärskortet för att lägga till det i dina favoriter.",
+      "goToGallery": "Öppna galleri"
+    },
+    "custom": {
+      "title": "Anpassade karaktärer",
+      "empty": "Du har inte skapat några anpassade karaktärer ännu. Använd knappen på höger sida för att skapa en från grunden eller redigera en befintlig karaktär.",
+      "create": "Skapa karaktär",
+      "remove": "Ta bort anpassad karaktär"
+    },
+    "uploaded": {
+      "title": "Uppladdade och genererade porträtt",
+      "remove": "Ta bort porträtt"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "Kraftfullaste GPT-5.4; utmärker sig i avancerat resonemang, forskning och komplexa flerstegsuppgifter",
+      "gpt-5.4-mini": "Balanserad GPT-5.4 variant; starkt resonemang med förbättrad hastighet och lägre kostnad",
+      "gpt-5.4-nano": "Lättvikts GPT-5.4 variant; snabb och kostnadseffektiv för enkla uppgifter med hög volym",
+      "gpt-5.1": "Komplext resonemang, bred världskunskap och kodintensiva eller flerstegs agentuppgifter",
+      "gpt-5-mini": "Kostnadsoptimerat resonemang och chatt; balanserar hastighet, kostnad och kapacitet",
+      "gpt-5-nano": "Uppgifter med hög genomströmning, särskilt enkel instruktionsföljning eller klassificering",
+      "claude-opus-4-6": "Anthropic premiummodell som kombinerar maximal intelligens med praktisk prestanda",
+      "claude-sonnet-4-6": "Anthropics smartaste modell för komplexa agenter och kodning",
+      "claude-haiku-4-5": "Anthropics snabbaste modell med nära-frontier intelligens"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Se i Deorum"
+  }
+}

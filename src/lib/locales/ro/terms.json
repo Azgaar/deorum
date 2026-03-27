@@ -1,0 +1,48 @@
+{
+  "title": "Termeni de utilizare",
+  "intro": "Vă mulțumim că utilizați Deorum, o aplicație web creată de Azgaar și Echipă. Vă rugăm să citiți următorii termeni de utilizare.",
+  "sections": {
+    "section1": {
+      "title": "Licență",
+      "clauses": {
+        "clause1": {
+          "title": "Personaje pre-create",
+          "content": "Deorum oferă personaje fantasy pre-create de Azgaar și Echipă. Sunteți liber să utilizați și să editați personajele pre-create în scopuri necomerciale în conformitate cu termenii <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>licenței CC BY-NC 4.0</a>.",
+          "subclauses": {
+            "subclause1": "Toate portretele personajelor din Deorum sunt pre-create folosind generarea AI Stable Diffusion imagine-la-imagine. Generarea se bazează pe un set de portrete unice desenate manual de Azgaar și Echipă, astfel încât toate portretele generate sunt derivate din imaginile sursă. Ca atare, Azgaar păstrează toate drepturile asupra imaginilor sursă. Cu toate acestea, derivatele acestor portrete (care sunt portretele personajelor pre-create din Deorum) sunt disponibile gratuit pentru utilizare necomercială.",
+            "subclause2": "Biografiile personajelor din Deorum sunt generate folosind modelele OpenAI GPT-3 și GPT-4, care sunt apoi ajustate manual de Azgaar și Echipă. Tot conținutul text, inclusiv biografiile personajelor și alte informații legate de personaje, este de asemenea disponibil gratuit pentru utilizare necomercială.",
+            "subclause3": "Pentru <strong>utilizare comercială</strong> a personajelor pre-create sau a părților lor, contactați Azgaar prin e-mail la <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Vom fi bucuroși să acordăm permisiuni pentru utilizare comercială susținătorilor noștri."
+          }
+        },
+        "clause2": {
+          "title": "Personaje personalizate",
+          "content": "Păstrați toate drepturile asupra personajelor create manual de dvs. în Deorum. Portretele încărcate respectă licența lor inițială. Biografiile adăugate și alte conținuturi text sunt, de asemenea, supuse licenței lor inițiale."
+        },
+        "clause3": {
+          "title": "Proprietatea codului",
+          "content": "Deorum este o aplicație open-source distribuită sub <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>licența MIT</a>. Codul sursă al aplicației poate fi găsit pe <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Responsabilitățile utilizatorului",
+      "content": "Prin utilizarea Deorum, sunteți de acord să respectați toate legile și reglementările aplicabile. Sunteți responsabil pentru utilizarea aplicației într-un mod legal, etic și respectuos, fără a încălca drepturile altora. Raportați orice încălcări sau utilizări neautorizate ale Deorum lui Azgaar. Nerespectarea acestor responsabilități poate duce la încetarea accesului dvs. la aplicație."
+    },
+    "section3": {
+      "title": "Declinarea responsabilității și limitarea răspunderii",
+      "content": "Deorum este furnizat pe o bază 'ca atare' și 'disponibil' fără garanții de niciun fel, exprimate sau implicite. Azgaar și Echipa declară că nu oferă nicio garanție, inclusiv, dar fără a se limita la, garanții implicite de vandabilitate, adecvare pentru un anumit scop și neîncălcare. Utilizarea Deorum este pe propriul risc. Azgaar și Echipa nu vor fi răspunzători pentru daune directe, indirecte, incidentale, speciale sau consecuționale care decurg din sau legate de utilizarea Deorum sau incapacitatea de a-l utiliza. Sunteți de acord să despăgubiți Azgaar și Echipa de orice pretenții, daune sau pierderi care decurg din utilizarea dvs. a Deorum sau orice încălcare a acestor Termeni de utilizare."
+    },
+    "section4": {
+      "title": "Politica de conținut și confidențialitate",
+      "content": "Colectăm și stocăm date limitate ale utilizatorilor, inclusiv nume și adrese de e-mail, strict în scopul funcționalității site-ului. Parolele sunt criptate și nici Azgaar, nici Echipa nu au acces la ele. Ne angajăm să protejăm informațiile personale ale utilizatorilor noștri și nu le vom partaja cu terți. Vă rugăm să rețineți că, deși luăm măsuri rezonabile pentru a proteja datele utilizatorilor, nicio metodă de transmitere sau stocare pe internet nu este complet sigură. Putem colecta date analitice și de utilizare ca informații agregate fără a include informații de identificare personală. Este important de înțeles că tot conținutul încărcat de utilizatori, inclusiv portrete, biografii și alte materiale, este responsabilitatea lor."
+    },
+    "section5": {
+      "title": "Informații de contact",
+      "content": "Dacă aveți întrebări sau nelămuriri privind termenii de utilizare sau aplicația Deorum, contactați Azgaar prin e-mail la <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Informații de contact",
+      "content": "Dacă aveți întrebări sau nelămuriri privind termenii de utilizare sau aplicația Deorum, contactați Azgaar prin e-mail la <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}

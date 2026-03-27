@@ -1,0 +1,48 @@
+{
+  "title": "Ketentuan Penggunaan",
+  "intro": "Terima kasih telah menggunakan Deorum, aplikasi web yang dibuat oleh Azgaar dan Tim. Harap tinjau ketentuan penggunaan berikut.",
+  "sections": {
+    "section1": {
+      "title": "Lisensi",
+      "clauses": {
+        "clause1": {
+          "title": "Karakter yang Dibuat Sebelumnya",
+          "content": "Deorum menyediakan karakter fantasi yang dibuat sebelumnya oleh Azgaar dan Tim. Anda bebas menggunakan dan mengedit karakter yang dibuat sebelumnya untuk tujuan non-komersial berdasarkan ketentuan <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>lisensi CC BY-NC 4.0</a>.",
+          "subclauses": {
+            "subclause1": "Semua potret karakter di Deorum dibuat sebelumnya menggunakan Stable Diffusion AI generasi gambar ke gambar. Generasi didasarkan pada serangkaian potret unik yang digambar tangan oleh Azgaar dan Tim, sehingga semua potret yang dihasilkan merupakan turunan dari gambar sumber. Oleh karena itu, Azgaar mempertahankan semua hak atas gambar sumber. Namun, turunan dari potret ini (yang merupakan potret karakter yang dibuat sebelumnya oleh Deorum) tersedia secara gratis untuk penggunaan non-komersial.",
+            "subclause2": "Biografi karakter di Deorum dihasilkan menggunakan model OpenAI GPT-3 dan GPT-4 yang kemudian disesuaikan secara manual oleh Azgaar dan Tim. Semua konten teks, termasuk biografi karakter dan informasi terkait karakter lainnya, juga tersedia secara gratis untuk penggunaan non-komersial.",
+            "subclause3": "Untuk <strong>penggunaan komersial</strong> karakter yang dibuat sebelumnya atau bagian-bagiannya, silakan hubungi Azgaar melalui email di <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Kami dengan senang hati akan memberikan izin penggunaan komersial kepada para pendukung kami."
+          }
+        },
+        "clause2": {
+          "title": "Karakter Kustom",
+          "content": "Anda mempertahankan semua hak atas karakter yang dibuat secara manual oleh Anda di Deorum. Potret yang diunggah tunduk pada lisensi awalnya. Biografi yang ditambahkan dan konten teks lainnya juga tunduk pada lisensi awalnya."
+        },
+        "clause3": {
+          "title": "Kepemilikan Kode",
+          "content": "Deorum adalah aplikasi sumber terbuka yang didistribusikan di bawah <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>lisensi MIT</a>. Kode sumber aplikasi dapat ditemukan di <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Tanggung Jawab Pengguna",
+      "content": "Dengan menggunakan Deorum, Anda setuju untuk mematuhi semua hukum dan peraturan yang berlaku. Anda bertanggung jawab untuk menggunakan aplikasi secara sah, etis, dan sopan tanpa melanggar hak orang lain. Laporkan pelanggaran atau penggunaan tidak sah Deorum kepada Azgaar. Kegagalan untuk mematuhi tanggung jawab ini dapat mengakibatkan penghentian akses Anda ke aplikasi."
+    },
+    "section3": {
+      "title": "Penafian dan Batasan Tanggung Jawab",
+      "content": "Deorum disediakan atas dasar 'apa adanya' dan 'sebagaimana tersedia' tanpa jaminan dalam bentuk apa pun, baik tersurat maupun tersirat. Azgaar dan Tim menyangkal semua jaminan, termasuk namun tidak terbatas pada jaminan tersirat tentang kelayakan jual, kesesuaian untuk tujuan tertentu, dan non-pelanggaran. Penggunaan Deorum sepenuhnya risiko Anda sendiri. Azgaar dan Tim tidak bertanggung jawab atas kerusakan langsung, tidak langsung, insidental, khusus, atau konsekuensial yang timbul dari atau terkait dengan penggunaan atau ketidakmampuan untuk menggunakan Deorum. Anda setuju untuk mengganti rugi dan membebaskan Azgaar dan Tim dari klaim, kerusakan, atau kerugian yang timbul dari penggunaan Anda atas Deorum atau pelanggaran Ketentuan Penggunaan ini."
+    },
+    "section4": {
+      "title": "Kebijakan Konten dan Privasi",
+      "content": "Kami mengumpulkan dan menyimpan data pengguna terbatas, termasuk nama dan alamat email, semata-mata untuk keperluan fungsionalitas situs. Kata sandi dienkripsi dan baik Azgaar maupun Tim tidak dapat mengaksesnya. Kami berkomitmen untuk melindungi informasi pribadi pengguna kami dan tidak akan membagikannya kepada pihak ketiga. Perlu diketahui bahwa meskipun kami mengambil tindakan yang wajar untuk melindungi data pengguna, tidak ada metode transmisi atau penyimpanan melalui internet yang sepenuhnya aman. Kami dapat mengumpulkan data analitik dan penggunaan sebagai informasi agregat tanpa menyertakan informasi yang dapat diidentifikasi secara pribadi. Namun, penting untuk dipahami bahwa semua konten yang diunggah oleh pengguna, termasuk potret, biografi, dan materi lainnya, adalah tanggung jawab mereka sendiri."
+    },
+    "section5": {
+      "title": "Informasi Kontak",
+      "content": "Jika Anda memiliki pertanyaan atau kekhawatiran mengenai ketentuan penggunaan atau aplikasi Deorum, silakan hubungi Azgaar melalui email di <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Informasi Kontak",
+      "content": "Jika Anda memiliki pertanyaan atau kekhawatiran mengenai ketentuan penggunaan atau aplikasi Deorum, silakan hubungi Azgaar melalui email di <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}
