@@ -1,0 +1,48 @@
+{
+  "title": "Nutzungsbedingungen",
+  "intro": "Vielen Dank, dass du Deorum verwendest, eine Webanwendung, die von Azgaar und dem Team erstellt wurde. Bitte lies die folgenden Nutzungsbedingungen.",
+  "sections": {
+    "section1": {
+      "title": "Lizenz",
+      "clauses": {
+        "clause1": {
+          "title": "Vorgefertigte Charaktere",
+          "content": "Deorum stellt vorgefertigte Fantasiecharaktere bereit, die von Azgaar und dem Team erstellt wurden. Du kannst die vorgefertigten Charaktere für nicht-kommerzielle Zwecke unter den Bedingungen der <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0-Lizenz</a> verwenden und bearbeiten.",
+          "subclauses": {
+            "subclause1": "Alle Charakterporträts in Deorum werden mit KI-gestützter Bild-zu-Bild-Generierung von Stable Diffusion vorgefertigt. Die Generierung basiert auf einem Satz handgezeichneter einzigartiger Porträts von Azgaar und dem Team, daher sind alle generierten Porträts Ableitungen der Quellbilder. Entsprechend behält Azgaar alle Rechte an den Quellbildern. Die Ableitungen dieser Porträts (also die vorgefertigten Charakterporträts von Deorum) stehen jedoch kostenlos zur nicht-kommerziellen Nutzung zur Verfügung.",
+            "subclause2": "Die Charakterbiografien in Deorum werden mit OpenAI GPT-3 und GPT-4 Modellen generiert und anschließend manuell von Azgaar und dem Team bearbeitet. Alle Textinhalte, einschließlich Charakterbiografien und anderer charakterbezogener Informationen, stehen ebenfalls kostenlos zur nicht-kommerziellen Nutzung zur Verfügung.",
+            "subclause3": "Für die <strong>kommerzielle Nutzung</strong> von vorgefertigten Charakteren oder deren Teilen wende dich bitte per E-Mail an Azgaar unter <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>. Wir erteilen unseren Unterstützern gerne Genehmigungen für die kommerzielle Nutzung."
+          }
+        },
+        "clause2": {
+          "title": "Benutzerdefinierte Charaktere",
+          "content": "Du behältst alle Rechte an den Charakteren, die du manuell in Deorum erstellt hast. Hochgeladene Porträts unterliegen ihrer ursprünglichen Lizenz. Hinzugefügte Biografien und andere Textinhalte unterliegen ebenfalls ihrer ursprünglichen Lizenz."
+        },
+        "clause3": {
+          "title": "Code-Eigentümerschaft",
+          "content": "Deorum ist eine Open-Source-Anwendung, die unter der <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT-Lizenz</a> vertrieben wird. Den Quellcode für die Anwendung findest du auf <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>."
+        }
+      }
+    },
+    "section2": {
+      "title": "Verantwortlichkeiten des Nutzers",
+      "content": "Durch die Nutzung von Deorum stimmst du zu, alle geltenden Gesetze und Vorschriften einzuhalten. Du bist dafür verantwortlich, die Anwendung auf gesetzliche, ethische und respektvolle Weise zu nutzen, ohne die Rechte anderer zu verletzen. Melde jegliche Verstöße oder unbefugte Nutzung von Deorum an Azgaar. Die Nichteinhaltung dieser Verantwortlichkeiten kann zur Kündigung deines Zugriffs auf die Anwendung führen."
+    },
+    "section3": {
+      "title": "Haftungsausschluss und Haftungsbeschränkung",
+      "content": "Deorum wird 'wie besehen' und 'wie verfügbar' ohne Garantien jeglicher Art, ausdrücklich oder stillschweigend, bereitgestellt. Azgaar und das Team lehnen alle Garantien ab, einschließlich, aber nicht beschränkt auf, stillschweigende Garantien der Marktgängigkeit, Eignung für einen bestimmten Zweck und Nichtverletzung. Die Nutzung von Deorum erfolgt auf dein eigenes Risiko. Azgaar und das Team haften nicht für direkte, indirekte, zufällige, besondere oder Folgeschäden, die aus der Nutzung von Deorum oder der Unfähigkeit, es zu nutzen, entstehen, einschließlich, aber nicht beschränkt auf Schäden durch Verlust von Gewinnen, Daten oder anderen immateriellen Verlusten. Du stimmst zu, Azgaar und das Team von Ansprüchen, Schäden oder Verlusten freizustellen, die aus deiner Nutzung von Deorum oder einem Verstoß gegen diese Nutzungsbedingungen entstehen."
+    },
+    "section4": {
+      "title": "Inhalts- und Datenschutzrichtlinie",
+      "content": "Wir erheben und speichern begrenzte Nutzerdaten, einschließlich Namen und E-Mail-Adressen, ausschließlich für den Zweck der Websitefunktionalität. Passwörter werden verschlüsselt, und weder Azgaar noch das Team haben Zugang zu ihnen. Wir sind bestrebt, die persönlichen Informationen unserer Nutzer zu schützen und werden sie nicht an Dritte weitergeben. Bitte beachte, dass, obwohl wir angemessene Maßnahmen zum Schutz von Nutzerdaten ergreifen, keine Übertragungs- oder Speichermethode über das Internet vollständig sicher ist. Wir können Analyse- und Nutzungsdaten als aggregierte Informationen ohne persönlich identifizierbare Informationen erheben. Es ist jedoch wichtig zu verstehen, dass alle von Nutzern hochgeladenen Inhalte, einschließlich Porträts, Biografien und anderer Materialien, in deren eigener Verantwortung liegen."
+    },
+    "section5": {
+      "title": "Kontaktinformationen",
+      "content": "Wenn du Fragen oder Bedenken zu den Nutzungsbedingungen oder der Deorum-Anwendung hast, wende dich bitte per E-Mail an Azgaar unter <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    },
+    "section6": {
+      "title": "Kontaktinformationen",
+      "content": "Wenn du Fragen oder Bedenken zu den Nutzungsbedingungen oder der Deorum-Anwendung hast, wende dich bitte per E-Mail an Azgaar unter <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>."
+    }
+  }
+}
