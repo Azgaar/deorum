@@ -1,0 +1,48 @@
+{
+  "title": "이용 약관",
+  "intro": "Azgaar와 팀이 만든 웹 애플리케이션 Deorum을 이용해 주셔서 감사합니다. 다음 이용 약관을 검토해 주시기 바랍니다.",
+  "sections": {
+    "section1": {
+      "title": "라이선스",
+      "clauses": {
+        "clause1": {
+          "title": "사전 제작 캐릭터",
+          "content": "Deorum은 Azgaar와 팀이 만든 사전 제작 판타지 캐릭터를 제공합니다. <a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0 라이선스</a> 조건에 따라 비상업적 목적으로 사전 제작 캐릭터를 자유롭게 사용하고 편집할 수 있습니다.",
+          "subclauses": {
+            "subclause1": "Deorum의 모든 캐릭터 초상화는 엄선된 Stable Diffusion 이미지-투-이미지 AI 생성을 사용하여 사전 제작되었습니다. 이 생성은 Azgaar와 팀이 만든 손으로 그린 고유 초상화 세트를 기반으로 하므로 모든 생성된 초상화는 소스 이미지의 파생물입니다. 따라서 Azgaar는 소스 이미지에 대한 모든 권리를 보유합니다. 그러나 이러한 초상화의 파생물(Deorum 사전 제작 캐릭터 초상화)은 비상업적 사용에 한해 무료로 이용 가능합니다.",
+            "subclause2": "Deorum의 캐릭터 전기는 OpenAI GPT-3 및 GPT-4 모델을 사용하여 생성된 후 Azgaar와 팀이 수동으로 조정합니다. 캐릭터 전기 및 기타 캐릭터 관련 정보를 포함한 모든 텍스트 콘텐츠도 비상업적 사용에 한해 무료로 이용 가능합니다.",
+            "subclause3": "사전 제작 캐릭터 또는 그 일부의 <strong>상업적 사용</strong>에 대해서는 <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a> 이메일로 Azgaar에게 연락해 주세요. 후원자들에게는 기꺼이 상업적 사용 허가를 부여할 것입니다."
+          }
+        },
+        "clause2": {
+          "title": "커스텀 캐릭터",
+          "content": "Deorum에서 직접 만든 캐릭터의 모든 권리는 귀하에게 있습니다. 업로드된 초상화는 초기 라이선스를 따릅니다. 추가된 전기 및 기타 텍스트 콘텐츠도 초기 라이선스를 따릅니다."
+        },
+        "clause3": {
+          "title": "코드 소유권",
+          "content": "Deorum은 <a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT 라이선스</a> 하에 배포되는 오픈 소스 애플리케이션입니다. 애플리케이션의 소스 코드는 <a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>에서 찾을 수 있습니다."
+        }
+      }
+    },
+    "section2": {
+      "title": "사용자 책임",
+      "content": "Deorum을 사용함으로써 귀하는 모든 적용 가능한 법률 및 규정을 준수하는 데 동의합니다. 귀하는 타인의 권리를 침해하지 않고 합법적이고 윤리적이며 존중하는 방식으로 애플리케이션을 사용할 책임이 있습니다. Deorum의 위반 또는 무단 사용을 Azgaar에 신고하세요. 이러한 책임을 준수하지 않으면 애플리케이션에 대한 귀하의 액세스가 종료될 수 있습니다."
+    },
+    "section3": {
+      "title": "면책 조항 및 책임 제한",
+      "content": "Deorum은 명시적이든 묵시적이든 어떠한 종류의 보증도 없이 '있는 그대로' 및 '이용 가능한 상태로' 제공됩니다. Azgaar와 팀은 상품성, 특정 목적에의 적합성 및 비침해에 대한 묵시적 보증을 포함하되 이에 국한되지 않는 모든 보증을 부인합니다. Deorum의 사용은 귀하 자신의 위험 부담으로 이루어집니다. Azgaar와 팀은 이익, 데이터 또는 기타 무형의 손실에 대한 손해를 포함하되 이에 국한되지 않는 Deorum의 사용 또는 사용 불가로 인해 발생하거나 어떤 방식으로든 연결된 직접적, 간접적, 우발적, 특별 또는 결과적 손해에 대해 책임을 지지 않습니다. 귀하는 Deorum의 사용 또는 이 이용 약관의 위반으로 인해 발생하는 모든 청구, 손해 또는 손실로부터 Azgaar와 팀을 면책할 것에 동의합니다."
+    },
+    "section4": {
+      "title": "콘텐츠 및 개인정보 보호정책",
+      "content": "당사는 사이트 기능 목적으로만 이름 및 이메일 주소를 포함한 제한된 사용자 데이터를 수집하고 저장합니다. 비밀번호는 암호화되어 있으며 Azgaar나 팀도 비밀번호에 액세스할 수 없습니다. 당사는 사용자의 개인 정보를 보호하는 데 최선을 다하며 제3자와 공유하지 않을 것입니다. 당사가 사용자 데이터를 보호하기 위해 합리적인 조치를 취하지만 인터넷을 통한 전송 또는 저장 방법이 완전히 안전하지 않다는 점에 유의하세요. 당사는 개인 식별 가능 정보를 포함하지 않는 집계 정보로 분석 및 사용 데이터를 수집할 수 있습니다. 그러나 초상화, 전기 및 기타 자료를 포함하여 사용자가 업로드한 모든 콘텐츠는 해당 사용자 자신의 책임임을 이해하는 것이 중요합니다."
+    },
+    "section5": {
+      "title": "연락처 정보",
+      "content": "이용 약관 또는 Deorum 애플리케이션에 관해 질문이나 우려 사항이 있으시면 <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a> 이메일로 Azgaar에게 연락해 주세요."
+    },
+    "section6": {
+      "title": "연락처 정보",
+      "content": "이용 약관 또는 Deorum 애플리케이션에 관해 질문이나 우려 사항이 있으시면 <a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a> 이메일로 Azgaar에게 연락해 주세요."
+    }
+  }
+}

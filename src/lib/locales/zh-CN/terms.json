@@ -1,0 +1,48 @@
+{
+  "title": "使用条款",
+  "intro": "感谢您使用由Azgaar和团队创建的网络应用程序Deorum。请阅读以下使用条款。",
+  "sections": {
+    "section1": {
+      "title": "许可证",
+      "clauses": {
+        "clause1": {
+          "title": "预创建角色",
+          "content": "Deorum提供由Azgaar和团队创建的预制幻想角色。您可以根据<a href='https://creativecommons.org/licenses/by-nc/4.0/' target='_blank'>CC BY-NC 4.0许可证</a>的条款免费使用和编辑这些预创建角色用于非商业目的。",
+          "subclauses": {
+            "subclause1": "Deorum中所有角色肖像均使用精心策划的Stable Diffusion图像到图像AI生成技术预先创建。该生成基于Azgaar和团队创建的一套手绘独特肖像，因此所有生成的肖像都是源图像的衍生作品。因此，Azgaar保留源图像的所有权利。但是，这些肖像的衍生作品（即Deorum预创建角色肖像）可免费用于非商业用途。",
+            "subclause2": "Deorum中的角色传记使用OpenAI GPT-3和GPT-4模型生成，然后由Azgaar和团队手动调整。所有文本内容，包括角色传记和其他角色相关信息，也可免费用于非商业用途。",
+            "subclause3": "如需<strong>商业使用</strong>预创建角色或其部分内容，请通过电子邮件<a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>联系Azgaar。我们很乐意为我们的支持者授予商业使用许可。"
+          }
+        },
+        "clause2": {
+          "title": "自定义角色",
+          "content": "您保留在Deorum中手动创建的角色的所有权利。上传的肖像遵守其初始许可证。添加的传记和其他文本内容也受其初始许可证的约束。"
+        },
+        "clause3": {
+          "title": "代码所有权",
+          "content": "Deorum是一个根据<a href='https://github.com/Azgaar/deorum/blob/main/LICENSE.md' target='_blank'>MIT许可证</a>分发的开源应用程序。该应用程序的源代码可在<a href='https://github.com/Azgaar/deorum' target='_blank'>GitHub</a>上找到。"
+        }
+      }
+    },
+    "section2": {
+      "title": "用户责任",
+      "content": "使用Deorum即表示您同意遵守所有适用的法律法规。您有责任以合法、道德和尊重的方式使用该应用程序，不得侵犯他人的权利。请向Azgaar举报任何违规或未经授权使用Deorum的行为。不遵守这些责任可能导致您对该应用程序的访问权限被终止。"
+    },
+    "section3": {
+      "title": "免责声明和责任限制",
+      "content": "Deorum按「现状」和「可用性」提供，不提供任何形式的明示或暗示保证。Azgaar和团队不承担任何保证，包括但不限于对适销性、特定用途适用性和非侵权性的暗示保证。使用Deorum的风险由您自行承担。Azgaar和团队对于因使用或无法使用Deorum而引起的或以任何方式连接的任何直接、间接、偶发、特殊或结果性损害不承担任何责任，包括但不限于利润损失、数据损失或其他无形损失的赔偿。您同意赔偿Azgaar和团队，使其免受因您使用Deorum或违反本使用条款而产生的任何索赔、损害或损失。"
+    },
+    "section4": {
+      "title": "内容和隐私政策",
+      "content": "我们收集和存储有限的用户数据，包括姓名和电子邮件地址，严格用于网站功能目的。密码经过加密，Azgaar和团队均无法访问。我们致力于保护用户的个人信息，不会与第三方共享。请注意，虽然我们采取合理措施保护用户数据，但互联网上没有任何传输或存储方法是完全安全的。我们可能会以汇总信息的形式收集分析和使用数据，不包含任何个人身份信息。但是，重要的是要了解，用户上传的所有内容，包括肖像、传记和其他材料，均由用户自行负责。"
+    },
+    "section5": {
+      "title": "联系信息",
+      "content": "如果您对使用条款或Deorum应用程序有任何疑问或顾虑，请通过电子邮件<a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>联系Azgaar。"
+    },
+    "section6": {
+      "title": "联系信息",
+      "content": "如果您对使用条款或Deorum应用程序有任何疑问或顾虑，请通过电子邮件<a href='mailto:azgaar.fmg@yandex.com?subject=Deorum' target='_blank'>azgaar.fmg@yandex.com</a>联系Azgaar。"
+    }
+  }
+}

@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Azgaar的幻想角色画廊",
+    "description": "为D&D和世界构建项目提供可自定义的独特幻想角色"
+  },
+  "landing": {
+    "slogan": "与Deorum一同踏上史诗之旅——为您的D&D和世界构建项目提供独特幻想角色",
+    "description1": "探索超过1600个可自定义角色，每个角色都配有精美肖像和详细传记。我们的图像来源于132幅精心手绘的肖像，通过AI生成扩展至超过10000种变体，并经过专业筛选以保证最高质量。",
+    "description2": "按您的心意个性化您选择的角色，让故事栩栩如生。最棒的是？所有角色均可免费用于非商业用途，并提供低价商业许可证。加入社区，今天就开始您的下一次冒险！",
+    "openGallery": "打开画廊"
+  },
+  "controls": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "confirmDeletion": "删除（{{variable}}）",
+    "add": "添加",
+    "create": "创建",
+    "edit": "编辑",
+    "search": "搜索",
+    "clear": "清除",
+    "back": "返回",
+    "next": "下一步",
+    "apply": "应用",
+    "select": "选择",
+    "close": "关闭",
+    "confirm": "确认",
+    "yes": "是",
+    "no": "否",
+    "random": "随机",
+    "download": "下载",
+    "report": "报告问题",
+    "send": "发送",
+    "openPortraitEditor": "打开肖像编辑器",
+    "openCharacterEditor": "打开角色编辑器",
+    "embed": "嵌入"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "确认",
+      "body": "您确定要继续吗？",
+      "confirm": "是",
+      "cancel": "否"
+    }
+  },
+  "values": {
+    "undefined": "未定义",
+    "all": "全部",
+    "any": "任意",
+    "unnamed": "未命名"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "建设中"
+  },
+  "auth": {
+    "signup": "注册",
+    "signin": "登录",
+    "signinTitle": "登录到您的账户",
+    "signupTitle": "创建新账户",
+    "logout": "退出登录",
+    "email": "电子邮件",
+    "emailPlaceholder": "输入您的电子邮件",
+    "name": "名称",
+    "namePlaceholder": "输入您的名称",
+    "password": "密码",
+    "passwordPlaceholder": "输入您的密码",
+    "agreeToTerms": "注册即表示您同意我们的",
+    "terms": "使用条款",
+    "haveAccount": "已有账户？",
+    "noAccount": "没有账户？"
+  },
+  "coins": {
+    "coinsLeft": "剩余 {{variable}} 枚金币",
+    "getCoins": "获取金币",
+    "openPatreon": "打开Patreon",
+    "description": {
+      "1": "金币是用于访问应用内某些功能的虚拟货币。默认情况下，每位用户可免费获得 {{variable}} 枚金币，可用于创建角色、上传图像以及借助GPT生成传记。",
+      "2": "由于直接付款暂不可用，我们提出了一个临时方案来感谢我们的Patreon支持者。如需领取金币，请从您的Patreon页面向<i>Azgaar</i>发送私信。每质押 </b>${{variable}}</b>，您将获得一枚金币，作为对您支持的感谢。",
+      "3": "感谢您对项目的支持！希望您享受创作精彩幻想角色和使用我们AI工具探索无限可能的过程。我们希望为所有用户提供最佳体验，通过金币限制某些功能的访问，确保应用得以持续运营。"
+    }
+  },
+  "navigation": {
+    "back": "返回",
+    "gallery": "画廊",
+    "match": "匹配",
+    "tags": "标签",
+    "admin": "管理",
+    "next": "下一步",
+    "library": "库",
+    "donate": "捐赠",
+    "howToUse": "如何使用",
+    "terms": "使用条款",
+    "discord": "Discord服务器",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "搜索",
+    "title": "搜索角色",
+    "sorting": {
+      "asc": "升序排列",
+      "desc": "降序排列",
+      "no": "不排序"
+    },
+    "foundItems": "找到项目：{{variable}}",
+    "noResults": "未找到角色，请更改搜索条件后重试",
+    "openGallery": "打开画廊"
+  },
+  "success": {
+    "copied": "已复制到剪贴板"
+  },
+  "errors": {
+    "unauthorized": "请以 {{variable}} 身份登录以访问此页面",
+    "copy": "复制失败，请手动复制"
+  },
+  "character": {
+    "name": "名称",
+    "unnamed": "未命名",
+    "age": "年龄",
+    "gender": "性别",
+    "race": "种族",
+    "archetype": "原型",
+    "background": "背景",
+    "height": "身高",
+    "weight": "体重",
+    "bio": "传记"
+  },
+  "metrics": {
+    "yearsOld": "岁",
+    "cm": "厘米",
+    "feetAndInches": "英尺和英寸",
+    "kg": "千克",
+    "lbs": "磅",
+    "range": "可能范围"
+  },
+  "genders": {
+    "male": "男性",
+    "female": "女性",
+    "non-binary": "非二元性别"
+  },
+  "races": {
+    "human": "人类",
+    "elf": "精灵",
+    "half-elf": "半精灵",
+    "dwarf": "矮人",
+    "gnome": "侏儒",
+    "orc": "兽人",
+    "half-orc": "半兽人",
+    "goblin": "哥布林",
+    "ogre": "食人魔",
+    "draconid": "龙裔",
+    "beastman": "兽人族",
+    "felinid": "猫族",
+    "lizardman": "蜥蜴人",
+    "firbolg": "菲尔博格",
+    "pixie": "小精灵",
+    "demon": "恶魔",
+    "angel": "天使",
+    "spirit": "精灵",
+    "jinn": "神灵",
+    "undead": "亡灵",
+    "siren": "塞壬",
+    "gargoyle": "石像鬼",
+    "golem": "魔像",
+    "cyborg": "赛博格",
+    "triton": "特里同",
+    "demigod": "半神",
+    "birdman": "鸟人",
+    "humanoid": "类人生物",
+    "ent": "树人",
+    "insectoid": "虫族",
+    "centaur": "半人马",
+    "satyr": "萨提尔"
+  },
+  "archetypes": {
+    "warrior": "战士",
+    "mage": "法师",
+    "rogue": "盗贼",
+    "cleric": "牧师",
+    "ruler": "统治者",
+    "lover": "恋人",
+    "druid": "德鲁伊",
+    "destroyer": "毁灭者",
+    "seeker": "探索者",
+    "soothsayer": "占卜师",
+    "sage": "智者",
+    "trickster": "诡计师",
+    "creator": "创造者",
+    "merchant": "商人",
+    "companion": "同伴",
+    "villain": "反派",
+    "damsel": "少女",
+    "outcast": "流放者",
+    "chosen one": "天选之人",
+    "rebel": "叛逆者",
+    "wanderer": "流浪者",
+    "mentor": "导师",
+    "minion": "爪牙"
+  },
+  "backgrounds": {
+    "knight": "骑士",
+    "gladiator": "角斗士",
+    "soldier": "士兵",
+    "mercenary": "雇佣兵",
+    "berserker": "狂战士",
+    "sailor": "水手",
+    "pirate": "海盗",
+    "watchman": "守卫",
+    "investigator": "调查员",
+    "bounty hunter": "赏金猎人",
+    "spy": "间谍",
+    "noble": "贵族",
+    "ruler": "统治者",
+    "inheritor": "继承人",
+    "courtier": "朝臣",
+    "scholar": "学者",
+    "student": "学生",
+    "sage": "智者",
+    "hermit": "隐士",
+    "traveler": "旅行者",
+    "outlander": "外乡人",
+    "urchin": "流浪儿",
+    "preacher": "传教士",
+    "acolyte": "侍从",
+    "monk": "僧侣",
+    "chaplain": "随军牧师",
+    "charlatan": "骗子",
+    "criminal": "罪犯",
+    "entertainer": "表演者",
+    "doctor": "医生",
+    "artisan": "工匠",
+    "merchant": "商人",
+    "hunter": "猎人",
+    "fisher": "渔夫",
+    "herbalist": "草药师",
+    "battle mage": "战法师",
+    "soothsayer": "占卜师",
+    "surgeon": "外科医生",
+    "necromancer": "死灵法师",
+    "paladin": "圣骑士",
+    "slave": "奴隶",
+    "concubine": "妃嫔",
+    "cook": "厨师",
+    "prisoner": "囚犯",
+    "beggar": "乞丐",
+    "mason": "石匠",
+    "miller": "磨坊主",
+    "farmer": "农民",
+    "caravaneer": "商队员",
+    "slaver": "奴隶贩子",
+    "witch": "女巫",
+    "shaman": "萨满",
+    "ranger": "游侠",
+    "eunuch": "太监"
+  },
+  "details": {
+    "edit": {
+      "portrait": "肖像",
+      "details": "详情",
+      "bio": "传记"
+    },
+    "export": {
+      "export": "导出",
+      "portrait": "肖像图片",
+      "cardImage": "卡片图片",
+      "text": "文本文件",
+      "json": "JSON文件"
+    },
+    "report": {
+      "category": "类别",
+      "categories": {
+        "other": "其他问题",
+        "inappropriate": "不当内容",
+        "portrait": "不良肖像",
+        "biography": "传记问题",
+        "improvement": "建议"
+      },
+      "message": "消息"
+    },
+    "editor": {
+      "edit": "编辑角色",
+      "create": "创建角色",
+      "randomize": {
+        "name": "随机名称",
+        "age": "随机年龄",
+        "height": "随机身高",
+        "weight": "随机体重"
+      },
+      "portrait": {
+        "drop": "将图片拖放到此处",
+        "upload": "上传肖像，价格：{{ variable }} 枚金币",
+        "generate": "使用AI从头生成肖像，价格：{{ variable }} 枚金币",
+        "randomize": "随机肖像（从预生成画廊中选择）"
+      },
+      "bio": {
+        "copy": "复制传记",
+        "price": "生成价格：{{ variable }} 枚金币",
+        "generate": "生成传记，价格：{{ variable }} 枚金币",
+        "configurePrompt": "配置生成提示"
+      },
+      "success": {
+        "edit": "角色已更新",
+        "create": "角色已创建并添加到库"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "显示完整卡片",
+    "favorite": "添加到库",
+    "mobileHint": "左右滑动旋转画廊",
+    "desktopHint": "使用箭头旋转画廊"
+  },
+  "library": {
+    "liked": {
+      "title": "喜欢的角色",
+      "empty": "您还没有喜欢任何角色。使用角色卡右侧的心形图标将其添加到收藏夹。",
+      "goToGallery": "打开画廊"
+    },
+    "custom": {
+      "title": "自定义角色",
+      "empty": "您还没有创建任何自定义角色。使用右侧的按钮从头创建一个或编辑任何现有角色。",
+      "create": "创建角色",
+      "remove": "删除自定义角色"
+    },
+    "uploaded": {
+      "title": "上传和生成的肖像",
+      "remove": "删除肖像"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "最强大的GPT-5.4；擅长高级推理、研究和复杂的多步骤任务",
+      "gpt-5.4-mini": "均衡的GPT-5.4变体；具有更快速度和更低成本的强大推理能力",
+      "gpt-5.4-nano": "轻量级GPT-5.4变体；快速且高成本效益，适合大量简单任务",
+      "gpt-5.1": "复杂推理、广泛世界知识以及代码密集型或多步骤代理任务",
+      "gpt-5-mini": "成本优化的推理和聊天；平衡速度、成本和能力",
+      "gpt-5-nano": "高吞吐量任务，尤其适合简单的指令遵循或分类",
+      "claude-opus-4-6": "Anthropic旗舰模型，兼具最高智能与实际性能",
+      "claude-sonnet-4-6": "Anthropic用于复杂代理和编码的最智能模型",
+      "claude-haiku-4-5": "Anthropic最快的模型，具有接近前沿的智能"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "在Deorum中查看"
+  }
+}

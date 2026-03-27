@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Azgaar의 판타지 캐릭터 갤러리",
+    "description": "D&D 및 세계관 구축 프로젝트를 위한 커스터마이징 가능한 독특한 판타지 캐릭터"
+  },
+  "landing": {
+    "slogan": "Deorum과 함께 서사시적인 여정을 시작하세요 – D&D 및 세계관 구축 프로젝트를 위한 독특한 판타지 캐릭터",
+    "description1": "1600개 이상의 커스터마이징 가능한 캐릭터를 만나보세요. 각 캐릭터에는 멋진 초상화와 상세한 전기가 포함되어 있습니다. 이미지는 132장의 아름다운 손으로 그린 초상화를 기반으로 AI 생성을 통해 10000개 이상의 변형으로 확장되었으며, 최고 품질로 엄선되었습니다.",
+    "description2": "선택한 캐릭터를 원하는 대로 개성 있게 꾸미고 이야기에 생명을 불어넣어 보세요. 가장 좋은 점은? 모든 캐릭터가 비상업적 용도로 무료이며, 저렴한 상업 라이선스도 제공됩니다. 커뮤니티에 가입하여 오늘 다음 모험을 시작하세요!",
+    "openGallery": "갤러리 열기"
+  },
+  "controls": {
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "confirmDeletion": "삭제（{{variable}}）",
+    "add": "추가",
+    "create": "만들기",
+    "edit": "편집",
+    "search": "검색",
+    "clear": "지우기",
+    "back": "뒤로",
+    "next": "다음",
+    "apply": "적용",
+    "select": "선택",
+    "close": "닫기",
+    "confirm": "확인",
+    "yes": "예",
+    "no": "아니오",
+    "random": "무작위",
+    "download": "다운로드",
+    "report": "문제 신고",
+    "send": "보내기",
+    "openPortraitEditor": "초상화 편집기 열기",
+    "openCharacterEditor": "캐릭터 편집기 열기",
+    "embed": "임베드"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "확인",
+      "body": "계속하시겠습니까?",
+      "confirm": "예",
+      "cancel": "아니오"
+    }
+  },
+  "values": {
+    "undefined": "정의되지 않음",
+    "all": "전체",
+    "any": "임의",
+    "unnamed": "이름 없음"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "공사 중"
+  },
+  "auth": {
+    "signup": "회원가입",
+    "signin": "로그인",
+    "signinTitle": "계정에 로그인",
+    "signupTitle": "새 계정 만들기",
+    "logout": "로그아웃",
+    "email": "이메일",
+    "emailPlaceholder": "이메일을 입력하세요",
+    "name": "이름",
+    "namePlaceholder": "이름을 입력하세요",
+    "password": "비밀번호",
+    "passwordPlaceholder": "비밀번호를 입력하세요",
+    "agreeToTerms": "가입함으로써 다음에 동의합니다:",
+    "terms": "이용약관",
+    "haveAccount": "이미 계정이 있으신가요?",
+    "noAccount": "계정이 없으신가요?"
+  },
+  "coins": {
+    "coinsLeft": "남은 코인: {{variable}}개",
+    "getCoins": "코인 얻기",
+    "openPatreon": "Patreon 열기",
+    "description": {
+      "1": "코인은 앱 내 특정 동작에 접근하는 데 사용되는 가상 화폐입니다. 기본적으로 모든 사용자는 {{variable}}개의 코인을 무료로 받으며, 캐릭터 만들기, 이미지 업로드, GPT를 이용한 전기 생성에 사용할 수 있습니다.",
+      "2": "직접 결제가 아직 불가능하여 Patreon 후원자에게 감사를 표하는 임시 방법을 마련했습니다. 코인을 받으려면 Patreon 페이지에서 <i>Azgaar</i>에게 다이렉트 메시지를 보내세요. </b>${{variable}}</b>를 후원할 때마다 감사의 표시로 코인 1개를 받게 됩니다.",
+      "3": "프로젝트를 지원해 주셔서 감사합니다! AI 기반 도구로 멋진 판타지 캐릭터를 만들고 무한한 가능성을 탐색하시길 바랍니다. 모든 사용자에게 최상의 경험을 제공하고자 코인으로 특정 동작 접근을 제한하여 앱의 지속 가능성을 보장합니다."
+    }
+  },
+  "navigation": {
+    "back": "뒤로",
+    "gallery": "갤러리",
+    "match": "매치",
+    "tags": "태그",
+    "admin": "관리",
+    "next": "다음",
+    "library": "라이브러리",
+    "donate": "기부",
+    "howToUse": "사용 방법",
+    "terms": "이용약관",
+    "discord": "Discord 서버",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "검색",
+    "title": "캐릭터 검색",
+    "sorting": {
+      "asc": "오름차순 정렬",
+      "desc": "내림차순 정렬",
+      "no": "정렬 안 함"
+    },
+    "foundItems": "검색 결과: {{variable}}개",
+    "noResults": "캐릭터를 찾을 수 없습니다. 검색 조건을 변경하고 다시 시도하세요",
+    "openGallery": "갤러리 열기"
+  },
+  "success": {
+    "copied": "클립보드에 복사되었습니다"
+  },
+  "errors": {
+    "unauthorized": "이 페이지에 접근하려면 {{variable}}으로 로그인하세요",
+    "copy": "복사에 실패했습니다. 수동으로 복사해 주세요"
+  },
+  "character": {
+    "name": "이름",
+    "unnamed": "이름 없음",
+    "age": "나이",
+    "gender": "성별",
+    "race": "종족",
+    "archetype": "원형",
+    "background": "배경",
+    "height": "키",
+    "weight": "몸무게",
+    "bio": "전기"
+  },
+  "metrics": {
+    "yearsOld": "세",
+    "cm": "cm",
+    "feetAndInches": "피트와 인치",
+    "kg": "kg",
+    "lbs": "파운드",
+    "range": "가능한 범위"
+  },
+  "genders": {
+    "male": "남성",
+    "female": "여성",
+    "non-binary": "논바이너리"
+  },
+  "races": {
+    "human": "인간",
+    "elf": "엘프",
+    "half-elf": "하프 엘프",
+    "dwarf": "드워프",
+    "gnome": "노움",
+    "orc": "오크",
+    "half-orc": "하프 오크",
+    "goblin": "고블린",
+    "ogre": "오거",
+    "draconid": "드라코니드",
+    "beastman": "비스트맨",
+    "felinid": "펠리니드",
+    "lizardman": "리자드맨",
+    "firbolg": "파볼그",
+    "pixie": "픽시",
+    "demon": "악마",
+    "angel": "천사",
+    "spirit": "정령",
+    "jinn": "진",
+    "undead": "언데드",
+    "siren": "사이렌",
+    "gargoyle": "가고일",
+    "golem": "골렘",
+    "cyborg": "사이보그",
+    "triton": "트리톤",
+    "demigod": "반신",
+    "birdman": "버드맨",
+    "humanoid": "휴머노이드",
+    "ent": "엔트",
+    "insectoid": "인섹토이드",
+    "centaur": "켄타우로스",
+    "satyr": "사티로스"
+  },
+  "archetypes": {
+    "warrior": "전사",
+    "mage": "마법사",
+    "rogue": "도적",
+    "cleric": "성직자",
+    "ruler": "통치자",
+    "lover": "연인",
+    "druid": "드루이드",
+    "destroyer": "파괴자",
+    "seeker": "탐구자",
+    "soothsayer": "예언자",
+    "sage": "현자",
+    "trickster": "트릭스터",
+    "creator": "창조자",
+    "merchant": "상인",
+    "companion": "동반자",
+    "villain": "악당",
+    "damsel": "아가씨",
+    "outcast": "추방자",
+    "chosen one": "선택받은 자",
+    "rebel": "반역자",
+    "wanderer": "방랑자",
+    "mentor": "멘토",
+    "minion": "부하"
+  },
+  "backgrounds": {
+    "knight": "기사",
+    "gladiator": "검투사",
+    "soldier": "군인",
+    "mercenary": "용병",
+    "berserker": "광전사",
+    "sailor": "선원",
+    "pirate": "해적",
+    "watchman": "경비원",
+    "investigator": "조사관",
+    "bounty hunter": "현상금 사냥꾼",
+    "spy": "스파이",
+    "noble": "귀족",
+    "ruler": "통치자",
+    "inheritor": "후계자",
+    "courtier": "신하",
+    "scholar": "학자",
+    "student": "학생",
+    "sage": "현자",
+    "hermit": "은자",
+    "traveler": "여행자",
+    "outlander": "이방인",
+    "urchin": "부랑아",
+    "preacher": "설교자",
+    "acolyte": "시종",
+    "monk": "수도사",
+    "chaplain": "군목",
+    "charlatan": "사기꾼",
+    "criminal": "범죄자",
+    "entertainer": "연예인",
+    "doctor": "의사",
+    "artisan": "장인",
+    "merchant": "상인",
+    "hunter": "사냥꾼",
+    "fisher": "어부",
+    "herbalist": "약초사",
+    "battle mage": "전투 마법사",
+    "soothsayer": "예언자",
+    "surgeon": "외과 의사",
+    "necromancer": "강령술사",
+    "paladin": "팔라딘",
+    "slave": "노예",
+    "concubine": "첩",
+    "cook": "요리사",
+    "prisoner": "죄수",
+    "beggar": "거지",
+    "mason": "석공",
+    "miller": "방앗간 주인",
+    "farmer": "농부",
+    "caravaneer": "대상단원",
+    "slaver": "노예상인",
+    "witch": "마녀",
+    "shaman": "주술사",
+    "ranger": "레인저",
+    "eunuch": "환관"
+  },
+  "details": {
+    "edit": {
+      "portrait": "초상화",
+      "details": "세부 사항",
+      "bio": "전기"
+    },
+    "export": {
+      "export": "내보내기",
+      "portrait": "초상화 이미지",
+      "cardImage": "카드 이미지",
+      "text": "텍스트 파일",
+      "json": "JSON 파일"
+    },
+    "report": {
+      "category": "카테고리",
+      "categories": {
+        "other": "기타 문제",
+        "inappropriate": "부적절한 콘텐츠",
+        "portrait": "불량 초상화",
+        "biography": "전기 문제",
+        "improvement": "제안"
+      },
+      "message": "메시지"
+    },
+    "editor": {
+      "edit": "캐릭터 편집",
+      "create": "캐릭터 만들기",
+      "randomize": {
+        "name": "이름 무작위화",
+        "age": "나이 무작위화",
+        "height": "키 무작위화",
+        "weight": "몸무게 무작위화"
+      },
+      "portrait": {
+        "drop": "여기에 이미지를 드롭하세요",
+        "upload": "초상화 업로드. 가격: {{ variable }} 코인",
+        "generate": "AI를 사용하여 처음부터 초상화 생성. 가격: {{ variable }} 코인",
+        "randomize": "초상화 무작위화 (사전 생성된 갤러리에서 선택)"
+      },
+      "bio": {
+        "copy": "전기 복사",
+        "price": "생성 가격: {{ variable }} 코인",
+        "generate": "전기 생성. 가격: {{ variable }} 코인",
+        "configurePrompt": "생성 프롬프트 구성"
+      },
+      "success": {
+        "edit": "캐릭터가 업데이트되었습니다",
+        "create": "캐릭터가 만들어지고 라이브러리에 추가되었습니다"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "전체 카드 보기",
+    "favorite": "라이브러리에 추가",
+    "mobileHint": "좌우로 스와이프하여 갤러리 회전",
+    "desktopHint": "화살표를 사용하여 갤러리 회전"
+  },
+  "library": {
+    "liked": {
+      "title": "좋아하는 캐릭터",
+      "empty": "아직 좋아하는 캐릭터가 없습니다. 캐릭터 카드 오른쪽의 하트 아이콘을 사용하여 즐겨찾기에 추가하세요.",
+      "goToGallery": "갤러리 열기"
+    },
+    "custom": {
+      "title": "커스텀 캐릭터",
+      "empty": "아직 커스텀 캐릭터를 만들지 않았습니다. 오른쪽 버튼을 사용하여 처음부터 만들거나 기존 캐릭터를 편집하세요.",
+      "create": "캐릭터 만들기",
+      "remove": "커스텀 캐릭터 삭제"
+    },
+    "uploaded": {
+      "title": "업로드 및 생성된 초상화",
+      "remove": "초상화 삭제"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "가장 강력한 GPT-5.4; 고급 추론, 연구 및 복잡한 멀티스텝 작업에 탁월",
+      "gpt-5.4-mini": "균형 잡힌 GPT-5.4 변형; 향상된 속도와 낮은 비용으로 강력한 추론",
+      "gpt-5.4-nano": "경량 GPT-5.4 변형; 대량의 단순 작업에 빠르고 비용 효율적",
+      "gpt-5.1": "복잡한 추론, 광범위한 세계 지식 및 코드 집중형 또는 멀티스텝 에이전트 작업",
+      "gpt-5-mini": "비용 최적화된 추론 및 채팅; 속도, 비용, 능력의 균형",
+      "gpt-5-nano": "고처리량 작업, 특히 단순 지시 따르기나 분류에 적합",
+      "claude-opus-4-6": "최고 지능과 실용적 성능을 결합한 Anthropic 프리미엄 모델",
+      "claude-sonnet-4-6": "복잡한 에이전트와 코딩을 위한 Anthropic의 가장 스마트한 모델",
+      "claude-haiku-4-5": "최첨단에 가까운 지능을 갖춘 Anthropic의 가장 빠른 모델"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Deorum에서 보기"
+  }
+}

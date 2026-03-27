@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "name": "Deorum",
+    "title": "Azgaarによるファンタジーキャラクターギャラリー",
+    "description": "D&Dとワールドビルディングプロジェクト向けのカスタマイズ可能なユニークなファンタジーキャラクター"
+  },
+  "landing": {
+    "slogan": "Deorumで壮大な旅に出かけよう──D&Dとワールドビルディングプロジェクトのためのユニークなファンタジーキャラクター",
+    "description1": "1600体以上のカスタマイズ可能なキャラクターをご覧ください。それぞれに見事な肖像画と詳細な伝記が付いています。画像は132枚の美麗な手描き肖像画をもとに、AI生成で10000種以上のバリエーションに展開し、最高品質を厳選しました。",
+    "description2": "お気に入りのキャラクターを思い通りにカスタマイズして、物語に命を吹き込みましょう。しかも、すべてのキャラクターは非商用利用では無料！低価格の商用ライセンスもご用意しています。コミュニティに参加して、今日から次の冒険を始めましょう！",
+    "openGallery": "ギャラリーを開く"
+  },
+  "controls": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "confirmDeletion": "削除（{{variable}}）",
+    "add": "追加",
+    "create": "作成",
+    "edit": "編集",
+    "search": "検索",
+    "clear": "クリア",
+    "back": "戻る",
+    "next": "次へ",
+    "apply": "適用",
+    "select": "選択",
+    "close": "閉じる",
+    "confirm": "確認",
+    "yes": "はい",
+    "no": "いいえ",
+    "random": "ランダム",
+    "download": "ダウンロード",
+    "report": "問題を報告",
+    "send": "送信",
+    "openPortraitEditor": "肖像エディターを開く",
+    "openCharacterEditor": "キャラクターエディターを開く",
+    "embed": "埋め込む"
+  },
+  "dialog": {
+    "confirmation": {
+      "title": "確認",
+      "body": "続行してよろしいですか？",
+      "confirm": "はい",
+      "cancel": "いいえ"
+    }
+  },
+  "values": {
+    "undefined": "未定義",
+    "all": "すべて",
+    "any": "任意",
+    "unnamed": "名無し"
+  },
+  "info": {
+    "version": "v",
+    "inDev": "工事中"
+  },
+  "auth": {
+    "signup": "登録",
+    "signin": "ログイン",
+    "signinTitle": "アカウントにサインイン",
+    "signupTitle": "新しいアカウントを作成",
+    "logout": "ログアウト",
+    "email": "メールアドレス",
+    "emailPlaceholder": "メールアドレスを入力",
+    "name": "名前",
+    "namePlaceholder": "名前を入力",
+    "password": "パスワード",
+    "passwordPlaceholder": "パスワードを入力",
+    "agreeToTerms": "登録することで、以下に同意したことになります：",
+    "terms": "利用規約",
+    "haveAccount": "すでにアカウントをお持ちですか？",
+    "noAccount": "アカウントをお持ちでないですか？"
+  },
+  "coins": {
+    "coinsLeft": "残り {{variable}} コイン",
+    "getCoins": "コインを取得",
+    "openPatreon": "Patreonを開く",
+    "description": {
+      "1": "コインはアプリ内の特定のアクションにアクセスするための仮想通貨です。デフォルトでは、すべてのユーザーは無料で {{variable}} コインを取得でき、キャラクターの作成、画像のアップロード、GPTを使った伝記生成に使用できます。",
+      "2": "直接支払いはまだ利用できないため、Patreonのサポーターに感謝するための一時的な解決策を考えました。コインを請求するには、PatreonページからDMを<i>Azgaar</i>に送ってください。</b>${{variable}}</b>を提供するごとに、サポートへの感謝として1コインを受け取れます。",
+      "3": "プロジェクトへのご支援ありがとうございます！素晴らしいファンタジーキャラクターを作成し、AIを活用したツールで無限の可能性を探求するお手伝いができれば幸いです。私たちはすべてのユーザーに最高の体験を提供したいと考えており、コインで一部のアクションへのアクセスを制限することでアプリの持続可能性を確保しています。"
+    }
+  },
+  "navigation": {
+    "back": "戻る",
+    "gallery": "ギャラリー",
+    "match": "マッチ",
+    "tags": "タグ",
+    "admin": "管理",
+    "next": "次へ",
+    "library": "ライブラリ",
+    "donate": "寄付",
+    "howToUse": "使い方",
+    "terms": "利用規約",
+    "discord": "Discordサーバー",
+    "github": "GitHub"
+  },
+  "search": {
+    "search": "検索",
+    "title": "キャラクターを検索",
+    "sorting": {
+      "asc": "昇順で並べ替え",
+      "desc": "降順で並べ替え",
+      "no": "並べ替えなし"
+    },
+    "foundItems": "見つかったアイテム：{{variable}}",
+    "noResults": "キャラクターが見つかりません。検索条件を変更して再試行してください",
+    "openGallery": "ギャラリーを開く"
+  },
+  "success": {
+    "copied": "クリップボードにコピーされました"
+  },
+  "errors": {
+    "unauthorized": "このページにアクセスするには {{variable}} としてサインインしてください",
+    "copy": "コピーに失敗しました。手動でコピーしてください"
+  },
+  "character": {
+    "name": "名前",
+    "unnamed": "名無し",
+    "age": "年齢",
+    "gender": "性別",
+    "race": "種族",
+    "archetype": "アーキタイプ",
+    "background": "バックグラウンド",
+    "height": "身長",
+    "weight": "体重",
+    "bio": "伝記"
+  },
+  "metrics": {
+    "yearsOld": "歳",
+    "cm": "cm",
+    "feetAndInches": "フィートとインチ",
+    "kg": "kg",
+    "lbs": "ポンド",
+    "range": "可能な範囲"
+  },
+  "genders": {
+    "male": "男性",
+    "female": "女性",
+    "non-binary": "ノンバイナリー"
+  },
+  "races": {
+    "human": "人間",
+    "elf": "エルフ",
+    "half-elf": "ハーフエルフ",
+    "dwarf": "ドワーフ",
+    "gnome": "ノーム",
+    "orc": "オーク",
+    "half-orc": "ハーフオーク",
+    "goblin": "ゴブリン",
+    "ogre": "オーガー",
+    "draconid": "ドラコニド",
+    "beastman": "ビーストマン",
+    "felinid": "フェリニド",
+    "lizardman": "リザードマン",
+    "firbolg": "ファーボルグ",
+    "pixie": "ピクシー",
+    "demon": "デーモン",
+    "angel": "エンジェル",
+    "spirit": "スピリット",
+    "jinn": "ジン",
+    "undead": "アンデッド",
+    "siren": "サイレン",
+    "gargoyle": "ガーゴイル",
+    "golem": "ゴーレム",
+    "cyborg": "サイボーグ",
+    "triton": "トライトン",
+    "demigod": "半神",
+    "birdman": "バードマン",
+    "humanoid": "ヒューマノイド",
+    "ent": "エント",
+    "insectoid": "インセクトイド",
+    "centaur": "ケンタウロス",
+    "satyr": "サテュロス"
+  },
+  "archetypes": {
+    "warrior": "戦士",
+    "mage": "魔法使い",
+    "rogue": "ローグ",
+    "cleric": "クレリック",
+    "ruler": "支配者",
+    "lover": "恋人",
+    "druid": "ドルイド",
+    "destroyer": "破壊者",
+    "seeker": "探求者",
+    "soothsayer": "予言者",
+    "sage": "賢者",
+    "trickster": "トリックスター",
+    "creator": "創造者",
+    "merchant": "商人",
+    "companion": "仲間",
+    "villain": "悪役",
+    "damsel": "お姫様",
+    "outcast": "追放者",
+    "chosen one": "選ばれし者",
+    "rebel": "反逆者",
+    "wanderer": "放浪者",
+    "mentor": "師匠",
+    "minion": "手下"
+  },
+  "backgrounds": {
+    "knight": "騎士",
+    "gladiator": "剣闘士",
+    "soldier": "兵士",
+    "mercenary": "傭兵",
+    "berserker": "バーサーカー",
+    "sailor": "船乗り",
+    "pirate": "海賊",
+    "watchman": "衛兵",
+    "investigator": "調査員",
+    "bounty hunter": "賞金稼ぎ",
+    "spy": "スパイ",
+    "noble": "貴族",
+    "ruler": "支配者",
+    "inheritor": "後継者",
+    "courtier": "廷臣",
+    "scholar": "学者",
+    "student": "学生",
+    "sage": "賢者",
+    "hermit": "隠者",
+    "traveler": "旅人",
+    "outlander": "よそ者",
+    "urchin": "浮浪児",
+    "preacher": "伝道師",
+    "acolyte": "侍祭",
+    "monk": "僧侶",
+    "chaplain": "司祭",
+    "charlatan": "詐欺師",
+    "criminal": "犯罪者",
+    "entertainer": "エンターテイナー",
+    "doctor": "医者",
+    "artisan": "職人",
+    "merchant": "商人",
+    "hunter": "狩人",
+    "fisher": "漁師",
+    "herbalist": "薬草師",
+    "battle mage": "戦闘魔法使い",
+    "soothsayer": "予言者",
+    "surgeon": "外科医",
+    "necromancer": "ネクロマンサー",
+    "paladin": "パラディン",
+    "slave": "奴隷",
+    "concubine": "側室",
+    "cook": "料理人",
+    "prisoner": "囚人",
+    "beggar": "乞食",
+    "mason": "石工",
+    "miller": "粉屋",
+    "farmer": "農夫",
+    "caravaneer": "隊商員",
+    "slaver": "奴隷商人",
+    "witch": "魔女",
+    "shaman": "シャーマン",
+    "ranger": "レンジャー",
+    "eunuch": "宦官"
+  },
+  "details": {
+    "edit": {
+      "portrait": "肖像",
+      "details": "詳細",
+      "bio": "伝記"
+    },
+    "export": {
+      "export": "エクスポート",
+      "portrait": "肖像画像",
+      "cardImage": "カード画像",
+      "text": "テキストファイル",
+      "json": "JSONファイル"
+    },
+    "report": {
+      "category": "カテゴリ",
+      "categories": {
+        "other": "その他の問題",
+        "inappropriate": "不適切なコンテンツ",
+        "portrait": "不良な肖像",
+        "biography": "伝記の問題",
+        "improvement": "提案"
+      },
+      "message": "メッセージ"
+    },
+    "editor": {
+      "edit": "キャラクターを編集",
+      "create": "キャラクターを作成",
+      "randomize": {
+        "name": "名前をランダム化",
+        "age": "年齢をランダム化",
+        "height": "身長をランダム化",
+        "weight": "体重をランダム化"
+      },
+      "portrait": {
+        "drop": "ここに画像をドロップ",
+        "upload": "肖像をアップロード。価格：{{ variable }} コイン",
+        "generate": "AIを使って肖像をゼロから生成。価格：{{ variable }} コイン",
+        "randomize": "肖像をランダム化（事前生成ギャラリーから選択）"
+      },
+      "bio": {
+        "copy": "伝記をコピー",
+        "price": "生成価格：{{ variable }} コイン",
+        "generate": "伝記を生成。価格：{{ variable }} コイン",
+        "configurePrompt": "生成プロンプトを設定"
+      },
+      "success": {
+        "edit": "キャラクターが更新されました",
+        "create": "キャラクターが作成され、ライブラリに追加されました"
+      }
+    }
+  },
+  "gallery": {
+    "showDetails": "フルカードを表示",
+    "favorite": "ライブラリに追加",
+    "mobileHint": "左右にスワイプしてギャラリーを回転",
+    "desktopHint": "矢印を使ってギャラリーを回転"
+  },
+  "library": {
+    "liked": {
+      "title": "お気に入りのキャラクター",
+      "empty": "まだお気に入りのキャラクターがいません。キャラクターカードの右側にあるハートアイコンを使ってお気に入りに追加できます。",
+      "goToGallery": "ギャラリーを開く"
+    },
+    "custom": {
+      "title": "カスタムキャラクター",
+      "empty": "まだカスタムキャラクターを作成していません。右側のボタンを使って最初から作成するか、既存のキャラクターを編集できます。",
+      "create": "キャラクターを作成",
+      "remove": "カスタムキャラクターを削除"
+    },
+    "uploaded": {
+      "title": "アップロードおよび生成された肖像",
+      "remove": "肖像を削除"
+    }
+  },
+  "models": {
+    "description": {
+      "gpt-5.4": "最も強力なGPT-5.4；高度な推論、研究、複雑なマルチステップタスクに優れる",
+      "gpt-5.4-mini": "バランスの取れたGPT-5.4バリアント；速度向上とコスト削減を実現した強力な推論能力",
+      "gpt-5.4-nano": "軽量なGPT-5.4バリアント；大量の単純タスクに高速かつコスト効率的",
+      "gpt-5.1": "複雑な推論、幅広い世界知識、コード集中型またはマルチステップのエージェントタスク",
+      "gpt-5-mini": "コスト最適化された推論とチャット；速度、コスト、能力のバランス",
+      "gpt-5-nano": "高スループットタスク、特にシンプルな指示追従や分類に最適",
+      "claude-opus-4-6": "Anthropicのプレミアムモデル；最高の知性と実用的なパフォーマンスを兼ね備える",
+      "claude-sonnet-4-6": "複雑なエージェントとコーディングのためのAnthropicの最もスマートなモデル",
+      "claude-haiku-4-5": "フロンティアに近い知性を持つAnthropicの最速モデル"
+    }
+  },
+  "encounter": {
+    "seeInDeorum": "Deorumで見る"
+  }
+}
