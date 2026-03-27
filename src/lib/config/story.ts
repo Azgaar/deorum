@@ -1,9 +1,12 @@
 export type StoryModel =
+  | 'gpt-5.4'
+  | 'gpt-5.4-mini'
+  | 'gpt-5.4-nano'
   | 'gpt-5.1'
   | 'gpt-5-mini'
   | 'gpt-5-nano'
-  | 'claude-opus-4-5'
-  | 'claude-sonnet-4-5'
+  | 'claude-opus-4-6'
+  | 'claude-sonnet-4-6'
   | 'claude-haiku-4-5';
 
 export const DEFAULT_MODEL: StoryModel = 'gpt-5-mini';
@@ -17,6 +20,24 @@ type ModelConfig = {
 };
 
 export const models: Record<StoryModel, ModelConfig> = {
+  'gpt-5.4': {
+    provider: 'openai',
+    label: 'GPT-5.4',
+    description: 'common.models.description.gpt-5.4',
+    price: 4 // 2.5$/1M tokens
+  },
+  'gpt-5.4-mini': {
+    provider: 'openai',
+    label: 'GPT-5.4 Mini',
+    description: 'common.models.description.gpt-5.4-mini',
+    price: 3 // 0.75$/1M tokens
+  },
+  'gpt-5.4-nano': {
+    provider: 'openai',
+    label: 'GPT-5.4 Nano',
+    description: 'common.models.description.gpt-5.4-nano',
+    price: 1 // 0.2$/1M tokens
+  },
   'gpt-5.1': {
     provider: 'openai',
     label: 'GPT-5.1',
@@ -35,23 +56,23 @@ export const models: Record<StoryModel, ModelConfig> = {
     description: 'common.models.description.gpt-5-nano',
     price: 1 // 0.05$/1M tokens
   },
-  'claude-opus-4-5': {
+  'claude-opus-4-6': {
     provider: 'anthropic',
-    label: 'Claude Opus 4.5',
-    description: 'common.models.description.claude-opus-4-5',
+    label: 'Claude Opus 4.6',
+    description: 'common.models.description.claude-opus-4-6',
     price: 6 // 5$/1M tokens
   },
-  'claude-sonnet-4-5': {
+  'claude-sonnet-4-6': {
     provider: 'anthropic',
-    label: 'Claude Sonnet 4.5',
-    description: 'common.models.description.claude-sonnet-4-5',
+    label: 'Claude Sonnet 4.6',
+    description: 'common.models.description.claude-sonnet-4-6',
     price: 4 // 3$/1M tokens
   },
   'claude-haiku-4-5': {
     provider: 'anthropic',
     label: 'Claude Haiku 4.5',
     description: 'common.models.description.claude-haiku-4-5',
-    price: 1 // 1$/1M tokens
+    price: 2 // 1$/1M tokens
   }
 };
 

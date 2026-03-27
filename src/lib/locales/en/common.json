@@ -330,11 +330,14 @@
   },
   "models": {
     "description": {
+      "gpt-5.4": "Most powerful GPT-5.4; excels at advanced reasoning, research, and complex multi-step tasks",
+      "gpt-5.4-mini": "Balanced GPT-5.4 variant; strong reasoning with improved speed and lower cost",
+      "gpt-5.4-nano": "Lightweight GPT-5.4 variant; fast and cost-efficient for high-volume simple tasks",
       "gpt-5.1": "Complex reasoning, broad world knowledge, and code-heavy or multi-step agentic tasks",
       "gpt-5-mini": "Cost-optimized reasoning and chat; balances speed, cost, and capability",
       "gpt-5-nano": "High-throughput tasks, especially simple instruction-following or classification",
-      "claude-opus-4-5": "Anthropic premium model combining maximum intelligence with practical performance",
-      "claude-sonnet-4-5": "Anthropic smartest model for complex agents and coding",
+      "claude-opus-4-6": "Anthropic premium model combining maximum intelligence with practical performance",
+      "claude-sonnet-4-6": "Anthropic smartest model for complex agents and coding",
       "claude-haiku-4-5": "Anthropic fastest model with near-frontier intelligence"
     }
   },
