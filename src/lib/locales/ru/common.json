@@ -72,7 +72,7 @@
     "noAccount": "Нет аккаунта?"
   },
   "coins": {
-    "coinsLeft": "Монет осталось: {{variable}}",
+    "coinsLeft": "Монеты: {{variable}}",
     "getCoins": "Получить монеты",
     "openPatreon": "Открыть Patreon",
     "description": {

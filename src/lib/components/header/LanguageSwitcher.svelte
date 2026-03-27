@@ -1,8 +1,6 @@
 <script lang="ts">
   import { locale, locales } from '$lib/locales/translations';
 
-  export let inline = false;
-
   const LOCALES: Record<string, string> = {
     ar: 'العربية',
     bn: 'বাংলা',
@@ -54,6 +52,10 @@
 </li>
 
 <style lang="scss">
+  li {
+    list-style: none;
+  }
+
   select {
     background: rgb(255, 255, 255, 0.05);
     color: $text;
@@ -63,10 +65,6 @@
     cursor: pointer;
     appearance: none;
     text-align: center;
-
-    .inline & {
-      width: auto;
-    }
 
     &:hover {
       background: rgb(255, 255, 255, 0.15);
