@@ -10,6 +10,8 @@ const getLocale = (request: Request, user: IUser | null) => {
   const accepted = request.headers.get('accept-language');
   const primary = accepted?.split(',')[0];
   if (primary && locales.includes(primary)) return primary;
+  const base = primary?.split('-')[0];
+  if (base && locales.includes(base)) return base;
 
   return 'en'; // fallback
 };

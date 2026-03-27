@@ -1,11 +1,11 @@
-import i18n from 'sveltekit-i18n';
-import type { Config } from 'sveltekit-i18n';
 import type { Parser } from '@sveltekit-i18n/parser-default';
+import type { Config } from 'sveltekit-i18n';
+import i18n from 'sveltekit-i18n';
 
 export const locales = ['en', 'ru'];
 
 const loaders = locales
-  .map((locale) => {
+  .flatMap((locale) => {
     return [
       {
         locale,
@@ -25,8 +25,7 @@ const loaders = locales
         loader: async () => (await import(`./${locale}/admin.json`)).default
       }
     ];
-  })
-  .flat();
+  });
 
 const config: Config = { fallbackLocale: 'en', loaders };
 
